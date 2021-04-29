@@ -16,8 +16,7 @@ public class Test3_6 {
 		 * */
 		int i,sum =0; 
 		for(i=2 ; i<=10 ; i+=2) {
-			sum+=i;
-			}
-		System.out.println("1부터 10까지 짝수의 합 : " + sum);
+			sum+=i ;
+			}	System.out.println("1부터 10까지 짝수의 합 : " + sum);
 	}
 }
