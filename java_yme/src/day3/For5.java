@@ -18,5 +18,4 @@ public class For5 {
 			sum +=i;
 		} System.out.println("1부터 5까지의 합 : " + sum);
 	}
-
 }
