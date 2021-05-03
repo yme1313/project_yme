@@ -15,8 +15,10 @@ public class Array3 {
 		
 		
 		int num=12;
-		int i=1;
-		int []arr = new int[10];
+		int maxCnt = 2;
+		int i , k;
+		
+		int []arr = new int[maxCnt];
 		int cnt =0; // 번지를 의미 하면서 약수의 갯수
 		
 		for(i=1 ; i<=num ;i+=1) {
