@@ -36,6 +36,7 @@ public class Misson2 {
 		boolean isDuplicated; //배열에 중복된 값 있는지 확인
 		//컴퓨터가 랜덤으로 중복되지 않게 숫자를 생성하여 배열에 저장하는 단계
 		//배열에 저장된 숫자가 3개가 되면 반복문 종료하도록 조건식 설정
+		
 		while(cnt < 3) {
 			r = (int)(Math.random()*(max-min+1) + min);//랜덤으로 숫자 생성
 			//배열 com에 저장된 cnt개의 숫자들 중에서 r과 중복된 숫자가 있는지 체크
@@ -51,9 +52,6 @@ public class Misson2 {
 				cnt += 1;
 			}
 		}
-		
-		//테스트용 : 컴퓨터가 생성한 숫자를 확인하는 용도로 게임 플레이시 해당 코드 주석처리
-
 		
 		Scanner scan = new Scanner(System.in);
 		//3S일때까지 반복
