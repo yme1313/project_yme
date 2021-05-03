@@ -36,7 +36,7 @@ public class Misson1 {
 			for(k = 1; k<=2*(5-i)+1; k+=1 ) {
 				System.out.print("*"); 
 			}
-			System.out.println();
+			System.out.println(); 
 		} 
 		}
 }
