@@ -99,5 +99,5 @@ public class Misson2 {
 		System.out.println("정답입니다.");
 		scan.close();
 	}
-
+ 
 }
