@@ -14,26 +14,23 @@ public class Array3 {
 		 */
 		
 		
-		int num=12;
-		int maxCnt = 2;
-		int i , k;
-		
-		int []arr = new int[maxCnt];
-		int cnt =0; // 번지를 의미 하면서 약수의 갯수
-		
-		for(i=1 ; i<=num ;i+=1) {
-			if(num% i ==0) {
-				arr[cnt]=i;
+		int num = 12, i;
+		int []arr = new int [10];
+		int cnt = 0;
+		for( i = 1 ; i <= num ; i += 1 ) {
+			if(num % i == 0) {
+				arr[cnt] = i;
 				cnt += 1;
-			if(cnt == 10) {
-				break;
-		}  
-	}
+				if(cnt == 10) {
+					break;
+				}
+			}
 		}
-			for(i=0 ; i< cnt ; i +=1)	{ 
-			} System.out.print(arr[i]+" ");
-		 }
-
+		for( i = 0 ; i < cnt ; i += 1 ) {
+			System.out.print(arr[i] + " ");
+		}
 	}
+
+}
 
 
