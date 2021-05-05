@@ -33,7 +33,6 @@ public class Test4_4 {
 		
 		int num;
 		Scanner scan = new Scanner(System.in);
-		System.out.println(r);
 
 		for( ; ; ) {
 			System.out.print("정수를 입력하세요("+min + "~" + max+") : ");
