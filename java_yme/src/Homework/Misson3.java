@@ -1,5 +1,7 @@
 package Homework;
 
+import java.util.Scanner;
+
 public class Misson3 {
 
 	public static void main(String[] args) {
