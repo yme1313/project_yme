@@ -1,7 +1,5 @@
 package day5;
 
-import java.util.Scanner;
-
 public class Test5_5 {
 
 	public static void main(String[] args) {
@@ -13,20 +11,17 @@ public class Test5_5 {
 		int max = 10;
 		//int r = (int)(Math.random() * (max - min + 1) + min);
 		//배열에 저장
-		int random[] = new int[6];
+		int arr[] = new int[6];
 		int i, r;
 		
-		Scanner scan = new Scanner(System.in);
-		
-		for(i=0 ; i < random.length; i+=1) {
+		for(i=0 ; i < arr.length; i+=1) {
 			r = (int)(Math.random() * (max - min + 1) + min);
-			random[i] = r;
-			
+			arr[i] = r;
+		}
 		//반복문(6번), 배열값 출력
-		for(i=0 ; i < random.length; i+=1) {
-			System.out.print(random[i] + " ");
+		for(i=0 ; i < arr.length; i+=1) {
+			System.out.print(arr[i] + " ");
 		}		
 	}
-		scan.close();
 	}
-}
+
