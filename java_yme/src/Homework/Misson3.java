@@ -13,7 +13,7 @@ public class Misson3 {
 				int []user = new int[6];
 				int []lotto = new int[6];
 				int bonus;
-				int min = 1, max = 10;//등수 확인을 위해 범위를 1~10으로 좁혀서 테스트, 확인 완료되면 max를 45로 늘려야함
+				int min = 1, max = 45;
 				//자동 생성 번호
 				init(user, min, max);
 
