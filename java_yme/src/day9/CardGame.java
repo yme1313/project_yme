@@ -16,19 +16,18 @@ public class CardGame {
 		// 카드가 주어지면 해당 카드의 가장 큰 등급을 출력하는 코드를 작성하세요.
 		// 아래와 같이 풀하우스, 트리플 페어로 판별 가능한 경우, 풀하우스 하나만 출력
 		// 아래는 1풀하우스 입니다라고 출력
-		int arr[] = new int[] {1,1,2,2,3,4,6};
+		int arr[] = new int[] {1,1,2,2,2,2,9};
 		if(poker(arr)!=0) {
-			System.out.println("포커 : " + poker(arr));
+			System.out.println(poker(arr) + " 포커입니다.");
 		 } else if(fullHouse(arr)!=0) {
-			System.out.println("풀하우스 : " + fullHouse(arr));
+			System.out.println(fullHouse(arr) + " 풀하우스입니다.");
 		 } else if(straight(arr)!=0) {
-			System.out.println("스트레이트 : " + straight(arr));
+			System.out.println(straight(arr) + " 스트레이트입니다.");
 		 } else if(triple(arr)!=0) {
-			System.out.println("트리플 : " + triple(arr));
+			System.out.println(triple(arr) + " 트리플입니다.");
 		 } else if(onePair(arr)!=0) {
-			System.out.println("원페어 : " + onePair(arr));
+			System.out.println(onePair(arr) + " 원페어입니다." );
 		 } else {
-				System.out.print("투페어 : ");
 				int []res =  twoPair(arr);
 				 	if(res == null) {
 				 		System.out.println(0);
@@ -36,7 +35,7 @@ public class CardGame {
 				 		for(int tmp : res) {
 				 			System.out.print(tmp + " ");
 				 		}
-				 	}
+				 	} System.out.print("투페어입니다.");
 		 }
 		/*
 		System.out.println("포커 : " + poker(arr));
