@@ -17,7 +17,7 @@ public class Test8_6 {
 		 * count가 2와 같으면 res를 true로 수정
 		 * */
 		
-		int arr[]= new int[] {1,1,1,2,2};
+		int arr[]= new int[] {1,2,3,4,5};
 		int count=1;
 		boolean res = false; // 숫자가 2개 일치하는 경우가 있는지 없는지 알려주는 변수
 
