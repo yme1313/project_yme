@@ -3,59 +3,47 @@ package free;
 public class Free1 {
 
 	public static void main(String[] args) {
-		System.out.println(sum(1,6));
-		sum2(3,7);
-		System.out.println();
-		System.out.println(cal(2,'*',9));
-		
-		
-		} 
-	
-	/* 선생님이 학생한테 문제를 풀라고 시켰을 때 선생님에게 알려주느냐, 칠판에 쓰느냐에 따라 리턴타입 달라짐
-	 
-	 * 기능	  : 두 정수가 주어지면 두 정수의 합을 알려주는 메소드
-	 * 매개변수 : 두 정수 => int n1, int n2
-	 * 리턴타입 : 정수 => int
-	 * 매소드명 : sum
-	 * */
-		public static int sum(int n1, int n2) {
-			int res =  n1 + n2;
-			return res;
-		}
-		
-		/* 
-		 * 기능	  : 두 정수가 주어지면 두 정수의 합을 콘솔에 출력하는 메소드
-		 * 매개변수 : 두 정수 => int n1, int n2
-		 * 리턴타입 : 없음 -> void
-		 * 매소드명 : sum2
+		// 최대 공약수를 이용하여 최소 공배수를 구하는 메소드를 작성하세요.
+		// 두 정수를 A, B라 하고 최대 공약수를 G, 최소 공배수를 L이라고 했을때
+		// A = Ga , B=Gb 로 표현할 수 있고,
+		// L = A*B/G 로 나타낼 수 있다.
+		System.out.println(gcd1(4,6));
+		gcd2(4,6);
+		System.out.println(lcm(4,6));
+	}
+		/*
+		 * 기능 : 두 정수의 최대 공약수를 알려주는 메소드
+		 * 매개변수 : 두 정수 => int num1 , int num2
+		 * 리턴타입 : 최대공약수 정수 int
+		 * 메소드명 : gcd1
 		 * */
-		public static void sum2(int n1, int n2) {
-			int res = n1 + n2;
-			System.out.print(res);
-		}
-		/* 
-		 기능 : 두 정수 와 산술 연산자가 주어지면 두 정수의 산술 연산 결과를 알려주는 메소드
-		 매게변수 : 두 정수 => int n1, int n2 / 산술 연산자 => char op
-		 리턴타입 : double => 두 정수를 나눌 경우 실수가 나올 수도 있음
-		 메소드명 : cal
-		 */
-		public static double cal(int n1, char op , int n2) {
-			double res = 0.0;
-			switch(op) {
-			case '+' : res= n1 + n2;			break;
-			case '-' : res= n1 - n2;			break;	
-			case '*' : res= n1 * n2;			break;
-			case '/' : res= (double)n1 / n2; 	break;
-			case '%' : res= n1 % n2;			break;
+	public static int gcd1(int num1, int num2) {
+		int res=1;
+		for(int i=1 ; i <= num1 ; i+=1) {
+			if(num1%i==0 && num2%i==0) {
+			 res=i;
 			} 
-			return res;
+		} return res;	
+	}
+		/* 
+		 * 기능 : 두 정수의 최대 공약수를 출력하는 메소드
+		 * 매개변수 : 두 정수 => int num1 , int num2
+		 * 리턴타입 : 없음 => void
+	 	 * 메소드명 : gcd2
+		 * */	
+	public static void gcd2(int num1, int num2) {
+		System.out.println(num1 + " 와 " + num2 + " 의 최소 공약수는 " + gcd1(num1,num2));
+	}
+		/* 기능 : 두 정수의 최소 공배수를 알려주는 메소드
+		 * 매개변수 : 두 정수 => int num1, int num2 
+		 * 리턴타입 : 최소 공배수 => 정수 => int
+		 * 메소드명 : lcm 
+		 * */
+	public static int lcm(int num1, int num2) {
+		int res=0;
+			res = (num1 * num2) / gcd1(num1,num2);
+		return res;
+	}
+	
 }
-		
-		
-		
-		
-}
-		
-
-
 	
