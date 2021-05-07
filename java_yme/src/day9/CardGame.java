@@ -16,8 +16,29 @@ public class CardGame {
 		// 카드가 주어지면 해당 카드의 가장 큰 등급을 출력하는 코드를 작성하세요.
 		// 아래와 같이 풀하우스, 트리플 페어로 판별 가능한 경우, 풀하우스 하나만 출력
 		// 아래는 1풀하우스 입니다라고 출력
-		int arr[] = new int[] {1,2,3,3,4,5,5};
-		
+		int arr[] = new int[] {1,1,2,2,3,4,6};
+		if(poker(arr)!=0) {
+			System.out.println("포커 : " + poker(arr));
+		 } else if(fullHouse(arr)!=0) {
+			System.out.println("풀하우스 : " + fullHouse(arr));
+		 } else if(straight(arr)!=0) {
+			System.out.println("스트레이트 : " + straight(arr));
+		 } else if(triple(arr)!=0) {
+			System.out.println("트리플 : " + triple(arr));
+		 } else if(onePair(arr)!=0) {
+			System.out.println("원페어 : " + onePair(arr));
+		 } else {
+				System.out.print("투페어 : ");
+				int []res =  twoPair(arr);
+				 	if(res == null) {
+				 		System.out.println(0);
+				 	} else {
+				 		for(int tmp : res) {
+				 			System.out.print(tmp + " ");
+				 		}
+				 	}
+		 }
+		/*
 		System.out.println("포커 : " + poker(arr));
 		System.out.println("풀하우스 : " + fullHouse(arr));
 		System.out.println("스트레이트 : " + straight(arr));
@@ -32,7 +53,7 @@ public class CardGame {
 		 			System.out.print(tmp + " ");
 		 		}
 		 	}
-		 
+		 */
 }	
 		/* 포커를 확인할 수 있는 메소드를 정리해보세요.
 		 * 기능 : 배열에 동일한 숫자가 4개가 있는지 확인하여 있으면 해당 숫자를 출력 없으면 0을 출력하는 메소드
