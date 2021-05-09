@@ -16,7 +16,7 @@ public class CardGame {
 		// 카드가 주어지면 해당 카드의 가장 큰 등급을 출력하는 코드를 작성하세요.
 		// 아래와 같이 풀하우스, 트리플 페어로 판별 가능한 경우, 풀하우스 하나만 출력
 		// 아래는 1풀하우스 입니다라고 출력
-		int arr[] = new int[] {1,1,2,2,2,2,9};
+		int arr[] = new int[] {1,1,2,3,5,9,9};
 		if(poker(arr)!=0) {
 			System.out.println(poker(arr) + " 포커입니다.");
 		 } else if(fullHouse(arr)!=0) {
