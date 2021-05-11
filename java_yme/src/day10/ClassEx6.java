@@ -13,7 +13,11 @@ public class ClassEx6 {
 		Point rd = new Point(20,0);
 		Rect r3 = new Rect(lu,rd);
 		r3.print();
-		lu.setX(-10);//점을 수정했더니 사각형의 점으 ㅣ위치가 같이 수정되는 문제 발생
+		lu.setX(-10);
+		r3.print();
+		r3.move(-20,0);
+		r3.print();
+		r3.resize(10,10);
 		r3.print();
 		
 
