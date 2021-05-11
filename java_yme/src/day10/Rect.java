@@ -22,11 +22,35 @@ public class Rect {
 		System.out.println("너비 : "+ width);
 		System.out.println("높이 : "+ height);
 	}
-	/* 기능   : 주어진 좌표로 왼쪽 위의 점을 이동시키는 메소드
-	 * 매개변수 :
+	/* 기능   : 주어진 좌표로 왼쪽 위의 점을 이동시키는 메소드 
+	 * 매개변수 : x축 좌표와 y축 좌표
 	 * 리턴타입 : 없음
 	 * 메소드명 : move 
 	 *  */
+	public void move(int x1, int y1) {
+		//왼쪽 위의 점을 이동
+		leftUp.move(x1,y1);
+		//오른쪽 아래의 점을 이동
+		//x1을 기준으로 너비만큼 더해주고 y1을 기준으로 높이만큼 빼주면 됨
+		rightDown.move(x1+width,y1-height);
+	}
+	/* 기능 : 왼쪽 위의 점을 기준으로 사각형의 너비와 높이를 변경하는 메소드
+	 * 매개변수 : 왼쪽 위의 점 좌표와 변경할 너비와 높이 => int left, int right, int w , int h // 강사 : 너비와 높이 만 활용
+	 * 리턴타입 : 없음
+	 * 메소드명 : resize
+	public void resize(int left, int right, int w,int h) {
+		width =  left - w;
+		height = right - h;
+	} 
+	 */
+	public void resize(int w, int h) {
+		//너비와 높이를 수정
+		width = w;
+		height = h;
+		rightDown.move(leftUp.getX()+w, leftUp.getY()-h);
+		
+	}
+	
 	
 	/* 기본 생성자 : 왼쪽위의 점을 나타내는 객체를 생성, 오른쪽 위의 점을 나타내는 객체 생성*/
 	public Rect() {
@@ -43,8 +67,10 @@ public class Rect {
 		height = up - down;
 	}
 	public Rect(Point lu,Point rd) {
-		leftUp = lu;
-		rightDown = rd;
+		//leftUp = lu; // lu와 leftUp은 같은 정보를 공유
+		//rightDown = rd; // rd와 rightDown은 같은 정보를 공유
+		leftUp = new Point(lu);
+		rightDown = new Point(rd);
 		width = rightDown.getX() - leftUp.getX();
 		height = leftUp.getY() - rightDown.getY();
 	}
