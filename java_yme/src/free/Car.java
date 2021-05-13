@@ -2,27 +2,25 @@ package free;
 
 public class Car {
 	//Field
-	String company = "현대자동차";
-	String model;
-	String color;
-	int maxSpeed;
+	int speed;
 	
 	//Constructor
-	Car(){};
 	
-	Car(String model){
-		this(model,"검정색", 250);
+	//Method
+	int getSpeed() {
+		return speed;
 	}
 	
-	Car(String model,String color){
-		this(model, color, 0);
+	void keyTurnOn() {
+		System.out.println("키를 돌립니다.");
 	}
 	
-	Car(String model, String color , int maxSpeed){
-		this.model = model;
-		this.color = color;
-		this.maxSpeed = maxSpeed;
+	void run() {
+		for(int i=0 ; i <=50 ; i+=10) {
+			speed = i;
+			System.out.println("달립니다.(시속: " + speed + "km/h)");
+		}
 	}
-	
 }
+	
 
