@@ -38,6 +38,18 @@ public class Item {
 	public int getCost() {
 		return cost;
 	}
+	
+	public int calCost() {
+		switch(type) {
+		case "지출" :
+			return -cost;
+		case "수입" :
+			return cost;
+		default :
+			return 0;
+		}
+	}
+	
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
@@ -58,7 +70,7 @@ public class Item {
 	}
 	/* 기능 : 필드를 수정하는 기능
 	 * 매개변수 : 수정할 필드 내용
-	 * 		   => String type, String date, String paymentType, String category, int cost, int contents
+	 * 		   => String type, String date, String paymentType, String category, int cost, String contents
 	 * 리턴타입 : void
 	 * 메소드명 : update
 	 */
