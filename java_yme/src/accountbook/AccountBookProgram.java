@@ -33,8 +33,13 @@ public class AccountBookProgram {
 	public void updateAcBook(Item item) {
 		System.out.print("수정할 번호를 입력하세요 : ");
 		int index= scan.nextInt();
+		if(index < 1 && index > book.getCount()) {
+			System.out.println("없는 내역입니다.");
+			return;
+		}
 		Item item1 = createItem();
 		book.update(index-1, item1);
+		System.out.println("수정이 완료 되었습니다.");
 	}
 
 	/* 기능 : 삭제할 번호를 입력받아 내역을 삭제하는 메소드
