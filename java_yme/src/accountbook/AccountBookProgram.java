@@ -51,6 +51,9 @@ public class AccountBookProgram {
 		System.out.print("삭제할 번호를 입력하세요 : ");
 		int index= scan.nextInt();
 		book.delete(index-1);
+		if( index <1 && index >book.getCount()) {
+			System.out.println("없는 내역입니다. 확인할 수 없습니다.");
+		}
 	}
 	
 	/* 기능 : 내역 전체 출력하는 메소드
@@ -72,6 +75,9 @@ public class AccountBookProgram {
 		System.out.print("확인할 내역의 번호를 입력 : ");
 		int index = scan.nextInt();
 		book.printItem(index-1);
+		if( index <1 && index >book.getCount()) {
+			System.out.println("없는 내역입니다. 확인할 수 없습니다.");
+		}
 	}
 	
 	/* 기능 : 가계부 금액을 출력하는 메소드
