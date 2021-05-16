@@ -4,23 +4,13 @@ public class Calculator {
 	//Field
 	//Constructor
 	//Method
-	int plus(int x , int y) {
-		int res = x + y ;
-		return res;
+	double areaRectangle(double width) {
+		return width * width;		
 	}
-	double avg(int x, int y) {
-		double sum = plus(x,y);
-		double res = sum / 2;
-		return res;
+	double areaRectangle(double width,double height) {
+		return width * height;
 	}
-	void execute() {
-		double res = avg(7,10);
-		println("실행결과 : "+ res);
-		
-	}
-	void println(String message) {
-		System.out.println(message);
-	}
+	
 }
 
 		
