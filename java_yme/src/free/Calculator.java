@@ -2,14 +2,19 @@ package free;
 
 public class Calculator {
 	//Field
+	static double pi = 3.14159;
 	//Constructor
+	
 	//Method
-	double areaRectangle(double width) {
-		return width * width;		
+	static int plus(int x, int y) {
+		int res = x + y;
+		return res;
 	}
-	double areaRectangle(double width,double height) {
-		return width * height;
+	static int minus(int x,int y) {
+		int res = x-y;
+		return res;
 	}
+	
 	
 }
 

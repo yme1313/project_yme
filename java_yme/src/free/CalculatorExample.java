@@ -3,13 +3,13 @@ package free;
 public class CalculatorExample {
 
 	public static void main(String[] args) {
-		Calculator myCalc = new Calculator();
+		double res1 = 10 * 10 * Calculator.pi;
+		int res2 = Calculator.plus(10,5);
+		int res3 = Calculator.minus(10,5);
 		
-		double res = myCalc.areaRectangle(10);
-		double res1 = myCalc.areaRectangle(10, 20);
-		
-		System.out.println("정사각형의 넓이 : " + res);
-		System.out.println("직사각형의 넓이 : " + res1);
-		
+		System.out.println("res1: " + res1);
+		System.out.println("res2: " + res2);
+		System.out.println("res3: " + res3);
+	
 	}
 }
