@@ -10,7 +10,6 @@ public class ClassEx2 {
 
 	public static void main(String[] args) {
 		A a = new A();
-		a.num = 10; // public이기 떄문에 에러 발생하지 않음
 		B b = new B();
 		// b.num = 10; // protected : 클래스 B와 ClassEx2은 다른 패키지에 있기 때문에 에러 발생
 		C c = new C();
