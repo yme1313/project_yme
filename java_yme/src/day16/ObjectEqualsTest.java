@@ -48,24 +48,59 @@ class Num{
 			return false;
 		return true;
 	}
-	
-	/*
-	  @Override
-	public boolean equals(Object obj) {
-		if(obj == null) {
-			return false;
-		}
-		//매개변수 obj를 Num클래스의 객체로 타입변환이 가능하지 않다면 false를 return
-		//false로 리턴하는 이유는 다른 클래스의 객체와 비교할 필요가 없어서
-		if(! (obj instanceof Num)) {
-			return false;
-		}
-		//매개변수의 Num와 내 Num가 같은지를 비교
-		Num tmp = (Num)obj;
-		if(num == tmp.num) {
-			return true;
-		}
-		return false;
+}
+class Test{
+	Name name;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
-	*/
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Test other = (Test) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+}
+
+class Name{
+	String name;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Name other = (Name) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}	
 }
