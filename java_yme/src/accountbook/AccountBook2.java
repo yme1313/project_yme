@@ -25,11 +25,14 @@ public class AccountBook2 {
 	 */
 	public void insert(Item item) {
 		//가계부가 꽉차면 내역을 추가하지 않음
-
+		if(count < arr.length) {
 		arr[count] = item;
 		count++;
 		//총 금액을 계산
 		total = total + item.calCost();
+		} else { 
+			throw new RuntimeException("가계부 내역이 꽉 찼습니다.");
+			}
 	}
 	
 	/* 기능 : 수정할 번지와 수정할 내역이 주어지면 가계부를 수정하는 메소드
@@ -44,6 +47,8 @@ public class AccountBook2 {
 			total = total - arr[index].calCost();
 			total = total + item.calCost();
 			arr[index] = item;
+		} else {
+			throw new ArrayIndexOutOfBoundsException("잘못된 번지로 접근하고 있습니다.");
 		}
 	}
 	
@@ -55,8 +60,7 @@ public class AccountBook2 {
 	 */
 	public void delete(int index) {
 		if(index >= count || index<0) {
-			System.out.println("잘못된 번지입니다.");
-			return;
+			throw new ArrayIndexOutOfBoundsException("잘못된 번지로 접근하고 있습니다.");
 		}
 		total = total - arr[index].calCost();
 		//삭제된 공간을 제거하기 위해 앞으로 하나씩 땡겨줌
@@ -107,7 +111,7 @@ public class AccountBook2 {
 			System.out.println("분류 : " + arr[index].getCategory());
 			System.out.println("금액 : " + arr[index].getCost());
 			System.out.println("내용 : " + arr[index].getContents());
-		}
+		} 
 	}
 	public AccountBook2(int max) {
 		if(max<10) {
