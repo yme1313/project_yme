@@ -4,6 +4,15 @@ public class TryTest6 {
 
 	public static void main(String[] args) {
 		int arr [] = new int[5];
+		//arr=null;
+		int res = setData2(arr,0,10);
+		if(res == -1) {
+			System.out.println("번지가 잘못");
+		}else if(res==0) {
+			System.out.println("배열 생성 안됨");
+		}else {
+			System.out.println("데이터 저장 성공");
+		}
 		try {
 			setData(arr, 0, 10);
 			int num= getData(arr, 0);
@@ -47,5 +56,16 @@ public class TryTest6 {
 			if(index < 0 || index >= arr.length) {
 				throw new ArrayIndexOutOfBoundsException(index + "번지는 "+arr.length+"개짜리 배열에서 유효하지 않은 배열의 번지입니다.");
 			} return arr[index];
+	}
+	
+	public static int setData2(int arr[],int index, int data) { 
+			if(arr == null) {
+				return 0;
+			} 
+			if(index < 0 || index >= arr.length) {
+				return -1;
+			} 
+			arr[index] = data;
+				return 1;
 	}
 }
