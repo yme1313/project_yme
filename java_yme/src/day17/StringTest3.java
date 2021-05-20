@@ -13,7 +13,7 @@ public class StringTest3 {
 		Scanner scan = new Scanner(System.in);
 		String word1 = scan.next();
 		String wodr2 = scan.next();
-		if(word1 == null && word1.indexOf(wodr2)!= -1) {
+		if(word1 != null && word1.indexOf(wodr2)!= -1) {
 			System.out.println("중복되는 단어가 있습니다.");
 		} else {
 			System.out.println("중북되는 단어가 없습니다.");
