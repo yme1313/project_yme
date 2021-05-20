@@ -14,7 +14,7 @@ public class ScannerTest {
 			if(str.length() !=0) {
 				System.out.println(str);			
 			}
-		}
+		} 
 		
 		//String str = scan.next();
 		/* String str = scan.nextLine();	//1234 1234를 추출
