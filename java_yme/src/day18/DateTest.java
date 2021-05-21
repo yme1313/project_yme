@@ -28,10 +28,10 @@ public class DateTest {
 			e.printStackTrace();
 		}
 		System.out.println("예약 정보를 입력하세요.");
-		System.out.print("입실일(yyyy년 MM월 dd일): ");
+		System.out.print("입실일(yyyy년MM월dd일) : ");
 		Scanner scan = new Scanner(System.in);
 		String startDate = scan.next();
-		System.out.print("퇴실일(yyyy년 MM월 dd일): ");
+		System.out.print("퇴실일(yyyy년MM월dd일) : ");
 		String endDate = scan.next();
 		Hotel hotel = new Hotel();
 		hotel.setEndDate(endDate);
