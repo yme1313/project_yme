@@ -42,13 +42,9 @@ public class MapTest2 {
 					System.out.println("==============");
 				} break;
 			case 3:
-				System.out.println("==============");
-				System.out.println("프로그램을 종료합니다.");
-				System.out.println("==============");
+				end();
 			default:
-				System.out.println("==============");
-				System.out.println("잘못된 메뉴입니다.");
-				System.out.println("==============");	
+				wrong();
 			} 
 		}while(menu!=3);
 		scan.close();
@@ -98,6 +94,18 @@ public static void printMenu() {
 	System.out.print("메뉴 선택 : ");
 }
 
+public static void end() {
+	System.out.println("==============");
+	System.out.println("프로그램을 종료합니다.");
+	System.out.println("==============");
+}
+
+public static void wrong() {
+	System.out.println("==============");
+	System.out.println("잘못된 메뉴입니다.");
+	System.out.println("==============");
+}
 
 }
+
 
