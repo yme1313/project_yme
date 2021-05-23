@@ -13,6 +13,49 @@ public class MapTest2 {
 		do {
 			printMenu();
 			menu = scan.nextInt();
+			String id, pw;
+			switch(menu) {
+			case 1:
+				System.out.print("아이디 : " );
+				id = scan.next();
+				if(!set.containsKey(id)) {
+					System.out.print("비밀번호 : ");
+					pw = scan.next();
+					set.put(id, pw);
+				}else {
+					System.out.println("==============");
+					System.out.println("이미 가입된 아이디입니다.");
+					System.out.println("==============");
+				} break;
+			case 2:
+				System.out.print("아이디 : ");
+				id = scan.next();
+				System.out.print("비밀번호 : ");
+				pw = scan.next();
+				if(set.get(id).equals(pw)) {
+					System.out.println("==============");
+					System.out.println("로그인 성공");
+					System.out.println("==============");
+				}else {
+					System.out.println("==============");
+					System.out.println("로그인 실패");
+					System.out.println("==============");
+				} break;
+			case 3:
+				System.out.println("==============");
+				System.out.println("프로그램을 종료합니다.");
+				System.out.println("==============");
+			default:
+				System.out.println("==============");
+				System.out.println("잘못된 메뉴입니다.");
+				System.out.println("==============");	
+			} 
+		}while(menu!=3);
+		scan.close();
+		/*
+		do {
+			printMenu();
+			menu = scan.nextInt();
 			switch(menu) {
 			case 1 :
 				System.out.print("아이디 : " );
@@ -45,7 +88,7 @@ public class MapTest2 {
 			}
 		}while(menu !=3);
 		scan.close();
-
+	*/
 	}
 
 public static void printMenu() {
