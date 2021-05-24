@@ -23,9 +23,7 @@ public class MapTest2 {
 					pw = scan.next();
 					set.put(id, pw);
 				}else {
-					System.out.println("==============");
-					System.out.println("이미 가입된 아이디입니다.");
-					System.out.println("==============");
+					duplication();
 				} break;
 			case 2:
 				System.out.print("아이디 : ");
@@ -33,18 +31,14 @@ public class MapTest2 {
 				System.out.print("비밀번호 : ");
 				pw = scan.next();
 				if(set.get(id).equals(pw)) {
-					System.out.println("==============");
-					System.out.println("로그인 성공");
-					System.out.println("==============");
+					loginSuccess();
 				}else {
-					System.out.println("==============");
-					System.out.println("로그인 실패");
-					System.out.println("==============");
+					loginFail();
 				} break;
 			case 3:
 				end();
 			default:
-				wrong();
+				wrongMenu();
 			} 
 		}while(menu!=3);
 		scan.close();
@@ -100,9 +94,27 @@ public static void end() {
 	System.out.println("==============");
 }
 
-public static void wrong() {
+public static void wrongMenu() {
 	System.out.println("==============");
 	System.out.println("잘못된 메뉴입니다.");
+	System.out.println("==============");
+}
+
+public static void loginSuccess() {
+	System.out.println("==============");
+	System.out.println("로그인 성공");
+	System.out.println("==============");
+}
+
+public static void loginFail() {
+	System.out.println("==============");
+	System.out.println("로그인 실패");
+	System.out.println("==============");
+}
+
+public static void duplication() {
+	System.out.println("==============");
+	System.out.println("이미 가입된 아이디입니다.");
 	System.out.println("==============");
 }
 
