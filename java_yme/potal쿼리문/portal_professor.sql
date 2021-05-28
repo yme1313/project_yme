@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `portal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `portal`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
 -- Host: localhost    Database: portal
@@ -42,6 +40,7 @@ CREATE TABLE `professor` (
 
 LOCK TABLES `professor` WRITE;
 /*!40000 ALTER TABLE `professor` DISABLE KEYS */;
+INSERT INTO `professor` VALUES ('P2000135001','qwer123','asdf123','유관순','880505-1234567','화학'),('P2000160001','qwe1234','asd1234','홍길동','680505-2234567','컴퓨터'),('P2000160002','qwe12345','asd12345','임꺽정','780505-1234567','컴퓨터'),('P2001135001','qwer1234','asdf1234','이순신','880509-2234567','화학'),('P2002140001','qwe123','asd123','논개','680505-1234567','기계');
 /*!40000 ALTER TABLE `professor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-27 17:11:02
+-- Dump completed on 2021-05-28 17:13:14
