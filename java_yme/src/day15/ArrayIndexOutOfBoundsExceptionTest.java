@@ -1,6 +1,6 @@
 package day15;
 
-public class ArrayIndexOutOfBounsExceptionTest {
+public class ArrayIndexOutOfBoundsExceptionTest {
 
 	public static void main(String[] args) {
 		int [] arr= new int[5];
