@@ -1,7 +1,5 @@
 package practice;
 
-import java.util.Scanner;
-
 public interface BoardService {
 	/* 기능 : 게시글 등록하는 메소드
 	 * 매개변수 : 게시글 번호, 제목, 내용, 날짜, 작성자 => 게시글 정보(Board board)
