@@ -1,16 +1,38 @@
 package day18;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ListTest3 {
 
 	public static void main(String[] args) {
 		/* 리스트에서 indexOf()와 contains() 메소드를 잘 활용하려면
 		 * 해당 클래스에서 equals를 오버라이딩해야 한다. */
+		int num, num1, num2;
+		String name;
+
+		
 		ArrayList<Student> list = new ArrayList<Student>();
-		Student std1 = new Student(1,1,1,"홍길동");
-		Student std2 = new Student(1,1,1,"홍길동");
-		list.add(std1);
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("입력하세요 : ");
+		num = scan.nextInt();
+		System.out.print("입력하세요 : ");
+		num1 = scan.nextInt();
+		System.out.print("입력하세요 : ");
+		num2 = scan.nextInt();
+		System.out.print("입력하세요 : ");
+		name = scan.next();
+		Student std = new Student(num, num1, num2, name);
+		list.add(std);
+
+		Student std2= new Student(0,0,0,"홍길동");
+		Student std3 = new Student(1,2,3,"임꺽정");
+		
+		list.add(std2);
+		
+		System.out.println(list.get(0));
+		System.out.println(list.get(1));
 		System.out.println("리스트에 학생 정보가 있습니까? " + list.indexOf(std2));
 		System.out.println("리스트에 학생 정보가 있습니까? " + list.contains(std2));
 		
@@ -32,7 +54,7 @@ class Student {
 
 	@Override
 	public String toString() {
-		return "Student [grede=" + grede + ", classNum=" + classNum + ", num=" + num + ", name=" + name + "]";
+		return "학년 : " + grede + ", 반 : " + classNum + ", 번호 : " + num + ", 이름 : " + name;
 	}
 
 	@Override
