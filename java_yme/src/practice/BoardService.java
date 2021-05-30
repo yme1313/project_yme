@@ -1,4 +1,4 @@
-package day15;
+package practice;
 
 public interface BoardService {
 	/* 기능 : 게시글 등록하는 메소드
@@ -6,7 +6,7 @@ public interface BoardService {
 	 * 리턴타입 : 없음
 	 * 메소드명 : insert
 	 */
-	 public void insert(String title, String contents, String writter,String date);
+	 public void insert(Board board);
 	 
 	/* 기능 : 게시글 번호로 게시글 정보를 삭제 후 삭제 여부를 알려주는 메소드
 	 * 매개변수 : 게시글 번호 => int num
@@ -20,7 +20,7 @@ public interface BoardService {
 	 * 리턴타입 : void
 	 * 메소드명 : update
 	 */
-	public void update(String title, String contents, String writter,String date);
+	public void update(Board board);
 	
 	/* 기능 : 게시글 번호 주어지면 게시글을 전달(제목, 내용, 작성자, 작성일)을 알려주는 메소드
 	 * 매개변수 : 게시글번호 -> int num
@@ -44,20 +44,10 @@ public interface BoardService {
 	public Board[] getBoardList(String search);
 }
 class Board{
-	//제목, 내용, 작성자, 작성일
+	//게시글 번호, 제목, 내용, 작성자, 작성일
+	int num;
 	String title;
 	String contents;
 	String writter;
 	String date;
-	
-	public Board(String title, String contents, String writter, String date) {
-		super();
-		this.title = title;
-		this.contents = contents;
-		this.writter = writter;
-		this.date = date;
-	}
-	
-	
 }
-

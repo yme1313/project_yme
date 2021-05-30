@@ -47,5 +47,5 @@ public class BoardTest2 {
 		System.out.println("--------------");
 		System.out.print("메뉴를 선택하세요 : ");
 	}
-	
+
 }
