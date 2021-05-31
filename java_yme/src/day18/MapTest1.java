@@ -23,6 +23,7 @@ public class MapTest1 {
 		map.put("학용품", "연필");
 		map.put("바지", "청바지");
 		map.put("전자기기", "스마트폰");
+
 		/* 방법1 : set을 이용하여 Iterator 사용 
 		 * key값들을 set으로 만든 후 만들어진 Iterator 사용
 		 * keySet() : 맵의 key값들을 하나의 Set으로 만들어주는 메소드
