@@ -16,7 +16,8 @@ public class BookExample {
 			System.out.println("3. 검색(책 코드)");
 			System.out.println("4. 반출");
 			System.out.println("5. 반납");
-			System.out.println("6. 종료");
+			System.out.println("6. 도서리스트");
+			System.out.println("7. 종료");
 			System.out.print("메뉴를 입력하세요 : ");
 			menu = scan.nextInt();
 			switch(menu) {
@@ -36,11 +37,14 @@ public class BookExample {
 				bg.Return();
 				break;
 			case 6:
+				bg.allList();
+				break;
+			case 7:
 				System.out.println("프로그램 종료");
 				break;
 			default :
 				System.out.println("없는 메뉴입니다.");
 			}
-		} while(menu != 6);
+		} while(menu != 7);
 	}
 }
