@@ -29,48 +29,41 @@ delimiter ;
 
 show triggers;
 
-/* 주문 테이블에 주문내역이 추가되면 제품 테이블의 재고량이 변하는 트리거를 작성하세요.*/
-drop trigger if exists insert_order;
+-- 트리거 실행문에서 조건문 사용해 보기
+drop trigger if exists test_order;
 delimiter //
-create trigger insert_order after insert on `주문`
+create trigger test_order after insert on `주문`
 for each row
 begin
-	update `제품`
-		set 재고량 = 재고량 - new.수량
-			where 제품번호 = new.주문제품;
-begin
-	declare _amount int default 0;
+	/* if문 문법
+    if 조건 then
+		쿼리문;
+	elseif 조건 then
+		쿼리문;
+	else
+		쿼리문
+	end if;
+    */
+	/* 
+    - 변수 선언(begin 바로 밑에 변수들을 모아서 선언해야함)
+    declare 변수명 타입 default 초기값; 
+    - 변수 선언시 변수명 앞에 _를 붙으면 좋다. 속성이름과 구분하기 위해
+    - 변수 저장
+    set 변수명 = 값;*/
+    declare _amount int default 0;
     declare _state varchar(10) default '';
-    set _amount =10;
+    set _amount = 10;
     set _amount = (select count(*) from 주문);
     if _amount > 10 then
-		set _state = '많다';`exam`
+		set _state = '많다';
 	elseif _amount > 5 then
-		set _state = '적정';
-	else 
+		set _state = '적절';
+	else
 		set _state = '적음';
 	end if;
 end //
 delimiter ;
-show triggers;
-/* 트리거 실행문에서 조건문 사용해보기 */
-/* if문법
-begin
-	if 조건 then
-		쿼리문;
-	elseif then
-		쿼리문;
-	else
-		쿼리문;
-	end if;
-end 기호
-*/
-/*	- 변수선언(begin 바로 밑에 변수들을 모아서 선언해야함)
-    declare 변수명 타입 default 초기값
-    - 변수 선언시 변수명 앞에_를 붙으면 좋다. 속성이름과 구분하기 위해
-    - 변수 저장
-    set 변수명 = 값;
-    */
+
 /*
 프로시저
 drop procedure if exists 프로시저명;
