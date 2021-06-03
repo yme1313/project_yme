@@ -6,6 +6,7 @@ public class OjectToStringTest {
 		Student s = new Student("홍길동",1,1,1);
 		System.out.println(s);
 		System.out.println(s.toString());
+		s.print();
 
 	}
 }
