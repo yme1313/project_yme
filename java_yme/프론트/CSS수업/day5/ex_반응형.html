@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>반응형 예제2</title>
+	<style>
+		*{padding: 0; margin: 0;}
+		ul, ol{list-style: none;}
+		a{ text-decoration: none; color: black;}
+
+		.nav { border: 1px solid red; }
+		.menu::after{ clear: both; display: block; content: '';}
+		.menu li{
+			width: calc(100% / 3); height: 50px; box-sizing: border-box; float: left; 
+			border: 1px solid red;
+		}
+		.menu>li:last-child{ border-right: none;}
+		.menu>li>a{ display: block; height:100%; line-height: 50px;text-align: center;}
+ 
+		@media screen and (max-width: 640px){
+			.nav{ width: 100px;}
+			.menu::after{ clear: both; display: block; content: '';}
+			.menu li{
+			width: 100%; height: 100px; box-sizing: border-box; float: left; border-right: none;
+			border-bottom: 1px solid red;
+		}
+		.menu:last-child{ border-bottom: none;}
+		.menu>li>a{ display: block; height:100%; line-height: 100px;text-align: center;}
+		}
+	</style>
+</head>
+<body>
+	<nav class="nav">
+		<ul class="menu">
+			<li><a href="#1">메뉴1</a></li>
+			<li><a href="#2">메뉴2</a></li>
+			<li><a href="#3">메뉴3</a></li>
+		</ul>
+	</nav>
+</body>
+</html>
