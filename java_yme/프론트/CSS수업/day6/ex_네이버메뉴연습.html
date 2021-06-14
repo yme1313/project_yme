@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>네이버 메뉴 연습</title>
+  <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
   <style>
     *{padding:0; margin:0;}
     ul,ol {list-style: none;}
@@ -67,15 +68,79 @@
       border: 1px solid green; margin-bottom: 12px;
     }
     .left2{
-      box-sizing: border-box;  height: 367px;
-      border: 1px solid skyblue;
+      height: 367px; background-color: yellow;
     }
     .right2{
-      box-sizing: border-box;  height: 40px;
-      border: 1px solid skyblue;
+      box-sizing: border-box;  height: 49px;
+      border: 1px solid skyblue; position: relative;
     }
-
-
+    .left2-1{
+      height: 49px; background-color: violet;
+    }
+    .left2-2{
+      height: 56px; background-color: gray;
+    }
+    .left2-3{
+      height: 262px; border: 1px solid black; box-sizing: border-box;
+      position: relative;
+    }
+    .left2-3>.row{ display: flex;}
+    .left2-3>.row>.col{
+      height: 65px; width: 100%; 
+    }
+    .bar{
+      background-color: #dae1e6;
+    }
+    .bar.top1{
+      left: 0; right: 0; top: 65px; height: 1px; position: absolute;
+    }
+    .bar.top2{
+      left: 0; right: 0; top: 130px; height: 1px; position: absolute;
+    }
+    .bar.top3{
+      left: 0; right: 0; top: 195px; height: 1px; position: absolute;
+    }
+    .bar.top4{
+      left: 0; right: 0; top: 260px; height: 1px; position: absolute;
+    }
+    .bar.bar-right1{
+      left: 124px; right: 0; top: 0; width: 1px; height: 259px; position: absolute;
+    }
+    .bar.bar-right2{
+      left: 248px; right: 0; top: 0; width: 1px; height: 259px; position: absolute;
+    }
+    .bar.bar-right3{
+      left: 372px; right: 0; top: 0; width: 1px; height: 259px; position: absolute;
+    }
+    .bar.bar-right4{
+      left: 496px; right: 0; top: 0; width: 1px; height: 259px; position: absolute;
+    }
+    .bar.bar-right5{
+      left: 620px; right: 0; top: 0; width: 1px; height: 259px; position: absolute;
+    }
+    .col1{
+      width: 100%; height: 100%; background-color: #fff
+    }
+    .col2{
+      width: 100%; height: 100%; background-color: #f7f9fa;
+      display: none;
+    }
+    .col:hover>.col1{
+      display: none;
+    }
+    .col:hover>.col2{
+      display: block;
+    }
+    .right2 .btn-box .prev-btn, 
+    .right2 .btn-box .next-btn{
+      float: left; width:24px; height: 24px; border: 1px solid #e4e8eb;
+      box-sizing: border-box; text-align: center; line-height: 22px;
+      font-size: 12px; cursor: pointer;
+    }
+    .right2 .btn-box .next-btn{ margin-left: -1px;}
+    .right2 .btn-box{
+      position: absolute; top: 11px; right: 10px; 
+    }
   </style>
 </head>
 <body>
@@ -96,11 +161,140 @@
     <div class="box4-inner after">
       <div class="left-box">
         <div class="left1"></div>
-        <div class="left2"></div>
+        <div class="left2">
+          <div class="left2-1"></div>
+          <div class="left2-2"></div>
+          <div class="left2-3">
+            <div class="bar-list">
+              <div class="bar top1"></div>
+              <div class="bar top2"></div>
+              <div class="bar top3"></div>
+              <div class="bar top4"></div>
+              <div class="bar bar-right1"></div>
+              <div class="bar bar-right2"></div>
+              <div class="bar bar-right3"></div>
+              <div class="bar bar-right4"></div>
+              <div class="bar bar-right5"></div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+              <div class="col">
+                <div class="col1"></div>
+                <div class="col2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="right-box">
         <div class="right1"></div>
-        <div class="right2"></div>
+        <div class="right2">
+          <div class="btn-box">
+          <div class="prev-btn">
+            <i class="fas fa-chevron-left"></i>
+          </div>
+            <div class="next-btn">
+              <i class="fas fa-chevron-right"></i>
+          </div>
+        </div>
+        </div>
       </div>
     </div>
   </div>
