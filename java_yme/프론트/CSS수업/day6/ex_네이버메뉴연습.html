@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>네이버 메뉴 연습</title>
+  <style>
+    *{padding:0; margin:0;}
+    ul,ol {list-style: none;}
+    a {text-decoration: none; color: blue;}
+
+    .container{ width: 1190px; margin: 0 auto;}
+    .box1{box-sizing: border-box; height: 49px; border: 1px solid red;}
+    .box2{box-sizing: border-box; height: 160px; position: relative;}
+    .box3{
+      box-sizing: border-box; height: 52px; border: 1px solid #e4e8eb; 
+      min-width: 1190px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 12); 
+      }
+    .box4{
+      box-sizing: border-box; height: 1000px;
+      padding: 20px 30px;
+      }
+    .box5{box-sizing: border-box; height: 423px; border: 1px solid violet;}
+
+    .logo-box{
+      box-sizing: border-box; width: 222px; height: 52px;  
+      border: 1px solid red; position: absolute; top: calc(50% - 26px); left: 0;
+    }
+    .search-box{
+      box-sizing: border-box; width: 586px; height: 56px; 
+      border: 2px solid #19ce60; position: absolute; top: calc(50% - 28px); left: 268px;
+    }
+    /* 
+    - 자식의 position이 absolute이고, 부모의 position이 ablsolute이면 자식은 부모를 기준으로 잡는다.
+     */
+    .search-btn{
+      box-sizing: border-box; width: 56px; height: 56px; border: none;
+      background-color: #19ce60; position: absolute; top: -2px; right: -2px; 
+    }
+    .search-input{
+      display: blcok;
+      width: 444px; height: 24px; 
+      line-height: 24px;
+      padding: 14px 15px; border: none;
+    }
+    .search-input:focus{ border:none; outline: none;}
+    .menu{
+      height: 100%; box-sizing: border-box;
+      border: 1px solid blue; 
+    }
+    .box4-inner{
+      height: 100%;
+    }
+    .left-box{
+      box-sizing: border-box; border: 1px solid red;
+      width: 750px; height: 100%; float: left;
+    }
+    .right-box{
+      box-sizing: border-box; border: 1px solid orange;
+      width: 350px; height: 100%; float: right;
+    }
+    .after::after{clear:both; display: block; content: '';}
+
+    .left1, .right1{
+      box-sizing: border-box;  height: 135px;
+      border: 1px solid green; margin-bottom: 12px;
+    }
+    .left2{
+      box-sizing: border-box;  height: 367px;
+      border: 1px solid skyblue;
+    }
+    .right2{
+      box-sizing: border-box;  height: 40px;
+      border: 1px solid skyblue;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="box1 container"></div>
+  <div class="box2 container">
+    <div class="logo-box"></div>
+    <div class="search-box">
+      <form action="#">
+      <input type="text" class="search-input"> 
+      <button type="submit" class="search-btn"></button>
+      </form>
+    </div>
+  </div>
+  <div class="box3">
+    <div class="menu container"></div>
+  </div>
+  <div class="box4 container">
+    <div class="box4-inner after">
+      <div class="left-box">
+        <div class="left1"></div>
+        <div class="left2"></div>
+      </div>
+      <div class="right-box">
+        <div class="right1"></div>
+        <div class="right2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="box5 container"></div>
+</body>
+</html>
