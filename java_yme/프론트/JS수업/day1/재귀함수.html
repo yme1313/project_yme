@@ -13,6 +13,17 @@
       a();
     }
     */
+    		//5! = 5*4*3*2*1
+		//팩토리얼 함수
+		function factorial1(num){
+			var res = 1;
+			for(i=num; i>=2; i-- ){
+				res *= i;
+			}
+			return res;
+		}
+		document.write(`5! = ${factorial1(5)}<br>`);
+		//재귀함수를 이용한 팩토리얼 함수
     function factorial2(num){
       if(num<0)
       return;
