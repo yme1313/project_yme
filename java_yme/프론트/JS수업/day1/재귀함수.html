@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>재귀함수</title>
+</head>
+<body>
+  <script>
+    /* 재귀함수 : 함수를 선언하는데 자기 자신이 구현부에서 호출되는 함수 
+    function a(){
+      a();
+    }
+    */
+    function factorial2(num){
+      if(num<0)
+      return;
+      if(num <=1)
+      return 1;
+      return num * factioral2(num-1);
+    }
+    document.write(`5!= ${factorial2(5)}<br>`)
+  </script>
+</body>
+</html>
