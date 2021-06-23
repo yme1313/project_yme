@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>햄버거 메뉴</title>
+  <script src="../js/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
+  <script>
+    $(function(){
+      $('#ham').click(function(){
+        $('.box2').stop().animate({'margin-left':'0px'},1000);
+      });
+      $('#x').click(function(){
+        $('.box2').stop().animate({'margin-left': '-200px'},1000);
+      });
+    })
+  </script>
+  <style>
+		*{padding: 0; margin: 0; text-decoration: none; color: black;}
+		ul,ol{ list-style: none;}
+
+		.box1{
+			position:  relative; height: 50px; background: yellow;
+		}
+		#ham{ 
+			position: absolute; right: 0px; top: 0px; border: 1px solid yellow;
+			width: 50px; height: 50px; font-size: 35px; text-align: center;
+			line-height: 50px;  box-sizing: border-box; cursor: pointer;
+      background: yellow;
+		}
+    #ham:hover{
+      border-color: red;
+    }
+    .container{
+      height: 400px; background: grey; position: relative;
+    }
+    .box2{
+      width: 200px; height: 400px; position: absolute; 
+      background: blue; margin-left: -200px;
+    }
+    #x{
+      position: absolute; right: 0px; top: 0px;
+      width: 35px; height: 35px; font-size: 30px; text-align: center;
+      line-height: 35px; background: blue; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="box1">
+    <div id="ham"><i class="fas fa-bars"></i></div>
+  </div>
+  <div class="container">
+    <div class="box2">
+      <div id="x"><i class="fas fa-times"></i></div>
+    </div>
+  </div>
+</body>
+</html>

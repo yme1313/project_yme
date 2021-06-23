@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메뉴 이동</title>
+  <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
+  <script src="../js/jquery.min.js"></script>
+  <script>
+    $(function(){
+			$('.next-btn').click(function(){
+				if($('.selected').attr('data') != 'last')
+					$('.selected').removeClass('selected')
+						.next().addClass('selected').click();
+			});
+			$('.prev-btn').click(function(){
+				if($('.selected').attr('data') != 'first')
+					$('.selected').removeClass('selected')
+						.prev().addClass('selected').click();
+			});
+        
+        $('.list').click(function(){
+          $('.list').removeClass('selected');
+          $(this).addClass('selected');
+          var target = $(this).attr('data-target');
+          $('.contents').hide();
+          $(target).show();
+        });
+        $('#con2').hide();
+        $('#con3').hide();
+        $('#con4').hide();
+        
+    })
+  </script>
+  <style>
+    *{padding: 0; margin: 0; text-decoration: none; list-style: none; color: black;}
+    .box{
+       margin: 0 20px; position: relative;
+    }
+    .menu-box{
+      border: 1px solid black; height: 50px;
+    }
+    .menu{
+      display: flex;
+    }
+    .list{
+      border-right: 1px solid black; width: 100%; height: 50px;
+    }
+    .list:last-child{ border-right: none;}
+    .link{
+      display: block; height: 50px; line-height: 50px; text-align: center;
+    }
+    .prev-btn, .next-btn{
+      position: absolute; width: 30px; height: 30px; background: white;
+      border: 1px solid black; border-radius: 50%; cursor: pointer; text-align: center;
+      line-height: 30px;
+    }
+    .prev-btn{ top: 9px; left: 0px; margin-left: -15px;}
+    .next-btn{ top: 9px; right: 0px; margin-right: -15px;}
+    .selected{ background: lightgreen;}
+
+    .contents{
+      width: 200px; height: 300px; background: gray; margin: 0 auto; margin-top: 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="menu-box">
+      <ul class="menu">
+        <li class="list selected" data="first" data-target="#con1">
+          <a href="#" class="link">메뉴1</a>
+        </li>
+        <li class="list" data-target="#con2">
+          <a href="#" class="link">메뉴2</a>
+        </li>
+        <li class="list" data-target="#con3">
+          <a href="#" class="link">메뉴3</a>
+        </li>
+        <li class="list" data="last" data-target="#con4">
+          <a href="#" class="link">메뉴4</a>
+        </li>
+      </ul>
+    </div>
+    <div class="btn">
+      <div class="prev-btn">
+       <i class="fas fa-chevron-left"></i>
+      </div>
+      <div class="next-btn">
+      <i class="fas fa-chevron-right"></i>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="contents" id="con1">1</div>
+    <div class="contents" id="con2">2</div>
+    <div class="contents" id="con3">3</div>
+    <div class="contents" id="con4">4</div>
+  </div>
+</body>
+</html>
