@@ -5,13 +5,24 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>메뉴유형1</title>
+	<script src="../JS수업/js/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
+	<script>
+		$(function(){
+			$('.img1').click(function(){
+				$('.menu2').animate({'margin-left' : '0px'},1000);
+			});
+			$('.img2').click(function(){
+				$('.menu2').animate({'margin-left' : '-22vw'},1000)
+			})
+		})
+	</script>
 	<style>
 		*{padding: 0; margin: 0; text-decoration: none; color: black;}
 		ul,ol{ list-style: none;}
 		.nav::after{ content: ''; clear: both; display: block;}
 		.nav{ 
 			border: 2px solid green; height: 150px; position: relative;
-			margin: 5px;
 		}
 		.nav>.menu{
 			width: 95%; border: 2px solid orange; height: 50px; position: absolute;
@@ -25,24 +36,38 @@
 
 		.nav2::after{ content: ''; clear: both; display: block;}
 		.nav2{
-			border: 2px solid green; width: 20vw; height: 400px; position: relative;
-			margin: 5px;
+			background: lemonchiffon;
 		}
-		.menu2>li{
+		.inner-menu>li{
 			margin: 10px; border: 2px solid orange; height: 100px;
 			line-height: 100px; text-align: center;
 		}
-		.menu2>li:nth-child(1){ margin-bottom: 0;}
-		.menu2>li:nth-child(2){ border-top: none; margin-top:0; margin-bottom: 0;}
-		.menu2>li:nth-child(3){ border-top: none; margin-top:0; margin-bottom: 0;}
-		.img{
+		.inner-menu>li:nth-child(1){ margin-bottom: 0; margin-top: 30px;}
+		.inner-menu>li:nth-child(2){ border-top: none; margin-top:0; margin-bottom: 0;}
+		.inner-menu>li:nth-child(3){ border-top: none; margin-top:0; margin-bottom: 0;}
+		.imgs{
 			width: 100%; height: 100%;
 		}
-		
+		.img1{
+			position: absolute; top: 10px; right: 10px;
+			font-size: 40px; cursor: pointer;
+		}
+		.img2{
+			position: absolute;
+			font-size: 30px; cursor: pointer; top: -5px; right: 10px; 
+		}
+		.menu2{
+			position: relative; margin-top: 10px;
+			border: 2px solid green; width: 20vw; height: 400px; 
+			margin-left: -22vw; background: white;
+		}
 	</style>
 </head>
 <body>
 	<nav class="nav">
+		<div class="img1">
+			<i class="fas fa-bars"></i>
+		</div>
 		<ul class="menu">
 			<li><a href="#1">메뉴1</a></li>
 			<li><a href="#2">메뉴2</a></li>
@@ -53,10 +78,15 @@
 	</nav>
 	<nav class="nav2">
 		<ul class="menu2">
-			<li><a href="http://www.naver.com">네이버</a></li>
-			<li><a href="../CSS수업/img/강아지1.jpg" download>강아지</a></li>
-			<li><a href="http://www.nate.com/">
-        <img class="img" src="../HTML수업/day1/Dog.jpg" alt="네이트"></a></li>
+			<div class="img2">
+				<i class="fas fa-times"></i>
+			</div>
+			<div class="inner-menu">
+				<li><a href="http://www.naver.com">네이버</a></li>
+				<li><a href="../CSS수업/img/강아지1.jpg" download>강아지</a></li>
+				<li><a href="http://www.nate.com/">
+        	<img class="imgs" src="../HTML수업/day1/Dog.jpg" alt="네이트"></a></li>
+			</div>
 		</ul>
 	</nav>
 	
