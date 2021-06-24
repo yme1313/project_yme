@@ -7,12 +7,13 @@
   <title>rolling 예제2</title>
   <script src="../js/jquery.min.js"></script>
   <script>
-    var mt = -50;
     $(function(){
       setInterval(function(){
-        $('.box:first-child').animate({'margin-top' : mt +'px'},1200)
-        mt = mt-50;
-        mt = mt == -250? 0 : mt;
+        if(!$('.view .box').first().is(':animated')){
+        $('.box').first().animate({'margin-top' :  '-50px'},1200,function(){
+          $(this).detach().appendTo('.view').attr('style','');
+        })
+      }
       },2000);
     });
   </script>
