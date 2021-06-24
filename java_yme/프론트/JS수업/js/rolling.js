@@ -22,3 +22,15 @@ function rollingTop(list, listItem, marginTop, animateTime, intervalTime){
 },intervalTime);
 return id;
 };
+
+function rollingRight(list, listItem, animateTime, intervalTime){
+  var id = setInterval(function(){
+    var width = $(list + ' ' +listItem).last().width();
+    if(!$(list + ' ' +listItem).first().is('animated')){
+    $(list + ' ' +listItem).last().detach().prependTo(list)
+    .css('margin-left', -width + 'px')
+      $(list + ' ' +listItem).animate({'margin-left': '0px'},animateTime)
+    }
+  },intervalTime);
+  return id;
+}
