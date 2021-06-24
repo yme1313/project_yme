@@ -11,12 +11,12 @@
     var id1;
     var id2;
     $(function(){
-      id1 = rollingLeft('.container','.box',-300,700,1000);
+      id1 = rollingLeft('.container','.box',700,1000);
     
       $('.container').hover(function(){
         clearInterval(id1);
       },function(){
-      id1 = rollingLeft('.container','.box',-300,700,1000);
+      id1 = rollingLeft('.container','.box',700,1000);
       });
 
       setInterval(function(){
@@ -29,16 +29,16 @@
   </script>
   <style>
     .view, .view1{
-      width : 300px; height : 50px; border: 2px solid black;
+      height : 50px; border: 2px solid black;
       margin: 0 auto; cursor: pointer; overflow: hidden;
     }
     .view{ margin-bottom: 30px;}
     .container, .container1{
-      width: 1200px; height: 50px; 
+      width: 400%; height: 50px; 
     }
     
     .box{ 
-      width: 300px; height: 50x; float: left; line-height: 50px;
+      width: 25%; height: 50x; float: left; line-height: 50px;
       text-align: center; background: lightgreen; font-size: 30px;
     }
     .container1 .box{

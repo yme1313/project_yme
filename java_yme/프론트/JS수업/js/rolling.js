@@ -10,14 +10,15 @@ function rollingTop(list, listItem, marginTop, animateTime, intervalTime){
    return id;
  }
 
- function rollingLeft(list, listItem ,marginLeft, animateTime, intervalTime){
+ function rollingLeft(list, listItem, animateTime, intervalTime){
   var id = setInterval(function(){
-    if(!$(list + ' ' + listItem).first().is(':animated')){
-    $(list + ' ' + listItem).first()
-    .animate({'margin-left': marginLeft + 'px'},animateTime,function(){
-      $(this).detach().appendTo(list).removeAttr('style')
-    });
-    };
-  },intervalTime);
-  return id;
+  if($(list +' ' + listItem).first()){
+    var width = $(list +' ' + listItem).first().width();
+    $(list +' ' + listItem).first()
+      .animate({'margin-left':'-'+width}, animateTime,function(){
+      $(this).detach().appendTo(list).removeAttr('style');
+    })
+  }
+},1500);
+return id;
 };
