@@ -19,6 +19,6 @@ function rollingTop(list, listItem, marginTop, animateTime, intervalTime){
       $(this).detach().appendTo(list).removeAttr('style');
     })
   }
-},1500);
+},intervalTime);
 return id;
 };

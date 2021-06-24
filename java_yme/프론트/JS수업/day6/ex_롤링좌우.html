@@ -20,12 +20,25 @@
       });
 
       setInterval(function(){
-        $('.container1 .box').last().detach().prependTo('.container1').css('margin-left','-300px')
+        var width = $('.container1 .box').last().width();
+        if(!$('.container1 .box').first().is('animated')){
+        $('.container1 .box').last().detach().prependTo('.container1')
+        .css('margin-left', -width + 'px')
           $('.container1 .box').animate({'margin-left': '0px'},700)
-      },1000)
-
+        }
+      },1000);
     })
 
+    function rollingRight(list, listItem, animateTime, intervalTime){
+      setInterval(function(){
+        var width = $(list + ' ' +listItem).last().width();
+        if(!$(list + ' ' +listItem).first().is('animated')){
+        $(list + ' ' +listItem).last().detach().prependTo(list)
+        .css('margin-left', -width + 'px')
+          $(list + ' ' +listItem).animate({'margin-left': '0px'},animateTime)
+        }
+      },intervalTime);
+    }
   </script>
   <style>
     .view, .view1{
