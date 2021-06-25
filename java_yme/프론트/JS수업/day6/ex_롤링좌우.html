@@ -12,7 +12,7 @@
     var id2;
     $(function(){
       id1 = rollingLeft('.container','.box',700,1000);
-      id2 = rollingRight('.container1','.box',700,1000);
+      id2 = rolling('right', '.container1','.box',0,700,1000);
     
       $('.container').hover(function(){
         clearInterval(id1);
@@ -23,7 +23,7 @@
       $('.container1').hover(function(){
         clearInterval(id2);
       },function(){
-      id2 = rollingRight('.container1','.box',700,1000);
+        id2 = rolling('right', '.container1','.box',0,700,1000);
       });
     })
   </script>

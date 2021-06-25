@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>롤링 버튼 예제</title>
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/rolling.js"></script>
+  <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
+  <script>
+    var id1;
+    $(function(){
+      id1 = rollingLeft('.container','.box',700,1000);
+    
+      $('.container').hover(function(){
+        clearInterval(id1);
+      },function(){
+      id1 = rollingLeft('.container','.box',700,1000);
+      });
+
+      $('.next-btn').click(function(){
+      var width = $('.container .box').first().width();
+        $('.container .box').first()
+      .animate({'margin-left':'-'+width},700,function(){
+        $(this).detach().appendTo('.container').removeAttr('style');
+      });
+      });
+      
+      $('.prev-btn').click(function(){
+      var width = $('.container .box').last().width();
+        $('.container .box').last().detach().prependTo('.container')
+      .css('margin-left', -width + 'px')
+        $('.container .box').animate({'margin-left': '0px'},700)
+      });
+    })
+  </script>
+  <style>
+    .view{
+      height : 50px; border: 2px solid lightgreen;
+      margin: 0 20px; cursor: pointer; overflow: hidden;
+    }
+    .container{
+      width: 400%; height: 50px; 
+    }
+    .container::after{ clear: both; display: block; content: '';}
+    .box{ 
+      width: 25%; height: 50x; float: left; line-height: 50px;
+      text-align: center; background: lightgreen; font-size: 30px;
+      color: rebeccapurple
+    }
+    .prev-btn, .next-btn{
+      position: absolute;  font-size: 25px; width: 40px; height: 40px;
+      line-height: 40px; text-align: center; background-color: burlywood;
+      border: 1px solid burlywood; border-radius: 50%; color: rebeccapurple;
+    }
+    .prev-btn{
+      top: 15px; left: 7px; 
+    }
+    .next-btn{
+      top: 15px ; right: 7px;
+    }
+  </style>
+</head>
+<body>
+  <div class="view">
+    <div class="container">
+      <div class="btn-box">
+        <div class="prev-btn">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="next-btn">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+      </div>
+      <div class="box">1</div>
+      <div class="box">2</div>
+      <div class="box">3</div>
+      <div class="box">4</div>
+    </div>
+  </div>  
+</body>
+</html>
