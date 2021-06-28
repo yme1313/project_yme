@@ -22,11 +22,15 @@
      width = width - 100;
      $('.box').css('width',width +'px');
 
+    $('.box').click(function(){
+      $('.box1').css('border','none')
+    })
 
     })
   </script>
 </head>
 <body>
   <div class="box" style="height: 50px; background:lightgreen;"></div>
+  <div class="box1" style="height: 50px; border: 1px solid black;"></div>
 </body>
 </html>
