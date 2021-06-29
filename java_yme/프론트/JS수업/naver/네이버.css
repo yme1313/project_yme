@@ -276,7 +276,7 @@ a { text-decoration: none; color: #000;}
 }
 .right2 .view-box .contents-box li{
 	width: 270px; height: 29px; line-height: 29px; background: yellow;
-	float: left;
+	float: left; text-align: center;
 }
 
 .inner-right1-box{ position: relative; height: 100%;}
