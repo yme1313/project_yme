@@ -48,18 +48,31 @@
 		<div class="menu-container-box">
 			<div class="menu-wrap-box">
 				<ul class="menu">
+					<li class="menu-item selected">메뉴1</li>
+					<li class="menu-item">메뉴2</li>
+					<li class="menu-item">메뉴3</li>
+					<li class="menu-item">메뉴4</li>
 					<li class="menu-item selected" data-target=".box1">메뉴1</li>
 					<li class="menu-item" data-target=".box2">메뉴2</li>
 					<li class="menu-item" data-target=".box3">메뉴3</li>
 					<li class="menu-item" data-target=".box4">메뉴4</li>
 				</ul>
 				<ul class="menu">
+					<li class="menu-item">메뉴5</li>
+					<li class="menu-item">메뉴6</li>
+					<li class="menu-item">메뉴7</li>
+					<li class="menu-item">메뉴8</li>
+
 					<li class="menu-item" data-target=".box5">메뉴5</li>
 					<li class="menu-item" data-target=".box6">메뉴6</li>
 					<li class="menu-item" data-target=".box7">메뉴7</li>
 					<li class="menu-item" data-target=".box8">메뉴8</li>
 				</ul>
 				<ul class="menu">
+					<li class="menu-item">메뉴9</li>
+					<li class="menu-item">메뉴10</li>
+					<li class="menu-item">메뉴11</li>
+					<li class="menu-item">메뉴12</li>
 					<li class="menu-item" data-target=".box9">메뉴9</li>
 					<li class="menu-item" data-target=".box10">메뉴10</li>
 					<li class="menu-item" data-target=".box11">메뉴11</li>
@@ -96,7 +109,7 @@
 					var ml = $('.menu-wrap-box').css('margin-left');
 					ml = parseFloat(ml);
 					var width = $('.menu').first().width();
-					ml = ml - width;
+					ml = ml - width; 
 					$('.menu-wrap-box').animate({'margin-left':ml+'px'},500);
 					//이동 후 다음 큰 메뉴에서 첫번 째 메뉴에 seleted 클래스 추가
 					selected.parent().next().children('.menu-item').first().addClass('selected');
