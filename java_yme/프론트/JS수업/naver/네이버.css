@@ -126,7 +126,7 @@ a { text-decoration: none; color: #000;}
 	height: 100%;
 }
 .left-box{
-	width: 750px; height: 100%; border: 1px solid red; float: left;
+	width: 750px; height: 100%; float: left;
 	box-sizing: border-box;
 }
 .right-box{
@@ -165,6 +165,38 @@ a { text-decoration: none; color: #000;}
 }
 .left2-3>.row>.col{
 	height: 65px; width: 100%;
+}
+.left3{
+	width: 750px; height: 500px; margin-top: 50px;
+}
+.left3 .rolling{
+	width: 100%; height: 50px; border: 1px solid black;
+	box-sizing: border-box; position: relative;
+}
+.roll-btn-box .prev-btn, .roll-btn-box .next-btn{
+	width: 30px; height: 30px; background: white; border: 1px solid black; border-radius: 50%;
+	text-align: center; line-height: 30px; position: absolute; top: 7px; left: 0; 
+	margin-left: -20px; cursor: pointer;
+}
+.roll-btn-box .prev-btn{display: none;}
+.roll-btn-box .next-btn{left: auto; right: -20px;}
+.roll-container-box{ 
+	width: 100%; height: 50px; overflow: hidden;
+}
+.roll-wrap-box{
+	width: 400%; height: 50px;
+}
+.left3 .menu{
+	width: calc(100% / 4); float: left; list-style: none; padding: 0; margin: 0;
+}
+.menu .menu-item{
+	width: calc(100% / 8); float: left; box-sizing: border-box; border-right: 1px solid black;
+	height: 50px; line-height: 50px; text-align: center; cursor: pointer;  font-weight: bold;
+}
+.menu .menu-item:nth-child(8n){ border-right: none;}
+.left3 .contents-box{
+	text-align: center; width: 750px; height: 300px; line-height: 300px;
+	border: 1px solid black; box-sizing: border-box; border-top: none;
 }
 .bar{
 	background-color: #dae1e6;
@@ -376,6 +408,7 @@ a { text-decoration: none; color: #000;}
 	text-decoration: underline;
 }
 
+.selected{background: slategray;}
 .bold{ font-weight: bold;}
 .display-none{
 	display: none !important;
