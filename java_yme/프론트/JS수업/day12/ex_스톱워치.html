@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>타이머</title>
+  <script src="../js/jquery.min.js"></script>
+  <script>
+    var h= 0, m = 0, s = 0, ms = 0;
+    var id;
+    $(function(){
+      $('#start').on('click',function(){
+        $('#start').hide();
+        $('#stop').show();
+        id = setInterval(function(){
+          ms++;
+          m = s ==60 ? ++m : m;
+          s = s == 60 ? 0 : s;
+          ms = ms == 100 ? ++s : ms
+          $('.time-box').text(getTime(h,m,s,ms));
+        },10);
+      })
+     $('#stop').on('click',function(){
+      $('#start').show();
+      $('#stop').hide();
+        clearInterval(id);
+      })
+     $('#init').on('click',function(){
+      h=0; m=0; s=0; ms=0;
+      $('.time-box').text(getTime(h,m,s,ms));
+      $('#stop').click();
+      $('.recode-box').empty();
+    })
+    $('#recode').on('click',function(){
+      var str = '<div class="recod">' + getTime(h,m,s,ms) + '</div>'
+      $('.recode-box').prepend(str);
+    })
+    //함수
+      function addZero(num){
+        return num <10 ? '0'+num : num;
+      }
+      function getTime(h,m,s,ms){
+        return addZero(h) + ':' + addZero(m) + ':' + addZero(s) + ':' + addZero(ms);
+      }
+    })
+  </script>
+  <style>
+    .container{ width: 170px; margin: 0 auto;}
+    .time-box{
+      width: 100%; height: 30px; border: 1px solid black;
+      line-height: 30px; text-align: center;
+    }
+    .btn-box{margin: 8px;}
+    .recode-box{ 
+      width: 100%; height: 300px; border:1px solid black;
+      text-align: center;
+    }
+    #stop{ display: none;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="time-box">00:00:00:00</div>
+    <div class="btn-box">
+      <button id="start">시작</button>
+      <button id="stop">중지</button>
+      <button id="init">초기화</button>
+      <button id="recode">기록</button>
+    </div>
+    <div class="recode-box"></div>
+  </div>
+</body>
+</html>
