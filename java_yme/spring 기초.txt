@@ -1,4 +1,4 @@
-컨트롤러 - 일치하는 URL이 있는지 확인하여 있으면 해당 코드를 실행
+컨트롤러 - 일치하는 URI이 있는지 확인하여 있으면 해당 코드를 실행
 
 src/main/webapp - 스프링의 기본이 되는 폴더
 src/main/webapp/resource - css/js/이미지등을 관리하는 폴더
