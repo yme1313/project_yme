@@ -1,0 +1,30 @@
+
+http://localhost:8080/spring/test/test		-/test/test
+http://localhost:8080/spring?name=홍길동	-/
+http://localhost:8080/spring/test/test?name=홍길동	-/test/test
+
+- @RequestMapping에 method가 지정되어 있으면 해당 방식만 처리,
+  생략되어 있으면 GET,POST 둘다 처리
+- 화면을 보여주려면 기본이 GET
+
+- 새로운 URI를 추가하려면
+ 1. Controller에서 @RequestMapping이 포함된 메소드를 추가한 후
+    value에 원하는 URI경로로 수정, 메소드의 return 부분에 원하는 화면 연결
+ 2. views 폴더에 연결할 jsp를 추가
+
+- 서버에서 화면으로 원하는 정보를 보내는 방법
+ 1. 서버에서는 ModelAndView클래스에서 제공하는 addObjet("화면에서 쓸 이름", 보낼 데이터)를 이용
+ 2. 화면에서는 ${화면에서 쓸이름}으로 데이터를 받아서 처리
+
+- 화면에서 서버로 원하는 정보를 보내는 방법1 - a태그를 이용하는 방법
+ -  화면에서는 a태그를 이용하여 원하는 URI를 지정 후 ?다음에 정보를 전달한다
+   예 > localhost:8080/spring/signin?id=abc123&pw=abc123
+
+- 화면에서 서버로 원하는 정보를 보내는 방법2 - form태그를 이용하는 방법
+ - 화면에서는 form태그에 input태그와 버튼을 이용하여 정보를 입력 후 전송 버튼을 정보를 전달
+
+- 서버에서는 메소드의 매개변수로 해당 정보를 받아옴
+
+- 화면에서 서버로 데이터를 보낼 때
+ - 매개변수가 일반 변수나 클래스인 경우(String,Integer,int 등)는 매개변수 명을 화면의 name과 맞춘다
+ - 매개변수가 클래스의 객체인 경우는 매개변수의 멤버변수명과 화면의 name을 맞춘다
