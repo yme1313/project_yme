@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>우편번호 검색</title>
+  <script src="../js/jquery.min.js"></script>
+  <script>
+    $(function(){
+      $('#sendBtn').click(function(){
+        var value = $('#address').val();
+        var value1 = $('#post').val();
+        $(opener.document).find('#data').val(value);
+        $(opener.document).find('#data2').val(value1);
+        window.close();
+      })
+    })
+
+  </script>
+</head>
+<body>
+  <input type="text" id="address"><br>
+  <input type="text" id="post" style="width: 100px"><br>
+  <button id='sendBtn'> 저장</button>
+</body>
+</html>

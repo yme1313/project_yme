@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>다단 예제</title>
+	<style>
+		/* 
+		- column-count : 다단 갯수
+		- column-gap : 단과 단 사이에 여백
+		- cloumn-rule : 단 선 모양
+		- column-span : h태그가 포함되면 해당 부분에 단을 헤제할지 말지를 결정하는 속성
+		- column-width : 한단의 너비
+		 */
+		 body{
+			 width: 600px;
+			 column-count: 3;
+			 column-gap: 20px; 
+			 column-rule: 1px solid red;
+			 text-align: justify;
+		 }
+		 body h1{column-span: all;}
+	</style>
+</head>
+<body>
+	<h1>거리두기 유지</h1>
+	<p>
+	이준석 국민의힘 당대표 후보는 고위공직자범죄수사처가 윤석열 전 검찰총장 수사에 착수한 것과 관련해 "시험대에 오른 건 윤 전 총장이 아닌 공수처"라고 촌평했다.
+
+	이 후보는 지난 10일 페이스북에 "범야권 유력 대권주자로 주목받는 윤석열 전 검찰총장에 대한 수사가 진행된다"고 언급했다.
+
+	전날 법조계에 따르면 공수처는 윤 전 총장 직권남용 혐의 관련 2개 고발 사건을 정식 입건했다.
+
+	공교롭게도 윤 전 총장이 석달 간의 잠행을 끝내고 공개 행보를 시작한 시점이라 수사 착수 배경을 두고 정치적 해석이 분분하다. 공수처는 지난달 말에도 이성윤 서울중앙지검장 공소장 유출 의혹을 2호 사건으로 정해 논란에 휩싸였다.
+
+	이에 이 후보는 시험대에 오른 게 공수처라며 "권력의 압박에서 자유롭게 이 사안을 다룰 수 있는지, 수사능력이 있는지에 대해서 국민들이 지켜보고 판단할 것"이라고 경고하고 나섰다.
+
+	한편, 국민의힘도 공수처를 비판하고 나섰다. 전날 배준영 대변인은 구두논평에서 "윤 전 총장이 공개 석상에 모습을 드러낸 지 하루 만에 수사에 나선다고 밝혔다니 묘하기 그지없다"고 말했다.
+	</p>
+</body>
+</html>
