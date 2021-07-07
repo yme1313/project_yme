@@ -4,34 +4,45 @@
 <!doctype html>
 <html>
 <head>
-	<title>나의 페이지</title>
+	<title>마이 페이지</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container">
-	<h2>나의 정보</h2>
+
+<form class="container" method="post" action="<%=request.getContextPath()%>/signup">
+	<h1>마이 페이지</h1>
 	<div class="form-group">
 		<label>아이디</label>
 		<input type="text" class="form-control" name="id" value="${member.id}" readonly>
 	</div>
 	<div class="form-group">
 		<label>비밀번호</label>
-		<input type="text" class="form-control" name="pw" value="${member.pw}" readonly>
+		<input type="password" class="form-control" name="pw">
 	</div>
 	<div class="form-group">
-		<label>성별</label>
-		<input type="text" class="form-control" name="gender" value="${member.gender}" readonly>
-	</div>
-	<div class="form-group">
-		<label>이메일</label>
-		<input type="text" class="form-control" name="email" value="${member.email}" readonly>
+		<label>비밀번호 확인</label>
+		<input type="password" class="form-control" name="pw2">
 	</div>
 	<div class="form-group">
 		<label>이름</label>
 		<input type="text" class="form-control" name="name" value="${member.name}" readonly>
 	</div>
-</div>
+	<div class="form-group">
+		<label>이메일</label>
+		<input type="text" class="form-control" name="email" value="${member.email}">
+	</div>
+	<div class="form-group">
+		<label>성별</label>
+		<select class="form-control" name="gender">
+			<option value="M" <c:if test="${member.gender == 'M'}">selected</c:if>>남성</option>
+			<option value="F" <c:if test="${member.gender == 'F'}">selected</c:if>>여성</option>
+		</select>
+	</div>
+	<button class="btn btn-outline-success col-12">수정</button>
+</form>
+
 </body>
+</html>
