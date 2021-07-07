@@ -1,10 +1,10 @@
 package kr.green.spring.dao;
- 
 import org.apache.ibatis.annotations.Param;
-
-import kr.green.spring.vo.MemberVo;
- 
+import kr.green.spring.vo.MemberVO;
 public interface MemberDAO {
-    public MemberVo getMember(@Param("id")String id);
+
+	MemberVO getMember(@Param("id")String id);
+
+	void signup(@Param("user")MemberVO user);
+
 }
- 

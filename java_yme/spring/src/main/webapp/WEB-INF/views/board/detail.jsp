@@ -11,19 +11,27 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<form class="container" method="post" action="<%=request.getContextPath()%>/signin">
-	<h1>로그인</h1>
+<div class="container">
+	<h2>게시판</h2>
 	<div class="form-group">
-		<label>아이디</label>
-		<input type="text" class="form-control" name="id">
+		<label>제목</label>
+		<input type="text" class="form-control" value="${board.title}" readonly>
 	</div>
 	<div class="form-group">
-		<label>비밀번호</label>
-		<input type="password" class="form-control" name="pw">
+		<label>작성자</label>
+		<input type="text" class="form-control" value="${board.writer}" readonly>
 	</div>
-	<button class="btn btn-outline-success col-12">로그인</button>
-</form>
-
+	<div class="form-group">
+		<label>작성일</label>
+		<input type="text" class="form-control" value="${board.registerdDate}" readonly>
+	</div>
+	<div class="form-group">
+		<label>조회수</label>
+		<input type="text" class="form-control" value="${board.views}" readonly>
+	</div>
+	<div class="form-group">
+		<label>내용</label>
+		<textarea class="form-control" readonly>${board.contents}</textarea>
+	</div>
+</div>
 </body>
-</html>

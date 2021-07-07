@@ -3,7 +3,7 @@ package kr.green.spring.vo;
 import lombok.Data;
 
 @Data
-public class MemberVo {
+public class MemberVO {
 	private String id;
 	private String pw;
 	private String gender;
