@@ -29,6 +29,7 @@
       <div class="dropdown-menu">
         <a class="dropdown-item" href="<%=request.getContextPath()%>/signin">로그인</a>
         <a class="dropdown-item" href="<%=request.getContextPath()%>/signup">회원가입</a>
+        <a class="dropdown-item" href="<%=request.getContextPath()%>/member/mypage">마이페이지</a>
       </div>
     </li>
   </ul>

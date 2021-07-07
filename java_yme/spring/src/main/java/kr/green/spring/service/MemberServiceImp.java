@@ -2,7 +2,9 @@ package kr.green.spring.service;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import kr.green.spring.dao.MemberDAO;
+import kr.green.spring.vo.BoardVO;
 import kr.green.spring.vo.MemberVO;
  
 @Service
@@ -37,4 +39,17 @@ public class MemberServiceImp implements MemberService {
 		memberDao.signup(user);
 		return true;
 	}
+	@Override
+	public MemberVO getMember(String id) {
+		//게시글 번호가 없으면 게시글이 없다고 전달 => num가 null인지 확인하여 null이면 null을 반환
+		if(id == null) {
+			return null;	
+		} 
+		//다오에게 게시글 번호를 주면서 게시글을 가져오라고 시킴
+		MemberVO member = memberDao.getMember(id);
+		//가져온 게시글을 전달, 이때 가져온 게시글은 없을 수도 있다(null이 들어갈 수도 있다)
+		return member;
+		// return = boardDao.getBoard(num);
+	}
+
 }

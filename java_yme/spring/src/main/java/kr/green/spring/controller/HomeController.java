@@ -57,7 +57,15 @@ public class HomeController {
 		}else {
 			mv.setViewName("redirect:/signup");
 		}
-
+		return mv;
+	}
+	@RequestMapping(value="/member/mypage", method = RequestMethod.GET)
+	public ModelAndView memberMypageGet(ModelAndView mv, String id) {
+		//서비스에게 아이디를 주면서 게시글을 가져오라고 시킴
+		MemberVO member = memberService.getMember(id);
+		//가져온 게시글을 화면에 전달,/이름은 member로
+		mv.addObject("member",member);
+		mv.setViewName("member/mypage");
 		return mv;
 	}
 } 
