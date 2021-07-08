@@ -37,5 +37,6 @@
 		</table>
 		<a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-danger">글쓰기</button></a>
 	</div>
+	<!-- <img src="<%=request.getContextPath()%>/resources/img/dog.jfif"> -->
 </body>
 </html>
