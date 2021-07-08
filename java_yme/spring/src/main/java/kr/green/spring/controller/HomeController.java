@@ -47,7 +47,6 @@ public class HomeController {
 	}
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
-		System.out.println(user);
 		//서비스에게 회원 정보를 주면서 회원 가입하라고 일을 시키고, 회원 가입이 성공하면 true를
 		//실패하면 false를 알려달라고 요청
 		boolean isSignup = memberService.signup(user);
@@ -66,6 +65,13 @@ public class HomeController {
 		//가져온 게시글을 화면에 전달,/이름은 member로
 		mv.addObject("member",member);
 		mv.setViewName("member/mypage");
+		return mv;
+	}
+	@RequestMapping(value="/member/mypage", method = RequestMethod.POST)
+	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO user) {
+		//서비스에게 회원 정보를 주면서 수정하라고 요청
+		memberService.updateMember(user);
+		mv.setViewName("redirect:/member/mypage");
 		return mv;
 	}
 } 

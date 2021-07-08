@@ -9,5 +9,5 @@ public class MemberVO {
 	private String gender;
 	private String email;
 	private String name;
-	private String authorty;
+	private String authority;
 }
