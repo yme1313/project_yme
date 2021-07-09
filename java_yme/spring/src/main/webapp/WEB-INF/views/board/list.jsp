@@ -13,14 +13,13 @@
 <body>
 <div class="container clearfix">
   <h2>게시판</h2>
-
 	  <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/board/list">
 		  <select class="form-control mr-2" name="type">
 		  	<option value="0" <c:if test="${pm.criteria.type == 0}">selected</c:if>>전체</option>
 		  	<option value="1" <c:if test="${pm.criteria.type == 1}">selected</c:if>>제목+내용</option>
 		  	<option value="2" <c:if test="${pm.criteria.type == 2}">selected</c:if>>작성자</option>
 		  </select>
-		  <input type="text" class="form-control mr-2" name="search" value="${pm.criteria.search}">
+		  <input type="text" class="form-control mr-2" name="search" value="<c:out value="${pm.criteria.search}"/>">
 		  <button class="btn btn-outline-primary">검색</button>
 	  </form>
 	  <c:if test="${list.size() != 0 }">
@@ -59,7 +58,7 @@
 	    	<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
     	</c:if>
 	  </ul>
- </c:if>
+ 	</c:if>
 	 <c:if test="${list.size() == 0 }">
 	 	<h1>게시글이 없습니다.</h1>
 	 </c:if>

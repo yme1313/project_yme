@@ -13,6 +13,7 @@
 <body>
 	<div class="container">
 		<h1>게시판</h1>
+		<c:if test="${list.size() != 0 }">
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -35,6 +36,16 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		  <ul class="pagination justify-content-center">
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+		  </ul>
+		</c:if>
+		 <c:if test="${list.size() == 0 }">
+		 	<h1>게시글이 없습니다.</h1>
+		 </c:if>
 		<a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-danger">글쓰기</button></a>
 	</div>
 	<!-- <img src="<%=request.getContextPath()%>/resources/img/dog.jfif"> -->
@@ -42,13 +53,14 @@
 	$(function(){
 		var msg = '${msg}';
 		printMsg(msg);
+		history.replaceState({},null,null);
 	})
 	function printMsg(msg){
-		if(msg == ''){
+		if(msg == '' || history.state){
 			return ;
 		}
 		alert(msg);
 	}
-	</script>	
+	</script>
 </body>
 </html>

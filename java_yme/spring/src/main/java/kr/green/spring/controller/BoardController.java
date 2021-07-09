@@ -22,7 +22,6 @@ public class BoardController {
 
 	@RequestMapping(value="/board/list")
 	public ModelAndView boardList(ModelAndView mv, Criteria cri) {
-		log.info(cri);
 		PageMaker pm = new PageMaker();
 		cri.setPerPageNum(2);
 		pm.setCriteria(cri);
