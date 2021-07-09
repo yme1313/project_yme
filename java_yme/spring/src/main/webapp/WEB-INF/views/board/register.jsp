@@ -25,6 +25,6 @@
 		<label>내용</label>
 		<textarea class="form-control" rows="10" name="contents"></textarea>
 	</div>
-	<button type="submit" class="btn btn-outline-success">등록</button>
+	<button type="submit" class="btn btn-outline-success">수정</button>
 </form>
 </body>

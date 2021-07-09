@@ -8,20 +8,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import jdk.internal.org.jline.utils.Log;
+import kr.green.spring.pagination.Criteria;
+import kr.green.spring.pagination.PageMaker;
 import kr.green.spring.service.BoardService;
 import kr.green.spring.vo.BoardVO;
-
+import lombok.extern.log4j.Log4j;
+@Log4j
 @Controller
 public class BoardController {
 	@Autowired
 	BoardService boardService;
 
 	@RequestMapping(value="/board/list")
-	public ModelAndView boardList(ModelAndView mv) {
+	public ModelAndView boardList(ModelAndView mv, Criteria cri) {
+		PageMaker pm = new PageMaker();
+		cri.setPerPageNum(2);
+		pm.setCriteria(cri);
+		pm.setDisplayPageNum(2);
+		pm.setTotalCount(6);
+		pm.calcData();
 		//서비스에게 모든 게시글을 가져오라고 시킴
-		ArrayList<BoardVO> list = boardService.getBoardList();
+		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		//화면에 모든 게시글을 전송
 		mv.addObject("list",list);
+		mv.addObject("pm", pm);
 		mv.setViewName("board/list");
 		return mv;
 	}
@@ -48,7 +59,7 @@ public class BoardController {
 	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board) {
 		//서비스에게 게시글을 등록하라고 시킴
 		boardService.insertBoard(board);
-		mv.setViewName("redirect:/board/register");
+		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
 	@RequestMapping(value="/board/modify", method=RequestMethod.GET)
@@ -65,7 +76,7 @@ public class BoardController {
 		boardService.updateBoard(board);
 		//detail로 이동
 		mv.addObject("num", board.getNum());
-		mv.setViewName("redirect:/board/detail");
+		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
 	@RequestMapping(value="/board/delete")

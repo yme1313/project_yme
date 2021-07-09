@@ -26,7 +26,6 @@
 		<textarea class="form-control" name="contents" rows="10">${board.contents}</textarea>
 	</div>
 	<input type="hidden" value="${board.num}" name="num">
-	<input type="hidden" value="${board.views}" name="views">
 	<button type="submit" class="btn btn-outline-danger">수정</button>
 	<a href="<%=request.getContextPath()%>/board/list"><button type="button" class="btn btn-outline-danger">목록</button></a>
 </form>
