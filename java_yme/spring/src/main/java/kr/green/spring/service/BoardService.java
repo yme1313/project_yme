@@ -19,4 +19,6 @@ public interface BoardService {
 
 	int deleteBoard(Integer num);
 
+	int getTotalCount(Criteria cri);
+
 }

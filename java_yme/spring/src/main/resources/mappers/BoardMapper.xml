@@ -24,4 +24,7 @@
 			valid = #{board.valid}
 		where num = #{board.num}
 	</update>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board where valid = 'I'
+	</select>
 </mapper>

@@ -74,4 +74,9 @@ public class BoardServiceImp implements BoardService {
 		//다오에게 게시글 정보를 주면서 수정하라고 시킨 후 정수값을 리턴
 		return boardDao.updateBoard(board);
 	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return boardDao.getTotalCount(cri);
+	}
 }

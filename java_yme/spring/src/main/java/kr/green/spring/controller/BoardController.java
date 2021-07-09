@@ -26,7 +26,8 @@ public class BoardController {
 		cri.setPerPageNum(2);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(2);
-		pm.setTotalCount(6);
+		int totalCount = boardService.getTotalCount(cri);
+		pm.setTotalCount(totalCount);
 		pm.calcData();
 		//서비스에게 모든 게시글을 가져오라고 시킴
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
