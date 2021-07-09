@@ -1,0 +1,10 @@
+1. <c :if> 와 <c:forEach> 문법 한번 더 설명 필요
+
+2. 게시판 삭제 기능에서 Valid값을 D로 수정하면 화면에 안 보이는 이유?
+
+3. PageMaker class에서 totalcount는 게시판의 마지막 페이지의 컨텐츠를 의미하는지?
+
+4. PageMaker class에서 displayPageNum은 화면에 보여지는 페이지번호? 아니면 다음 버튼 넘어가기 전 페이지 번호?
+
+
+ 
