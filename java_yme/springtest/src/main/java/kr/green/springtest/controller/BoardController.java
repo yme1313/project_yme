@@ -23,14 +23,12 @@ public class BoardController {
 	
 	@RequestMapping(value="/list")
 	public ModelAndView list(ModelAndView mv, Criteria cri) {
-		PageMaker pm = new PageMaker();
 		cri.setPerPageNum(2);
-		pm.setCriteria(cri);
-		pm.setDisplayPageNum(2);
-		int totalCount = boardService.getTotalCount(cri);
-		pm.setTotalCount(totalCount);
-		pm.calcData();
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
+		//현재 페이지에 대한 총 게시글 수를 가져와야 함
+		int totalCount = boardService.getTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		mv.addObject("pm",pm);
 		mv.addObject("list", list);
 		mv.setViewName("board/list");
 		return mv;

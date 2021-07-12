@@ -12,7 +12,16 @@
 </head>
 <body>
 	<div class="container">
-		<h1>게시판</h1>
+		<h1>게시판</h1>'
+	  <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/board/list">
+		  <select class="form-control mr-2" name="type">
+		  	<option value="0" <c:if test="${pm.criteria.type == 0}">selected</c:if>>전체</option>
+		  	<option value="1" <c:if test="${pm.criteria.type == 1}">selected</c:if>>제목+내용</option>
+		  	<option value="2" <c:if test="${pm.criteria.type == 2}">selected</c:if>>작성자</option>
+		  </select>
+		  <input type="text" class="form-control mr-2" name="search" value="<c:out value="${pm.criteria.search}"/>">
+		  <button class="btn btn-outline-primary">검색</button>
+	  </form>
 		<c:if test="${list.size() != 0 }">
 		<table class="table table-hover">
 			<thead>
@@ -37,10 +46,15 @@
 			</tbody>
 		</table>
 		  <ul class="pagination justify-content-center">
-		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-		    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-		    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-		    <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+		  	<c:if test="${pm.prev}">
+			    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.startPage-1}&search=<c:out value="${pm.criteria.search}"/>&type=${pm.criteria.type}">이전</a></li>
+		    </c:if>
+		    <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+			    <li class="page-item <c:if test="${pm.criteria.page == index }">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${index}&search=<c:out value="${pm.criteria.search}"/>&type=${pm.criteria.type}">${index}</a></li>
+			</c:forEach>
+		   	<c:if test="${pm.next}">
+		 	   <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/board/list?page=${pm.endPage+1}&search=<c:out value="${pm.criteria.search}"/>&type=${pm.criteria.type}">다음</a></li>
+		    </c:if>
 		  </ul>
 		</c:if>
 		 <c:if test="${list.size() == 0 }">
