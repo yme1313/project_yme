@@ -1,17 +1,21 @@
 package kr.green.spring.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import kr.green.spring.service.MemberService;
 import kr.green.spring.vo.MemberVO;
-import lombok.Data;
+
 @Controller
 public class HomeController {
 	@Autowired
     MemberService memberService;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv) {
 		mv.setViewName("home");
@@ -24,7 +28,6 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public ModelAndView signinPost(ModelAndView mv,MemberVO user) {
-		System.out.println(user);
 		//서비스에게 아이디와 비밀번호를 전달하면, 해당 정보가 DB에 있으면
 		//회원 정보를 없으면 null을 반환
 		//작업이 다 끝난 후 URI가 /signin인 곳으로 넘어감
@@ -38,6 +41,7 @@ public class HomeController {
 		else {
 			mv.setViewName("redirect:/signin");
 		}
+		mv.addObject("user", dbUser);
 		return mv;
 	}
 	@RequestMapping(value="/signup", method = RequestMethod.GET)
@@ -59,19 +63,29 @@ public class HomeController {
 		return mv;
 	}
 	@RequestMapping(value="/member/mypage", method = RequestMethod.GET)
-	public ModelAndView memberMypageGet(ModelAndView mv, String id) {
-		//서비스에게 아이디를 주면서 게시글을 가져오라고 시킴
-		MemberVO member = memberService.getMember(id);
-		//가져온 게시글을 화면에 전달,/이름은 member로
-		mv.addObject("member",member);
+	public ModelAndView memberMypageGet(ModelAndView mv) {
+
 		mv.setViewName("member/mypage");
 		return mv;
 	}
 	@RequestMapping(value="/member/mypage", method = RequestMethod.POST)
-	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO user) {
-		//서비스에게 회원 정보를 주면서 수정하라고 요청
-		memberService.updateMember(user);
+	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
+		//request에 있는 세션 안에 있는 로그인한 회원 정보를 가져옴
+		MemberVO sessionUser = memberService.getMember(request);
+		//세션에 로그인한 회원 정보가 있고, 세션에 있는 아이디와 수정할 아이디가 같으면 회원 정보 수정함
+		if(sessionUser != null && sessionUser.getId().equals(user.getId())) {
+			MemberVO updatedUser = memberService.updateMember(user);
+			if(updatedUser != null) {
+				request.getSession().setAttribute("user", updatedUser);
+			}
+		}
 		mv.setViewName("redirect:/member/mypage");
 		return mv;
 	}
-} 
+	@RequestMapping(value="/signout", method = RequestMethod.GET)
+	public ModelAndView signoutGet(ModelAndView mv, HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+}

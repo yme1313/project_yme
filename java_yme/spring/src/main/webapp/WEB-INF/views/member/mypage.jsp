@@ -16,7 +16,7 @@
 	<h1>마이 페이지</h1>
 	<div class="form-group">
 		<label>아이디</label>
-		<input type="text" class="form-control" name="id" value="${member.id}" readonly>
+		<input type="text" class="form-control" name="id" value="${user.id}" readonly>
 	</div>
 	<div class="form-group">
 		<label>새 비밀번호</label>
@@ -28,11 +28,11 @@
 	</div>
 	<div class="form-group">
 		<label>이름</label>
-		<input type="text" class="form-control" name="name" value="${member.name}" readonly>
+		<input type="text" class="form-control" name="name" value="${user.name}" readonly>
 	</div>
 	<div class="form-group">
 		<label>이메일</label>
-		<input type="text" class="form-control" name="email" value="${member.email}">
+		<input type="text" class="form-control" name="email" value="${user.email}">
 	</div>
 	<div class="form-group">
 		<label>성별</label>

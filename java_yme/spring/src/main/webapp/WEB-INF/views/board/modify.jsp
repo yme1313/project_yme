@@ -27,6 +27,6 @@
 	</div>
 	<input type="hidden" value="${board.num}" name="num">
 	<input type="hidden" value="${board.views}" name="views">
-	<button type="submit" class="btn btn-outline-success">등록</button>
+	<button type="submit" class="btn btn-outline-success">수정</button>
 </form>
 </body>
