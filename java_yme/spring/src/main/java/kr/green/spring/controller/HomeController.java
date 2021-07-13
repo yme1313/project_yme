@@ -15,7 +15,7 @@ import kr.green.spring.vo.MemberVO;
 public class HomeController {
 	@Autowired
     MemberService memberService;
-
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv) {
 		mv.setViewName("home");
@@ -23,7 +23,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signinGet(ModelAndView mv) {
-		mv.setViewName("signin");
+		mv.setViewName("/signin");
 		return mv;
 	}
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
@@ -46,7 +46,7 @@ public class HomeController {
 	}
 	@RequestMapping(value="/signup", method = RequestMethod.GET)
 	public ModelAndView signupGet(ModelAndView mv) {
-		mv.setViewName("signup");
+		mv.setViewName("/signup");
 		return mv;
 	}
 	@RequestMapping(value="/signup", method = RequestMethod.POST)

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.green.springtest.dao.BoardDAO;
 import kr.green.springtest.pagination.Criteria;
 import kr.green.springtest.vo.BoardVO;
+import kr.green.springtest.vo.MemberVO;
 
 @Service
 public class BoardServiceImp implements BoardService {
@@ -40,7 +41,11 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void insertBoard(BoardVO board) {
+	public void insertBoard(BoardVO board, MemberVO user) {
+		if(user == null || user.getId() == null || user.getId().trim().length() == 0) {
+			return;
+		}
+		board.setWriter(user.getId());
 		boardDao.insertBoard(board);	
 	}
 
@@ -70,5 +75,5 @@ public class BoardServiceImp implements BoardService {
 	public int getTotalCount(Criteria cri) {
 		return boardDao.getTotalCount(cri);
 	}
-	
+
 }

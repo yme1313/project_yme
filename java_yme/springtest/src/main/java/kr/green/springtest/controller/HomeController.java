@@ -1,39 +1,51 @@
 package kr.green.springtest.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-/**
- * Handles requests for the application home page.
- */
+import kr.green.springtest.service.MemberService;
+import kr.green.springtest.vo.MemberVO;
+
 @Controller
 public class HomeController {
+	@Autowired
+    MemberService memberService;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+	public ModelAndView home(ModelAndView mv) {
+		mv.setViewName("home");
+		return mv;
 	}
-	
+	@GetMapping(value="signin")
+	public ModelAndView signinGet(ModelAndView mv) {
+		mv.setViewName("member/signin");
+		return mv;
+	}
+	@PostMapping(value="signin")
+	public ModelAndView signinPost(ModelAndView mv, MemberVO user) {
+		MemberVO loginUser = memberService.signin(user);
+		if(loginUser != null)
+			mv.setViewName("redirect:/");
+		else
+			mv.setViewName("redirect:/signin");
+		mv.addObject("user",loginUser);
+		return mv;
+	}
+	@GetMapping(value="signup")
+	public ModelAndView signupGet(ModelAndView mv) {
+		mv.setViewName("member/signup");
+		return mv;
+	}
+	/* 매개변수 user를 하면 객체가 생성된 후, 화면에서 전달한 name과 일치하는 변수명을 가진  
+	 * 멤버 변수의 setter를 이용하여 값을 재설정
+	 * 일반적으로 매개변수는 객체를 자동으로 생성하는건 아님.
+	 * */
+	@PostMapping(value="signup")
+	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
+		memberService.signup(user);
+		mv.setViewName("redirect:/");
+		return mv;
+	}
 }
