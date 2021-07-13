@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.green.springtest.pagination.*;
-import kr.green.springtest.service.*;
-import kr.green.springtest.vo.*;
+import kr.green.springtest.pagination.Criteria;
+import kr.green.springtest.pagination.PageMaker;
+import kr.green.springtest.service.BoardService;
+import kr.green.springtest.service.MemberService;
+import kr.green.springtest.vo.BoardVO;
+import kr.green.springtest.vo.MemberVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -58,24 +61,33 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public ModelAndView modifyGet(ModelAndView mv, Integer num ) {
+	public ModelAndView modifyGet(ModelAndView mv, Integer num, HttpServletRequest r) {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board",board);
 		mv.setViewName("board/modify");
+		MemberVO user = memberService.getMember(r);
+		if(board == null || board.getWriter().equals(user.getId())) {
+			mv.setViewName("redirect:/board/list");
+		}
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ModelAndView modifyPost(ModelAndView mv, BoardVO board) {
+	public ModelAndView modifyPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
 		int res = boardService.updateBoard(board);
 		String msg = res != 0 ? board.getNum() + "번 게시글이 수정되었습니다." : "없는게시글입니다.";
 		mv.addObject("msg", msg);
 		mv.addObject("num",board.getNum());
 		mv.setViewName("redirect:/board/list");
+		MemberVO user = memberService.getMember(r);
+		if(!user.getId().equals(board.getWriter())){
+			mv.setViewName("redirect:/board/list");
+		}
 		return mv;
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public ModelAndView deletePost(ModelAndView mv, Integer num) {
-		int res = boardService.deleteBoard(num);
+	public ModelAndView deletePost(ModelAndView mv, Integer num, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
+		int res = boardService.deleteBoard(num, user);
 		if(res != 0) {
 			mv.addObject("msg",num+"번 게시글을 삭제 했습니다.");
 		} else {

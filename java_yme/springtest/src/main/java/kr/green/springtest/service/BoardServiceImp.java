@@ -42,11 +42,13 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public void insertBoard(BoardVO board, MemberVO user) {
-		if(user == null || user.getId() == null || user.getId().trim().length() == 0) {
+		if(board == null || board.getTitle().trim().length() == 0) {
 			return;
 		}
+		if(user == null || user.getId() == null || user.getId().trim().length() == 0)
+			return;
 		board.setWriter(user.getId());
-		boardDao.insertBoard(board);	
+		boardDao.insertBoard(board);
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int deleteBoard(Integer num) {
+	public int deleteBoard(Integer num , MemberVO user) {
 		if(num == null) {
 			return 0;
 		}

@@ -18,7 +18,7 @@ public interface BoardService {
 
 	int updateBoard(BoardVO board);
 
-	int deleteBoard(Integer num);
+	int deleteBoard(Integer num, MemberVO user);
 
 	int getTotalCount(Criteria cri);
 
