@@ -29,8 +29,15 @@
 		<label>내용</label>
 		<textarea class="form-control" readonly>${board.contents}</textarea>
 	</div>
-	<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-success">수정</button></a>
-	<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-success">삭제</button></a>
-	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-success">목록</button></a>
+		<div class="input-group">
+			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-success">목록</button></a>
+			<c:if test="${board != null && user.id == board.writer }">
+				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-success">수정</button></a>
+					<form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
+						<input type="hidden" value="${board.num }" name="num">
+					<button class="btn btn-outline-success">삭제</button>
+				</form>
+			</c:if>
+		</div>
 </div>
 </body>
