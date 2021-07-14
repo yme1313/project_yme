@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-sm bg-info navbar-dark">
   <!-- Brand -->
-  <a class="navbar-brand" href="#">Logo</a>
+  <a class="navbar-brand" href="#">웹개발자</a>
 
   <!-- Links -->
   <ul class="navbar-nav">
@@ -32,7 +32,7 @@
 	       <a class="dropdown-item" href="<%=request.getContextPath()%>/signup">회원가입</a>
 	    </c:if> 
 	    <c:if test="${user != null}">
-	       <a class="dropdown-item" href="<%=request.getContextPath()%>/mypage">마이 페이지</a>
+	       <a class="dropdown-item" href="<%=request.getContextPath()%>/member/mypage">마이 페이지</a>
 	       <a class="dropdown-item" href="<%=request.getContextPath()%>/signout">로그아웃</a>
 	     </c:if> 
       </div>

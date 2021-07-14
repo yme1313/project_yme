@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form class="container" method="post" action="<%=request.getContextPath()%>/mypage">
+<form class="container" method="post" action="<%=request.getContextPath()%>/member/mypage">
 	<h1>마이 페이지</h1>
 	<div class="form-group">
 		<label>아이디</label>

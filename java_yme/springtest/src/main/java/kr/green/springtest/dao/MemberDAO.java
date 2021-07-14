@@ -9,4 +9,6 @@ public interface MemberDAO {
 	public MemberVO getMember(@Param("id")String id);
 
 	void insertMember(@Param("user")MemberVO user);
+
+	public int updateMember(@Param("user")MemberVO dbUser);
 }
