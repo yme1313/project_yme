@@ -66,7 +66,7 @@ public class BoardController {
 		mv.addObject("board",board);
 		mv.setViewName("board/modify");
 		MemberVO user = memberService.getMember(r);
-		if(board == null || board.getWriter().equals(user.getId())) {
+		if(board == null || !board.getWriter().equals(user.getId())) {
 			mv.setViewName("redirect:/board/list");
 		}
 		return mv;
