@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.pagination.Criteria;
@@ -35,7 +36,7 @@ public class BoardController {
 		int totalCount = boardService.getTotalCount(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
-		//서비스에게 모든 게시글을 가져오라고 시킴
+		//서비스에게 모든 게시글을 가져오라고 시킴x
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		//화면에 모든 게시글을 전송
 		mv.addObject("list",list);
@@ -62,11 +63,11 @@ public class BoardController {
 	}
 	//화면에서 보내준 제목, 작성자, 내용을 받아서 콘솔에 출력
 	@RequestMapping(value="/board/register", method=RequestMethod.POST)
-	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+	public ModelAndView boardRegisterPost(ModelAndView mv, BoardVO board, HttpServletRequest request, MultipartFile file) {
 		MemberVO user = memberService.getMember(request);
 		board.setWriter(user.getId());
 		//서비스에게 게시글을 등록하라고 시킴
-		boardService.insertBoard(board);
+		boardService.insertBoard(board, file);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
