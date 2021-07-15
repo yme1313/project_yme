@@ -1,0 +1,10 @@
+1. 첨부파일 선택하는 화면 추가(input태그 추가)
+2.서버에 실제 첨부파일을 전송하기 위한 작업(form태그에 enctype속성 추가)
+3. 서버에서 화면에서 보낸 첨부파일 받아옴
+4. 서버에서 첨부파일 업로딩
+5. 업로딩된 첨부파일 정보 DB 저장
+
+<input type="file" name="file"> 요소가 화면에 있으면
+컨트롤러에 있는 MultipartFIle file는 null이 아님 (파일 선택 여부에 상관없이)
+ - 파일을 선택 안하면 getOriginalFilename()이 빈 문자열,
+ - 파일을 선택하면 getOriginalFilename()이 빈문자열이 아님
