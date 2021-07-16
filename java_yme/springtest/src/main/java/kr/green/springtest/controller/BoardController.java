@@ -16,6 +16,7 @@ import kr.green.springtest.pagination.PageMaker;
 import kr.green.springtest.service.BoardService;
 import kr.green.springtest.service.MemberService;
 import kr.green.springtest.vo.BoardVO;
+import kr.green.springtest.vo.FileVO;
 import kr.green.springtest.vo.MemberVO;
 import lombok.extern.log4j.Log4j;
 
@@ -46,6 +47,10 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("msg",msg);
 		mv.addObject("board",board);
+		
+		ArrayList<FileVO> fileList = boardService.getFileList(num);
+		mv.addObject("fileList",fileList);
+		log.info(fileList);
 		mv.setViewName("/template/board/detail");
 		return mv;
 	}

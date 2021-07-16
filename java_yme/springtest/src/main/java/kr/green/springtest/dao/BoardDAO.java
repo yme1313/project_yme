@@ -21,4 +21,6 @@ public interface BoardDAO {
 	int getTotalCount(@Param("cri")Criteria cri);
 
 	void insertFile(@Param("file")FileVO fvo);
+
+	ArrayList<FileVO> getFileList(@Param("num")Integer num);
 }

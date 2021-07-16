@@ -52,4 +52,7 @@
 	<insert id="insertFile">
 		insert into file(board,name,ori_name) values(#{file.board}, #{file.name}, #{file.ori_name})
 	</insert>
+	<select id="getFileList" resultType="kr.green.springtest.vo.FileVO">
+	 	select * from file where state = 'I' and board = #{num}
+	</select>
 </mapper>

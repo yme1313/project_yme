@@ -29,6 +29,14 @@
 		<label>내용</label>
 		<textarea class="form-control" name="contents" rows="5" readonly>${board.contents}</textarea>
 	</div>
+	<c:if test="${fileList.size() != 0 }">
+		<div class="form-group">
+			<label>첨부파일</label>
+				<c:forEach items="${fileList}" var="file">
+					<a href="#" class="form-control mb-1">${file.ori_name}</a>
+				</c:forEach>
+		</div>
+	</c:if>
 		<div class="input-group">
 			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-danger">목록</button></a>
 			<c:if test="${board != null && user.id == board.writer }">
