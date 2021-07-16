@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.springtest.pagination.Criteria;
@@ -36,7 +37,7 @@ public class BoardController {
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
 		mv.addObject("pm",pm);
 		mv.addObject("list", list);
-		mv.setViewName("board/list");
+		mv.setViewName("/template/board/list");
 		return mv;
 	}
 	@RequestMapping(value="/detail")
@@ -45,18 +46,18 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("msg",msg);
 		mv.addObject("board",board);
-		mv.setViewName("board/detail");
+		mv.setViewName("/template/board/detail");
 		return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView registerGet(ModelAndView mv) {
-		mv.setViewName("board/register");
+		mv.setViewName("/template/board/register");
 		return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest r, MultipartFile[] files) {
 		MemberVO user = memberService.getMember(r);
-		boardService.insertBoard(board, user);
+		boardService.insertBoard(board, user, files);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
@@ -64,7 +65,7 @@ public class BoardController {
 	public ModelAndView modifyGet(ModelAndView mv, Integer num, HttpServletRequest r) {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board",board);
-		mv.setViewName("board/modify");
+		mv.setViewName("/template/board/modify");
 		MemberVO user = memberService.getMember(r);
 		if(board == null || !board.getWriter().equals(user.getId())) {
 			mv.setViewName("redirect:/board/list");

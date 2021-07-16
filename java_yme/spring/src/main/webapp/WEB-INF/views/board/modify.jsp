@@ -20,48 +20,51 @@
 		<label>내용</label>
 		<textarea class="form-control" rows="10" name="contents">${board.contents}</textarea>
 	</div>
+	<div class="form-group files">
+		<label>첨부파일</label>
+		<c:forEach items="${fileList}" var="file">
+			<div class="form-control attach">
+				<span>${file.ori_name}</span><button type="button" class="del-btn">X</button>
+				<input type="hidden" name="fileNum" value="${file.num}">
+			</div>
+		</c:forEach>
+		<c:if test="${fileList == null || fileList.size() < 3}">
+			<input type="file" class="form-control" name="file" data=""/>
+		</c:if>
+	</div>
 	<input type="hidden" value="${board.num}" name="num">
 	<input type="hidden" value="${board.views}" name="views">
-		<div class="form-group files">
-	        <label>첨부파일</label>
-	        <c:forEach items="${fileList}" var="file">
-	       		<div class="form-control">${file.ori_name}<button type="button" class="del-btn">x</button></div>
-	   		</c:forEach>
-	   		<c:if test="${fileList == null || fileList.size() <3 }">
-	   			<input type="file" class="form-control" name="file" data=""/>
-	   		</c:if>
-	    </div>
-	<button type="submit" class="btn btn-outline-success">수정</button>
+	<button type="submit" class="btn btn-outline-success">등록</button>
 </form>
 <script type="text/javascript">
-	$(function(){
-		$('.del-btn').click(function(){
-			var str = '<input type="file" class="form-control" name="file" data=""">';
-			$(this).parent().remove();
-			if($('input[name=file].length ==3')){
+$(function(){
+	$('.del-btn').click(function(){
+		var str = '<input type="file" class="form-control" name="file" data="">';
+		$(this).parent().remove();
+		if($('.attach').length == 2)
+			$('.files').append(str)
+	})
+	$(document).on('change','input[name=file]',function(){
+		var val = $(this).val();
+		var str = '<input type="file" class="form-control" name="file" data=""/>';
+		var length = $('input[name=file]').length + $('.attach').length;
+		var data = $(this).attr('data');
+		//
+		if(val == ''){
+			$(this).remove();
+			if(length == 3 && $('input[name=file]').last().val() != '' ){
 				$('.files').append(str);
 			}
-		})
-		$(document).on('change','input[name=file]',function(){
-			var val = $(this).val();
-			var str = '<input type="file" class="form-control" name="file" data=""/>';
-			var length = $('input[name=file]').length;
-			var data = $(this).attr('data');
-			//파일을 선택했다가 취소하는 경우
-			if(val == ''){
-				$(this).remove();
-				if(legnth == 3 && $('input[name=file]').last().val() != ''){
-					$('.files').append(str);
-				}
-			} 
-			//input 태그를 추가해야하는 경우
-			else {
-				if(length < 3 && data == ''){
-					$('.files').append(str);
-				}
-				$(this).attr('data',val);
+		}
+		//input 태그를 추가해야하는 경우
+		else{
+			if( length < 3 && data == '' ){
+				$('.files').append(str);
 			}
-		})
+			$(this).attr('data',val);
+		}
 	})
+})
 </script>
 </body>
+</html>

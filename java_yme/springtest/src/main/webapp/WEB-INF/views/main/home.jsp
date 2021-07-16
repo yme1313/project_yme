@@ -4,17 +4,10 @@
 <!doctype html>
 <html>
 <head>
-<style>
-	.jumbotron{
-		margin-bottom : 0;
-	}
-</style>
+	<title>메인</title>
+
 </head>
 <body>
-	<div class="footer">
-	  <div class="jumbotron">
-	    <h1>푸터</h1>        
-	    </div>
-	</div>
+
 </body>
 </html>

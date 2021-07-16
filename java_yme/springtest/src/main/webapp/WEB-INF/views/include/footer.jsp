@@ -13,7 +13,7 @@
 <body>
 	<div class="footer">
 	  <div class="jumbotron">
-	    <h1>푸터</h1>        
+	    <h1>연습</h1>        
 	    </div>
 	</div>
 </body>

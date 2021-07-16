@@ -4,28 +4,48 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.springtest.service.MemberService;
 import kr.green.springtest.vo.MemberVO;
-
+import lombok.extern.log4j.Log4j;
+@Log4j
 @Controller
 public class HomeController {
 	@Autowired
-    MemberService memberService;
-	
+	MemberService memberService;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home(ModelAndView mv) {
-		mv.setViewName("home");
+		mv.setViewName("/template/main/home");
 		return mv;
 	}
-	@GetMapping(value="signin")
+	
+	@GetMapping(value="/signup")
+	public ModelAndView signupGet(ModelAndView mv) {
+		mv.setViewName("/template2/member/signup");
+		return mv;
+	}
+	/* 매개변수 user를 하면 객체가 생성된 후, 화면에서 전달한 name과 일치하는 변수명을 가진  
+	 * 멤버 변수의 setter를 이용하여 값을 재설정
+	 * 일반적으로 매개변수는 객체를 자동으로 생성하는건 아님.
+	 * */
+	@PostMapping(value="/signup")
+	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
+		memberService.signup(user);
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	@GetMapping(value="/signin")
 	public ModelAndView signinGet(ModelAndView mv) {
-		mv.setViewName("member/signin");
+		mv.setViewName("/template2/member/signin");
 		return mv;
 	}
-	@PostMapping(value="signin")
+	@PostMapping(value="/signin")
 	public ModelAndView signinPost(ModelAndView mv, MemberVO user) {
 		MemberVO loginUser = memberService.signin(user);
 		if(loginUser != null)
@@ -35,24 +55,9 @@ public class HomeController {
 		mv.addObject("user",loginUser);
 		return mv;
 	}
-	@GetMapping(value="signup")
-	public ModelAndView signupGet(ModelAndView mv) {
-		mv.setViewName("member/signup");
-		return mv;
-	}
-	/* 매개변수 user를 하면 객체가 생성된 후, 화면에서 전달한 name과 일치하는 변수명을 가진  
-	 * 멤버 변수의 setter를 이용하여 값을 재설정
-	 * 일반적으로 매개변수는 객체를 자동으로 생성하는건 아님.
-	 * */
-	@PostMapping(value="signup")
-	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
-		memberService.signup(user);
-		mv.setViewName("redirect:/");
-		return mv;
-	}
-	@GetMapping(value="member/mypage")
-	public ModelAndView mypageGet(ModelAndView mv) {
-		mv.setViewName("member/mypage");
+	@GetMapping(value="/member/mypage")
+	public ModelAndView memberMypageGet(ModelAndView mv) {
+		mv.setViewName("/template/member/mypage");
 		return mv;
 	}
 	@PostMapping(value="/member/mypage")
@@ -69,8 +74,8 @@ public class HomeController {
 		mv.setViewName("redirect:/member/mypage");
 		return mv;
 	}
-	@GetMapping(value="/signout")
-	public ModelAndView signoutGet(ModelAndView mv, HttpServletRequest r) {
+	@GetMapping(value="/member/signout")
+	public ModelAndView memberSignoutGet(ModelAndView mv, HttpServletRequest r) {
 		r.getSession().removeAttribute("user");
 		mv.setViewName("redirect:/");
 		return mv;

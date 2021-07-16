@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.green.springtest.pagination.Criteria;
 import kr.green.springtest.vo.BoardVO;
+import kr.green.springtest.vo.FileVO;
 
 public interface BoardDAO {
 
@@ -18,4 +19,6 @@ public interface BoardDAO {
 	void insertBoard(@Param("board")BoardVO board);
 
 	int getTotalCount(@Param("cri")Criteria cri);
+
+	void insertFile(@Param("file")FileVO fvo);
 }
