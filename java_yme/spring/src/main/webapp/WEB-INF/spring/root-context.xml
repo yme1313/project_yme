@@ -19,7 +19,7 @@
 		              <!-- 추후에 spring부분으로 데이터베이스 이름으로 변경 -->
 		    </property>
 		    <property name="username" value="root"></property>
-		    <property name="password" value="331934"></property>
+		    <property name="password" value="cjgreen"></property>
 		</bean>  
 		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		    <property name="dataSource" ref="dataSource" />

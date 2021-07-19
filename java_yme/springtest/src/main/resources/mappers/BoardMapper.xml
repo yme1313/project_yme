@@ -55,4 +55,7 @@
 	<select id="getFileList" resultType="kr.green.springtest.vo.FileVO">
 	 	select * from file where state = 'I' and board = #{num}
 	</select>
+	<update id="deleteFile">
+		update file set state = 'D' where num = #{num}
+	</update>
 </mapper>
