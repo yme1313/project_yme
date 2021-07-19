@@ -71,6 +71,10 @@ public class BoardController {
 	public ModelAndView modifyGet(ModelAndView mv, Integer num, HttpServletRequest r) {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board",board);
+		//첨부파일 가져옴
+		ArrayList<FileVO> fileList = boardService.getFileList(num);
+		//화면에 첨부파일 전송
+		mv.addObject("fileList", fileList);
 		mv.setViewName("/template/board/modify");
 		MemberVO user = memberService.getMember(r);
 		if(board == null || !board.getWriter().equals(user.getId())) {
@@ -79,9 +83,9 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ModelAndView modifyPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+	public ModelAndView modifyPost(ModelAndView mv, BoardVO board, HttpServletRequest r, MultipartFile[] files, Integer[] fileNums) {
 		MemberVO user = memberService.getMember(r);
-		int res = boardService.updateBoard(board, user);
+		int res = boardService.updateBoard(board, user, files, fileNums);
 		String msg = "";
 		mv.setViewName("redirect:/board/detail");
 		if(res == 1) {
