@@ -16,10 +16,12 @@
 
 <form class="container" method="post" action="<%=request.getContextPath()%>/signup" id=signup>
 	<h1>회원가입</h1>
+
 	<div class="form-group">
 		<label>아이디</label>
 		<input type="text" class="form-control" name="id">
 	</div>
+	<button id="dupCheck" type="button" class="col-12 btn btn-outline-success">아이디 중복 확인</button>
 	<div class="form-group">
 		<label>비밀번호</label>
 		<input type="password" class="form-control" name="pw" id="pw">
@@ -47,6 +49,25 @@
 </form>
 <script type="text/javascript">
 	$(function(){
+		$('#dupCheck').click(function(){
+			var id = $('[name=id]').val();
+			$.ajax({
+				type : 'get',
+				url : '<%=request.getContextPath()%>/member/idcheck/' + id,
+				success : function(result, status, xhr){
+					if(result == 'POSSIBLE'){
+						alert('사용 가능한 아이디입니다.')
+					} else {
+						alert('사용 불가능한 아이디입니다.')
+					}
+				},
+				error : function(xhr, status, error){
+					
+				}
+				
+			})
+		})
+		
 	    $("#signup").validate({
 	        rules: {
 	        	//name값

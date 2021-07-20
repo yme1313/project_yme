@@ -4,8 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.spring.service.MemberService;
@@ -23,7 +28,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signinGet(ModelAndView mv) {
-		mv.setViewName("/template2/member/signin");
+		mv.setViewName("/template/member/signin");
 		return mv;
 	}
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
@@ -46,7 +51,7 @@ public class HomeController {
 	}
 	@RequestMapping(value="/signup", method = RequestMethod.GET)
 	public ModelAndView signupGet(ModelAndView mv) {
-		mv.setViewName("/template2/member/signup");
+		mv.setViewName("/template/member/signup");
 		return mv;
 	}
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
@@ -87,5 +92,21 @@ public class HomeController {
 		request.getSession().removeAttribute("user");
 		mv.setViewName("redirect:/");
 		return mv;
+	}
+	@ResponseBody
+	@GetMapping(value="/member/idcheck/{id}")
+	public String memberIdcheckPost(@PathVariable("id") String id) {
+		MemberVO user = memberService.getMember(id);
+		String res = user != null ? "IMPOSSIBLE" : "POSSIBLE"; 
+		return res;
+	}
+	@ResponseBody
+	@PostMapping(value="/member/signin")
+	public String memberSigninPost(@RequestBody MemberVO user, HttpServletRequest r) {
+		MemberVO dbUser = memberService.signin(user);
+		if(dbUser != null) {
+			r.getSession().setAttribute("user", dbUser);
+		}
+		return dbUser != null ? "success" : "fail";
 	}
 }
