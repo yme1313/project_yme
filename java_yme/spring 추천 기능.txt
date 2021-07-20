@@ -1,0 +1,15 @@
+@RestController = @Controller + @ResponseBody
+
+@ResponseBody : 서버에서 전송하는 데이터가 화면이 아닌 데이터 자체가 된다.
+
+추천 기능
+추천을 누르면 추천이 됨, 이미 추천되어 있으면 추천을 취소
+비추천을 누르면 비추천이 됨, 이미 비추천되어 있으면 비추천을 취소
+
+recommend(추천)
+ - num : 기본키
+ - board : 게시글 번호
+ - id : 사용자
+ - state : 추천/비추천/아무것도 아닌지
+
+ENGINE=InnoDB DEFAULT CHARSET=utf8;

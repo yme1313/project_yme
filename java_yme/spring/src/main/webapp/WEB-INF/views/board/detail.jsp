@@ -26,6 +26,10 @@
 		<input type="text" class="form-control" value="${board.views}" readonly>
 	</div>
 	<div class="form-group">
+		<button type="button" class="re-btn up btn btn-outline-success">추천</button>
+		<button type="button" class="re-btn down btn btn-outline-danger">비추천</button>
+	</div>
+	<div class="form-group">
 		<label>내용</label>
 		<div class="form-control" style="height : auto;">${board.contents}</div>
 	</div>
@@ -48,4 +52,44 @@
 			</c:if>
 		</div>
 </div>
+<script type="text/javascript">
+$(function(){
+	$('.re-btn').click(function(){
+		//추천 버튼이면 state를 1로, 비추천버튼이면 state를 -1로
+		var state = $(this).hasClass('up') ? 1 : -1;
+		var num = '<c:out value="${board.num}"></c:out>'
+		$.ajax({
+			type : 'get',
+			url : '<%=request.getContextPath()%>/board/recommend/' + state + '/' + num,
+			dataType : "json",
+			success : function(res, status, xhr){
+				var str = '';
+				var str2 = '';
+				if(state == 1){
+					str2 = '추천';
+				} else {
+					str2 = '비추천';
+				}
+				if(res.result == 0){
+					str = '이 취소되었습니다.';
+				} else if (res.result == 1){
+					str = '이 되었습니다.';
+				} else {
+					str = '추천/비추천은 회원만 가능합니다.'
+				}
+				if(res.result != -1){
+					alert(str2+str);
+				} else {
+					alert(str);
+				}
+			},
+			error : function(xhr, status, e){
+				
+			}
+		})
+		
+	})
+})
+</script>
 </body>
+</html>
