@@ -41,6 +41,23 @@
 				</c:forEach>
 		</div>
 	</c:if>
+    <div class="reply form-group">
+    	<label>댓글</label>
+      	<div class="contents">
+      	  <div class="reply-list input group">
+      	 	 <div class="form-group">
+	      	  	<label>작성자</label>
+	      	  	<div class="form-control">내용</div>
+	      	 </div>
+      	  </div>
+          <div class="reply-box form-group">
+	          <textarea class="reply-input form-control mb-1"></textarea>
+	         	<div align="right">
+	        		<button type="button" class="reply-btn btn btn-outline-success">등록</button>
+	        	</div>
+     	  </div>
+      </div>
+    </div>
 		<div class="input-group">
 			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-success">목록</button></a>
 			<c:if test="${board != null && user.id == board.writer }">
