@@ -20,7 +20,7 @@ public class BoardVO {
 	private int up;
 	private int down;
 	public String getRegisterdDate() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(registered);
 	}
 }
