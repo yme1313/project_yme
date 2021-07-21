@@ -7,11 +7,12 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/reply.js"></script>
 </head>
 <body>
+<c:if test="${board != null}">
 <div class="container">
 	<h2>게시판</h2>
 	<div class="form-group">
 		<label>제목</label>
-		<input type="text" class="form-control" value="<c:out value="${board.title}"/>" readonly>
+		<input type="text" class="form-control" value="${board.title}" readonly>
 	</div>
 	<div class="form-group">
 		<label>작성자</label>
@@ -19,7 +20,8 @@
 	</div>
 	<div class="form-group">
 		<label>작성일</label>
-		<input type="text" class="form-control" value="${board.registerdDate}" readonly>
+		<input type="text" class="form-control" value="${board.registeredDate}" readonly>
+		<!-- ${board.getRegisteredDate()} -->
 	</div>
 	<div class="form-group">
 		<label>조회수</label>
@@ -27,46 +29,47 @@
 	</div>
 	<div class="form-group">
 		<button type="button" class="re-btn up btn btn<c:if test="${rvo.state != 1 }">-outline</c:if>-success">추천</button>
-		<button type="button" class="re-btn down btn btn<c:if test="${rvo.state != -1 }">-outline</c:if>-success">비추천</button>
+		<button type="button" class="re-btn down btn btn<c:if test="${rvo.state != -1 }">-outline</c:if>-success">비추</button>
 	</div>
 	<div class="form-group">
 		<label>내용</label>
-		<div class="form-control" style="height : auto;">${board.contents}</div>
+		<div class="form-control" style="height:auto;">${board.contents}</div>
 	</div>
 	<c:if test="${fileList.size() != 0 }">
 		<div class="form-group">
 			<label>첨부파일</label>
-				<c:forEach items="${fileList}" var="file">
-					<a href="<%=request.getContextPath()%>/board/download?fileName=${file.name}" class="form-control mb-1">${file.ori_name}</a>
-				</c:forEach>
+			<c:forEach items="${fileList}" var="file">
+				<a href="<%=request.getContextPath()%>/board/download?fileName=${file.name}" class="form-control mb-2">${file.ori_name}</a>
+			</c:forEach>
 		</div>
 	</c:if>
-    <div class="reply form-group">
-    	<label>댓글</label>
-      	<div class="contents">
-      	  <div class="reply-list"></div>
-      	  	  <ul class="pagination justify-content-center">
-
-			  </ul>
-          <div class="reply-box form-group">
-	          <textarea class="reply-input form-control mb-1"></textarea>
-	         	<div align="right">
-	        		<button type="button" class="reply-btn btn btn-outline-success">등록</button>
-	        	</div>
-     	  </div>
-      </div>
-    </div>
-		<div class="input-group">
-			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-success">목록</button></a>
-			<c:if test="${board != null && user.id == board.writer }">
-				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-success">수정</button></a>
-					<form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
-						<input type="hidden" value="${board.num }" name="num">
-					<button class="btn btn-outline-success">삭제</button>
-				</form>
-			</c:if>
+	<div class="reply form-group">
+		<label>댓글</label>
+		<div class="contents">
+			<div class="reply-list">
+			</div>
+			<ul class="pagination justify-content-center">
+				
+			</ul>
+			<div class="reply-box form-group">
+				<textarea class="reply-input form-control mb-2" ></textarea>
+				<button type="button" class="reply-btn btn btn-outline-success">등록</button>
+			</div>
 		</div>
+	</div>
+	<c:if test="${user != null && user.id == board.writer}">
+		<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-success">수정</button></a>
+		<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-success">삭제</button></a>
+	</c:if>
+	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-success">목록</button></a>
 </div>
+</c:if>
+<c:if test="${board ==null}">
+<div class="container">
+	<h1>삭제되거나 존재하지 않은 게시글입니다.</h1>
+	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-success">목록</button></a>
+</div>
+</c:if>
 <script type="text/javascript">
 $(function(){
 	$('.re-btn').click(function(){
@@ -140,6 +143,7 @@ $(function(){
 				if(result == 'ok'){
 					alert('댓글 등록이 완료 되었습니다.');
 					readReply('${board.num}',1);
+					$('.reply-input').val('');
 				}
 			},
 			error : function(xhr, status, e){
@@ -149,6 +153,24 @@ $(function(){
 		})
 	})
 	readReply('${board.num}',1);
+	$(document).on('click','.pagination .page-item',function(){
+		var page = $(this).attr('data');
+		readReply('${board.num}',page);	
+	})
+	$(document).on('click','.del-btn',function(){
+		var rp_num = $(this).attr('data');
+		$.ajax({
+			type:'post',
+			url : '<%=request.getContextPath()%>/reply/del',
+			data: JSON.stringify({'rp_num' : rp_num}),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr){
+				readReply('${board.num}',1);
+			},
+			error : function(xhr, status, e){
+			}
+		})
+	})
 })
 function readReply(rp_bd_num, page){
 	$.ajax({
@@ -164,8 +186,9 @@ function readReply(rp_bd_num, page){
 						'<label>'+list[i].rp_me_id+'</label>'+
 						'<div class="form-control">'+list[i].rp_content+'</div>'+
 					'</div>';
+				if('${user.id}' == list[i].rp_me_id)
+					str += '<button class="btn btn-outline-danger del-btn" data="'+list[i].rp_num+'">삭제</button>';
 			}
-			
 			$('.reply-list').html(str);
 			var pm = result['pm'];
 			var pmStr = '';
@@ -174,7 +197,10 @@ function readReply(rp_bd_num, page){
 			}
 			
 			for(i=pm['startPage']; i<=pm['endPage']; i++){
-				pmStr += '<li class="page-item" data="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
+				var active = '';
+				if(i == pm['criteria']['page'])
+					active = 'active';
+				pmStr += '<li class="page-item '+active+'" data="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
 			}
 			//
 			
