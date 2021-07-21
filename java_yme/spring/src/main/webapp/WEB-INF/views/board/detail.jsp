@@ -44,9 +44,10 @@
     <div class="reply form-group">
     	<label>댓글</label>
       	<div class="contents">
-      	  <div class="reply-list input group">
+      	  <div class="reply-list"></div>
+      	  	  <ul class="pagination justify-content-center">
 
-      	  </div>
+			  </ul>
           <div class="reply-box form-group">
 	          <textarea class="reply-input form-control mb-1"></textarea>
 	         	<div align="right">
@@ -69,40 +70,44 @@
 <script type="text/javascript">
 $(function(){
 	$('.re-btn').click(function(){
-		//추천 버튼이면 state를 1로, 비추천버튼이면 state를 -1로
+		//추천 버튼이면 state를 1로, 비추 버튼이면 state를 -1로
 		var state = $(this).hasClass('up') ? 1 : -1;
-		var num = '<c:out value="${board.num}"></c:out>'
+		var num = '<c:out value="${board.num}"/>'
 		var obj = $(this);
 		$.ajax({
-			type : 'get',
+			type: 'get',
 			url : '<%=request.getContextPath()%>/board/recommend/' + state + '/' + num,
 			dataType : "json",
 			success : function(res, status, xhr){
 				var str = '';
 				var str2 = '';
-				if(state == 1){
+				if(state == 1)
 					str2 = '추천';
-				} else {
+				else
 					str2 = '비추천';
-				}
-				if(res.result == 0){
+				
+				if(res.result == 0)
 					str = '이 취소되었습니다.';
-				} else if (res.result == 1){
-					str = '이 되었습니다.';
-				} else {
-					str = '추천/비추천은 회원만 가능합니다.'
-				}
+				else if(res.result == 1)
+					str = '을 했습니다.'
+				else
+					str = '추천/비추천은 회원만 가능합니다..'
+				
 				if(res.result != -1){
 					alert(str2+str);
-				} else {
+				}else{
 					alert(str);
 				}
+					
 				if(res.result == 1){
-					$('.re-btn').removeClass('btn-success').addClass('btn-outline-success')
+					$('.re-btn').removeClass('btn-success').addClass('btn-outline-success');
 					obj.removeClass('btn-outline-success').addClass('btn-success');
-				} else if(res.result == 0){
+				}else if(res.result == 0){
 					obj.removeClass('btn-success').addClass('btn-outline-success');
-				} 
+				}
+				
+				
+				
 			},
 			error : function(xhr, status, e){
 				
@@ -116,51 +121,72 @@ $(function(){
 		var rp_bd_num = '${board.num}';
 		var rp_me_id = '${user.id}';
 		var rp_content = $('.reply-input').val();
-		if(rp_me_id ==''){
+		
+		if(rp_me_id == ''){
 			alert('댓글을 달려면 로그인하세요.');
-			return;
+			return ;
 		}
-		var data = {'rp_bd_num' : rp_bd_num, 
-					'rp_me_id' : rp_me_id,
-					'rp_content' : rp_content}
+		
+		var data = {
+				'rp_bd_num' : rp_bd_num, 
+				'rp_me_id'  : rp_me_id, 
+				'rp_content': rp_content};
 		$.ajax({
-			type : 'post',
+			type:'post',
 			url : '<%=request.getContextPath()%>/reply/ins',
-			data : JSON.stringify(data),
+			data: JSON.stringify(data),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr){
 				if(result == 'ok'){
-					alert('댓글 등록이 완료되었습니다.');
-					readReply();
+					alert('댓글 등록이 완료 되었습니다.');
+					readReply('${board.num}',1);
 				}
 			},
-			error : function(xhr, status, error){
+			error : function(xhr, status, e){
 				
 			}
+			
 		})
 	})
+	readReply('${board.num}',1);
 })
-function readReply(){
+function readReply(rp_bd_num, page){
 	$.ajax({
-		type : 'get',
-		url : '<%=request.getContextPath()%>/reply/list/' + '${board.num}',
+		type:'get',
+		url : '<%=request.getContextPath()%>/reply/list/'+ rp_bd_num + '/' + page,
 		dataType : "json",
 		success : function(result, status, xhr){
 			var list = result['list'];
 			var str = '';
-			for(i = 0 ; i < list.length ; i++){
-				 str += 
-			      	'<div class="form-group">' +
-		      	  		'<label>' + list[i].rp_me_id + '</label>' +
-		      	  		'<div class="form-control">' + list[i].rp_content + '</div>' +
-		      	    '</div>';
+			for(i = 0; i<list.length; i++){
+				str += 
+					'<div class="form-group">'+
+						'<label>'+list[i].rp_me_id+'</label>'+
+						'<div class="form-control">'+list[i].rp_content+'</div>'+
+					'</div>';
 			}
+			
 			$('.reply-list').html(str);
-
+			var pm = result['pm'];
+			var pmStr = '';
+			if(pm['prev']){
+				pmStr += '<li class="page-item" data="'+(pm['startPage']-1)+'"><a class="page-link" href="javascript:void(0);">이전</a></li>';	
+			}
+			
+			for(i=pm['startPage']; i<=pm['endPage']; i++){
+				pmStr += '<li class="page-item" data="'+i+'"><a class="page-link" href="javascript:void(0);">'+i+'</a></li>';
+			}
+			//
+			
+			if(pm['next']){
+				pmStr += '<li class="page-item" data="'+(pm['endPage']+1)+'"><a class="page-link" href="javascript:void(0);">다음</a></li>';	
+			}
+			$('.pagination').html(pmStr);
 		},
-		error : function(xhr, status, error){
+		error : function(xhr, status, e){
 			
 		}
+		
 	})
 }
 </script>
