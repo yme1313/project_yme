@@ -1,0 +1,26 @@
+CREATE TABLE `recommend` (
+  `num` int NOT NULL AUTO_INCREMENT,
+  `id` varchar(15) NOT NULL,
+  `board` int NOT NULL,
+  `state` int NOT NULL,
+  PRIMARY KEY (`num`),
+  KEY `id2_idx` (`id`),
+  KEY `board2_idx` (`board`),
+  CONSTRAINT `board2` FOREIGN KEY (`board`) REFERENCES `board` (`num`),
+  CONSTRAINT `id2` FOREIGN KEY (`id`) REFERENCES `member` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3
+
+CREATE TABLE `reply` (
+  `rp_num` int NOT NULL AUTO_INCREMENT,
+  `rp_bd_num` int NOT NULL,
+  `rp_me_id` varchar(15) NOT NULL,
+  `rp_content` longtext NOT NULL,
+  `rp_valid` varchar(1) NOT NULL DEFAULT 'I',
+  `rp_regDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `rp_upDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`rp_num`),
+  KEY `rp_me_id_idx` (`rp_me_id`),
+  KEY `rp_bd_num_idx` (`rp_bd_num`),
+  CONSTRAINT `rp_bd_num` FOREIGN KEY (`rp_bd_num`) REFERENCES `board` (`num`),
+  CONSTRAINT `rp_me_id` FOREIGN KEY (`rp_me_id`) REFERENCES `member` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3
