@@ -9,7 +9,7 @@
 	position : relative;
 	}
 	img{
-	position : absolute; top : 15vh; left : 20vw;
+	position : absolute; top : 13vh; left : 25%;
 	}
 </style>
 </head>

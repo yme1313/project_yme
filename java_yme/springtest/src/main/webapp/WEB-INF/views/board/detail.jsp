@@ -69,7 +69,7 @@
 		<div class="reply form-group">
 			<label>댓글</label>
 			<div class="contents">
-				<div class="reply-list">작성자</div>
+				<div class="reply-list"></div>
 				<div class="reply-box form-group">
 					<textarea class="reply-input form-control mb-2" ></textarea>
 					<div class="float-right">
@@ -126,7 +126,14 @@ $(function(){
 		})
 	})
 	$('.reply-btn').click(function(){
+		var rp_bd_num = '${board.num}';
+		var rp_me_id = '${user.id}';
+		var rp_content = $('.reply-input').val();
 		
+		if(rp_me_id == ''){
+			alert('댓글을 달려면 로그인하세요.');
+			return ;
+		}
 	})
 })
 
