@@ -10,10 +10,12 @@ public interface ReplyService {
 
 	void insertReply(ReplyVO reply);
 
-	ArrayList<ReplyVO> getReplyList(Integer num, Criteria cri );
+	ArrayList<ReplyVO> getReplyList(Integer num, Criteria cri);
 
 	int getTotalCount(Integer num);
 
 	String deleteReply(ReplyVO reply, MemberVO user);
+
+	String updateReply(ReplyVO reply, MemberVO user);
 
 }

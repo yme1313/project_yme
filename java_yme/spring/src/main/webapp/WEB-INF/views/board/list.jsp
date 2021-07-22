@@ -38,7 +38,7 @@
 					<td>${board.num}</td>
 					<td><a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">${board.title}</a></td>
 					<td>${board.writer}</td>
-					<td>${board.registerdDate}</td>
+					<td>${board.getRegisteredDate()}</td>
 					<td>${board.views}</td>
 					<td>${board.up}/${board.down}</td>
 				</tr>
