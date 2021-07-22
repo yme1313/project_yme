@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>게시판</h1>'
+		<h1>게시판</h1>
 	  <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/board/list">
 		  <select class="form-control mr-2" name="type">
 		  	<option value="0" <c:if test="${pm.criteria.type == 0}">selected</c:if>>전체</option>
