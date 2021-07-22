@@ -4,7 +4,14 @@
 <!doctype html>
 <html>
 <head>
-
+<style>
+	.re-btn{
+	font-size : 40px; color : skyblue;
+	}
+	.fa-thumbs-down{
+		transform : rotateY(180deg);
+	}
+</style>
 </head>
 <body>
 <div class="container">
@@ -24,6 +31,28 @@
 	<div class="form-group">
 		<label>조회수</label>
 		<input type="text" class="form-control" name="views" value="${board.views}" readonly>
+	</div>
+	<div class="form-group">
+		<a href="#" class="re-btn up">
+			<c:choose>
+				<c:when test="${recommend != null && recommend.state == 1 }">
+					<i class="fas fa-thumbs-up"></i>
+				</c:when>
+				<c:otherwise>
+					<i class="far fa-thumbs-up"></i>
+				</c:otherwise>
+			</c:choose>
+		</a>
+		<a href="#" class="re-btn down">
+			<c:choose>
+				<c:when test="${recommend != null && recommend.state == -1 }">
+					<i class="fas fa-thumbs-down"></i>
+				</c:when>
+				<c:otherwise>
+					<i class="far fa-thumbs-down"></i>
+				</c:otherwise>
+			</c:choose>
+		</a>
 	</div>
 	<div class="form-group">
 		<label>내용</label>
@@ -53,7 +82,39 @@ $(function(){
 	var msg = '${msg}';
 	printMsg(msg);
 	history.replaceState({},null,null);
+	
+	$('.re-btn').click(function(e){
+		e.preventDefault();
+		var board = '${board.num}';
+		var state = $(this).hasClass('up') ? 1 : -1;
+		$.ajax({
+			type:'get',
+			url : '<%=request.getContextPath()%>/board/recommend/'+board +'/' +state,
+			success : function(result, status, xhr){
+				$('.re-btn i').removeClass('fas').addClass('far');
+				if(result == 'UP'){
+					alert('해당 게시글을 추천했습니다.');
+					$('.re-btn.up i').addClass('fas');
+				}else if(result == 'DOWN'){
+					alert('해당 게시글을 비추천했습니다.');
+					$('.re-btn.down i').addClass('fas');
+				}else if(result == 'GUEST'){
+					alert('추천/비추천을 하려면 로그인을 하세요.');
+				}else if(result == 'CANCEL'){
+					if(state == 1){
+						alert('추천을 취소했습니다.')
+					}else{
+						alert('비추천을 취소했습니다.');
+					}
+				}
+			},
+			error : function(xhr, status, e){
+				console.log('에러 발생');
+			}
+		})
+	})
 })
+
 function printMsg(msg){
 	if(msg == '' || history.state){
 		return ;

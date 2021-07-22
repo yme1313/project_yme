@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +22,7 @@ import kr.green.springtest.service.MemberService;
 import kr.green.springtest.vo.BoardVO;
 import kr.green.springtest.vo.FileVO;
 import kr.green.springtest.vo.MemberVO;
+import kr.green.springtest.vo.RecommendVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -44,14 +47,19 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value="/detail")
-	public ModelAndView detail(ModelAndView mv, Integer num, String msg) {
+	public ModelAndView detail(ModelAndView mv, Integer num, String msg, HttpServletRequest r) {
 		boardService.updateViews(num);
 		BoardVO board = boardService.getBoard(num);
-		mv.addObject("msg",msg);
-		mv.addObject("board",board);
+		mv.addObject("board", board);
+		mv.addObject("msg", msg);
 		
 		ArrayList<FileVO> fileList = boardService.getFileList(num);
 		mv.addObject("fileList",fileList);
+		
+		MemberVO user = memberService.getMember(r);
+		RecommendVO rvo = boardService.getRecommend(num, user);
+		mv.addObject("recommend", rvo);
+		
 		mv.setViewName("/template/board/detail");
 		return mv;
 	}
@@ -115,9 +123,19 @@ public class BoardController {
 		return mv;
 	}
 	@ResponseBody
-	@RequestMapping("/board/download")
+	@RequestMapping("/download")
 	public ResponseEntity<byte[]> downloadFile(String fileName)throws Exception{
 		ResponseEntity<byte[]> entity = boardService.downloadFile(fileName);
 		return entity;
+	}
+	
+	@ResponseBody
+	@GetMapping("/recommend/{board}/{state}")
+	public String boardRecommend(
+			@PathVariable("board") int board,
+			@PathVariable("state") int state,
+			HttpServletRequest r){
+		MemberVO user = memberService.getMember(r);
+		return boardService.recommend(board,state,user);
 	}
 }

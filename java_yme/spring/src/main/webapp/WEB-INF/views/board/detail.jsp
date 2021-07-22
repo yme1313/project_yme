@@ -96,7 +96,7 @@ $(function(){
 				else if(res.result == 1)
 					str = '을 했습니다.'
 				else
-					str = '추천/비추천은 회원만 가능합니다..'
+					str = '추천/비추천은 회원만 가능합니다.'
 				
 				if(res.result != -1){
 					alert(str2+str);

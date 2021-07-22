@@ -10,6 +10,7 @@ import kr.green.springtest.pagination.Criteria;
 import kr.green.springtest.vo.BoardVO;
 import kr.green.springtest.vo.FileVO;
 import kr.green.springtest.vo.MemberVO;
+import kr.green.springtest.vo.RecommendVO;
 
 public interface BoardService {
 
@@ -30,5 +31,9 @@ public interface BoardService {
 	ArrayList<FileVO> getFileList(Integer num);
 
 	ResponseEntity<byte[]> downloadFile(String fileName) throws IOException;
+
+	String recommend(int board, int state, MemberVO user);
+
+	RecommendVO getRecommend(Integer num, MemberVO user);
 
 }
