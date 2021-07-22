@@ -4,8 +4,18 @@
 <!doctype html>
 <html>
 <head>
-	<title>메인</title>
+<style>
+	.box{
+	position : relative;
+	}
+	img{
+	position : absolute; top : 15vh; left : 20vw;
+	}
+</style>
 </head>
 <body>
+	<div class="box">
+		<img src="<%=request.getContextPath()%>/resources/img/winter.gif">
+	</div>
 </body>
 </html>

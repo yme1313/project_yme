@@ -66,13 +66,25 @@
 				</c:forEach>
 		</div>
 	</c:if>
+		<div class="reply form-group">
+			<label>댓글</label>
+			<div class="contents">
+				<div class="reply-list">작성자</div>
+				<div class="reply-box form-group">
+					<textarea class="reply-input form-control mb-2" ></textarea>
+					<div class="float-right">
+						<button type="button" class="reply-btn btn btn-outline-info">등록</button>
+					</div>	
+				</div>
+			</div>
+		</div>
 		<div class="input-group">
-			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-danger">목록</button></a>
+			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-info">목록</button></a>
 			<c:if test="${board != null && user.id == board.writer }">
-				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-danger">수정</button></a>
+				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-info">수정</button></a>
 					<form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
 						<input type="hidden" value="${board.num }" name="num">
-					<button class="btn btn-outline-danger">삭제</button>
+					<button class="btn btn-outline-info">삭제</button>
 				</form>
 			</c:if>
 		</div>
@@ -112,6 +124,9 @@ $(function(){
 				console.log('에러 발생');
 			}
 		})
+	})
+	$('.reply-btn').click(function(){
+		
 	})
 })
 
