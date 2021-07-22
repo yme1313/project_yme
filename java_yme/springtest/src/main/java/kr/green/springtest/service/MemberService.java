@@ -14,5 +14,7 @@ public interface MemberService {
 
 	public MemberVO updateMember(MemberVO user, MemberVO sUser);
 
+	public MemberVO getMember(String id);
+
 }
  

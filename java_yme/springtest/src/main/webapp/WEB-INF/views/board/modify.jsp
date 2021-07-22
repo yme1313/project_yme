@@ -4,7 +4,8 @@
 <!doctype html>
 <html>
 <head>
-
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
 <form class="container" method="post" action="<%=request.getContextPath()%>/board/modify" enctype="multipart/form-data">
@@ -19,7 +20,7 @@
 	</div>
 	<div class="form-group">
 		<label>내용</label>
-		<textarea class="form-control" name="contents" rows="5">${board.contents}</textarea>
+		<textarea id="summernote" name="contents"></textarea>
 	</div>
 	<div class="form-group file-box">
 		<label>첨부파일</label>
@@ -44,6 +45,12 @@ $(function(){
 		$(this).parent().remove();
 		$('.file-box').append('<input type="file" class="form-control mb-2" name="files">');
 	})
+	
+    $('#summernote').summernote({
+        placeholder: '내용을 입력하세요.',
+        tabsize: 2,
+        height: 300
+     });
 })
 </script>
 </body>

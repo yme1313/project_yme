@@ -73,6 +73,14 @@ public class MemberServiceImp implements MemberService {
 		memberDao.updateMember(sUser);
 		return sUser;
 	}
+
+	@Override
+	public MemberVO getMember(String id) {
+		if(id == null || id.length() ==0) {
+			return null;
+		}
+		return memberDao.getMember(id);
+	}
 }
 
 

@@ -5,9 +5,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.springtest.service.MemberService;
@@ -27,7 +29,7 @@ public class HomeController {
 	
 	@GetMapping(value="/signup")
 	public ModelAndView signupGet(ModelAndView mv) {
-		mv.setViewName("/template2/member/signup");
+		mv.setViewName("/template/member/signup");
 		return mv;
 	}
 	/* 매개변수 user를 하면 객체가 생성된 후, 화면에서 전달한 name과 일치하는 변수명을 가진  
@@ -42,7 +44,7 @@ public class HomeController {
 	}
 	@GetMapping(value="/signin")
 	public ModelAndView signinGet(ModelAndView mv) {
-		mv.setViewName("/template2/member/signin");
+		mv.setViewName("/template/member/signin");
 		return mv;
 	}
 	@PostMapping(value="/signin")
@@ -74,10 +76,17 @@ public class HomeController {
 		mv.setViewName("redirect:/member/mypage");
 		return mv;
 	}
-	@GetMapping(value="/member/signout")
+	@GetMapping(value="/signout")
 	public ModelAndView memberSignoutGet(ModelAndView mv, HttpServletRequest r) {
 		r.getSession().removeAttribute("user");
 		mv.setViewName("redirect:/");
 		return mv;
+	}
+	@ResponseBody
+	@GetMapping(value="/idCheck/{id}")
+	public String memberIdCheckGet(@PathVariable("id")String id) {
+		MemberVO user = memberService.getMember(id);
+		String res = user != null ? "IMPOSSIBLE" : "POSSIBLE";
+		return res;
 	}
 }

@@ -27,7 +27,7 @@
 	</div>
 	<div class="form-group">
 		<label>내용</label>
-		<textarea class="form-control" name="contents" rows="5" readonly>${board.contents}</textarea>
+		<div class="form-control" style="height:auto;">${board.contents}</div>
 	</div>
 	<c:if test="${fileList.size() != 0 }">
 		<div class="form-group">
@@ -48,17 +48,17 @@
 			</c:if>
 		</div>
 	</div>
-	<script type="text/javascript">
-	$(function(){
-		var msg = '${msg}';
-		printMsg(msg);
-		history.replaceState({},null,null);
-	})
-	function printMsg(msg){
-		if(msg == '' || history.state){
-			return ;
-		}
-		alert(msg);
+<script type="text/javascript">
+$(function(){
+	var msg = '${msg}';
+	printMsg(msg);
+	history.replaceState({},null,null);
+})
+function printMsg(msg){
+	if(msg == '' || history.state){
+		return ;
 	}
-	</script>
+	alert(msg);
+}
+</script>
 </body>
