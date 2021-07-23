@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kr.green.springtest.pagination.Criteria;
 import kr.green.springtest.pagination.PageMaker;
+import kr.green.springtest.service.MemberService;
 import kr.green.springtest.service.ReplyService;
+import kr.green.springtest.vo.MemberVO;
 import kr.green.springtest.vo.ReplyVO;
 import lombok.AllArgsConstructor;
 
@@ -20,6 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ReplyController {
 	private ReplyService replyService;
+	private MemberService memberService;
 	
 	@PostMapping("/reply/ins")
 	public String replyInsPost(@RequestBody ReplyVO rvo) {
@@ -40,6 +45,11 @@ public class ReplyController {
 		map.put("pm", pm);
 		//xml형태로 전송
 		return map;
+	}
+	@PostMapping("/reply/del")
+	public String replyDelPost(@RequestBody ReplyVO rvo, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
+		return replyService.deleteReply(rvo, user);
 	}
 
 

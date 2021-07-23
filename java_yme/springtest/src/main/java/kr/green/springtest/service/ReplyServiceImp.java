@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import kr.green.springtest.dao.ReplyDAO;
 import kr.green.springtest.pagination.Criteria;
+import kr.green.springtest.vo.MemberVO;
 import kr.green.springtest.vo.ReplyVO;
 import lombok.AllArgsConstructor;
 
@@ -31,6 +32,11 @@ public class ReplyServiceImp implements ReplyService{
 	@Override
 	public int getTotalCount(int rp_bd_num) {
 		return replyDao.getTotalCount(rp_bd_num);
+	}
+
+	@Override
+	public String deleteReply(ReplyVO rvo, MemberVO user) {
+		return null;
 	}
 
 

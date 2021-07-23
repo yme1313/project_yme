@@ -76,6 +76,7 @@
 				  </ul>
 				<div class="reply-box form-group">
 					<textarea class="reply-input form-control mb-2" ></textarea>
+
 					<div class="float-right">
 						<button type="button" class="reply-btn btn btn-outline-info">등록</button>
 					</div>	
@@ -97,6 +98,8 @@
 	//전역변수
 	//게시글 번호
 	var rp_bd_num = '${board.num}'
+	//아이디
+	var id = '${user.id}'
 	//프로젝트명
 	var contextPath = '<%=request.getContextPath()%>'
 	$(function(){
@@ -136,9 +139,7 @@
 		})
 	})
 	$(function(){
-		
-		replyService.list(contextPath, rp_bd_num, 1);
-		
+		replyService.list(contextPath, rp_bd_num, 1, id);
 		$('.reply-btn').click(function(){
 			var rp_bd_num = '${board.num}';
 			var rp_content = $('.reply-input').val();
@@ -156,7 +157,20 @@
 		})
 		$(document).on('click','.pagination .page-item',function(){
 			var page = $(this).attr('data');
-			replyService.list(contextPath,rp_bd_num,page);
+			replyService.list(contextPath, rp_bd_num, page, id);
+		})
+		$(document).on('click','.del-btn',function(){
+			var rp_num = $(this).attr('data');
+			var data = {'rp_num' : rp_num};
+			$.ajax({
+				type:'post',
+				url : contextPath + '/reply/del',
+				data: JSON.stringify(data),
+				contentType : "application/json; charset=utf-8",
+				success : function(result, status, xhr){
+					console.log(result);
+				}
+			})
 		})
 	})
 
