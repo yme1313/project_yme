@@ -4,6 +4,7 @@
 <!doctype html>
 <html>
 <head>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/reply.js"></script>
 <style>
 	.re-btn{
 	font-size : 40px; color : skyblue;
@@ -69,7 +70,10 @@
 		<div class="reply form-group">
 			<label>댓글</label>
 			<div class="contents">
-				<div class="reply-list"></div>
+				<div class="reply-list form-group"></div>
+				  <ul class="pagination justify-content-center">
+
+				  </ul>
 				<div class="reply-box form-group">
 					<textarea class="reply-input form-control mb-2" ></textarea>
 					<div class="float-right">
@@ -89,59 +93,78 @@
 			</c:if>
 		</div>
 	</div>
-<script type="text/javascript">
-$(function(){
-	var msg = '${msg}';
-	printMsg(msg);
-	history.replaceState({},null,null);
-	
-	$('.re-btn').click(function(e){
-		e.preventDefault();
-		var board = '${board.num}';
-		var state = $(this).hasClass('up') ? 1 : -1;
-		$.ajax({
-			type:'get',
-			url : '<%=request.getContextPath()%>/board/recommend/'+board +'/' +state,
-			success : function(result, status, xhr){
-				$('.re-btn i').removeClass('fas').addClass('far');
-				if(result == 'UP'){
-					alert('해당 게시글을 추천했습니다.');
-					$('.re-btn.up i').addClass('fas');
-				}else if(result == 'DOWN'){
-					alert('해당 게시글을 비추천했습니다.');
-					$('.re-btn.down i').addClass('fas');
-				}else if(result == 'GUEST'){
-					alert('추천/비추천을 하려면 로그인을 하세요.');
-				}else if(result == 'CANCEL'){
-					if(state == 1){
-						alert('추천을 취소했습니다.')
-					}else{
-						alert('비추천을 취소했습니다.');
+	<script type="text/javascript">
+	//전역변수
+	//게시글 번호
+	var rp_bd_num = '${board.num}'
+	//프로젝트명
+	var contextPath = '<%=request.getContextPath()%>'
+	$(function(){
+		var msg = '${msg}';
+		printMsg(msg);
+		history.replaceState({},null,null);
+		
+		$('.re-btn').click(function(e){
+			e.preventDefault();
+			var board = '${board.num}';
+			var state = $(this).hasClass('up') ? 1 : -1;
+			$.ajax({
+				type:'get',
+				url : '<%=request.getContextPath()%>/board/recommend/'+board +'/' +state,
+				success : function(result, status, xhr){
+					$('.re-btn i').removeClass('fas').addClass('far');
+					if(result == 'UP'){
+						alert('해당 게시글을 추천했습니다.');
+						$('.re-btn.up i').addClass('fas');
+					}else if(result == 'DOWN'){
+						alert('해당 게시글을 비추천했습니다.');
+						$('.re-btn.down i').addClass('fas');
+					}else if(result == 'GUEST'){
+						alert('추천/비추천을 하려면 로그인을 하세요.');
+					}else if(result == 'CANCEL'){
+						if(state == 1){
+							alert('추천을 취소했습니다.')
+						}else{
+							alert('비추천을 취소했습니다.');
+						}
 					}
+				},
+				error : function(xhr, status, e){
+					console.log('에러 발생');
 				}
-			},
-			error : function(xhr, status, e){
-				console.log('에러 발생');
-			}
+			})
 		})
 	})
-	$('.reply-btn').click(function(){
-		var rp_bd_num = '${board.num}';
-		var rp_me_id = '${user.id}';
-		var rp_content = $('.reply-input').val();
+	$(function(){
 		
-		if(rp_me_id == ''){
-			alert('댓글을 달려면 로그인하세요.');
-			return ;
-		}
+		replyService.list(contextPath, rp_bd_num, 1);
+		
+		$('.reply-btn').click(function(){
+			var rp_bd_num = '${board.num}';
+			var rp_content = $('.reply-input').val();
+			var rp_me_id = '${user.id}';
+			if(rp_me_id == ''){
+				alert('로그인 하세요.');
+				return;
+			}
+			var data = {
+					'rp_bd_num' : rp_bd_num,
+					'rp_content': rp_content,
+					'rp_me_id'  : rp_me_id
+			};
+			replyService.insert(contextPath, data);
+		})
+		$(document).on('click','.pagination .page-item',function(){
+			var page = $(this).attr('data');
+			replyService.list(contextPath,rp_bd_num,page);
+		})
 	})
-})
 
-function printMsg(msg){
-	if(msg == '' || history.state){
-		return ;
+	function printMsg(msg){
+			if(msg == '' || history.state){
+				return ;
+			}
+			alert(msg);
 	}
-	alert(msg);
-}
-</script>
+	</script>
 </body>
