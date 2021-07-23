@@ -76,7 +76,6 @@
 				  </ul>
 				<div class="reply-box form-group">
 					<textarea class="reply-input form-control mb-2" ></textarea>
-
 					<div class="float-right">
 						<button type="button" class="reply-btn btn btn-outline-info">등록</button>
 					</div>	
@@ -158,6 +157,29 @@
 		$(document).on('click','.pagination .page-item',function(){
 			var page = $(this).attr('data');
 			replyService.list(contextPath, rp_bd_num, page, id);
+		})
+		$(document).on('click','.mod-btn',function(){
+			var contentObj = $(this).parent().prev().children().last()
+			var str = 
+				'<div class="reply-mod-box form-group">' +
+					'<textarea class="reply-input form-control mb-2" >'+ contentObj.text() +'</textarea>' +
+					'<button type="button" class="reply-mod-btn btn btn-outline-info">등록</button>' +
+				'</div>'
+			contentObj.after(str).remove();
+			$(this).parent().remove();	
+		})
+		$(document).on('click','.reply-mod-btn',function(){
+			var rp_num = $(this).attr('data')
+			var data = {'rp_num' : rp_num};
+			$.ajax({
+				type:'post',
+				url : contextPath + '/reply/mod',
+				data: JSON.stringify(data),
+				contentType : "application/json; charset=utf-8",
+				success : function(result, status, xhr){
+					console.log(result);
+				}
+			})
 		})
 		$(document).on('click','.del-btn',function(){
 			var rp_num = $(this).attr('data');

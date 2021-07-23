@@ -39,5 +39,13 @@ public class ReplyServiceImp implements ReplyService{
 		return null;
 	}
 
+	@Override
+	public int updateReply(ReplyVO rvo, MemberVO user) {
+		if(rvo == null || user == null || user.getId().length() == 0) {
+			return -1;
+		}
+		return replyDao.updateReply(rvo,user);
+	}
+
 
 }

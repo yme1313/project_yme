@@ -51,6 +51,11 @@ public class ReplyController {
 		MemberVO user = memberService.getMember(r);
 		return replyService.deleteReply(rvo, user);
 	}
+	@PostMapping("/reply/mod")
+	public int replyUpdatePost(@RequestBody ReplyVO rvo, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
+		return replyService.updateReply(rvo, user);
+	}
 
 
 }

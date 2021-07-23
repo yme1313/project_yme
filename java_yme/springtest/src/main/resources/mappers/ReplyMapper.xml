@@ -17,4 +17,11 @@
 		select count(*) from reply 
 			where rp_bd_num = #{rp_bd_num} and rp_valid = 'I'
 	</select>
+	<update id="updateReply">
+		update reply set
+			rp_content = #{rvo.rp_content},
+			rp_upDate = now(),
+			rp_valid = #{rvo.rp_valid}
+			where rp_valid = 'I' and rp_num = #{rvo.rp_num}
+	</update>
 </mapper>
