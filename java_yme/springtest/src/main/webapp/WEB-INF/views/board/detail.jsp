@@ -185,7 +185,6 @@
 		$(document).on('click','.del-btn',function(){
 			var rp_num = $(this).attr('data');
 			var data = {
-					rp_num : rp_num,
 					rp_me_id : id,
 					rp_num : rp_num,
 					rp_bd_num : rp_bd_num

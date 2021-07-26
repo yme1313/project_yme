@@ -33,7 +33,7 @@ var replyService = (function(){
 						'</div>';
 					if(reply['rp_me_id'] == id){	 	
 						str += '<div>'
-						str += '<button type="button" class="btn btn-outline-info mod-btn" data="'+reply['rp_num']+'">수정</button>'
+						str += '<button type="button" class="btn btn-outline-info mod-btn mr-1" data="'+reply['rp_num']+'">수정</button>'
 						str += '<button type="button" class="btn btn-outline-info del-btn" data="'+reply['rp_num']+'">삭제</button>'
 						str += '</div>'
 					}
