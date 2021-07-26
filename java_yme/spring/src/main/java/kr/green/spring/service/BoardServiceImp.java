@@ -27,7 +27,7 @@ import kr.green.spring.vo.RecommendVO;
 public class BoardServiceImp implements BoardService {
 	@Autowired
 	BoardDAO boardDao;
-	private String uploadPath = "D:\\\\JAVA_YME\\\\project_yme\\\\uploadfiles";
+	private String uploadPath = "D:\\JAVA_YME\\project_yme\\uploadfiles";
 	
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {

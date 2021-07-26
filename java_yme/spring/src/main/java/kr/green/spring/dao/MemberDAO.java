@@ -1,4 +1,6 @@
 package kr.green.spring.dao;
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.spring.vo.MemberVO;
@@ -9,6 +11,10 @@ public interface MemberDAO {
 	void signup(@Param("user")MemberVO user);
 
 	int updateMember(@Param("user")MemberVO dbUser);
+
+	ArrayList<MemberVO> getMemberEmail(@Param("email")String email);
+
+	
 
 
 }
