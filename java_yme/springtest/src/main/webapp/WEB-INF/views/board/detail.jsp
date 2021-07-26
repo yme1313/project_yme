@@ -158,41 +158,40 @@
 			var page = $(this).attr('data');
 			replyService.list(contextPath, rp_bd_num, page, id);
 		})
-		$(document).on('click','.mod-btn',function(){
-			var contentObj = $(this).parent().prev().children().last()
+		$(document).on('click','.mod-btn', function(){
+			var contentObj = $(this).parent().prev().children().last();
+			var rp_num = $(this).attr('data');
 			var str = 
-				'<div class="reply-mod-box form-group">' +
-					'<textarea class="reply-input form-control mb-2" >'+ contentObj.text() +'</textarea>' +
-					'<button type="button" class="reply-mod-btn btn btn-outline-info">등록</button>' +
-				'</div>'
+				'<div class="reply-mod-box form-group">'+
+					'<textarea class="reply-input form-control mb-2" >'+contentObj.text()+'</textarea>'+
+					'<button type="button" class="reply-mod-btn btn btn-outline-info" data="'+rp_num+'">등록</button>'+
+				'</div>';
 			contentObj.after(str).remove();
-			$(this).parent().remove();	
-		})
+			
+			$(this).parent().remove();
+		});
 		$(document).on('click','.reply-mod-btn',function(){
-			var rp_num = $(this).attr('data')
-			var data = {'rp_num' : rp_num};
-			$.ajax({
-				type:'post',
-				url : contextPath + '/reply/mod',
-				data: JSON.stringify(data),
-				contentType : "application/json; charset=utf-8",
-				success : function(result, status, xhr){
-					console.log(result);
-				}
-			})
+			var rp_content = $(this).siblings('.reply-input').val();
+			var rp_num = $(this).attr('data');
+			var data = {
+					rp_content : rp_content,
+					rp_me_id : id,
+					rp_num : rp_num,
+					rp_bd_num : rp_bd_num
+				};
+			var page = $('.pagination .active a').text();
+			replyService.modify(contextPath, data, page);
 		})
 		$(document).on('click','.del-btn',function(){
 			var rp_num = $(this).attr('data');
-			var data = {'rp_num' : rp_num};
-			$.ajax({
-				type:'post',
-				url : contextPath + '/reply/del',
-				data: JSON.stringify(data),
-				contentType : "application/json; charset=utf-8",
-				success : function(result, status, xhr){
-					console.log(result);
-				}
-			})
+			var data = {
+					rp_num : rp_num,
+					rp_me_id : id,
+					rp_num : rp_num,
+					rp_bd_num : rp_bd_num
+				};
+			var page = $('.pagination .active a').text();
+			replyService.deleteReply(contextPath, data, page);
 		})
 	})
 

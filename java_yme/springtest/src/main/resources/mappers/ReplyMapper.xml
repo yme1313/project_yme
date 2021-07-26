@@ -17,11 +17,15 @@
 		select count(*) from reply 
 			where rp_bd_num = #{rp_bd_num} and rp_valid = 'I'
 	</select>
+	<select id="getReply" resultType="kr.green.springtest.vo.ReplyVO">
+		select * from reply 
+			where rp_num = #{rp_num} and rp_valid = 'I'
+	</select>
 	<update id="updateReply">
 		update reply set
-			rp_content = #{rvo.rp_content},
+			rp_content = #{dbReply.rp_content},
 			rp_upDate = now(),
-			rp_valid = #{rvo.rp_valid}
-			where rp_valid = 'I' and rp_num = #{rvo.rp_num}
+			rp_valid = #{dbReply.rp_valid}
+			where rp_num = #{dbReply.rp_num}
 	</update>
 </mapper>

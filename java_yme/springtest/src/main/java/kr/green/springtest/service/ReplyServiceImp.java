@@ -33,18 +33,30 @@ public class ReplyServiceImp implements ReplyService{
 	public int getTotalCount(int rp_bd_num) {
 		return replyDao.getTotalCount(rp_bd_num);
 	}
-
 	@Override
-	public String deleteReply(ReplyVO rvo, MemberVO user) {
-		return null;
-	}
-
-	@Override
-	public int updateReply(ReplyVO rvo, MemberVO user) {
-		if(rvo == null || user == null || user.getId().length() == 0) {
-			return -1;
+	public String updateReply(ReplyVO rvo) {
+		if(rvo == null || rvo.getRp_num() <= 0 || rvo.getRp_me_id() == null || rvo.getRp_me_id().length() ==0) {
+			return "FAIL";
 		}
-		return replyDao.updateReply(rvo,user);
+		ReplyVO dbReply = replyDao.getReply(rvo.getRp_num());
+		if(!rvo.getRp_me_id().equals(dbReply.getRp_me_id())) {
+			return "FAIL";
+		}
+		dbReply.setRp_content(rvo.getRp_content());
+		return replyDao.updateReply(dbReply) == 1 ? "SUCCESS" : "FAIL";
+		
+	}
+	@Override
+	public String deleteReply(ReplyVO rvo) {
+		if(rvo == null || rvo.getRp_num() <= 0 || rvo.getRp_me_id() == null || rvo.getRp_me_id().length() ==0) {
+			return "FAIL";
+		}
+		ReplyVO dbReply = replyDao.getReply(rvo.getRp_num());
+		if(!rvo.getRp_me_id().equals(dbReply.getRp_me_id())) {
+			return "FAIL";
+		}
+		dbReply.setRp_valid("D");
+		return replyDao.updateReply(dbReply) == 1? "DELETE_SUCCESS" : "DELETE_FAIL";
 	}
 
 

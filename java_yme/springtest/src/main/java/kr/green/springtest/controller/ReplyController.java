@@ -46,16 +46,15 @@ public class ReplyController {
 		//xml형태로 전송
 		return map;
 	}
-	@PostMapping("/reply/del")
-	public String replyDelPost(@RequestBody ReplyVO rvo, HttpServletRequest r) {
-		MemberVO user = memberService.getMember(r);
-		return replyService.deleteReply(rvo, user);
-	}
 	@PostMapping("/reply/mod")
-	public int replyUpdatePost(@RequestBody ReplyVO rvo, HttpServletRequest r) {
-		MemberVO user = memberService.getMember(r);
-		return replyService.updateReply(rvo, user);
+	public String replyUpdatePost(@RequestBody ReplyVO rvo) {
+		return replyService.updateReply(rvo);
 	}
+	@PostMapping("/reply/del")
+	public String replyDelPost(@RequestBody ReplyVO rvo) {
+		return replyService.deleteReply(rvo);
+	}
+
 
 
 }
