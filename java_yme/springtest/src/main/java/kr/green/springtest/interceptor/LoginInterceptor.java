@@ -39,7 +39,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    		loginCookie.setMaxAge(amount);
 	    		response.addCookie(loginCookie);
 	    		Date session_limit = new Date(System.currentTimeMillis() + (1000*amount));
-	    		memberService.keeplogin(user.getId(), session.getId(), session_limit);
+	    		memberService.keepLogin(user.getId(), session.getId(), session_limit);
 	    	}
 	        session.setAttribute("user", user);
 	    }

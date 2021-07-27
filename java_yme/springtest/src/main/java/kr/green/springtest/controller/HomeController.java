@@ -94,7 +94,7 @@ public class HomeController {
 			loginCookie.setPath("/");
 			loginCookie.setMaxAge(0);
 			response.addCookie(loginCookie);
-			memberService.keeplogin(user.getId(), "none", new Date());
+			memberService.keepLogin(user.getId(), "none", new Date());
 			}
 		}
 		mv.setViewName("redirect:/");

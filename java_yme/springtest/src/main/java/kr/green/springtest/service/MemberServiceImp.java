@@ -26,8 +26,10 @@ public class MemberServiceImp implements MemberService {
 		MemberVO dbUser = memberDao.getMember(user.getId());
 		if(dbUser == null)
 			return null;
-		if(passwordEncoder.matches(user.getPw(), dbUser.getPw()))
+		if(passwordEncoder.matches(user.getPw(), dbUser.getPw())) {
+			dbUser.setUseCookie(user.getUseCookie());
 			return dbUser;
+		}
 		return null;
 	}
 
@@ -85,10 +87,11 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public void keeplogin(String id, String session_id, Date session_limit) {
-		memberDao.keeplogin(id, session_id, session_limit);
-		
+	public void keepLogin(String id, String session_id, Date session_limit) {
+		memberDao.keepLogin(id, session_id, session_limit);
 	}
+		
+		
 
 	@Override
 	public MemberVO checkLoginBefore(String session_id) {

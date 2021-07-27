@@ -14,7 +14,7 @@ public interface MemberDAO {
 
 	public int updateMember(@Param("user")MemberVO dbUser);
 
-	public void keeplogin(@Param("id")String id, @Param("session_id")String session_id, @Param("session_limit")Date session_limit);
+	public void keepLogin(@Param("id")String id, @Param("session_id")String session_id, @Param("session_limit")Date session_limit);
 
 	public MemberVO getMemberBySessionId(@Param("session_id")String session_id);
 }

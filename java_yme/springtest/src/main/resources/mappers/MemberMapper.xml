@@ -18,7 +18,7 @@
 			authority = #{user.authority}
 		where id = #{user.id}
 	</update>
-	<update id="keeplogin">
+	<update id="keepLogin">
 		update member set
 			session_id = #{session_id},
 			session_limit = #{session_limit}

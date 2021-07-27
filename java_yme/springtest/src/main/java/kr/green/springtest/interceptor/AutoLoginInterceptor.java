@@ -13,6 +13,7 @@ import kr.green.springtest.service.MemberService;
 import kr.green.springtest.vo.MemberVO;
 
 public class AutoLoginInterceptor extends HandlerInterceptorAdapter{
+	
 	@Autowired
 	MemberService memberService;
 	@Override

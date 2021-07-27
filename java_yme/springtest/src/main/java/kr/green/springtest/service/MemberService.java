@@ -18,7 +18,7 @@ public interface MemberService {
 
 	public MemberVO getMember(String id);
 
-	public void keeplogin(String id, String session_id, Date session_limit);
+	public void keepLogin(String id, String session_id, Date session_limit);
 
 	public MemberVO checkLoginBefore(String session_id);
 
