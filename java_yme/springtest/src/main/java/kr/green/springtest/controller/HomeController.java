@@ -78,7 +78,7 @@ public class HomeController {
 		MemberVO uUser = memberService.updateMember(user,sUser);
 		if(uUser != null)
 			r.getSession().setAttribute("user", uUser);
-		mv.setViewName("redirect:/member/mypage");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 	@GetMapping(value="/signout")
@@ -106,5 +106,15 @@ public class HomeController {
 		MemberVO user = memberService.getMember(id);
 		String res = user != null ? "IMPOSSIBLE" : "POSSIBLE";
 		return res;
+	}
+	@GetMapping(value="/find/pw")
+	public ModelAndView findPwGet(ModelAndView mv) {
+		mv.setViewName("/template/main/findpw");
+		return mv;
+	}
+	@ResponseBody
+	@GetMapping(value="/find/pw/{id}")
+	public String findPwGet(@PathVariable("id")String id) {
+		return memberService.findPw(id);
 	}
 }
