@@ -1,6 +1,10 @@
 package kr.green.springtest.controller;
 
+import java.util.Date;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.WebUtils;
 
 import kr.green.springtest.service.MemberService;
 import kr.green.springtest.vo.MemberVO;
@@ -77,8 +82,21 @@ public class HomeController {
 		return mv;
 	}
 	@GetMapping(value="/signout")
-	public ModelAndView memberSignoutGet(ModelAndView mv, HttpServletRequest r) {
+	public ModelAndView memberSignoutGet(ModelAndView mv, 
+			HttpServletRequest r,
+			HttpServletResponse response) {
+		MemberVO user = (MemberVO)r.getSession().getAttribute("user");
+		if(user != null) {
 		r.getSession().removeAttribute("user");
+		r.getSession().invalidate();
+		Cookie loginCookie = WebUtils.getCookie(r, "loginCookie");
+		if(loginCookie != null) {
+			loginCookie.setPath("/");
+			loginCookie.setMaxAge(0);
+			response.addCookie(loginCookie);
+			memberService.keeplogin(user.getId(), "none", new Date());
+			}
+		}
 		mv.setViewName("redirect:/");
 		return mv;
 	}

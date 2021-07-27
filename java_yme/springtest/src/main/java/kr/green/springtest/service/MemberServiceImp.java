@@ -1,5 +1,7 @@
 package kr.green.springtest.service;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +82,20 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		}
 		return memberDao.getMember(id);
+	}
+
+	@Override
+	public void keeplogin(String id, String session_id, Date session_limit) {
+		memberDao.keeplogin(id, session_id, session_limit);
+		
+	}
+
+	@Override
+	public MemberVO checkLoginBefore(String session_id) {
+		if(session_id == null) {
+			return null;
+		}
+		return memberDao.getMemberBySessionId(session_id);
 	}
 }
 

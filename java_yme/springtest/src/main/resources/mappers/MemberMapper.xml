@@ -18,4 +18,14 @@
 			authority = #{user.authority}
 		where id = #{user.id}
 	</update>
+	<update id="keeplogin">
+		update member set
+			session_id = #{session_id},
+			session_limit = #{session_limit}
+			where id = #{id}
+	</update>
+	<select id="getMemberBySessionId" resultType="kr.green.springtest.vo.MemberVO">
+		select * from member 
+			where session_id = #{session_id} and session_limit > now()
+	</select>
 </mapper>
