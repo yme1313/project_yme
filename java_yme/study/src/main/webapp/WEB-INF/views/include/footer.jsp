@@ -7,6 +7,6 @@
 
 </head>
 <body>
-	    푸터    
+	   <div>푸터</div>    
 </body>
 </html>

@@ -20,7 +20,7 @@
 		<label>아이디</label>
 		<input type="text" class="form-control" name="id">
 	</div>
-	<button id="dupCheck" type="button" class="col-12 btn btn-outline-warning">아이디 중복 확인</button>
+	<button type="button" class="id-dup-btn col-12 btn btn-outline-warning">아이디 중복 확인</button>
 	<div class="form-group">
 		<label>비밀번호</label>
 		<input type="password" class="form-control" name="pw" id="pw">
@@ -93,6 +93,16 @@ $(function(){
             }
         }
     });
+    $('.id-dup-btn').click(function(){
+    	var id = $('[name=id]').val();
+    	var res = memberService.idCheck(contextPath,id);
+    	if(res){
+    		alert('사용 가능한 아이디입니다.')
+    	} else {
+    		alert('이미 가입된 아이디입니다.')
+    	}
+
+    })
 })
 $.validator.addMethod(
     "regex",
@@ -102,6 +112,31 @@ $.validator.addMethod(
     },
     "Please check your input."
 );
+
+var contextPath = '<%=request.getContextPath()%>';
+var memberService = (function(){
+	function idCheck(contextPath, id){
+		var flag = false;
+    	$.ajax({
+    		async : false,
+    		type : 'post',
+    		url : contextPath + '/id/check',
+    		data : {id :id},
+    		success : function(res){
+    			if(res == "OK"){
+    				flag= true;
+    			} else {
+    				flag= false;
+    			}
+    		}
+    	})
+    	return flag;
+	}
+	return {
+		name : 'memberSerivce',
+		idCheck : idCheck
+	}
+})();
 </script>
 </body>
 </html>
