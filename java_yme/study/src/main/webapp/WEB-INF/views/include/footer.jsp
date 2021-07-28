@@ -4,8 +4,9 @@
 <!doctype html>
 <html>
 <head>
+
 </head>
 <body>
-	<div>푸터</div>
+	    푸터    
 </body>
 </html>
