@@ -26,4 +26,6 @@ public interface MemberService {
 
 	ArrayList<MemberVO> getMemberList(MemberVO user);
 
+	boolean updateAuthority(MemberVO user, MemberVO loginUser);
+
 }
