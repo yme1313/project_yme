@@ -1,5 +1,6 @@
 package kr.green.test.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -133,5 +134,15 @@ public class MemberServiceImp implements MemberService{
 		}
 		return (MemberVO)request.getSession().getAttribute("user");
 	}
+
+	@Override
+	public ArrayList<MemberVO> getMemberList(MemberVO user) {
+		if(user == null || user.getAuthority().equals("USER")) {
+			return null;
+		}
+		return memberDao.selectUserList(user.getAuthority());
+	}
+
+
 	
 }

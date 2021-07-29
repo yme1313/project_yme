@@ -68,11 +68,11 @@
 			<beans:ref bean="guestInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/abcd/"/>
+			<mapping path="/abcd/*"/>
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/admin/*"/>
+			<mapping path="/admin/**/"/>
 			<beans:ref bean="adminInterceptor"/>
 		</interceptor>
 		
