@@ -3,9 +3,11 @@ package kr.green.test.service;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.test.dao.BoardDAO;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.MemberVO;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -25,4 +27,31 @@ public class BoardServiceImp implements BoardService{
 		}
 		return boardDao.selectBoard(num);
 	}
+
+	@Override
+	public void insertBoard(BoardVO board, MultipartFile[] fileList, MemberVO user) {
+		if(board == null || user == null) {
+			return;
+		}
+		board.setWriter(user.getId());
+		board.setGroupOrd(0);
+		boardDao.insertBoard(board);
+		
+	}
+
+	@Override
+	public void insertReplyBoard(BoardVO board, MemberVO user) {
+		if(board == null || user == null) {
+			return;
+		}
+		board.setWriter(user.getId());
+		BoardVO dbBoard = boardDao.selectBoard(board.getOriNo());
+		if(dbBoard == null) {
+			return;
+		}
+		board.setTitle(dbBoard.getTitle());
+		boardDao.insertBoard(board);
+	}
+
+	
 }
