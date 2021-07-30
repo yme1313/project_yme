@@ -7,13 +7,15 @@
 <style>
 	.jumbotron{
 		margin-bottom : 0;
+		hight : 200px;
+		box-sizing : border-box;
 	}
 </style>
 </head>
 <body>
 	<div class="footer">
 	  <div class="jumbotron">
-	    <h1>FOOTER</h1>        
+	    <h1>입금전용계좌 : 111-111111-111111</h1>        
 	    </div>
 	</div>    
 </body>
