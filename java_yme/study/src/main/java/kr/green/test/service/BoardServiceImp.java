@@ -73,7 +73,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public void updateBoard(BoardVO board, MemberVO user, MultipartFile[] fileList, Integer[] fileNumList) {
+	public void updateBoard(BoardVO board, MemberVO user, MultipartFile[] fileList, Integer[] fileNumList) throws Exception {
 		if(board ==null || user == null) {
 			return;
 		}
@@ -85,14 +85,33 @@ public class BoardServiceImp implements BoardService{
 		dbBoard.setContents(board.getContents());
 		boardDao.updateBoard(dbBoard);
 		
-		ArrayList<FileVO> fList = boardDao.selectFileList(board.getNum());
-		//fList에서 첨부파일 번호들만 ArrayList로 변환
-		
-		//배열 fileNumList를 ArrayList로 변환
-		
-		//fList에 있는 첨부파일 번호들 중에서 fileNumList에 없는 첨부파일을 삭제
-		
+		ArrayList<Integer> dbFileNumList = boardDao.selectFileNumList(board.getNum());
+		ArrayList<Integer> inputFileNumList = new ArrayList<Integer>();
+		int dbSize = 0;
+		if(dbFileNumList != null) {
+			dbSize = dbFileNumList.size();
+			//배열 fileNumList를 ArrayList로 변환
+			if(fileNumList != null) {
+				for(Integer tmp : fileNumList) {
+					inputFileNumList.add(tmp);
+					dbSize--;
+				}
+			}	
+			//[1,2,3] 이 있는 게시글에서 [3]만 전달하는 경우 [1,2]를 삭제
+			//dbFileNumList에 있는 첨부파일 번호들 중에서 inputFileNumList에 없는 첨부파일을 삭제
+			for(Integer tmp : dbFileNumList) {
+				if(!inputFileNumList.contains(tmp)) {
+				deleteFile(boardDao.selectFile(tmp));
+				}
+			}
+		}
 		//fileList에 있는 첨부파일 추가
+		if(fileList == null) 
+			return;
+		int size = fileList.length > 3 - dbSize ? 3 - dbSize : fileList.length;
+		for(int i =0 ; i < size; i++) {
+			insertFile(fileList[i], board.getNum());
+		}
 	}
 
 	@Override

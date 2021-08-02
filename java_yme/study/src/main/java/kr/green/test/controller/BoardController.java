@@ -90,7 +90,7 @@ public class BoardController {
 	}
 	@PostMapping("/modify")
 	public ModelAndView boardModifyPost(ModelAndView mv,BoardVO board,
-			HttpServletRequest request, MultipartFile[] fileList, Integer[] fileNumList) {
+			HttpServletRequest request, MultipartFile[] fileList, Integer[] fileNumList) throws Exception {
 		MemberVO user = memberService.getMemberByRequest(request);
 		boardService.updateBoard(board,user,fileList, fileNumList);
 		mv.addObject("num", board.getNum());
