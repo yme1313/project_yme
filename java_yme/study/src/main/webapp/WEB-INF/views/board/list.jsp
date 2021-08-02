@@ -11,6 +11,7 @@
   <table class="table">
     <thead>
       <tr>
+     	<th>번호</th>
         <th>제목</th>
         <th>작성자</th>
         <th>작성일</th>
@@ -20,6 +21,7 @@
     <tbody>
 			<c:forEach items="${list}" var="board">
 				<tr>
+				   <td>${board.num }</td>
 					<td>
 						<a href="<%=request.getContextPath()%>/board/detail?num=${board.num}">
 							<c:if test="${board.groupOrd != 0}">┕답변 :  </c:if>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.FileVO;
 
 public interface BoardDAO {
 
@@ -13,5 +14,19 @@ public interface BoardDAO {
 	BoardVO selectBoard(Integer num);
 
 	void insertBoard(@Param("board")BoardVO board);
+
+	void updateBoard(BoardVO dbBoard);
+
+	void deleteBoard(Integer num);
+
+	void deleteReplyBoard(Integer num);
+
+	void insertFile(FileVO file);
+
+	void updateViews(Integer num);
+
+	ArrayList<FileVO> selectFileList(Integer num);
+
+	void deleteFile(int num);
 
 }
