@@ -35,7 +35,7 @@
 	</div>
 	<div class="form-group">
 		<label>내용</label>
-		<div class="form-control" style="height:auto;">${board.contents}</div>
+		<div class="form-control" style="min-height:400px;">${board.contents}</div>
 	</div>
 		<div class="form-group">
 		<label>첨부파일</label>
@@ -60,17 +60,17 @@
 			</div>
 		</div>
 		<div class="input-group">
-			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-success mb-2">목록</button></a>
+			<a href="<%=request.getContextPath()%>/board${type}/list" class="mr-2"><button class="btn btn-outline-success mb-2">목록</button></a>
 		<c:if test="${user != null && user.id == board.writer }">
-			<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" style="text-decoration: none">
+			<a href="<%=request.getContextPath()%>/board${type}/modify?num=${board.num}" style="text-decoration: none">
 				<button class="btn btn-outline-success mr-2">수정</button>
 			</a>
-			<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}" style="text-decoration: none">
+			<a href="<%=request.getContextPath()%>/board${type}/delete?num=${board.num}" style="text-decoration: none">
 				<button class="btn btn-outline-success mr-2">삭제</button>
 			</a>
 		</c:if>
 		</div>
-		<c:if test="${board.groupOrd == 0 && (user != null && user.authority != 'USER')}">
+		<c:if test="${board.groupOrd == 0 && board.type != 'NOTICE' && (user != null && user.authority != 'USER')}">
 			<a href="<%=request.getContextPath()%>/board/reply/register?oriNo=${board.num}">
 				<button class="btn btn-outline-success">답변</button>
 			</a>

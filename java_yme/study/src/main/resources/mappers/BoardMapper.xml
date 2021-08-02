@@ -5,16 +5,17 @@
 <mapper namespace="kr.green.test.dao.BoardDAO">
 	<select id="selectBoardList" resultType="kr.green.test.vo.BoardVO">
 		select * from board 
-			where valid = 'I'
+			where valid = 'I' and type = #{type}
 			order by oriNo desc, groupOrd asc
+			limit #{pageStart}, #{perPageNum}
 	</select>
 	<select id ="selectBoard" resultType="kr.green.test.vo.BoardVO">
 		select * from board where num = #{num} and valid = 'I'
 	</select>
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.num" parameterType="kr.green.test.vo.BoardVO">
 		insert into 
-			board(title, contents, writer, oriNo, groupOrd)
-			select #{board.title}, #{board.contents}, #{board.writer}, 
+			board(title, contents, writer, type, oriNo, groupOrd)
+			select #{board.title}, #{board.contents}, #{board.writer}, #{board.type}, 
 			<if test="board.oriNo != 0">
 				#{board.oriNo}, ifnull(max(groupOrd)+1,1) from board where oriNo = #{board.oriNo}
 			</if>
@@ -60,6 +61,10 @@
 	</select>
 	<select id="selectFile" resultType="kr.green.test.vo.FileVO">
 		select * from file where num = #{tmp} and state = 'I'
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board
+			where valid = 'I' and type = #{type}
 	</select>
 </mapper>
 

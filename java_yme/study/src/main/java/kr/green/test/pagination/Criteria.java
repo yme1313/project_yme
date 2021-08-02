@@ -6,6 +6,7 @@ import lombok.Data;
 public class Criteria {
 	private int page; 
 	private int perPageNum;
+	private String type;//게시글 타입
 	private String sortType; // id, authority
 	private String sort; //desc, asc
 	public Criteria() {
@@ -13,6 +14,7 @@ public class Criteria {
 		this.perPageNum = 10;
 		this.sortType = "id";
 		this.sort = "asc";
+		this.type = "NORMAL";
 	}
 
 	public int getPageStart() {
