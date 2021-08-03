@@ -18,6 +18,9 @@
   	<li class="nav-item">
       <a class="nav-link" href="<%=request.getContextPath()%>/board/list">일반게시판</a>
     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="<%=request.getContextPath()%>/board/image/list">이미지게시판</a>
+    </li>
   	<c:if test="${user == null}">
     <li class="nav-item">
       <a class="nav-link" href="<%=request.getContextPath()%>/member/signup">회원가입</a>

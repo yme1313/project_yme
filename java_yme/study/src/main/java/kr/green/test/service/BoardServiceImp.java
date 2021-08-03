@@ -172,15 +172,29 @@ public class BoardServiceImp implements BoardService{
 	    }
 	    return entity;
 	}
-	
-	private boolean insertFile(MultipartFile tmp, int num) throws Exception {
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return boardDao.getTotalCount(cri);
+	}
+
+	@Override
+	public void insertBoard(BoardVO board, MultipartFile[] fileList, MemberVO user, MultipartFile mainImage) throws Exception {
+		insertBoard(board, fileList, user);
+		insertFile(mainImage,board.getNum(), "Y");
+	}
+
+	private boolean insertFile(MultipartFile tmp, int num, String thubnail) throws Exception {
 		if(tmp == null || tmp.getOriginalFilename().length() == 0) {
 			return false;
 		}
 		String name = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(), tmp.getBytes());
 		FileVO file = new FileVO(num, name, tmp.getOriginalFilename());
+		file.setThumbnail(thubnail);
 		boardDao.insertFile(file);
-		return true;
+		return true;		
+	}
+	private boolean insertFile(MultipartFile tmp, int num) throws Exception {
+		return insertFile(tmp, num, "N");
 	}
 	private void deleteFile(FileVO tmp) {
 		File file = new File(uploadPath+tmp.getName());
@@ -188,10 +202,4 @@ public class BoardServiceImp implements BoardService{
 			file.delete();
 		boardDao.deleteFile(tmp.getNum());
 	}
-
-	@Override
-	public int getTotalCount(Criteria cri) {
-		return boardDao.getTotalCount(cri);
-	}
-	
 }
