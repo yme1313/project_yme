@@ -15,6 +15,10 @@
 			<input type="text" class="form-control" name="title">
 		</div>
 		<div class="form-group">
+			<label>비밀번호</label>
+			<input type="password" class="form-control" name="pw">
+		</div>
+		<div class="form-group">
 			<label>내용</label>
 			<textarea id="summernote" class="form-control" name="contents" rows="10">${board.contents }</textarea>
 		</div>
@@ -38,6 +42,11 @@ $(function(){
 		//대표 이미지가 선택 됐는지 체크
 		if($('[name=mainImage]').val() == ''){
 			alert('대표 이미지를 선택하세요.')
+			return false;
+		}
+		//비밀번호가 입력했는지 체크
+		if($('[name=pw]').val == ''){
+			alert('비밀번호를 입력해주세요.')
 			return false;
 		}
 		return true;

@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,15 +44,24 @@ public class ImageBoardController {
 			return mv;
 	}
 	@GetMapping("/detail")
-	public ModelAndView detailGet(ModelAndView mv, Integer num) {
-		boardService.updateViews(num);
-		BoardVO board = boardService.getBoard(num);
-		ArrayList <FileVO> fList = boardService.getFileList(num);
-		mv.addObject("fList", fList);
-		mv.addObject("title", "이미지 상세");
-		mv.addObject("board",board);
-		mv.addObject("type","/image");
-		mv.setViewName("/template/board/image/detail");
+	public ModelAndView detailPost(ModelAndView mv, Integer num) {
+		mv.setViewName("redirect:/board/image/list");
+		return mv;
+	}
+	@PostMapping("/detail")
+	public ModelAndView detailGet(ModelAndView mv, BoardVO tmpBoard) {
+		if(boardService.checkBoardPw(tmpBoard)) {
+			boardService.updateViews(tmpBoard.getNum());
+			BoardVO board = boardService.getBoard(tmpBoard.getNum());
+			ArrayList <FileVO> fList = boardService.getFileList(tmpBoard.getNum());
+			mv.addObject("fList", fList);
+			mv.addObject("title", "이미지 상세");
+			mv.addObject("board",board);
+			mv.addObject("type","/image");
+			mv.setViewName("/template/board/image/detail");
+		} else {
+			mv.setViewName("redirect:/board/image/list");
+		}
 		return mv;
 	}
 	@GetMapping("/register")
@@ -111,5 +122,11 @@ public class ImageBoardController {
 		boardService.deleteBoard(num,user);
 		mv.setViewName("redirect:/board/image/list");
 		return mv;
+	}
+	@ResponseBody
+	@PostMapping("/check")
+	public String checkPost(@RequestBody BoardVO board) {
+		return "" + boardService.checkBoardPw(board);
+
 	}
 }
