@@ -36,10 +36,11 @@ $(function(){
 	$('form').submit(function(){
 		//제목 입력했는지 체크, 내용이 입력됐는지 체크해야 하는데 생략
 		//대표 이미지가 선택 됐는지 체크
-		if($'[name=mainImage]').val == ''){
+		if($('[name=mainImage]').val() == ''){
 			alert('대표 이미지를 선택하세요.')
 			return false;
 		}
+		return true;
 	})
     $('#summernote').summernote({
         placeholder: '내용을 입력하세요.',

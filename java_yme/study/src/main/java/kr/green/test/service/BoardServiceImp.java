@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +28,7 @@ public class BoardServiceImp implements BoardService{
 	@Autowired
 	private BoardDAO boardDao;
 	private String uploadPath = "C:\\Users\\yme13\\Desktop\\JAVA\\project_yme\\uploadfiles";
+	private String uploadThumbnailPath = "C:\\Users\\yme13\\Desktop\\JAVA\\project_yme\\java_yme\\study\\src\\main\\webapp\\resources\\img";
 
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {
@@ -99,6 +101,9 @@ public class BoardServiceImp implements BoardService{
 					dbSize--;
 				}
 			}	
+			if(dbBoard.getType().equals("IMAGE")) {
+				dbFileNumList.remove(0);
+			}
 			//[1,2,3] 이 있는 게시글에서 [3]만 전달하는 경우 [1,2]를 삭제
 			//dbFileNumList에 있는 첨부파일 번호들 중에서 inputFileNumList에 없는 첨부파일을 삭제
 			for(Integer tmp : dbFileNumList) {
@@ -183,13 +188,19 @@ public class BoardServiceImp implements BoardService{
 		insertFile(mainImage,board.getNum(), "Y");
 	}
 
-	private boolean insertFile(MultipartFile tmp, int num, String thubnail) throws Exception {
+	private boolean insertFile(MultipartFile tmp, int num, String thumbnail) throws Exception {
 		if(tmp == null || tmp.getOriginalFilename().length() == 0) {
 			return false;
 		}
-		String name = UploadFileUtils.uploadFile(uploadPath, tmp.getOriginalFilename(), tmp.getBytes());
+		String path;
+		if(thumbnail.equals("Y")) {
+			path = uploadThumbnailPath;
+		} else {
+			path = uploadPath;
+		}
+		String name = UploadFileUtils.uploadFile(path, tmp.getOriginalFilename(), tmp.getBytes());
 		FileVO file = new FileVO(num, name, tmp.getOriginalFilename());
-		file.setThumbnail(thubnail);
+		file.setThumbnail(thumbnail);
 		boardDao.insertFile(file);
 		return true;		
 	}
@@ -197,9 +208,36 @@ public class BoardServiceImp implements BoardService{
 		return insertFile(tmp, num, "N");
 	}
 	private void deleteFile(FileVO tmp) {
-		File file = new File(uploadPath+tmp.getName());
+		String path;
+		if(tmp.getThumbnail().equals("Y")) {
+			path = uploadThumbnailPath;
+		} else {
+			path = uploadPath;
+		}
+		File file = new File(path+tmp.getName());
 		if(file.exists())
 			file.delete();
 		boardDao.deleteFile(tmp.getNum());
+	}
+
+	@Override
+	public void getThumbnail(ArrayList<BoardVO> list) {
+		if(list == null || list.size() == 0) 
+			return;
+		for(BoardVO tmp : list) {
+			tmp.setThumbnail(boardDao.selectThumbnail(tmp.getNum()));
+		}
+	}
+
+	@Override
+	public void updateBoard(BoardVO board, MemberVO user, MultipartFile[] fileList, Integer[] fileNumList,
+			MultipartFile mainImage, Integer thumbnailNum) throws Exception {
+		updateBoard(board, user, fileList, fileNumList);
+		if(thumbnailNum != null) 
+			return;
+		ArrayList<Integer> dbFileNumList = boardDao.selectFileNumList(board.getNum());
+		deleteFile(boardDao.selectFile(dbFileNumList.get(0)));
+		insertFile(mainImage, board.getNum(), "Y");
+		
 	}
 }
