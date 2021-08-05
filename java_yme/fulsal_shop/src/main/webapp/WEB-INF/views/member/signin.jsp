@@ -4,8 +4,6 @@
 <!doctype html>
 <html>
 <head>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
 
 <style>
 *{
@@ -103,9 +101,9 @@
         <input type="password" class="pw form-control" placeholder="PW" name="me_pw">
       </div>
       <div class="auto-login form-group">
-		<input type="checkbox" value="true"> 자동 로그인
+		<input type="checkbox" name="useCookie" value="true"> 자동 로그인
 	  </div>
-      <button type="submit" class="login-btn" onclick="button()">
+      <button type="submit" class="login-btn">
         Let's Go!
       </button>
  

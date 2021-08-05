@@ -13,6 +13,5 @@
 	<div class="box">
 		<img src="<%=request.getContextPath()%>/resources/img/winter.gif">
 	</div><br>
-${user}
 </body>
 </html>

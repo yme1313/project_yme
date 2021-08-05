@@ -11,116 +11,48 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
 
+<html>
+<head>
 <style>
-*{
-  margin: 0px;
-  padding: 0px;
-  text-decoration: none;
-}
-
-.login-box {
-  position:absolute;
-  width:300px;
-  height:400px;
-  padding: 30px, 20px;
-  background-color:#FFFFFF;
-  text-align:center;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  border-radius: 15px;
-}
-.login-box::after{
-	clear: both; display: none; content: '';
-}
-
-.login-box h2{
-  text-align: center;
-  margin: 30px;
-}
-
-.login-id{
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-}
-
-.login-pw{
-  border-bottom: 2px solid #adadad;
-  margin: 30px;
-  padding: 10px 10px;
-}
-.auto-login{
-	float : left; margin-left: 30px;
-}
-.id {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.pw {
-  width: 100%;
-  border:none;
-  outline:none;
-  color: #636e72;
-  font-size:16px;
-  height:25px;
-  background: none;
-}
-
-.login-btn {
-  position:relative;
-  left:40%;
-  transform: translateX(-50%);
-  margin-bottom: 40px;
-  width:80%;
-  height:40px;
-  background: linear-gradient(125deg,#81ecec,#000000,#81ecec);
-  background-position: left;
-  background-size: 200%;
-  color:white;
-  font-weight: bold;
-  border:none;
-  cursor:pointer;
-  transition: 0.4s;
-  display:inline;
-}
-
-.btn:hover {
-  background-position: right;
-	color: white;
-}
-
-.no-id {
-  text-align: center;
-}
+	*{ padding: 0; margin: 0; text-decoration: none; color: #000; }
+	.fa-shopping-cart, .fa-box{
+		color : white;
+	}
 </style>
 </head>
-<body>
-  <form class=login-box method="post" action="<%=request.getContextPath()%>/member/signin">
-		<h2>로그인</h2>
-		<div class="login-id">
-			<input type="text" class="id" placeholder="ID">
-		</div>
-		<div class="login-pw">
-			<input type="password" class="pw" placeholder="PW">
-		</div>
-		<div class="auto-login form-group">
-			<input type="checkbox" value="true"> 자동 로그인
-		</div>
-		<button type="button" class="login-btn" onclick="button()">
-			Let's Go!
-		</button>
-
-		<div class="no-id">
-			아이디가 없으신가요? <a href="<%=request.getContextPath()%>/member/signup">회원가입</a><br>
-			비밀번호를 잊으셨나요? <a href="<%=request.getContextPath()%>/">비밀번호찾기</a>
-		</div>
- </form>
+	<body>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+			<ul class="navbar-nav">
+				<a class="navbar-brand" href="<%=request.getContextPath()%>/" style="color: white;">HOME</a>
+				<li class="nav-item">
+					<a class="nav-link" href="<%=request.getContextPath()%>/member/signin" style="color: white;">로그인</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="<%=request.getContextPath()%>/member/signup" style="color: white;">회원가입</a>
+				</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-box"></i>주문/배송조회</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>장바구니</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" style="color: white;">공지사항</a>
+				</li>
+			</ul>
+		</nav>
+		<ul class="nav justify-content-end mt-3">
+			<li class="nav-item">
+				<a class="nav-link" href="#" style="color: black">풋살화</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="# "style="color: black">의류</a>
+			</li>
+			<form class="form-inline" action="/action_page.php">
+				<input class="form-control mr-sm-2" type="text">
+				<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
+			</form>
+		</ul>
+		<hr>
 </body>
 </html>

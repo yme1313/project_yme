@@ -42,6 +42,7 @@ public class MemberController {
 	@PostMapping("/member/signin")
 	public ModelAndView memberSigninPost(ModelAndView mv, MemberVO user) {
 		MemberVO loginUser = memberService.signin(user);
+		System.out.println(loginUser);
 		if(loginUser != null) {
 			mv.setViewName("redirect:/");
 		} else {

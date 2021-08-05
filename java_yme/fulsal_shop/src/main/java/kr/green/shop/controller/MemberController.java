@@ -1,5 +1,8 @@
 package kr.green.shop.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,6 +45,14 @@ public class MemberController {
 			mv.setViewName("redirect:/member/signin");
 		}
 		mv.addObject("user", loginUser);
+		return mv;
+	}
+	@GetMapping("member/signout")
+	public ModelAndView memberSignoutGet(ModelAndView mv, 
+			HttpServletRequest request,
+			HttpServletResponse response) {
+		memberService.signout(request, response);
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 }

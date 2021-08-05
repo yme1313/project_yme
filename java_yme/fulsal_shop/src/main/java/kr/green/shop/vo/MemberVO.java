@@ -17,6 +17,7 @@ public class MemberVO {
 	private String me_add3;
 	private String me_add4;
 	private String me_authority;
+	private String useCookie;
 	
 	
 }
