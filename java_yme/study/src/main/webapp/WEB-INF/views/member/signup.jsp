@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<form class="container" method="post" action="<%=request.getContextPath()%>/member/signup">
+<form class="container" method="post" action="<%=request.getContextPath()%>/member/signup" id=signupCheck>
 	<h1>회원가입</h1>
 	<div class="form-group">
 		<label>아이디</label>
@@ -48,7 +48,7 @@
 </form>
 <script type="text/javascript">
 $(function(){
-    $("form").validate({
+    $("#signupCheck").validate({
         rules: {
             id: {
                 required : true,

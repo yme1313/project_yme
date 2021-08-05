@@ -54,12 +54,13 @@
 <style>
 	.error{
 		color : red;
+		font-size : 13px;
 	}
 </style>	
 </head>
 <body>
 
-<form class="container" method="post" action="<%=request.getContextPath()%>/member/signup">
+<form class="container signupCheck" method="post" action="<%=request.getContextPath()%>/member/signup">
 	<h1>회원가입</h1><br>
 	<table class="table">
 		<thead>
@@ -118,7 +119,7 @@
 			<tr>
 				<td>주소</td>
 				<td>
-					<input type="text" class="form-control col-12 mb-2" id="sample4_postcode" name="me_postnum" placeholder="우편번호">
+					<input type="text" class="form-control col-12 mb-2" id="sample4_postcode" name="me_postnum"  readonly placeholder="우편번호">
 					<input type="text" class="form-control col-12 mb-2" id="sample4_roadAddress" name="me_add1" placeholder="도로명주소">
 					<span id="guide" style="color:#999;display:none"></span>
 					<input type="text" class="form-control col-12" id="sample4_detailAddress" name="me_add2" placeholder="상세주소">
@@ -140,7 +141,7 @@
 </form>
 <script type="text/javascript">
 $(function(){
-    $("form").validate({
+    $(".signupCheck").validate({
         rules: {
             me_id: {
                 required : true,
@@ -160,11 +161,14 @@ $(function(){
                 regex : /^[^ㄱ-ㅎㅏ-ㅣ!@#\s]+$/
             },
             me_phone: {
-            	required : true
+            	required : true,
+            	maxlength : 11,
+            	regex : /^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$/
             },
             me_brith: {
                 required : true,
-                maxlength : 8
+                maxlength : 8,
+                regex : /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/mg
             },
             me_gender: {
             	required : true
@@ -193,15 +197,18 @@ $(function(){
 	            },
 	            me_name: {
 	                required : "필수항목 입니다.",
-	                minlength : "최소 2글자이상이어야 합니다"
+	                minlength : "최소 2글자이상이어야 합니다",
 	                regex : "한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)"
 	            },
 	            me_phone: {
-	            	required : "필수항목 입니다."
+	            	required : "필수항목 입니다.",
+	            	maxlength : "최대 11자리이하이어야 합니다.",
+	            	regex : "전화번호를 확인하세요."
 	            },
 	            me_brith: {
 	                required : "필수항목 입니다.",
-	                maxlength : "최대 8글자이하이어야 합니다."
+	                maxlength : "최대 8자리이하이어야 합니다.",
+	                regex : "생년월일 확인하세요."
 	            },
 	            me_gender: {
 	            	required : "필수항목 입니다."
@@ -210,11 +217,11 @@ $(function(){
 	            	required : "필수항목 입니다.",
 	            	email : "메일규칙에 어긋납니다"
 	            },
-	            me_post: {
+	            me_postnum: {
 	            	required : "필수항목 입니다."
 	            }
         }
-    });
+    })
 })
 $.validator.addMethod(
     "regex",

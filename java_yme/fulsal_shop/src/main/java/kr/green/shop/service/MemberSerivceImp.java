@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
@@ -20,6 +21,8 @@ public class MemberSerivceImp implements MemberService{
 	
 	@Autowired
 	MemberDAO memberDao;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public boolean signup(MemberVO user) {
@@ -35,21 +38,31 @@ public class MemberSerivceImp implements MemberService{
 		if(user.getMe_pw() == null || !Pattern.matches(pwRegex, user.getMe_pw())) {
 			return false;
 		}
+		//이름 유효성 검사
+		String nameRegex = "^[^ㄱ-ㅎㅏ-ㅣ!@#\\s]+$";
+		if(user.getMe_name() == null || !Pattern.matches(nameRegex, user.getMe_name())) {
+			return false;
+		}
+		//전화번호 유효성 검사
+		String phoneRegex = "^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$";
+		if(user.getMe_phone() == null || !Pattern.matches(phoneRegex, user.getMe_phone()))
+		//생년월일 유혀성 검사
+			
+		//성별 유효성 검사
+		if(user.getMe_gender() == null) {
+			return false;
+		}
 		//이메일 유효성 검사, xx@yy.zz or xx@yy.zz.cc
 		String emailRegex = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
 		if(user.getMe_email() == null || !Pattern.matches(emailRegex, user.getMe_email())) {
 			return false;
 		}
-		//이름 유효성 검사
-		String nameRegex = "^[^ㄱ-ㅎㅏ-ㅣ!@#\\s]+$";
-		if(user.getMe_name() == null || user.getMe_name().trim().length() == 0) {
+		//주소 유효성 검사
+		if(user.getMe_postnum() == 0) {
 			return false;
 		}
-		//성별 유효성 검사
-		if(user.getMe_gender() == null) {
-			return false;
-		}
-		//추가 작업 필요
+		String encodePw = passwordEncoder.encode(user.getMe_pw());
+		user.setMe_pw(encodePw);
 		memberDao.insertMember(user);
 		return true;
 	}
@@ -62,6 +75,8 @@ public class MemberSerivceImp implements MemberService{
 		if(dbUser == null) 
 			return null;
 		if(user.getMe_pw() == null)
+			return null;
+		if(dbUser.getMe_pw() == null || !passwordEncoder.matches(user.getMe_pw(), dbUser.getMe_pw()))
 			return null;
 		dbUser.setUseCookie(user.getUseCookie());
 		return dbUser;
