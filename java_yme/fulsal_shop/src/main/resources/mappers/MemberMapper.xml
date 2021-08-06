@@ -21,4 +21,19 @@
  		select * from member 
  			where session_id = #{session_id} and session_limit > now()
  	</select>
+ 		<update id="updateMember">
+		update member set
+				me_pw = #{user.me_pw},
+				me_birth = #{user.me_birth},
+				me_phone = #{user.me_phone},
+				me_gender = #{user.me_gender},
+				me_email = #{user.me_email},
+				me_postnum = #{user.me_postnum},
+				me_add1 = #{user.me_add1},
+				me_add2 = #{user.me_add2},
+				me_add3 = #{user.me_add3},
+				me_add4 = #{user.me_add4},
+				me_authority = #{user.me_authority}
+			where me_id = #{user.me_id}
+	</update>
 </mapper>

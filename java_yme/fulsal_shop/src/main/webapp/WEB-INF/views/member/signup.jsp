@@ -73,13 +73,13 @@
 				</td>
 				<td>
 					<button type="button" class="id-dup-btn btn btn-outline-dark ml-1">중복</button>
-					<span class="ml-2">[5~12자 영문,숫자,특수문자(-_) 가능]</span>
+					<span class="ml-2">[5~12자 영문(소),숫자,특수문자(-_) 가능]</span>
 				</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
 				<td><input type="password" class="form-control col-12" name="me_pw" id="me_pw"></td>
-				<td><span class="ml-2">[6~15자 영문,숫자,특수문자(!@#) 가능]</span></td>
+				<td><span class="ml-2">[6~15자 영문(대/소),숫자,특수문자(!@#) 가능]</span></td>
 			</tr>
 			<tr>
 				<td>비밀번호 확인</td>
@@ -149,7 +149,7 @@ $(function(){
             },
             me_pw: {
                 required : true,
-                regex: /^[a-z0-9!@#]{8,16}$/i
+                regex: /^[a-zA-Z0-9!@#]{8,16}$/i
             },
             me_pw2: {
                 required : true,

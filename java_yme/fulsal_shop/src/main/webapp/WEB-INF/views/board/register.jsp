@@ -7,6 +7,12 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <style>
+a{
+	color : black
+}
+a:hover{
+	text-decoration : none;	
+}
 .main-box{
 	float: left;  position: relative;
 }
@@ -25,6 +31,10 @@
 .reg-btn{
 	position: absolute; top: 0; right: 0;
 }
+.menu-font{
+	font-size: 15px; font-style:initial;
+	text-decoration : none;
+}
 </style>
 </head>
 <body>
@@ -33,8 +43,8 @@
 		<div class="left-board-box">
 			<h3>고객센터</h3>
 			<hr>
-			<div class="board-font">공지사항</div>
-			<div class="board-font">1:1문의</div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">공지사항</a></div>
+			<div class="left-menu-box"><a hreg="#" class="menu-font">1:1문의</a></div>
 		</div>
 		<div class="right-board-box">        
 			<form class="container" method="post">
@@ -47,7 +57,7 @@
 					<textarea id="summernote" class="form-control" name="bd_contents" rows="10">${board.contents }</textarea>
 				</div>
 				<button class="btn btn-outline-dark">등록</button>
-				<a href="<%=request.getContextPath()%>/board${type}/list"><button type="button" class="btn btn-outline-dark">목록</button></a>
+				<a href="<%=request.getContextPath()%>/board/list"><button type="button" class="btn btn-outline-dark">목록</button></a>
 			</form>
 		</div>
 	</div>
@@ -56,7 +66,7 @@ $(function(){
     $('#summernote').summernote({
         placeholder: '내용을 입력하세요.',
         tabsize: 2,
-        height: 300
+        height: 500
       });
 })
 </script>

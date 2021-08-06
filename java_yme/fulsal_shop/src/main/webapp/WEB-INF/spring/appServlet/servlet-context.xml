@@ -42,6 +42,12 @@
 	<!-- 자동 로그인 처리 -->
 	<beans:bean id="autoLoginInterceptor" 
 		class="kr.green.shop.interceptor.AutoLoginInterceptor"></beans:bean>
+	<!-- 비회원만 접근할 수 있게 하는 인터셉터 -->
+	<beans:bean id="guestInterceptor" 
+		class="kr.green.shop.interceptor.GuestInterceptor"></beans:bean>
+	<!-- 회원만 접근할 수 있게 하는 인터셉터 -->
+	<beans:bean id="memberInterceptor" 
+		class="kr.green.shop.interceptor.MemberInterceptor"></beans:bean>		
 	
 	<interceptors>
 		<interceptor>
@@ -51,6 +57,17 @@
 		<interceptor>
 			<mapping path="/**/"/>
 			<beans:ref bean="autoLoginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/member/signin"/>
+			<mapping path="/member/signup"/>
+			<beans:ref bean="guestInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/board/register"/>
+			<mapping path="/board/modify"/>
+			<mapping path="/board/delete"/>			
+			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
 	</interceptors>
 	

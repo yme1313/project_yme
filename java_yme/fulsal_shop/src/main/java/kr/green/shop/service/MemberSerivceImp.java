@@ -45,7 +45,9 @@ public class MemberSerivceImp implements MemberService{
 		}
 		//전화번호 유효성 검사
 		String phoneRegex = "^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$";
-		if(user.getMe_phone() == null || !Pattern.matches(phoneRegex, user.getMe_phone()))
+		if(user.getMe_phone() == null || !Pattern.matches(phoneRegex, user.getMe_phone())) {
+			return false;
+		}
 		//생년월일 유효성 검사
 		if(user.getMe_birth() == 0) {
 			return false;
@@ -134,6 +136,44 @@ public class MemberSerivceImp implements MemberService{
 		if(me_id == null) 
 			return null;
 		return memberDao.getMember(me_id);
+	}
+
+	@Override
+	public MemberVO updateMember(MemberVO user, MemberVO nowUser) {
+		if(user == null || nowUser == null || user.getMe_id() == null || !user.getMe_id().equals(nowUser.getMe_id())) {
+			return null;
+		}
+		if(user.getMe_pw() != null && user.getMe_pw().trim().length() != 0) {
+			String encodePw = passwordEncoder.encode(user.getMe_pw());
+			nowUser.setMe_pw(encodePw);
+		}
+		String pwRegex = "^[a-zA-Z0-9!@#]{8,16}$";
+		if(user.getMe_pw() == null || !Pattern.matches(pwRegex, user.getMe_pw())) {
+			return null;
+		}
+		String phoneRegex = "^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$";
+		if(user.getMe_phone() == null || !Pattern.matches(phoneRegex, user.getMe_phone())) {
+			return null;
+		}
+			
+		if(user.getMe_birth() == 0) {
+			return null;
+		}
+		String emailRegex = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
+		if(user.getMe_email() == null || !Pattern.matches(emailRegex, user.getMe_email())) {
+			return null;
+		}
+		nowUser.setMe_phone(user.getMe_phone());
+		nowUser.setMe_birth(user.getMe_birth());
+		nowUser.setMe_gender(user.getMe_gender());
+		nowUser.setMe_email(user.getMe_email());
+		nowUser.setMe_postnum(user.getMe_postnum());
+		nowUser.setMe_add1(user.getMe_add1());
+		nowUser.setMe_add1(user.getMe_add2());
+		nowUser.setMe_add1(user.getMe_add3());
+		nowUser.setMe_add1(user.getMe_add4());
+		memberDao.updateMember(nowUser);
+		return nowUser;
 	}
 
 }

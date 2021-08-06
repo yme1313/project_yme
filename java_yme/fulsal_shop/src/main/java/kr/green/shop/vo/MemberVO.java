@@ -19,5 +19,18 @@ public class MemberVO {
 	private String me_authority;
 	private String useCookie;
 	
+	public String getAuthorityStr() {
+		if(me_authority.equals("USER")) {
+			return "회원";
+		}
+		if(me_authority.equals("ADMIN")) {
+			return "관리자";
+		}
+		if(me_authority.equals("SUPER ADMIN")) {
+			return "최고 관리자";
+		}
+		return "";
+	}
+	
 	
 }

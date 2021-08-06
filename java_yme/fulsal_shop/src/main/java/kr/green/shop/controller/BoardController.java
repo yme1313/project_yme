@@ -51,4 +51,12 @@ public class BoardController {
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
+	@GetMapping("/board/modify")
+	public ModelAndView modifyGet(ModelAndView mv, Integer num, HttpServletRequest request) {
+		BoardVO board = boardService.getBoard(num);
+		mv.addObject("borad", board);
+		mv.addObject("title", "게시글 수정");
+		mv.setViewName("/template/board/modify");
+		return mv;
+	}
 }

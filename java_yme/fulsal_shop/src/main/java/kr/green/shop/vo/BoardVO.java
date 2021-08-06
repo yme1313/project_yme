@@ -26,4 +26,12 @@ public class BoardVO {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		return format.format(bd_regdate);
 	}
+	
+	public String getIdStr() {
+		if(bd_me_id.equals("qwe123")) {
+			return "관리자";
+		} else {
+			return bd_me_id;
+		}
+	}
 }

@@ -23,4 +23,6 @@ public interface MemberService {
 
 	Object getMember(String id);
 
+	MemberVO updateMember(MemberVO user, MemberVO nowUser);
+
 }

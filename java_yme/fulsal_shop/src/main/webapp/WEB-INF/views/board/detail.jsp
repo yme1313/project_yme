@@ -6,9 +6,12 @@
 <head>
 
 <style>
- a{
- 	color : black
- }
+a{
+	color : black
+}
+a:hover{
+	text-decoration : none;	
+}
 .main-box{
 	float: left;  position: relative;
 }
@@ -24,10 +27,7 @@
 }
 .menu-font{
 	font-size: 15px; font-style:initial;
-	text-decoration : none;
-}
- a:hover{
-	text-decoration : none;	
+	text-decoration : none; 
 }
 .reg-btn{
 	position: absolute; top: 0; right: 0;
@@ -51,7 +51,7 @@
 				</div>
 				<div class="form-group">
 					<label>작성자</label>
-					<input type="text" class="form-control" name="bd_me_id" value="${board.bd_me_id}" readonly>
+					<input type="text" class="form-control" name="bd_me_id" value="${board.idStr}" readonly>
 				</div>
 				<div class="form-group">
 					<label>작성일</label>
@@ -59,7 +59,7 @@
 				</div>
 				<div class="form-group">
 					<label>내용</label>
-					<div class="form-control" style="min-height:300px;">${board.bd_contents}</div>
+					<div class="form-control" style="min-height:400px;">${board.bd_contents}</div>
 				</div>
 				<div class="input-group">
 					<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-dark mb-2">목록</button></a>

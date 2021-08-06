@@ -62,6 +62,16 @@ public class MemberController {
 		mv.setViewName("/template/member/mypage");
 		return mv;
 	}
+	@PostMapping("member/mypage")
+	public ModelAndView mypagePost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
+		MemberVO nowUser = memberService.getMemberByRequest(request);
+		MemberVO updateUser = memberService.updateMember(user, nowUser);
+		if(updateUser != null)
+			request.getSession().setAttribute("user", updateUser);
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	
 	@ResponseBody
 	@PostMapping("/id/check")
 	public String idCheck(String me_id) {

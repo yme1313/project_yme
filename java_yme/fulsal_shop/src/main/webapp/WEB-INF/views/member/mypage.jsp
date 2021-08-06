@@ -4,7 +4,53 @@
 <!doctype html>
 <html>
 <head>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress; 
+                var extraRoadAddr = ''; 
 
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }    
+</script>
 <style>
  a{
  	color : black
@@ -32,6 +78,10 @@
 .reg-btn{
 	position: absolute; top: 0; right: 0;
 }
+.error{
+	color : red;
+	font-size : 10px;
+}
 </style>
 </head>
 <body>
@@ -45,7 +95,7 @@
 			<div class="left-menu-box"><a hreg="#" class="menu-font">회원 탈퇴</a></div>
 		</div>
 		<div class="right-board-box">
-			<form class="container signupCheck" method="post" action="<%=request.getContextPath()%>/member/mypage">
+			<form class="container modifyUser" method="post" action="<%=request.getContextPath()%>/member/mypage">
 				<h3>개인정보수정</h3><br>
 					<table class="table">
 				<thead>
@@ -70,7 +120,7 @@
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><input type="text" class="form-control col-12" name="me_name" value="${user.me_id}" readonly></td>
+						<td><input type="text" class="form-control col-12" name="me_name" value="${user.me_name}" readonly></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -123,5 +173,78 @@
 		</form>
 		</div>
 	</div>
+<script type="text/javascript">
+	$(function(){
+		$(".modifyUser").validate({
+	        rules: {
+	            me_pw: {
+	                required : true,
+	                regex: /^[a-z0-9!@#]{8,16}$/i
+	            },
+	            me_pw2: {
+	                required : true,
+	                equalTo : me_pw
+	            },
+	            me_phone: {
+	            	required : true,
+	            	maxlength : 11,
+	            	regex : /^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$/
+	            },
+	            me_brith: {
+	                required : true,
+	                maxlength : 8,
+	                regex : /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/mg
+	            },
+	            me_email: {
+	            	required : true,
+	            	email : true
+	            },
+	        },
+	        //규칙체크 실패시 출력될 메시지
+	        messages : {
+		            me_pw: {
+		                required : "필수항목 입니다.",
+		                regex: "8~16자 영문 대 소문자, 숫자, 특수문자(!@#)를 사용하세요."
+		            },
+		            me_pw2: {
+		                required : "필수항목 입니다.",
+		                equalTo : "비밀번호가 일치하지 않습니다."
+		            },
+		            me_phone: {
+		            	required : "필수항목 입니다.",
+		            	maxlength : "최대 11자리이하이어야 합니다.",
+		            	regex : "전화번호를 확인하세요."
+		            },
+		            me_brith: {
+		                required : "필수항목 입니다.",
+		                maxlength : "최대 8자리이하이어야 합니다.",
+		                regex : "생년월일 확인하세요."
+		            },
+		            me_email: {
+		            	required : "필수항목 입니다.",
+		            	email : "메일규칙에 어긋납니다"
+		            }
+	        }
+	    })
+		$('.modifyUser').submit(function(){
+			var me_pw = $('[name=me_pw]').val();
+			var me_pw2 = $('[name=me_pw2]').val();
+			if(me_pw == me_pw2){
+				return true;
+			} else {
+				alert('비밀번호와 비밀번호 확인이 다릅니다.');
+				return false;
+			}
+		})
+	})
+$.validator.addMethod(
+    "regex",
+    function(value, element, regexp) {
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    },
+    "Please check your input."
+);	
+</script>	
 </body>
 </html>

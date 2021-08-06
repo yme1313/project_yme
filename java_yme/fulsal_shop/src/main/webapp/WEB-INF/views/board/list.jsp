@@ -6,9 +6,12 @@
 <head>
 
 <style>
- a{
- 	color : black
- }
+a{
+	color : black
+}
+a:hover{
+	text-decoration : none;	
+}
 .main-box{
 	float: left;  position: relative;
 }
@@ -25,9 +28,6 @@
 .menu-font{
 	font-size: 15px; font-style:initial;
 	text-decoration : none;
-}
- a:hover{
-	text-decoration : none;	
 }
 .reg-btn{
 	position: absolute; top: 0; right: 0;
@@ -66,8 +66,8 @@
 									<a href="<%=request.getContextPath()%>/board/detail?num=${board.bd_num}">
 										${board.bd_title}
 									</a>
-								</td>
-								<td>${board.bd_me_id}</td>
+								</td>	
+								<td>${board.idStr}</td>
 								<td>${board.dateTime}</td>
 							</tr>
 						</c:forEach>
