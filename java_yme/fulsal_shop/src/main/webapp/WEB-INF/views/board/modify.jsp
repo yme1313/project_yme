@@ -18,7 +18,7 @@
 	margin-bottom : 10px;
 }
 .right-board-box{
-	position: absolute; top: 0; left: 30%; width : 55vw;
+	position: absolute; top: 0; left: 30%; width : 60vw;
 }
 .menu-font{
 	font-size: 15px; font-style:initial;
@@ -48,10 +48,10 @@
 			<div class="left-menu-box"><a hreg="#" class="menu-font">1:1문의</a></div>
 		</div>
 		<div class="right-board-box">
-			<form class="container" enctype="multipart/form-data" method="post">
+			<form class="container" method="post" action="<%=request.getContextPath()%>/board/modify">
 					<div class="form-group">
 						<label>제목</label>
-						<input type="text" class="form-control" name="bd_title" value="${board.bd_title}" readonly>
+						<input type="text" class="form-control" name="bd_title" value="${board.bd_title}">
 					</div>
 					<div class="form-group">
 						<label>작성자</label>

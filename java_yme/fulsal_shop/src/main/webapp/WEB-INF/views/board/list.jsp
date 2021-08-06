@@ -23,7 +23,7 @@ a:hover{
 	margin-bottom : 10px;
 }
 .right-board-box{
-	position: absolute; top: 0; left: 30%; width : 55vw;
+	position: absolute; top: 0; left: 30%; width : 60vw;
 }
 .menu-font{
 	font-size: 15px; font-style:initial;
