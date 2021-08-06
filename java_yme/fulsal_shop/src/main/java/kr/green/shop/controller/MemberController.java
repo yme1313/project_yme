@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.shop.service.MemberService;
@@ -54,5 +55,10 @@ public class MemberController {
 		memberService.signout(request, response);
 		mv.setViewName("redirect:/");
 		return mv;
+	}
+	@ResponseBody
+	@PostMapping("/id/check")
+	public String idCheck(String me_id) {
+		return memberService.getMember(me_id) != null ? "FAIL" : "OK";
 	}
 }

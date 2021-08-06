@@ -100,9 +100,9 @@
       <div class="login-pw">
         <input type="password" class="pw form-control" placeholder="PW" name="me_pw">
       </div>
-      <div class="auto-login form-group">
+      <label class="auto-login form-group">
 		<input type="checkbox" name="useCookie" value="true"> 자동 로그인
-	  </div>
+	  </label>
       <button type="submit" class="login-btn">
         Let's Go!
       </button>
@@ -111,6 +111,6 @@
         아이디가 없으신가요? <a href="<%=request.getContextPath()%>/member/signup">회원가입</a><br>
         비밀번호를 잊으셨나요? <a href="<%=request.getContextPath()%>/">비밀번호찾기</a>
       </div>
-   </form>
+   </form> 
 </body>
 </html>

@@ -16,7 +16,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
 <style>
-	.body {min-height : calc(100vh - 240px)};
+	.body {min-height : calc(100vh - 60px)};
 </style>
 </head>
 <body>

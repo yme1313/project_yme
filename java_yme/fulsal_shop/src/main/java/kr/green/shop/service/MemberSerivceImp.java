@@ -46,8 +46,10 @@ public class MemberSerivceImp implements MemberService{
 		//전화번호 유효성 검사
 		String phoneRegex = "^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$";
 		if(user.getMe_phone() == null || !Pattern.matches(phoneRegex, user.getMe_phone()))
-		//생년월일 유혀성 검사
-			
+		//생년월일 유효성 검사
+		if(user.getMe_birth() == 0) {
+			return false;
+		}
 		//성별 유효성 검사
 		if(user.getMe_gender() == null) {
 			return false;
@@ -125,6 +127,13 @@ public class MemberSerivceImp implements MemberService{
 			return null;
 		}
 		return (MemberVO)request.getSession().getAttribute("user");
+	}
+
+	@Override
+	public Object getMember(String me_id) {
+		if(me_id == null) 
+			return null;
+		return memberDao.getMember(me_id);
 	}
 
 }

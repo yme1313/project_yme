@@ -50,7 +50,7 @@ public class BoardController {
 		mv.addObject("board",board);
 		mv.setViewName("/template/board/detail");
 		return mv;
-	}
+	} 
 	@GetMapping("/register")
 	public ModelAndView registerGet(ModelAndView mv) {
 		mv.addObject("title", "게시글 등록");

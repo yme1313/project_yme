@@ -7,13 +7,15 @@
 <style>
 	.jumbotron{
 		margin-bottom : 0;
+		height : 100px;
+		font-size : 20px;
 	}
 </style>
 </head>
 <body>
 	<div class="footer">
 	  <div class="jumbotron">
-	    <h1>FOOTER</h1>        
+	    포트폴리오 
 	    </div>
 	</div>
 </body>

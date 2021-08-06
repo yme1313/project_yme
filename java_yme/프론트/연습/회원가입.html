@@ -14,45 +14,61 @@
 <html>
 <head>
 <style>
-	*{ padding: 0; margin: 0; text-decoration: none; color: #000; }
-	.fa-shopping-cart, .fa-box{
-		color : white;
-	}
+.main-box{
+	float: left;  position: relative;
+}
+.left-board-box{
+	width: 20vw; height: 100vh;
+	margin: 0; padding: 0;
+}
+.right-board-box{
+	position: absolute; top: 0; right: 0;
+}
+.board-font{
+	font-size: 15px; font-style:initial;
+	margin-bottom: 10px;
+}
 </style>
 </head>
-	<body>
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-			<ul class="navbar-nav">
-				<a class="navbar-brand" href="<%=request.getContextPath()%>/" style="color: white;">HOME</a>
-				<li class="nav-item">
-					<a class="nav-link" href="<%=request.getContextPath()%>/member/signin" style="color: white;">로그인</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="<%=request.getContextPath()%>/member/signup" style="color: white;">회원가입</a>
-				</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-box"></i>주문/배송조회</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>장바구니</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: white;">공지사항</a>
-				</li>
-			</ul>
-		</nav>
-		<ul class="nav justify-content-end mt-3">
-			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: black">풋살화</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="# "style="color: black">의류</a>
-			</li>
-			<form class="form-inline" action="/action_page.php">
-				<input class="form-control mr-sm-2" type="text">
-				<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
-			</form>
-		</ul>
-		<hr>
+<body>
+	<br>
+	<div class="container main-box">
+		<div class="left-board-box">
+			<h3>고객센터</h3><hr>
+			<div class="board-font">공지사항</div>
+			<div class="board-font">1:1문의</div>
+		</div>
+		<div class="right-board-box">
+			<div class="container">         
+				<table class="table table-horver">
+					<h3>공지사항</h3>
+					<thead>
+						<tr>
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>John</td>
+							<td>Doe</td>
+							<td>john@example.com</td>
+						</tr>
+						<tr>
+							<td>Mary</td>
+							<td>Moe</td>
+							<td>mary@example.com</td>
+						</tr>
+						<tr>
+							<td>July</td>
+							<td>Dooley</td>
+							<td>july@example.com</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

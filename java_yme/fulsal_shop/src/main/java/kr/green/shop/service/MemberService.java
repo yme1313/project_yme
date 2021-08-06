@@ -21,4 +21,6 @@ public interface MemberService {
 
 	MemberVO getMemberByRequest(HttpServletRequest request);
 
+	Object getMember(String id);
+
 }

@@ -222,6 +222,22 @@ $(function(){
 	            }
         }
     })
+    var contextPath = '<%=request.getContextPath()%>';
+    $('.id-dup-btn').click(function(){
+    	var me_id = $('[name=me_id]').val();
+    	$.ajax({
+    		type : 'post',
+    		url : contextPath + '/id/check',
+    		data : {me_id : me_id},
+    		success : function(res){
+    			if(res == "OK"){
+    				alert("사용 가능한 아이디입니다.")
+    			} else {
+    				alert("사용 불가능한 아이디입니다.")
+    			}
+    		}
+    	})
+    })
 })
 $.validator.addMethod(
     "regex",

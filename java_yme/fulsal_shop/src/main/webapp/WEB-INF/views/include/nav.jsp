@@ -38,7 +38,7 @@
 				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>장바구니</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: white;">공지사항</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/board/list" style="color: white;">고객센터</a>
 				</li>
 			</ul>
 		</nav>
