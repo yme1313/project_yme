@@ -49,11 +49,17 @@ public class MemberController {
 		return mv;
 	}
 	@GetMapping("member/signout")
-	public ModelAndView memberSignoutGet(ModelAndView mv, 
+	public ModelAndView SignoutGet(ModelAndView mv, 
 			HttpServletRequest request,
 			HttpServletResponse response) {
 		memberService.signout(request, response);
 		mv.setViewName("redirect:/");
+		return mv;
+	}
+	@GetMapping("member/mypage")
+	public ModelAndView mypageGet(ModelAndView mv) {
+		mv.addObject("title", "개인정보수정");
+		mv.setViewName("/template/member/mypage");
 		return mv;
 	}
 	@ResponseBody
