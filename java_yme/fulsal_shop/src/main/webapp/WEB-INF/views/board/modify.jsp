@@ -63,11 +63,11 @@
 					</div>
 					<div class="form-group">
 						<label>내용</label>
-						<textarea id="summernote" class="form-control">${board.bd_contents}</textarea>
+						<textarea id="summernote" class="form-control" name="bd_contents">${board.bd_contents}</textarea>
 					</div>
 					<div class="input-group">
 						<input type="hidden" name="bd_num" value="${board.bd_num}">
-						<button class="btn btn-outline-dark">등록</button>
+						<button type ="submit" class="btn btn-outline-dark">등록</button>
 						<a href="<%=request.getContextPath()%>/board/list">
 							<button type="button" class="btn btn-outline-drak mod-list ml-2">목록</button>
 						</a>

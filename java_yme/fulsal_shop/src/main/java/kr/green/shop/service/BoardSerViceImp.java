@@ -39,4 +39,24 @@ public class BoardSerViceImp implements BoardService{
 		return boardDao.getBoard(num);
 		
 	}
+
+	@Override
+	public void updateBoard(BoardVO board, MemberVO user) {
+		System.out.println(12);
+		if(board == null || user == null) {
+			return;
+		}
+		System.out.println(23);
+		BoardVO dbBoard= boardDao.getBoard(board.getBd_num());
+		if(!user.getMe_id().equals(dbBoard.getBd_me_id())){
+			return;
+		}
+		System.out.println(1);
+		dbBoard.setBd_title(board.getBd_title());
+		System.out.println(2);
+		dbBoard.setBd_contents(board.getBd_contents());
+		System.out.println(3);
+		boardDao.updateBoard(dbBoard);	
+		System.out.println(4);
+	}
 }

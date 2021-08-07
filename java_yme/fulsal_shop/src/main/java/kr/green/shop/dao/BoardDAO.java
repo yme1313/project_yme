@@ -12,4 +12,6 @@ public interface BoardDAO {
 
 	BoardVO getBoard(Integer num);
 
+	void updateBoard(BoardVO dbBoard);
+
 }

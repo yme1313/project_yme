@@ -54,14 +54,25 @@ public class BoardController {
 	@GetMapping("/board/modify")
 	public ModelAndView modifyGet(ModelAndView mv, Integer num, HttpServletRequest request) {
 		BoardVO board = boardService.getBoard(num);
-		System.out.println(board);
-		mv.addObject("borad", board);
+		mv.addObject("board", board);
 		mv.addObject("title", "게시글 수정");
 		mv.setViewName("/template/board/modify");
 		MemberVO user = memberService.getMemberByRequest(request);
 		if(board == null || !board.getBd_me_id().equals(user.getMe_id())) {
 			mv.setViewName("redirect:/board/list");
 		}
+		return mv;
+	}
+	@PostMapping("/board/modify")
+	public ModelAndView modifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		mv.setViewName("redirect:/board/detail");
+		mv.addObject("num",board.getBd_num());	
+		if(!user.getMe_id().equals(board.getBd_me_id())) {
+			mv.setViewName("redirect:/board/list");
+		} else {
+			boardService.updateBoard(board, user);
+		}	
 		return mv;
 	}
 }
