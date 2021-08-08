@@ -66,13 +66,13 @@ public class BoardController {
 	@PostMapping("/board/modify")
 	public ModelAndView modifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
-		mv.setViewName("redirect:/board/detail");
-		mv.addObject("num",board.getBd_num());	
-		if(!user.getMe_id().equals(board.getBd_me_id())) {
-			mv.setViewName("redirect:/board/list");
+		if(!board.getBd_me_id().equals("관리자")){
+			mv.setViewName("redirect:/board/detail");
 		} else {
 			boardService.updateBoard(board, user);
-		}	
+			mv.setViewName("redirect:/board/detail");	
+		}
+		mv.addObject("num",board.getBd_num());	
 		return mv;
 	}
 }
