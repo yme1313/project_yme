@@ -51,6 +51,11 @@ a:hover{
 	top : 30%; left : 50%; z-index :3;  border-radius : 10px; text-align : center;
 	position : absolute; 
 }
+.pw-bg-box{
+	position : absolute; width : 200%; height : 130%;
+	top : -25%;
+	background : black; opacity : 0.3;
+}
 </style>
 </head>
 <body>
@@ -152,14 +157,14 @@ a:hover{
 				<input type="hidden" name="bd_num">
 				<button type="button" class="btn btn-outline-dark col-12">확인</button>
 			</div>
+			<div class="pw-bg-box"></div>
 		</form>	
 	</div>
 <script type="text/javascript">
 	$(function(){
 		$('.enter-pw a').click(function(e){
 			e.preventDefault();
-			$('.pw-box').show();	
-			$('.body').css({'background':'gray','opacity':'0.3', 'z-index':'1'})	
+			$('.pw-box').show();		
 			var num = $(this).parent().attr('data');
 			$('.pw-box [name=num]').val(num);
 		})
