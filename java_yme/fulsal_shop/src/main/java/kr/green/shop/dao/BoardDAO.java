@@ -12,6 +12,8 @@ public interface BoardDAO {
 	ArrayList<BoardVO> getBoardList(Criteria cri);
 
 	void insertBoard(BoardVO board);
+	
+	void insertBoardPw(BoardVO board);
 
 	BoardVO getBoard(Integer num);
 

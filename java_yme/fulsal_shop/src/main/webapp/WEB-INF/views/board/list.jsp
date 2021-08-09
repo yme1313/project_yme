@@ -42,6 +42,15 @@ a:hover{
 .board-box h3{
 	margin-bottom : 1rem;
 }
+.pw-box{
+	position : absolute; left : 0; top : 0; bottom :0; right: 0; z-index:10;
+	display : none;
+}
+.pw-box .pw-input-box{
+	width : 250px; height : 130px; border: 1px solid darkslategray; background : white;
+	top : 30%; left : 50%; z-index :3;  border-radius : 10px; text-align : center;
+	position : absolute; 
+}
 </style>
 </head>
 <body>
@@ -73,21 +82,38 @@ a:hover{
 					<thead>
 						<tr>
 							<th>번호</th>
+								<c:if test="${type ne '/notice'}">
+									<th>답변여부</th>
+								</c:if>	
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${list}" var="board">
+						<c:forEach items="${list}" var="board" varStatus="status">
 							<tr>
-								<td>${board.bd_num}</td>
+								<td>${pm.totalCount - status.index - pm.criteria.pageStart}</td>
+								<c:if test="${type ne '/notice'}">
+									<td>${board.bd_answer}</td>
+								</c:if>	
 								<!-- 제목 작성시 <영어> 인 경우 화면 표기 안됨 물어보기 -->
-								<td>
-									<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
-										${board.bd_title}
-									</a>
-								</td>	
+								<c:choose>
+									<c:when test="${type ne '/notice'}">
+										<td class="enter-pw" data="${board.bd_num}">
+											<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
+												${board.bd_title}
+											</a>
+										</td>	
+									</c:when>
+									<c:otherwise>
+										<td>
+											<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
+												${board.bd_title}
+											</a>
+										</td>	
+									</c:otherwise>
+								</c:choose>	
 								<c:if test="${type eq '/notice'}">
 									<td>관리자</td>
 								</c:if>	
@@ -119,6 +145,26 @@ a:hover{
 				  </ul>
 			</div>
 		</div>
+		<form id="pwBox" class="pw-box" method="post" action="<%=request.getContextPath()%>/board/detail">
+			<div class="pw-input-box form-group pl-2 pr-2">
+				<label class="mt-1">비밀번호를 입력하세요</label>
+				<input type="password" name="bd_pw" class="form-control mb-2">
+				<input type="hidden" name="bd_num">
+				<button type="button" class="btn btn-outline-dark col-12">확인</button>
+			</div>
+		</form>	
 	</div>
+<script type="text/javascript">
+	$(function(){
+		$('.enter-pw a').click(function(e){
+			e.preventDefault();
+			$('.pw-box').show();	
+			$('.body').css({'background':'gray','opacity':'0.3', 'z-index':'1'})	
+			var num = $(this).parent().attr('data');
+			$('.pw-box [name=num]').val(num);
+		})
+		$('.')
+	})
+</script>
 </body>
 </html>

@@ -28,6 +28,7 @@ public class NoticeBoardController {
 	
 	@GetMapping("/list")
 	public ModelAndView listGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(12);
 		cri.setBd_type("NOTICE");
 		ArrayList <BoardVO> list = boardService.getBoardList(cri);
 		int totalCount = boardService.getTotalCount(cri);
@@ -79,7 +80,7 @@ public class NoticeBoardController {
 	@PostMapping("/modify")
 	public ModelAndView modifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
-		if(!board.getBd_me_id().equals("관리자")){
+		if(!board.getBd_me_id().equals(user.getMe_id())){
 			mv.setViewName("redirect:/board/notice/list");
 		} else {
 			boardService.updateBoard(board, user);

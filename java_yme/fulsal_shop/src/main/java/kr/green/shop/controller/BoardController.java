@@ -26,9 +26,10 @@ public class BoardController {
 	
 	@GetMapping("/board/list")
 	public ModelAndView listGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(12);
 		ArrayList <BoardVO> list = boardService.getBoardList(cri);
 		int totalCount = boardService.getTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 10, cri);
+		PageMaker pm = new PageMaker(totalCount, 10, cri);;
 		mv.addObject("title", "1:1문의");
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
@@ -53,7 +54,7 @@ public class BoardController {
 	public ModelAndView regiterPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
 		board.setBd_type("ENQUIRY");
-		boardService.insertBoard(board, user);
+		boardService.insertBoardPw(board, user);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}

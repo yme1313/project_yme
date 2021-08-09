@@ -67,13 +67,13 @@ a:hover{
 					</div>
 					<div class="form-group">
 						<label>내용</label>
-						<textarea id="summernote" class="form-control" name="bd_contents" rows="10">${board.bd_contents }</textarea>
+						<textarea id="summernote" class="form-control" name="bd_contents" rows="10">${board.bd_contents}</textarea>
 					</div>
 					<button class="btn btn-outline-dark">등록</button>
 					<a href="<%=request.getContextPath()%>/board${type}/list"><button type="button" class="btn btn-outline-dark">목록</button></a>
 				</form>
 			</c:if>
-			<c:if test="${type eq '/notice'}">  
+			<c:if test="${type eq '/notice'}">     
 				<form class="container" method="post">
 					<div class="form-group">
 						<label>제목</label>
@@ -81,7 +81,7 @@ a:hover{
 					</div>
 					<div class="form-group">
 						<label>내용</label>
-						<textarea id="summernote" class="form-control" name="bd_contents" rows="10">${board.bd_contents }</textarea>
+						<textarea id="summernote" class="form-control" name="bd_contents" rows="10">${board.bd_contents}</textarea>
 					</div>
 					<button class="btn btn-outline-dark">등록</button>
 					<a href="<%=request.getContextPath()%>/board${type}/list"><button type="button" class="btn btn-outline-dark">목록</button></a>

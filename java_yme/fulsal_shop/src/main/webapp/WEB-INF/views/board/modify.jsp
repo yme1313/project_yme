@@ -55,7 +55,7 @@
 					</div>
 					<div class="form-group">
 						<label>작성자</label>
-						<input type="text" class="form-control" name="bd_me_id" value="${board.idStr}" readonly>
+						<input type="text" class="form-control" name="bd_me_id" value="${board.bd_me_id}" readonly>
 					</div>
 					<div class="form-group">
 						<label>작성일</label>

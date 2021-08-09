@@ -20,4 +20,6 @@ public interface BoardService {
 
 	void deleteBoard(Integer num, MemberVO user);
 
+	void insertBoardPw(BoardVO board, MemberVO user);
+
 }

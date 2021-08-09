@@ -25,7 +25,7 @@ public class BoardSerViceImp implements BoardService{
 	}
 
 	@Override
-	public void insertBoard(BoardVO board, MemberVO user) {
+	public void insertBoardPw(BoardVO board, MemberVO user) {
 		if(board == null || user == null) {
 			return;
 		}
@@ -33,8 +33,17 @@ public class BoardSerViceImp implements BoardService{
 		if(board.getBd_pw() != null && board.getBd_pw().length() != 0) {
 			String encodePw = passwordEncoder.encode(board.getBd_pw());
 			board.setBd_pw(encodePw);
-		boardDao.insertBoard(board);
+		boardDao.insertBoardPw(board);
 		}
+	}
+	@Override
+	public void insertBoard(BoardVO board, MemberVO user) {
+		if(board == null || user == null) {
+			return;
+		}
+		board.setBd_me_id(user.getMe_id());
+		boardDao.insertBoard(board);
+		
 	}
 
 	@Override
@@ -73,4 +82,5 @@ public class BoardSerViceImp implements BoardService{
 		boardDao.deleteBoard(num);
 		
 	}
+
 }

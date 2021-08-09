@@ -4,12 +4,10 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,18 +28,17 @@ public class NoticeBoardController {
 	private MemberService memberService;
 	
 	@GetMapping("/list")
-		public ModelAndView listGet(ModelAndView mv, Criteria cri) {
-			cri.setType("NOTICE");
-			ArrayList <BoardVO> list = boardService.getBoardList(cri);
-			int totalCount = boardService.getTotalCount(cri);
-			PageMaker pm = new PageMaker(totalCount,10,cri);
-			System.out.println(pm);
-			mv.addObject("pm", pm);
-			mv.addObject("title", "일반게시판");
-			mv.addObject("list", list);
-			mv.addObject("type", "/notice");
-			mv.setViewName("/template/board/list");
-			return mv;
+	public ModelAndView listGet(ModelAndView mv, Criteria cri) {
+		cri.setType("NOTICE");
+		ArrayList <BoardVO> list = boardService.getBoardList(cri);
+		int totalCount = boardService.getTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount,10,cri);
+		mv.addObject("pm", pm);
+		mv.addObject("title", "일반게시판");
+		mv.addObject("list", list);
+		mv.addObject("type", "/notice");
+		mv.setViewName("/template/board/list");
+		return mv;
 	}
 	@GetMapping("/detail")
 	public ModelAndView detailGet(ModelAndView mv, Integer num) {

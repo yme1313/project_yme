@@ -32,6 +32,12 @@ a:hover{
 .reg-btn{
 	position: absolute; top: 0; right: 0;
 }
+.writer{
+	background : #e9ecef;
+}
+.reply-readonly-input{
+	background-color : white;
+}
 </style>
 </head>
 <body>
@@ -40,8 +46,8 @@ a:hover{
 		<div class="left-board-box">
 			<h3>고객센터</h3>
 			<hr>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">공지사항</a></div>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board${type}/list" class="menu-font">1:1문의</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/notice/list" class="menu-font">공지사항</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">1:1문의</a></div>
 		</div>
 		<div class="right-board-box">
 			<div class="container">
@@ -51,7 +57,13 @@ a:hover{
 				</div>
 				<div class="form-group">
 					<label>작성자</label>
-					<input type="text" class="form-control" name="bd_me_id" value="${board.bd_me_id}" readonly>
+					<c:if test="${type ne '/notice'}">  
+						<input type="text" class="form-control" name="bd_me_id" value="${board.bd_me_id}" readonly>
+					</c:if>
+					<c:if test="${type eq '/notice'}">  
+						<div class="form-control writer">관리자</div>
+						<input type="hidden" name="bd_me_id" value="${board.bd_me_id}" readonly>
+					</c:if>
 				</div>
 				<div class="form-group">
 					<label>작성일</label>
@@ -59,8 +71,32 @@ a:hover{
 				</div>
 				<div class="form-group">
 					<label>내용</label>
-					<div class="form-control" style="min-height:400px;">${board.bd_contents}</div>
+					<c:if test="${type ne '/notice'}">  
+						<div class="form-control" style="min-height:350px;">${board.bd_contents}</div>
+					</c:if>
+					<c:if test="${type eq '/notice'}">
+						<div class="form-control" style="min-height:550px;">${board.bd_contents}</div>
+					</c:if>
 				</div>
+				<c:if test="${type ne '/notice'}">  
+					<hr>
+					<div class="reply form-group">
+						<label>답변</label>
+						<div class="contents">
+							<div class="reply-box form-group">
+								<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
+									<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
+										<div class="float-right">
+											<button type="button" class="reply-btn btn btn-outline-dark btn-sm">등록</button>
+										</div>	
+								</c:if>
+								<c:if test="${user.me_authority == 'USER' || user.me_authority == null}">
+									<div class="form-control" style="min-height:200px;"></div>
+								</c:if>
+							</div>
+						</div>
+					</div>
+				</c:if>
 				<div class="input-group">
 					<a href="<%=request.getContextPath()%>/board${type}/list" class="mr-2"><button class="btn btn-outline-dark mb-2">목록</button></a>
 					<c:if test="${user != null && user.me_id == board.bd_me_id }">
@@ -75,5 +111,15 @@ a:hover{
 			</div>
 		</div>
 	</div>
+<script>
+$(function(){
+	var rp_bd_num = '${board.bd_num}';
+	var rp_me_id = '${user.me_id}';
+	var contextPath = '<%=request.getContextPath()%>';
+	$('.reply-btn').click(function(){
+
+	})
+})
+</script>
 </body>
 </html>

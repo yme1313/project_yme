@@ -19,20 +19,20 @@
       </tr>
     </thead>
     <tbody>
-			<c:forEach items="${list}" var="board" varStatus="status">
-				<tr>
-				   <td>${pm.totalCount - status.index - pm.criteria.pageStart}</td>
-					<td>
-						<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.num}">
-							<c:if test="${board.groupOrd != 0}">┕답변 :  </c:if>
-							${board.title }
-						</a>
-					</td>
-					<td>${board.writer }</td>
-					<td>${board.dateTime}</td>
-					<td>${board.views}</td>
-				</tr>
-			</c:forEach>
+		<c:forEach items="${list}" var="board" varStatus="status">
+			<tr>
+			   <td>${pm.totalCount - status.index - pm.criteria.pageStart}</td>
+				<td>
+					<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.num}">
+						<c:if test="${board.groupOrd != 0}">┕답변 :  </c:if>
+						${board.title }
+					</a>
+				</td>
+				<td>${board.writer }</td>
+				<td>${board.dateTime}</td>
+				<td>${board.views}</td>
+			</tr>
+		</c:forEach>
     </tbody>
   </table>
     <ul class="pagination justify-content-center">
