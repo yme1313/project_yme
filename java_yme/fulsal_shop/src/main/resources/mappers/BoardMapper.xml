@@ -17,7 +17,7 @@
 		select count(*) from board
 			where bd_valid = 'I'
 	</select>
-	<insert id="insertBoard">
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.num">
 		insert into board(bd_title, bd_contents, bd_me_id, bd_type, bd_pw)
 			values(#{bd_title}, #{bd_contents}, #{bd_me_id}, #{bd_type}, #{bd_pw})
 	</insert>

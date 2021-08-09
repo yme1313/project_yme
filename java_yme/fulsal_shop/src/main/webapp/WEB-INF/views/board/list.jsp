@@ -38,7 +38,10 @@ a:hover{
 .pagination .page-item.active a {
       background-color: darkslategray;
       border : darkslategray;
-  }
+}
+.board-box h3{
+	margin-bottom : 1rem;
+}
 </style>
 </head>
 <body>
@@ -51,17 +54,22 @@ a:hover{
 			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">1:1문의</a></div>
 		</div>
 		<div class="right-board-box">
-			<div class="container">         
+			<div class="container board-box">         
 				<table class="table table-horver">
+					<c:if test="${type eq '/notice'}">  
 						<h3>공지사항</h3>
-							<c:if test="${user != null}">
-							<!-- 공지이고, 관리자이거나 공지가 아니고 일반 사용자이면 -->
-								<c:if test="${(type eq '/notice' && (user.me_authority eq 'ADMIN' || user.me_authority eq 'SUPER ADMIN')) || (type ne '/notice')}">
-									<a href="<%=request.getContextPath()%>/board${type}/register">
-										<button class="btn btn-outline-dark reg-btn">글쓰기</button>
-									</a>
-								</c:if>
-							</c:if>
+					</c:if>
+					<c:if test="${type ne '/notice'}">  
+						<h3>1:1문의</h3>
+					</c:if>
+					<c:if test="${user != null}">
+					<!-- 공지이고, 관리자이거나 공지가 아니고 일반 사용자이면 -->
+						<c:if test="${(type eq '/notice' && (user.me_authority eq 'ADMIN' || user.me_authority eq 'SUPER ADMIN')) || (type ne '/notice')}">
+							<a href="<%=request.getContextPath()%>/board${type}/register">
+								<button class="btn btn-outline-dark reg-btn">글쓰기</button>
+							</a>
+						</c:if>
+					</c:if>
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -74,13 +82,18 @@ a:hover{
 						<c:forEach items="${list}" var="board">
 							<tr>
 								<td>${board.bd_num}</td>
+								<!-- 제목 작성시 <영어> 인 경우 화면 표기 안됨 물어보기 -->
 								<td>
 									<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
 										${board.bd_title}
 									</a>
 								</td>	
-								<!-- 제목 작성시 <영어> 인 경우 화면 표기 안됨 물어보기 -->
-								<td>${board.idStr}</td>
+								<c:if test="${type eq '/notice'}">
+									<td>관리자</td>
+								</c:if>	
+								<c:if test="${type ne '/notice'}">
+									<td>${board.bd_me_id}</td>
+								</c:if>
 								<td>${board.dateTime}</td>
 							</tr>
 						</c:forEach>

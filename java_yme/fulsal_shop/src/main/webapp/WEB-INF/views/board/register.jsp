@@ -6,12 +6,17 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/additional-methods.min.js"></script>
 <style>
 a{
-	color : black
+	color : black; 
 }
 a:hover{
 	text-decoration : none;	
+}
+.error{
+	color : red; margin-top : 5px;
 }
 .main-box{
 	float: left;  position: relative;
@@ -51,7 +56,7 @@ a:hover{
 		</div>
 		<div class="right-board-box">
 			<c:if test="${type ne '/notice'}">        
-				<form class="container" method="post" id="enquiry_reg_btn">
+				<form class="container" method="post" id="enquiry_reg">
 					<div class="form-group">
 						<label>제목</label>
 						<input type="text" class="form-control" name="bd_title">
@@ -86,18 +91,33 @@ a:hover{
 	</div>
 	<script type="text/javascript">
 $(function(){
-	$('#enquiry_reg_btn').submit(function(){
-		if($('[name=bd_pw]').val == ''){
-			alert('비밀번호를 입력해주세요.')
-			return false;
-		}
-	})
     $('#summernote').summernote({
         placeholder: '내용을 입력하세요.',
         tabsize: 2,
         height: 500
       });
+    $("#enquiry_reg").validate({
+        rules: {
+            bd_pw: {
+                required : true
+            }
+        },
+        //규칙체크 실패시 출력될 메시지
+        messages : {
+            bd_pw: {
+                required : "[비밀번호를 입력하세요.]"
+            }
+        }
+    }); 
 })
+$.validator.addMethod(
+    "regex",
+    function(value, element, regexp) {
+        var re = new RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    },
+    "Please check your input."
+);
 </script>
 </body>
 </html>
