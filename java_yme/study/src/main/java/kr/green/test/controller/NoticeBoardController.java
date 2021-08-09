@@ -35,6 +35,7 @@ public class NoticeBoardController {
 			ArrayList <BoardVO> list = boardService.getBoardList(cri);
 			int totalCount = boardService.getTotalCount(cri);
 			PageMaker pm = new PageMaker(totalCount,10,cri);
+			System.out.println(pm);
 			mv.addObject("pm", pm);
 			mv.addObject("title", "일반게시판");
 			mv.addObject("list", list);

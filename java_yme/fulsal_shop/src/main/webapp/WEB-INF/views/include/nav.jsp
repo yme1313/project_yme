@@ -5,14 +5,22 @@
 <html>
 <head>
 <style>
-	*{ padding: 0; margin: 0; text-decoration: none; color: #000; }
-	.fa-shopping-cart, .fa-box{
-		color : white;
-	}
+*{ padding: 0; margin: 0; text-decoration: none; color: #000; }
+.fa-shopping-cart, .fa-box{
+	color : white;
+}
+.top-menu{
+	position : relative;
+}
+.memberName{
+	position : absolute; top: 2vh; right : 0;
+	color : white; margin-right : 20px;
+}
+	
 </style>
 </head>
 	<body>
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark top-menu">
 			<ul class="navbar-nav">
 				<a class="navbar-brand" href="<%=request.getContextPath()%>/" style="color: white;">HOME</a>
 			<c:if test="${user == null}">
@@ -38,8 +46,14 @@
 				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>장바구니</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="<%=request.getContextPath()%>/board/list" style="color: white;">고객센터</a>
-				</li>
+				<a class="nav-link" href="<%=request.getContextPath()%>/board/notice/list" style="color: white;">고객센터</a>
+			</li>
+			<li>
+				<c:if test="${user != null}">
+					<div class="memberName">${user.me_name} 님 반갑습니다 !</div>
+				</c:if>
+			</li>
+			
 			</ul>
 		</nav>
 		<ul class="nav justify-content-end mt-3">

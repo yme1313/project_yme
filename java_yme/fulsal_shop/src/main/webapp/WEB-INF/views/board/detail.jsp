@@ -41,7 +41,7 @@ a:hover{
 			<h3>고객센터</h3>
 			<hr>
 			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">공지사항</a></div>
-			<div class="left-menu-box"><a hreg="#" class="menu-font">1:1문의</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board${type}/list" class="menu-font">1:1문의</a></div>
 		</div>
 		<div class="right-board-box">
 			<div class="container">
@@ -62,12 +62,12 @@ a:hover{
 					<div class="form-control" style="min-height:400px;">${board.bd_contents}</div>
 				</div>
 				<div class="input-group">
-					<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-dark mb-2">목록</button></a>
+					<a href="<%=request.getContextPath()%>/board${type}/list" class="mr-2"><button class="btn btn-outline-dark mb-2">목록</button></a>
 					<c:if test="${user != null && user.me_id == board.bd_me_id }">
-						<a href="<%=request.getContextPath()%>/board/modify?num=${board.bd_num}">
+						<a href="<%=request.getContextPath()%>/board${type}/modify?num=${board.bd_num}">
 							<button class="btn btn-outline-dark mr-2">수정</button>
 						</a>
-						<a href="<%=request.getContextPath()%>/board/delete?num=${board.bd_num}">
+						<a href="<%=request.getContextPath()%>/board${type}/delete?num=${board.bd_num}">
 							<button class="btn btn-outline-dark mr-2">삭제</button>
 						</a>
 					</c:if>

@@ -44,11 +44,11 @@
 		<div class="left-board-box">
 			<h3>고객센터</h3>
 			<hr>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">공지사항</a></div>
-			<div class="left-menu-box"><a hreg="#" class="menu-font">1:1문의</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/notice/list" class="menu-font">공지사항</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">1:1문의</a></div>
 		</div>
 		<div class="right-board-box">
-			<form class="container" method="post" action="<%=request.getContextPath()%>/board/modify">
+			<form class="container" method="post" action="<%=request.getContextPath()%>/board${type}/modify">
 					<div class="form-group">
 						<label>제목</label>
 						<input type="text" class="form-control" name="bd_title" value="${board.bd_title}">
@@ -68,7 +68,7 @@
 					<div class="input-group">
 						<input type="hidden" name="bd_num" value="${board.bd_num}">
 						<button type ="submit" class="btn btn-outline-dark">등록</button>
-						<a href="<%=request.getContextPath()%>/board/list">
+						<a href="<%=request.getContextPath()%>/board${type}/list">
 							<button type="button" class="btn btn-outline-drak mod-list ml-2">목록</button>
 						</a>
 					</div>

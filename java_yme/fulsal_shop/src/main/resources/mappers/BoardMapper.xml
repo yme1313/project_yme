@@ -5,22 +5,32 @@
 <mapper namespace="kr.green.shop.dao.BoardDAO">
 	<select id="getBoardList" resultType="kr.green.shop.vo.BoardVO">
 		select * from board 
-			where bd_valid = 'I'
-			order by bd_num desc;
+			where bd_valid = 'I' and bd_type = #{bd_type}
+			order by bd_num desc
+			limit #{pageStart}, #{perPageNum}
 	</select>
 	<select id="getBoard" resultType="kr.green.shop.vo.BoardVO">
 		select * from board
 			where bd_valid = 'I' and bd_num = #{bd_num}
 	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board
+			where bd_valid = 'I'
+	</select>
 	<insert id="insertBoard">
-		insert into board(bd_title, bd_contents, bd_me_id, bd_type)
-			values(#{bd_title}, #{bd_contents}, #{bd_me_id}, #{bd_type})
+		insert into board(bd_title, bd_contents, bd_me_id, bd_type, bd_pw)
+			values(#{bd_title}, #{bd_contents}, #{bd_me_id}, #{bd_type}, #{bd_pw})
 	</insert>
 	<update id="updateBoard">
 		update board set
 				bd_title = #{dbBoard.bd_title},
 				bd_contents = #{dbBoard.bd_contents}
 			where bd_num = #{dbBoard.bd_num}
+	</update>
+	<update id="deleteBoard">
+		update board set
+				bd_valid = 'D'
+			where bd_num = #{bd_num}
 	</update>
 	
 </mapper>

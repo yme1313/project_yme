@@ -32,7 +32,7 @@ public class BoardServiceImp implements BoardService{
 	BCryptPasswordEncoder passwordEncoder;
 	
 	private String uploadPath = "C:\\Users\\yme13\\Desktop\\JAVA\\project_yme\\uploadfiles";
-	private String uploadThumbnailPath = "C:\\Users\\yme13\\Desktop\\JAVA\\project_yme\\java_yme\\study\\src\\main\\webapp\\resources\\img";
+	private String uploadThumbnailPath = "C:\\Users\\yme13\\Desktop\\JAVA\\project_yme\\java_yme\\img";
 
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {

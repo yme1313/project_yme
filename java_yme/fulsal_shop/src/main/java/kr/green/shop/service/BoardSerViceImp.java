@@ -3,9 +3,11 @@ package kr.green.shop.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.shop.dao.BoardDAO;
+import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.MemberVO;
 
@@ -14,10 +16,12 @@ public class BoardSerViceImp implements BoardService{
 	
 	@Autowired
 	BoardDAO boardDao;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 
 	@Override
-	public ArrayList<BoardVO> getBoardList() {
-		return boardDao.getBoardList();
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		return boardDao.getBoardList(cri);
 	}
 
 	@Override
@@ -26,9 +30,11 @@ public class BoardSerViceImp implements BoardService{
 			return;
 		}
 		board.setBd_me_id(user.getMe_id());
-		//추후 작업시 수정 필요
-		board.setBd_type("공지사항");
+		if(board.getBd_pw() != null && board.getBd_pw().length() != 0) {
+			String encodePw = passwordEncoder.encode(board.getBd_pw());
+			board.setBd_pw(encodePw);
 		boardDao.insertBoard(board);
+		}
 	}
 
 	@Override
@@ -44,12 +50,27 @@ public class BoardSerViceImp implements BoardService{
 		if(board == null || user == null) {
 			return;
 		}
-		if(!board.getBd_me_id().equals("관리자")){
-			return;
-		} 
 		BoardVO dbBoard= boardDao.getBoard(board.getBd_num());
 		dbBoard.setBd_title(board.getBd_title());
 		dbBoard.setBd_contents(board.getBd_contents());
 		boardDao.updateBoard(dbBoard);	
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return boardDao.getTotalCount(cri);
+	}
+
+	@Override
+	public void deleteBoard(Integer num, MemberVO user) {
+		if(num == null || user == null) {
+			return;
+		}
+		BoardVO board = boardDao.getBoard(num);
+		if(board == null || !board.getBd_me_id().equals(user.getMe_id())) {
+			return;
+		}
+		boardDao.deleteBoard(num);
+		
 	}
 }
