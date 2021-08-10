@@ -39,7 +39,7 @@ a:hover{
 	background-color : white;
 }
 .regtime{
-	float : right; margin-right : -22%;
+	float : right; margin-right : -15%;
 }
 </style>
 </head>
@@ -124,6 +124,7 @@ a:hover{
 <script>
 var rp_bd_num = '${board.bd_num}';
 var rp_me_id = '${user.me_id}';
+var me_authority = '${user.me_authority}'
 var contextPath = '<%=request.getContextPath()%>';
 $(function(){
 	$('.reply-btn').click(function(){
@@ -161,10 +162,14 @@ function showReply(rp_bd_num){
 			var str = reply[0].rp_content;
 			var reg = '';
 					reg += '<span class="regtime col-6">' + '답변시간 : ' + reply[0].rp_regdate + '</span>'
+			var btn ='';
+					btn += '<div>';
+					btn += '<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm" data="' + reply[0].rp_num + '">수정</button>';
+					btn += '<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm" data="' + reply[0].rp_num + '">삭제</button>';
+					btn += '</div>'
 			$('.reply').prepend(reg);	
-			$('.reply-text').html(str);
-
-			
+			$('.reply-text').html(str);	
+			$('.float-right').append(btn);
 		}
 	})
 }

@@ -22,8 +22,8 @@
 			values(#{bd_title}, #{bd_contents}, #{bd_me_id}, #{bd_type})
 	</insert>
 	<insert id="insertBoardPw" useGeneratedKeys="true" keyProperty="bd_num" parameterType="kr.green.shop.vo.BoardVO">
-		insert into board(bd_title, bd_contents, bd_me_id, bd_type, bd_pw)
-			values(#{bd_title}, #{bd_contents}, #{bd_me_id}, #{bd_type}, #{bd_pw})
+		insert into board(bd_title, bd_contents, bd_me_id, bd_type, bd_pw, bd_answer)
+			values(#{bd_title}, #{bd_contents}, #{bd_me_id}, #{bd_type}, #{bd_pw}, #{bd_answer})
 	</insert>
 	<update id="updateBoard">
 		update board set
