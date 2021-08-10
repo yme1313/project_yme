@@ -23,4 +23,6 @@ public interface BoardDAO {
 
 	void deleteBoard(Integer num);
 
+	void setAnswer(BoardVO board);
+
 }

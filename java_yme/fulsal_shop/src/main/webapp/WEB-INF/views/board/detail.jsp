@@ -38,6 +38,9 @@ a:hover{
 .reply-readonly-input{
 	background-color : white;
 }
+.regtime{
+	float : right; margin-right : -22%;
+}
 </style>
 </head>
 <body>
@@ -82,19 +85,26 @@ a:hover{
 					<hr>
 					<div class="reply form-group">
 						<label>답변</label>
-						<div class="contents">
-							<div class="reply-box form-group">
-								<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
-									<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
-										<div class="float-right">
-											<button type="button" class="reply-btn btn btn-outline-dark btn-sm">등록</button>
-										</div>	
-								</c:if>
-								<c:if test="${user.me_authority == 'USER' || user.me_authority == null}">
-									<div class="form-control" style="min-height:200px;"></div>
-								</c:if>
+							<div class="contents">
+								<div class="reply-box form-group">
+									<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
+										<c:choose>
+											<c:when test="${board.bd_answer == 'N'}">
+												<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
+												<div class="float-right">
+													<button type="button" class="reply-btn btn btn-outline-dark btn-sm">등록</button>
+												</div>	
+											</c:when>
+											<c:otherwise>
+												<div class="reply-text form-control" style="min-height:200px;"></div>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
+									<c:if test="${user.me_authority == 'USER' || user.me_authority == null}">
+										<div class="reply-text form-control" style="min-height:200px;"></div>
+									</c:if>
+								</div>
 							</div>
-						</div>
 					</div>
 				</c:if>
 				<div class="input-group">
@@ -112,7 +122,52 @@ a:hover{
 		</div>
 	</div>
 <script>
+var rp_bd_num = '${board.bd_num}';
+var rp_me_id = '${user.me_id}';
+var contextPath = '<%=request.getContextPath()%>';
+$(function(){
+	$('.reply-btn').click(function(){
+		if(rp_me_id == null){
+			alert("로그인을 하세요.")
+			return;
+		} 
+		var rp_content = $('.reply-input').val();
+		var data = {
+				rp_bd_num:rp_bd_num, rp_content:rp_content
+		}
+		$.ajax({
+			type : 'post',
+			url : contextPath + '/reply/insert',
+			data: JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			success : function(res){
+				if(res == 'OK'){
+					alert('답변 등록이 완료되었습니다.')
+				} else {
+					alert('답변 등록이 실패했습니다.')
+				}
+			}
+		})
+	})
+	showReply(rp_bd_num);
+})
+function showReply(rp_bd_num){
+	$.ajax({
+		type:'get',
+		url : contextPath + '/reply/show/' + rp_bd_num,
+		dataType : "json",
+		success : function(res){
+			var reply = res['reply'];
+			var str = reply[0].rp_content;
+			var reg = '';
+					reg += '<span class="regtime col-6">' + '답변시간 : ' + reply[0].rp_regdate + '</span>'
+			$('.reply').prepend(reg);	
+			$('.reply-text').html(str);
 
+			
+		}
+	})
+}
 </script>
 </body>
 </html>

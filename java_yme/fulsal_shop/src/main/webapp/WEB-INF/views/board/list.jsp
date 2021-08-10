@@ -100,7 +100,7 @@ a:hover{
 							<tr>
 								<td>${pm.totalCount - status.index - pm.criteria.pageStart}</td>
 								<c:if test="${type ne '/notice'}">
-									<td>${board.bd_answer}</td>
+									<td>${board.answerStr}</td>
 								</c:if>	
 								<!-- 제목 작성시 <영어> 인 경우 화면 표기 안됨 물어보기 -->
 								<c:choose>

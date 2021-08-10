@@ -169,9 +169,9 @@ public class MemberSerivceImp implements MemberService{
 		nowUser.setMe_email(user.getMe_email());
 		nowUser.setMe_postnum(user.getMe_postnum());
 		nowUser.setMe_add1(user.getMe_add1());
-		nowUser.setMe_add1(user.getMe_add2());
-		nowUser.setMe_add1(user.getMe_add3());
-		nowUser.setMe_add1(user.getMe_add4());
+		nowUser.setMe_add2(user.getMe_add2());
+		nowUser.setMe_add3(user.getMe_add3());
+		nowUser.setMe_add4(user.getMe_add4());
 		memberDao.updateMember(nowUser);
 		return nowUser;
 	}

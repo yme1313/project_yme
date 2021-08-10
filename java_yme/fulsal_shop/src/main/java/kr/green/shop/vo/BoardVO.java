@@ -26,4 +26,13 @@ public class BoardVO {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		return format.format(bd_regdate);
 	}
+	public String getAnswerStr() {
+		if(bd_answer.equals("N")) {
+			return "확인중";
+		}
+		if(bd_answer.equals("Y")) {
+			return "답변완료";
+		}
+		return "";
+	}
 }

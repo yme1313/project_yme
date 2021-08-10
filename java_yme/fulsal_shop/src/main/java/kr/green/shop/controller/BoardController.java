@@ -66,6 +66,7 @@ public class BoardController {
 	public ModelAndView regiterPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
 		board.setBd_type("ENQUIRY");
+		board.setBd_answer("N");
 		boardService.insertBoardPw(board, user);
 		mv.setViewName("redirect:/board/list");
 		return mv;
