@@ -35,7 +35,8 @@
 	        </beans:list>
 	    </beans:property>
 	</beans:bean>
-
+	
+	<!-- 인터셉터 설정 -->
 	<!-- 로그인 처리 -->
 	<beans:bean id="loginInterceptor" 
 		class="kr.green.shop.interceptor.LoginInterceptor"></beans:bean>

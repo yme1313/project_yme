@@ -48,12 +48,12 @@ a:hover{
 }
 .pw-box .pw-input-box{
 	width : 250px; height : 130px; border: 1px solid darkslategray; background : white;
-	top : 30%; left : 50%; z-index :3;  border-radius : 10px; text-align : center;
+	top : 30%; left : 40vw; z-index :3;  border-radius : 10px; text-align : center;
 	position : absolute; 
 }
 .pw-bg-box{
-	position : absolute; width : 200%; height : 130%;
-	top : -25%;
+	position : absolute; width : 100vw; height : 130vh;
+	top : -25%; 
 	background : black; opacity : 0.3;
 }
 </style>
@@ -105,11 +105,22 @@ a:hover{
 								<!-- 제목 작성시 <영어> 인 경우 화면 표기 안됨 물어보기 -->
 								<c:choose>
 									<c:when test="${type ne '/notice'}">
-										<td class="enter-pw" data="${board.bd_num}">
-											<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
-												${board.bd_title}
-											</a>
-										</td>	
+										<c:choose>
+											<c:when test="${user.me_authority == 'ADMIN' || user.me_authority == 'SUPER ADMIN'}">
+												<td>
+													<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
+														${board.bd_title}
+													</a>
+												</td>
+											</c:when>
+											<c:otherwise>
+												<td class="enter-pw" data="${board.bd_num}">
+													<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
+														${board.bd_title}
+													</a>
+												</td>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
 										<td>
@@ -155,7 +166,8 @@ a:hover{
 				<label class="mt-1">비밀번호를 입력하세요</label>
 				<input type="password" name="bd_pw" class="form-control mb-2">
 				<input type="hidden" name="bd_num">
-				<button type="button" class="btn btn-outline-dark col-12">확인</button>
+				<button type="button" class="btn btn-outline-danger col-4 mr-2">확인</button>
+				<a href="<%=request.getContextPath()%>/board/list"><span class="btn btn-outline-dark col-4">닫기</span></a>
 			</div>
 			<div class="pw-bg-box"></div>
 		</form>	
@@ -166,9 +178,26 @@ a:hover{
 			e.preventDefault();
 			$('.pw-box').show();		
 			var num = $(this).parent().attr('data');
-			$('.pw-box [name=num]').val(num);
+			$('.pw-box [name=bd_num]').val(num);
 		})
-		$('.')
+		$('.pw-box button').click(function(){
+			var bd_num = $('.pw-box [name=bd_num]').val();
+			var bd_pw = $('.pw-box [name=bd_pw]').val();
+			var data = {bd_num : bd_num, bd_pw : bd_pw};
+			$.ajax({
+				type : 'post',
+				url : '<%=request.getContextPath()%>/board/check',
+				data : JSON.stringify(data),
+				contentType : "application/json; charset:utf-8",
+				success : function(res){
+					if(res == 'true'){
+						$('#pwBox').submit();
+					} else {
+						alert('비밀번호가 일치하지 않습니다.')
+					}
+				}
+			})
+		})
 	})
 </script>
 </body>

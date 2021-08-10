@@ -22,4 +22,6 @@ public interface BoardService {
 
 	void insertBoardPw(BoardVO board, MemberVO user);
 
+	boolean checkBoardPw(BoardVO board);
+
 }

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.shop.pagination.Criteria;
@@ -42,6 +44,16 @@ public class BoardController {
 		mv.addObject("title", "게시글 상세");
 		mv.addObject("board", board);
 		mv.setViewName("/template/board/detail");
+		return mv;
+	}
+	@PostMapping("/board/detail")
+	public ModelAndView detailPost(ModelAndView mv, BoardVO tmpboard) {
+		if(boardService.checkBoardPw(tmpboard)) {
+			BoardVO board = boardService.getBoard(tmpboard.getBd_num());
+			mv.addObject("title", "게시글 상세");
+			mv.addObject("board",board);
+			mv.setViewName("/template/board/detail");;
+		}
 		return mv;
 	}
 	@GetMapping("/board/register")
@@ -88,5 +100,10 @@ public class BoardController {
 		boardService.deleteBoard(num, user);
 		mv.setViewName("redirect:/board/list");
 		return mv;
+	}
+	@ResponseBody
+	@PostMapping("/board/check")
+	public String checkPost(@RequestBody BoardVO board) {
+		return "" + boardService.checkBoardPw(board);
 	}
 }

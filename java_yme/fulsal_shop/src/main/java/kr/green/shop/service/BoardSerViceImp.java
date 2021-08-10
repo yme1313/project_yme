@@ -83,4 +83,16 @@ public class BoardSerViceImp implements BoardService{
 		
 	}
 
+	@Override
+	public boolean checkBoardPw(BoardVO board) {
+		if(board == null || board.getBd_pw() == null) {
+			return false;
+		}
+		BoardVO dbBoard = boardDao.getBoard(board.getBd_num());
+		if(dbBoard != null && passwordEncoder.matches(board.getBd_pw(), dbBoard.getBd_pw())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

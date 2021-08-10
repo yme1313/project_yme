@@ -112,14 +112,7 @@ a:hover{
 		</div>
 	</div>
 <script>
-$(function(){
-	var rp_bd_num = '${board.bd_num}';
-	var rp_me_id = '${user.me_id}';
-	var contextPath = '<%=request.getContextPath()%>';
-	$('.reply-btn').click(function(){
 
-	})
-})
 </script>
 </body>
 </html>
