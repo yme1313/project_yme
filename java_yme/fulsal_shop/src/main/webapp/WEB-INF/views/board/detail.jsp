@@ -182,7 +182,7 @@ function showReply(res){
 		var str = reply[0].rp_content;
 		var user = 'USER';
 		var reg = '';
-				reg += '<span class="regtime">' + '답변시간 : ' + reply[0].rp_regdate + '</span>'
+				reg += '<span class="regtime">' + '답변시간 : ' + reply[0].rp_regDate + '</span>'
 		var btn = '';
 				btn += 	
 					''
