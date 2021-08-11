@@ -25,4 +25,6 @@ public interface BoardDAO {
 
 	void setAnswer(BoardVO board);
 
+	void noAnswer(BoardVO board);
+
 }

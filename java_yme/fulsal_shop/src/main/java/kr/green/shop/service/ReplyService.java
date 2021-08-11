@@ -11,4 +11,6 @@ public interface ReplyService {
 
 	ArrayList<ReplyVO> getReply(Integer num);
 
+	String deleteReply(Integer rp_num, MemberVO user);
+
 }

@@ -34,6 +34,18 @@ public class ReplyServiceImp implements ReplyService{
 	public ArrayList<ReplyVO> getReply(Integer num) {
 		if(num == null)
 			return null;
-		return replyDao.getReply(num);
+		return replyDao.getReplyList(num);
+	}
+	@Override
+	public String deleteReply(Integer rp_num, MemberVO user) {
+		if(rp_num == null || user == null)
+			return "FAIL";
+		ReplyVO dbReply = replyDao.getReply(rp_num);
+		if(dbReply == null || !dbReply.getRp_me_id().equals(user.getMe_id()))
+			return "FAIL";
+		BoardVO board = boardDao.getBoard(dbReply.getRp_bd_num());
+		boardDao.noAnswer(board);
+		replyDao.deleteReply(dbReply);
+		return "OK";
 	}
 }

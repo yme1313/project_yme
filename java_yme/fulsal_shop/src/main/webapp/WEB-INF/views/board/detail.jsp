@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/reply.js"></script>
 <style>
 a{
 	color : black
@@ -39,7 +39,7 @@ a:hover{
 	background-color : white;
 }
 .regtime{
-	float : right; margin-right : -15%;
+	float : right;
 }
 </style>
 </head>
@@ -88,20 +88,13 @@ a:hover{
 							<div class="contents">
 								<div class="reply-box form-group">
 									<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
-										<c:choose>
-											<c:when test="${board.bd_answer == 'N'}">
-												<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
-												<div class="float-right">
-													<button type="button" class="reply-btn btn btn-outline-dark btn-sm">등록</button>
-												</div>	
-											</c:when>
-											<c:otherwise>
-												<div class="reply-text form-control" style="min-height:200px;"></div>
-											</c:otherwise>
-										</c:choose>
+										<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
+										<div class="float-right">
+											<button type="button" class="reply-btn btn btn-outline-dark btn-sm">답변등록</button>
+										</div>	
 									</c:if>
 									<c:if test="${user.me_authority == 'USER' || user.me_authority == null}">
-										<div class="reply-text form-control" style="min-height:200px;"></div>
+										<textarea class="reply-text form-control" rows="7" readonly></textarea>
 									</c:if>
 								</div>
 							</div>
@@ -136,42 +129,67 @@ $(function(){
 		var data = {
 				rp_bd_num:rp_bd_num, rp_content:rp_content
 		}
-		$.ajax({
-			type : 'post',
-			url : contextPath + '/reply/insert',
-			data: JSON.stringify(data),
-			contentType : "application/json; charset=utf-8",
-			success : function(res){
-				if(res == 'OK'){
-					alert('답변 등록이 완료되었습니다.')
-				} else {
-					alert('답변 등록이 실패했습니다.')
-				}
-			}
-		})
+		replyService.insert(contextPath, data, responseOk ,showReply);
 	})
-	showReply(rp_bd_num);
+	$(document).on('click','.reply-del-btn',function(){
+		var rp_num = $(this).siblings('.rp_num').val();
+		var data = {rp_num : rp_num, rp_bd_num : rp_bd_num};
+		replyService.deleteReply(contextPath, data, responseOk, basicReply);
+		
+	})
+	$(document).on('click','.reply-mod-btn',function(){
+		var rp_content = $('.reply-input').text();
+		var rp_num = $('.reply-del-btn').attr('data');
+			$('.reply-input').remove();
+			var str = '<textarea class="reply-input form-control mb-2" rows="7">' + rp_content + '</textarea>';
+			$('.reply-box').prepend(str);
+			$('.btn-box').children(this).hide();
+			str = '<button class="btn btn-outline-dark btn-sm mr-1 ml-2"">등록</button>' +
+				  '<button type="button" class="reply-del-btn btn btn-outline-dark btn-sm" data="'+ rp_num+'">삭제</button>'	
+			$('.btn-box').prepend(str);	
+	})
+	
+	replyService.show(contextPath, {rp_bd_num : rp_bd_num} ,showReply);
 })
-function showReply(rp_bd_num){
-	$.ajax({
-		type:'get',
-		url : contextPath + '/reply/show/' + rp_bd_num,
-		dataType : "json",
-		success : function(res){
-			var reply = res['reply'];
-			var str = reply[0].rp_content;
-			var reg = '';
-					reg += '<span class="regtime col-6">' + '답변시간 : ' + reply[0].rp_regdate + '</span>'
-			var btn ='';
-					btn += '<div>';
-					btn += '<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm" data="' + reply[0].rp_num + '">수정</button>';
-					btn += '<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm" data="' + reply[0].rp_num + '">삭제</button>';
-					btn += '</div>'
-			$('.reply').prepend(reg);	
-			$('.reply-text').html(str);	
-			$('.float-right').append(btn);
-		}
-	})
+
+function responseOk(res, str){
+	if(res == 'OK')
+		alert('답글이 '+str+'되었습니다.');
+	else
+		alert('답글 '+str+'에 실패했습니다.');
+}
+function showReply(res){
+		var reply = res.reply;
+		var str = reply[0].rp_content;
+		var user = 'USER';
+		var reg = '';
+				reg += '<span class="regtime">' + '답변시간 : ' + reply[0].rp_regdate + '</span>'
+		var btn = '';
+				btn += 	
+					''
+					if(${user.me_authority == 'USER' || user.me_authority == null}){
+						btn +=	''
+					} else {
+						btn += 
+							'<span class="btn-box">' +
+							'<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm mr-1 ml-2" data="'+ reply[0].rp_num+'">수정</button>' +
+							'<button type="button" class="reply-del-btn btn btn-outline-dark btn-sm" data="'+ reply[0].rp_num+'">삭제</button>' +
+							'<input type="hidden" class="rp_num" value="'+reply[0].rp_num+'">' +
+							'</span>'
+					}
+					
+		$('.reply-input').prop('readonly',true)
+		$('.reply').children('label').after(btn)
+		$('.reply').prepend(reg);	
+		$('.reply-input').html(str);
+		$('.reply-text').html(str);	
+}
+function basicReply(res){
+		$('.reply-input').prop('readonly',false)
+		$('.btn-box').remove()
+		$('.regtime').remove()
+		$('.reply-input').html('');
+		$('.reply-input').html('');
 }
 </script>
 </body>

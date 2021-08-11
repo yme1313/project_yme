@@ -8,6 +8,10 @@ public interface ReplyDAO {
 
 	void insertReply(ReplyVO reply);
 
-	ArrayList<ReplyVO> getReply(Integer rp_bd_num);
+	ArrayList<ReplyVO> getReplyList(Integer rp_bd_num);
+
+	ReplyVO getReply(Integer rp_num);
+
+	void deleteReply(ReplyVO dbReply);
 
 }

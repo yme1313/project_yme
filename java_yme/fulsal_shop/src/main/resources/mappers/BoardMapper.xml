@@ -41,5 +41,10 @@
 				bd_answer = 'Y'
 			where bd_num = #{bd_num}
 	</update>
+	<update id="noAnswer">
+		update board set
+				bd_answer = 'N'
+			where bd_num = #{bd_num}
+	</update>
 	
 </mapper>

@@ -38,4 +38,9 @@ public class ReplyController {
 		map.put("reply", reply);
 		return map;
 	}
+	@PostMapping("/delete")
+	public String deletePost(Integer rp_num , HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		return replyService.deleteReply(rp_num ,user);
+	}
 }
