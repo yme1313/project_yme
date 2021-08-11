@@ -29,6 +29,7 @@ public class ReplyController {
 	@PostMapping("/insert")
 	public String insertPost(@RequestBody ReplyVO reply, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
+		System.out.println(reply);
 		return replyService.insertReply(reply, user);
 	}
 	@GetMapping("/show/{num}")
@@ -42,5 +43,11 @@ public class ReplyController {
 	public String deletePost(Integer rp_num , HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
 		return replyService.deleteReply(rp_num ,user);
+	}
+	@PostMapping("/modify")
+	public String modify(@RequestBody ReplyVO reply , HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		System.out.println(reply);
+		return "";
 	}
 }

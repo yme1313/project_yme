@@ -121,7 +121,7 @@ var me_authority = '${user.me_authority}'
 var contextPath = '<%=request.getContextPath()%>';
 $(function(){
 	$('.reply-btn').click(function(){
-		if(rp_me_id == null){
+		if(rp_me_id == ''){
 			alert("로그인을 하세요.")
 			return;
 		} 
@@ -144,10 +144,29 @@ $(function(){
 			var str = '<textarea class="reply-input form-control mb-2" rows="7">' + rp_content + '</textarea>';
 			$('.reply-box').prepend(str);
 			$('.btn-box').children(this).hide();
-			str = '<button class="btn btn-outline-dark btn-sm mr-1 ml-2"">등록</button>' +
+			str = '<button class="reply-ok-btn btn btn-outline-dark btn-sm mr-1 ml-2"">등록</button>' +
 				  '<button type="button" class="reply-del-btn btn btn-outline-dark btn-sm" data="'+ rp_num+'">삭제</button>'	
 			$('.btn-box').prepend(str);	
 	})
+	$(document).on('click','.reply-ok-btn', function(){
+		var rp_num = $('.reply-del-btn').attr('data');
+		var rp_content = $('.reply-input').val()
+		var data = {
+				rp_num     : rp_num, 
+				rp_content : rp_content,
+				rp_bd_num  : rp_bd_num
+				}
+			$.ajax({
+				type: 'post',
+				url : contextPath + '/reply/modify',
+				data : JSON.stringify(data),
+				contentType : "application/json; charset=utf-8",
+				success : function(res){
+					console.log(res)
+				}
+			})
+	})
+		
 	
 	replyService.show(contextPath, {rp_bd_num : rp_bd_num} ,showReply);
 })
