@@ -47,7 +47,6 @@ public class ReplyController {
 	@PostMapping("/modify")
 	public String modify(@RequestBody ReplyVO reply , HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
-		System.out.println(reply);
 		return "";
 	}
 }
