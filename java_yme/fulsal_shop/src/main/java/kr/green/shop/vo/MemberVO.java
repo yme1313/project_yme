@@ -18,6 +18,7 @@ public class MemberVO {
 	private String me_add4;
 	private String me_authority;
 	private String useCookie;
+	private String agree;
 	
 	public String getAuthorityStr() {
 		if(me_authority.equals("USER")) {

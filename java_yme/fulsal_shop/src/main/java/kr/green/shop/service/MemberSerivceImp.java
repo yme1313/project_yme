@@ -13,7 +13,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
+import kr.green.shop.dao.BoardDAO;
 import kr.green.shop.dao.MemberDAO;
+import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.MemberVO;
 
 @Service
@@ -21,6 +23,8 @@ public class MemberSerivceImp implements MemberService{
 	
 	@Autowired
 	MemberDAO memberDao;
+	@Autowired
+	BoardDAO boardDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
@@ -174,6 +178,19 @@ public class MemberSerivceImp implements MemberService{
 		nowUser.setMe_add4(user.getMe_add4());
 		memberDao.updateMember(nowUser);
 		return nowUser;
+	}
+
+	@Override
+	public void memberOut(MemberVO user, MemberVO nowUser) {
+		if(user.getMe_pw() == null || nowUser == null)
+			return;
+		if(!passwordEncoder.matches(user.getMe_pw(), nowUser.getMe_pw()))
+			return;
+		nowUser.setAgree(user.getAgree());
+		if(nowUser.getAgree() == null)
+			return;
+		boardDao.erase(nowUser.getMe_id());
+		memberDao.memberOut(nowUser);
 	}
 
 }

@@ -25,4 +25,6 @@ public interface MemberService {
 
 	MemberVO updateMember(MemberVO user, MemberVO nowUser);
 
+	void memberOut(MemberVO user, MemberVO nowUser);
+
 }

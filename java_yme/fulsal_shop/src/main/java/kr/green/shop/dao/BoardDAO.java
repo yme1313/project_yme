@@ -27,4 +27,6 @@ public interface BoardDAO {
 
 	void noAnswer(BoardVO board);
 
+	void erase(String me_id);
+
 }

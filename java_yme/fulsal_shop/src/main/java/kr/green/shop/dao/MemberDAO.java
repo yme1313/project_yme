@@ -18,4 +18,6 @@ public interface MemberDAO {
 
 	public int updateMember(@Param("user")MemberVO nowUser);
 
+	void memberOut(@Param("user")MemberVO nowUser);
+
 }

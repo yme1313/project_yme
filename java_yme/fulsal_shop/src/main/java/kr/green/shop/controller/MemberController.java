@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +26,7 @@ public class MemberController {
 	
 	private MemberService memberService;
 	private BoardService boardService;
+	BCryptPasswordEncoder passwordEncoder;
 	
 	@GetMapping("/member/signup")
 	public ModelAndView signupGet(ModelAndView mv) {
@@ -90,10 +92,24 @@ public class MemberController {
 		mv.setViewName("/template/member/boardlist");
 		return mv;
 	}
+	@GetMapping("member/memberout")
+	public ModelAndView memberoutGet(ModelAndView mv) {
+		mv.addObject("title", "회원탈퇴");
+		mv.setViewName("/template/member/memberout");
+		return mv;
+	}
+	@PostMapping("member/memberout")
+	public ModelAndView memberoutPost(ModelAndView mv, MemberVO user, HttpServletRequest request, HttpServletResponse response) {
+		MemberVO nowUser = memberService.getMemberByRequest(request);
+		memberService.memberOut(user,nowUser);
+		memberService.signout(request, response);
+		mv.setViewName("redirect:/");
+		return mv;
+	}
 	
 	@ResponseBody
 	@PostMapping("/id/check")
-	public String idCheck(String me_id) {
-		return memberService.getMember(me_id) != null ? "FAIL" : "OK";
+	public boolean idCheck(String me_id) {
+		return memberService.getMember(me_id) != null ? false : true;
 	}
 }

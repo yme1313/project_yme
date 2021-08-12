@@ -21,7 +21,7 @@
  		select * from member 
  			where session_id = #{session_id} and session_limit > now()
  	</select>
- 		<update id="updateMember">
+ 	<update id="updateMember">
 		update member set
 				me_pw = #{user.me_pw},
 				me_birth = #{user.me_birth},
@@ -36,4 +36,8 @@
 				me_authority = #{user.me_authority}
 			where me_id = #{user.me_id}
 	</update>
+	<delete id="memberOut">
+		delete from member
+			where me_pw = #{user.me_pw}
+	</delete>
 </mapper>

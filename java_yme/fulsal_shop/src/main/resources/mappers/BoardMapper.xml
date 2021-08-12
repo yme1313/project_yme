@@ -47,5 +47,9 @@
 				bd_answer = 'N'
 			where bd_num = #{bd_num}
 	</update>
+	<delete id="erase">
+		delete from board
+			where bd_me_id = #{me_id}
+	</delete>
 	
 </mapper>

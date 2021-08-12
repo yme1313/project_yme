@@ -94,7 +94,7 @@
 			<c:if test="${user.me_authority == 'USER'}">
 				<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/boardlist" class="menu-font">1:1문의 내역</a></div>
 			</c:if>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/out" class="menu-font">회원 탈퇴</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/memberout" class="menu-font">회원 탈퇴</a></div>
 		</div>
 		<div class="right-board-box">
 			<form class="container modifyUser" method="post" action="<%=request.getContextPath()%>/member/mypage">

@@ -72,14 +72,13 @@
 					<input type="text" class="form-control col-12" name="me_id">
 				</td>
 				<td>
-					<button type="button" class="id-dup-btn btn btn-outline-dark ml-1">중복</button>
 					<span class="ml-2">[5~12자 영문(소),숫자,특수문자(-_) 가능]</span>
 				</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
 				<td><input type="password" class="form-control col-12" name="me_pw" id="me_pw"></td>
-				<td><span class="ml-2">[6~15자 영문(대/소),숫자,특수문자(!@#) 가능]</span></td>
+				<td><span class="ml-2">[8~16자 영문(대/소),숫자,특수문자(!@#) 가능]</span></td>
 			</tr>
 			<tr>
 				<td>비밀번호 확인</td>
@@ -140,12 +139,22 @@
 	</div>
 </form>
 <script type="text/javascript">
+var contextPath = '<%=request.getContextPath()%>';
 $(function(){
     $(".signupCheck").validate({
         rules: {
             me_id: {
                 required : true,
-                regex : /^[a-z0-9_-]{5,12}$/
+                regex : /^[a-z0-9_-]{5,12}$/,
+                remote: {
+                   	url : contextPath + '/id/check',
+                   	type: 'post',
+                   	data: {
+                   		id : function(){
+                   			return $('[name=id]').val();
+                   		}
+                   	}
+                }
             },
             me_pw: {
                 required : true,
@@ -185,7 +194,8 @@ $(function(){
         messages : {
 	        	me_id: {
 	                required : "필수항목 입니다.",
-	                regex : "5~12자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다."
+	                regex : "5~12자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.",
+	                remote: "이미 존재하는 아이디입니다."
 	            },
 	            me_pw: {
 	                required : "필수항목 입니다.",
@@ -221,22 +231,6 @@ $(function(){
 	            	required : "필수항목 입니다."
 	            }
         }
-    })
-    var contextPath = '<%=request.getContextPath()%>';
-    $('.id-dup-btn').click(function(){
-    	var me_id = $('[name=me_id]').val();
-    	$.ajax({
-    		type : 'post',
-    		url : contextPath + '/id/check',
-    		data : {me_id : me_id},
-    		success : function(res){
-    			if(res == "OK"){
-    				alert("사용 가능한 아이디입니다.")
-    			} else {
-    				alert("사용 불가능한 아이디입니다.")
-    			}
-    		}
-    	})
     })
 })
 $.validator.addMethod(
