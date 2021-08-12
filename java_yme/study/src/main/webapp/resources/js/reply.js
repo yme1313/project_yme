@@ -36,7 +36,7 @@ var replyService = (function(){
 			success : function(res){
 				if(callback){
 					callback(res,'수정');
-					replyService.list(contextPath, {page : data.page, rp_bd_num: data.rp_bd_num}, listCallback);
+					list(contextPath, {page : data.page, rp_bd_num: data.rp_bd_num}, listCallback);
 				}
 			}			
 		})

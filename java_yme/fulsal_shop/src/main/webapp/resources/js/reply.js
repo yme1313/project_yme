@@ -29,10 +29,21 @@ var replyService = (function(){
 			}
 		})
 	}
-	function modify(contextPath, data, page){
-
+	function modify(contextPath, data, callback, callback2){
+				$.ajax({
+			type: 'post',
+			url : contextPath + '/reply/modify',
+			data : JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+			success : function(res){
+				if(callback){
+					callback(res,'수정');
+					show(contextPath, {rp_bd_num : data.rp_bd_num}, callback2);
+				} 
+			}
+		})
 	}
-	function deleteReply(contextPath, data, callback, listCallback){
+	function deleteReply(contextPath, data, callback, callback2){
 		$.ajax({
 			type : 'post',
 			url : contextPath + '/reply/delete',
@@ -40,7 +51,7 @@ var replyService = (function(){
 			success : function(res){
 				if(callback){
 					callback(res,'삭제');
-					show(contextPath, {rp_bd_num : data.rp_bd_num}, listCallback);
+					show(contextPath, {rp_bd_num : data.rp_bd_num}, callback2);
 				}
 			}
 		})

@@ -91,8 +91,8 @@
 			<h3>마이페이지</h3>
 			<hr>
 			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/mypage" class="menu-font">개인정보수정</a></div>
-			<div class="left-menu-box"><a hreg="#" class="menu-font">1:1문의 내역</a></div>
-			<div class="left-menu-box"><a hreg="#" class="menu-font">회원 탈퇴</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/boardlist" class="menu-font">1:1문의 내역</a></div>
+			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/out" class="menu-font">회원 탈퇴</a></div>
 		</div>
 		<div class="right-board-box">
 			<form class="container modifyUser" method="post" action="<%=request.getContextPath()%>/member/mypage">

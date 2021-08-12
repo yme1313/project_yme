@@ -33,7 +33,8 @@
 	</update>
 	<update id="deleteBoard">
 		update board set
-				bd_valid = 'D'
+				bd_valid = 'D',
+				bd_answer = 'N'
 			where bd_num = #{bd_num}
 	</update>
 	<update id="setAnswer">

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.green.shop.dao.BoardDAO;
+import kr.green.shop.dao.ReplyDAO;
 import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.MemberVO;
@@ -16,6 +17,8 @@ public class BoardSerViceImp implements BoardService{
 	
 	@Autowired
 	BoardDAO boardDao;
+	@Autowired
+	ReplyDAO replyDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
@@ -79,6 +82,7 @@ public class BoardSerViceImp implements BoardService{
 		if(board == null || !board.getBd_me_id().equals(user.getMe_id())) {
 			return;
 		}
+		replyDao.deleteValid(board.getBd_num());
 		boardDao.deleteBoard(num);
 		
 	}

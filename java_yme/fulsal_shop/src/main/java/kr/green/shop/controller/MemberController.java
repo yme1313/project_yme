@@ -1,5 +1,7 @@
 package kr.green.shop.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,7 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.shop.pagination.Criteria;
+import kr.green.shop.pagination.PageMaker;
+import kr.green.shop.service.BoardService;
 import kr.green.shop.service.MemberService;
+import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.MemberVO;
 import lombok.AllArgsConstructor;
 
@@ -18,6 +24,7 @@ import lombok.AllArgsConstructor;
 public class MemberController {
 	
 	private MemberService memberService;
+	private BoardService boardService;
 	
 	@GetMapping("/member/signup")
 	public ModelAndView signupGet(ModelAndView mv) {
@@ -69,6 +76,18 @@ public class MemberController {
 		if(updateUser != null)
 			request.getSession().setAttribute("user", updateUser);
 		mv.setViewName("redirect:/");
+		return mv;
+	}
+	@GetMapping("member/boardlist")
+	public ModelAndView listGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(8);
+		ArrayList <BoardVO> list = boardService.getBoardList(cri);
+		int totalCount = boardService.getTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount, 5, cri);;
+		mv.addObject("pm", pm);
+		mv.addObject("list", list);
+		mv.addObject("title", "1:1문의 내역");
+		mv.setViewName("/template/member/boardlist");
 		return mv;
 	}
 	

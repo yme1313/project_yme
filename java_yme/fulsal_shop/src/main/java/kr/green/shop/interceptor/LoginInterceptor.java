@@ -39,7 +39,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	        	response.addCookie(loginCookie);
 	        	memberService.keepLogin(user.getMe_id(), session.getId(), 
 	        			new Date(System.currentTimeMillis() + timeSecond*1000));
-	        	System.out.println(1);
 	        }
 	    }
 	}

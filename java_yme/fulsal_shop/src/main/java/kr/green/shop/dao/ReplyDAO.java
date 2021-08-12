@@ -14,4 +14,8 @@ public interface ReplyDAO {
 
 	void deleteReply(ReplyVO dbReply);
 
+	void modifyReply(ReplyVO dbReply);
+
+	void deleteValid(int bd_num);
+
 }

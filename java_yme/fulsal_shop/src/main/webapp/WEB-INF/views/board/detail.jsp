@@ -88,13 +88,19 @@ a:hover{
 							<div class="contents">
 								<div class="reply-box form-group">
 									<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
-										<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
-										<div class="float-right">
-											<button type="button" class="reply-btn btn btn-outline-dark btn-sm">답변등록</button>
-										</div>	
+										<div class="admin">
+											<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
+										</div>
+										<c:if test="${board.bd_answer == 'N'}">
+											<div class="float-right">
+												<button type="button" class="reply-btn btn btn-outline-dark btn-sm">답변등록</button>
+											</div>	
+										</c:if>
 									</c:if>
 									<c:if test="${user.me_authority == 'USER' || user.me_authority == null}">
-										<textarea class="reply-text form-control" rows="7" readonly></textarea>
+										<div class="notAdmin">
+											<textarea class="reply-text form-control" rows="7" readonly></textarea>
+										</div>	
 									</c:if>
 								</div>
 							</div>
@@ -120,7 +126,7 @@ var rp_me_id = '${user.me_id}';
 var me_authority = '${user.me_authority}'
 var contextPath = '<%=request.getContextPath()%>';
 $(function(){
-	$('.reply-btn').click(function(){
+	$(document).on('click','.reply-btn',function(){
 		if(rp_me_id == ''){
 			alert("로그인을 하세요.")
 			return;
@@ -138,37 +144,26 @@ $(function(){
 		
 	})
 	$(document).on('click','.reply-mod-btn',function(){
-		var rp_content = $('.reply-input').text();
-		var rp_num = $('.reply-del-btn').attr('data');
-			$('.reply-input').remove();
-			var str = '<textarea class="reply-input form-control mb-2" rows="7">' + rp_content + '</textarea>';
-			$('.reply-box').prepend(str);
+		var rp_num = $(this).siblings('.rp_num').val();
+			$('.reply-input').prop('readonly',false)
 			$('.btn-box').children(this).hide();
 			str = '<button class="reply-ok-btn btn btn-outline-dark btn-sm mr-1 ml-2"">등록</button>' +
 				  '<button type="button" class="reply-del-btn btn btn-outline-dark btn-sm" data="'+ rp_num+'">삭제</button>'	
 			$('.btn-box').prepend(str);	
 	})
+	
 	$(document).on('click','.reply-ok-btn', function(){
-		var rp_num = $('.reply-del-btn').attr('data');
+		var rp_num = $(this).siblings('.reply-del-btn').attr('data');
 		var rp_content = $('.reply-input').val()
 		var data = {
 				rp_num     : rp_num, 
 				rp_content : rp_content,
 				rp_bd_num  : rp_bd_num
 				}
-			$.ajax({
-				type: 'post',
-				url : contextPath + '/reply/modify',
-				data : JSON.stringify(data),
-				contentType : "application/json; charset=utf-8",
-				success : function(res){
-					console.log(res)
-				}
-			})
+		replyService.modify(contextPath, data, responseOk ,modifyReply);
 	})
-		
 	
-	replyService.show(contextPath, {rp_bd_num : rp_bd_num} ,showReply);
+replyService.show(contextPath, {rp_bd_num : rp_bd_num} ,showReply);	
 })
 
 function responseOk(res, str){
@@ -179,8 +174,10 @@ function responseOk(res, str){
 }
 function showReply(res){
 		var reply = res.reply;
-		var str = reply[0].rp_content;
-		var user = 'USER';
+		var str = '';
+				str = '<textarea class="reply-input form-control mb-2" rows="7" readonly >' + reply[0].rp_content +'</textarea>'
+		var str2 = '';
+				str2 = '<textarea class="reply-text form-control mb-2" rows="7" readonly>' + reply[0].rp_content + '</textarea>'
 		var reg = '';
 				reg += '<span class="regtime">' + '답변시간 : ' + reply[0].rp_regDateStr + '</span>'
 		var btn = '';
@@ -191,17 +188,18 @@ function showReply(res){
 					} else {
 						btn += 
 							'<span class="btn-box">' +
-							'<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm mr-1 ml-2" data="'+ reply[0].rp_num+'">수정</button>' +
-							'<button type="button" class="reply-del-btn btn btn-outline-dark btn-sm" data="'+ reply[0].rp_num+'">삭제</button>' +
+							'<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm mr-1 ml-2">수정</button>' +
+							'<button type="button" class="reply-del-btn btn btn-outline-dark btn-sm">삭제</button>' +
 							'<input type="hidden" class="rp_num" value="'+reply[0].rp_num+'">' +
 							'</span>'
 					}
-					
-		$('.reply-input').prop('readonly',true)
 		$('.reply').children('label').after(btn)
 		$('.reply').prepend(reg);	
-		$('.reply-input').html(str);
-		$('.reply-text').html(str);	
+		$('.reply-input').remove()
+		$('.reply-text').remove()	
+		$('.admin').html(str);
+		$('.notAdmin').html(str2);	
+		$('.float-right').hide()
 }
 function basicReply(res){
 		$('.reply-input').prop('readonly',false)
@@ -209,6 +207,33 @@ function basicReply(res){
 		$('.regtime').remove()
 		$('.reply-input').html('');
 		$('.reply-input').html('');
+		$('.float-right').show()
+}
+function modifyReply(res){
+	var reply = res.reply;
+	var str = '';
+		str = '<textarea class="reply-input form-control mb-2" rows="7" readonly >' + reply[0].rp_content +'</textarea>'
+	var str2 = '';
+		str2 = '<textarea class="reply-text form-control mb-2" rows="7" readonly>' + reply[0].rp_content + '</textarea>'
+	var btn = '';
+			btn += 	
+				''
+				if(${user.me_authority == 'USER' || user.me_authority == null}){
+					btn +=	''
+				} else {
+					btn += 
+						'<span class="btn-box">' +
+						'<button type="button" class="reply-mod-btn btn btn-outline-dark btn-sm mr-1 ml-2">수정</button>' +
+						'<button type="button" class="reply-del-btn btn btn-outline-dark btn-sm">삭제</button>' +
+						'<input type="hidden" class="rp_num" value="'+reply[0].rp_num+'">' +
+						'</span>'
+				}
+	$('.reply').children('.btn-box').remove()
+	$('.reply').children('label').after(btn)	
+	$('.reply-input').remove()
+	$('.reply-text').remove()	
+	$('.admin').html(str);
+	$('.notAdmin').html(str2);	
 }
 </script>
 </body>

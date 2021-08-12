@@ -17,7 +17,17 @@
 	</insert>
 	<update id="deleteReply">
 		update reply set
-			rp_valid = 'D'
+				rp_valid = 'D'
 			where rp_num = #{rp_num}
 	</update>	
+	<update id="modifyReply">
+		update reply set
+				rp_content = #{rp_content}
+			where rp_num = #{rp_num} and rp_valid = 'I'
+	</update>
+	<update id="deleteValid">
+		update reply set
+				rp_valid = 'D'
+			where rp_bd_num = #{bd_num}
+	</update>
 </mapper>

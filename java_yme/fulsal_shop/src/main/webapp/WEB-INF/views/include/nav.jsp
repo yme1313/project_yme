@@ -39,12 +39,19 @@
 					<a class="nav-link" href="<%=request.getContextPath()%>/member/mypage" style="color: white;">마이페이지</a>
 				</li>
 			</c:if>
-			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-box"></i>주문/배송조회</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>장바구니</a>
-			</li>
+			<c:if test="${user.me_authority == 'USER' || user.me_authority == null}">
+				<li class="nav-item">
+					<a class="nav-link" href="#" style="color: white;"><i class="fas fa-box"></i>주문/배송조회</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart"></i>장바구니</a>
+				</li>
+			</c:if>
+			<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
+				<li class="nav-item">
+					<a class="nav-link" href="#" style="color: white;"><i class="fas fa-user-cog"></i>관리자전용메뉴</a>
+				</li>
+			</c:if>
 			<li class="nav-item">
 				<a class="nav-link" href="<%=request.getContextPath()%>/board/notice/list" style="color: white;">고객센터</a>
 			</li>
