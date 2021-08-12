@@ -62,57 +62,61 @@
 			<h3>마이페이지</h3>
 			<hr>
 			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/mypage" class="menu-font">개인정보수정</a></div>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/boardList" class="menu-font">1:1문의 내역</a></div>
+			<c:if test="${user.me_authority == 'USER'}">
+				<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/boardlist" class="menu-font">1:1문의 내역</a></div>
+			</c:if>
 			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/out" class="menu-font">회원 탈퇴</a></div>
 		</div>
-		<div class="right-board-box">
-			<div class="container board-box">         
-				<table class="table table-horver">
-						<h3>1:1문의 내역</h3>
-					<thead>
-						<tr>
-							<th>번호</th>
-							<th>답변여부</th>
-							<th>제목</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${list}" var="board" varStatus="status">
-							<tr>
-								<td>${pm.totalCount - status.index - pm.criteria.pageStart}</td>
-								<td>${board.answerStr}</td>
-								<c:if test="${user.me_authority != 'ADMIN' || user.me_authority != 'SUPER ADMIN'}">
-									<td class="enter-pw" data="${board.bd_num}">
-										<a href="<%=request.getContextPath()%>/board/detail?num=${board.bd_num}">
-											${board.bd_title}
-										</a>
-									</td>
-								</c:if>
-								<td>${board.dateTime}</td>
-							</tr>
-						</c:forEach>	
-					</tbody>
-				</table>
-				  <ul class="pagination justify-content-center">
-					  <c:if test="${pm.prev}">
-					    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/boardlist?page=${pm.startPage-1}">이전</a></li>
-					  </c:if> 
-					  <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-					  	<c:choose>
-						  	<c:when test="${pm.criteria.page == index}">
-						    	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>//member/boardlist?page=${index}">${index}</a></li>
-			    			</c:when>
-			    			 <c:otherwise>
-			    				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/boardlist?page=${index}">${index}</a></li>
-			    			</c:otherwise>
-		    			</c:choose>
-					  </c:forEach> 
-					  <c:if test="${pm.next}">
-					    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/boardlist?page=${pm.endPage+1}">다음</a></li>
-					  </c:if>  
-				  </ul>
-			</div>
+		<div class="right-board-box">	
+					<div class="container board-box">       
+							<table class="table table-horver">
+								<h3>1:1문의 내역</h3>
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>답변여부</th>
+										<th>제목</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+							<tbody>
+								<c:forEach items="${list}" var="board" varStatus="status">
+									<c:if test="${user.me_id == board.bd_me_id}">
+										<tr>
+											<td>${pm.totalCount - status.index - pm.criteria.pageStart}</td>
+											<td>${board.answerStr}</td>
+											<c:if test="${user.me_authority != 'ADMIN' || user.me_authority != 'SUPER ADMIN'}">
+												<td class="enter-pw" data="${board.bd_num}">
+													<a href="<%=request.getContextPath()%>/board/detail?num=${board.bd_num}">
+														${board.bd_title}
+													</a>
+												</td>
+											</c:if>
+											<td>${board.dateTime}</td>
+										</tr>	
+									</c:if>	
+								</c:forEach>
+							</tbody>
+						</table>
+					  <ul class="pagination justify-content-center">
+						  <c:if test="${pm.prev}">
+						    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/boardlist?page=${pm.startPage-1}">이전</a></li>
+						  </c:if> 
+						  <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+						  	<c:choose>
+							  	<c:when test="${pm.criteria.page == index}">
+							    	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>//member/boardlist?page=${index}">${index}</a></li>
+				    			</c:when>
+				    			 <c:otherwise>
+				    				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/boardlist?page=${index}">${index}</a></li>
+				    			</c:otherwise>
+			    			</c:choose>
+						  </c:forEach> 
+						  <c:if test="${pm.next}">
+						    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/member/boardlist?page=${pm.endPage+1}">다음</a></li>
+						  </c:if>  
+					  </ul>
+				</div>
 		</div>
 		<form id="pwBox" class="pw-box" method="post" action="<%=request.getContextPath()%>/board/detail">
 			<div class="pw-input-box form-group pl-2 pr-2">
