@@ -18,10 +18,6 @@ a:hover{
 .right-board-box{
 	position: relative;
 }
-.menu-font{
-	font-size: 15px; font-style:initial;
-	text-decoration : none;
-}
 .reg-btn{
 	position: absolute; top: 0; right: 0;
 }
