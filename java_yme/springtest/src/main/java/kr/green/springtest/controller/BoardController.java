@@ -43,7 +43,7 @@ public class BoardController {
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
 		mv.addObject("pm",pm);
 		mv.addObject("list", list);
-		mv.setViewName("/template/board/list");
+		mv.setViewName("/template2/board/list");
 		return mv;
 	}
 	@RequestMapping(value="/detail")
@@ -60,7 +60,7 @@ public class BoardController {
 		RecommendVO rvo = boardService.getRecommend(num, user);
 		mv.addObject("recommend", rvo);
 		
-		mv.setViewName("/template/board/detail");
+		mv.setViewName("/template2/board/detail");
 		return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.GET)
@@ -83,7 +83,7 @@ public class BoardController {
 		ArrayList<FileVO> fileList = boardService.getFileList(num);
 		//화면에 첨부파일 전송
 		mv.addObject("fileList", fileList);
-		mv.setViewName("/template/board/modify");
+		mv.setViewName("/template2/board/modify");
 		MemberVO user = memberService.getMember(r);
 		if(board == null || !board.getWriter().equals(user.getId())) {
 			mv.setViewName("redirect:/board/list");

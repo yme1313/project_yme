@@ -28,7 +28,7 @@ public class BoardVO {
 	}
 	public String getAnswerStr() {
 		if(bd_answer.equals("N")) {
-			return "확인중";
+			return "답변대기";
 		}
 		if(bd_answer.equals("Y")) {
 			return "답변완료";

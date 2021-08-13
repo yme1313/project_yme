@@ -19,8 +19,8 @@ public class AdminController {
 	
 	@GetMapping("/user/list")
 	public ModelAndView signupGet(ModelAndView mv) {
-		mv.addObject("title", "회원목록");
-		mv.setViewName("/template/admin/user/list");
+		mv.addObject("title", "회원관리");
+		mv.setViewName("/template4/admin/user/list");
 		return mv;
 	}
 }

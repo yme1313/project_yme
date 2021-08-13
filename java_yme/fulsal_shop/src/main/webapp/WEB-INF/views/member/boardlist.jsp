@@ -10,21 +10,10 @@
  	color : black
  }
 .main-box{
-	float: left;  position: relative;
-}
-.left-board-box{
-	width: 20vw; height: 100vh;
-	margin: 0; padding: 0;
-}
-.left-board-box .left-menu-box{
-	margin-bottom : 10px;
+	position: absolute; top : 2.5%; left : 16%; width : 80%;
 }
 .right-board-box{
-	position: absolute; top: 0; left: 30%; width : 65vw;
-}
-.menu-font{
-	font-size: 15px; font-style:initial;
-	text-decoration : none;
+	position: relative;
 }
  a:hover{
 	text-decoration : none;	
@@ -58,15 +47,6 @@
 <body>
 	<br>
 	<div class="container main-box">
-		<div class="left-board-box">
-			<h3>마이페이지</h3>
-			<hr>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/mypage" class="menu-font">개인정보수정</a></div>
-			<c:if test="${user.me_authority == 'USER'}">
-				<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/boardlist" class="menu-font">1:1문의 내역</a></div>
-			</c:if>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/member/memberout" class="menu-font">회원 탈퇴</a></div>
-		</div>
 		<div class="right-board-box">	
 					<div class="container board-box">       
 							<table class="table table-horver">

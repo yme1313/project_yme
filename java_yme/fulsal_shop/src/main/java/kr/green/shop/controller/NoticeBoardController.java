@@ -37,7 +37,7 @@ public class NoticeBoardController {
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
 		mv.addObject("type", "/notice");
-		mv.setViewName("/template/board/list");
+		mv.setViewName("/template2/board/list");
 		return mv;
 	}
 	@GetMapping("/detail")
@@ -46,14 +46,14 @@ public class NoticeBoardController {
 		mv.addObject("title", "게시글 상세");
 		mv.addObject("board", board);
 		mv.addObject("type", "/notice");
-		mv.setViewName("/template/board/detail");
+		mv.setViewName("/template2/board/detail");
 		return mv;
 	}
 	@GetMapping("/register")
 	public ModelAndView regiterGet(ModelAndView mv) {
 		mv.addObject("title", "게시글 등록");
 		mv.addObject("type", "/notice");
-		mv.setViewName("/template/board/register");
+		mv.setViewName("/template2/board/register");
 		return mv;
 	}
 	@PostMapping("/register")
@@ -70,7 +70,7 @@ public class NoticeBoardController {
 		mv.addObject("board", board);
 		mv.addObject("title", "게시글 수정");
 		mv.addObject("type", "/notice");
-		mv.setViewName("/template/board/modify");
+		mv.setViewName("/template2/board/modify");
 		MemberVO user = memberService.getMemberByRequest(request);
 		if(board == null || !board.getBd_me_id().equals(user.getMe_id())) {
 			mv.setViewName("redirect:/board/notice/list");

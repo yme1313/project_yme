@@ -13,17 +13,10 @@ a:hover{
 	text-decoration : none;	
 }
 .main-box{
-	float: left;  position: relative;
-}
-.left-board-box{
-	width: 20vw; height: 100vh;
-	margin: 0; padding: 0;
-}
-.left-board-box .left-menu-box{
-	margin-bottom : 10px;
+	position: absolute; top : 2.5%; left : 16%; width : 80%;
 }
 .right-board-box{
-	position: absolute; top: 0; left: 30%; width : 60vw;
+	position: relative;
 }
 .menu-font{
 	font-size: 15px; font-style:initial;
@@ -59,15 +52,8 @@ a:hover{
 </style>
 </head>
 <body>
-	<br>
 	<div class="container main-box">
-		<div class="left-board-box">
-			<h3>고객센터</h3>
-			<hr>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/notice/list" class="menu-font">공지사항</a></div>
-			<div class="left-menu-box"><a href="<%=request.getContextPath()%>/board/list" class="menu-font">1:1문의</a></div>
-		</div>
-		<div class="right-board-box">
+		<div class="container right-board-box">
 			<div class="container board-box">         
 				<table class="table table-horver">
 					<c:if test="${type eq '/notice'}">  

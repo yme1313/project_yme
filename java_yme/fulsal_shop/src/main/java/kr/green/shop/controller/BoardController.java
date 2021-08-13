@@ -35,7 +35,7 @@ public class BoardController {
 		mv.addObject("title", "1:1문의");
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
-		mv.setViewName("/template/board/list");
+		mv.setViewName("/template2/board/list");
 		return mv;
 	}
 	@GetMapping("/board/detail")
@@ -43,7 +43,7 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("title", "게시글 상세");
 		mv.addObject("board", board);
-		mv.setViewName("/template/board/detail");
+		mv.setViewName("/template2/board/detail");
 		return mv;
 	}
 	@PostMapping("/board/detail")
@@ -52,14 +52,14 @@ public class BoardController {
 			BoardVO board = boardService.getBoard(tmpboard.getBd_num());
 			mv.addObject("title", "게시글 상세");
 			mv.addObject("board",board);
-			mv.setViewName("/template/board/detail");;
+			mv.setViewName("/template2/board/detail");;
 		}
 		return mv;
 	}
 	@GetMapping("/board/register")
 	public ModelAndView regiterGet(ModelAndView mv) {
 		mv.addObject("title", "게시글 등록");
-		mv.setViewName("/template/board/register");
+		mv.setViewName("/template2/board/register");
 		return mv;
 	}
 	@PostMapping("/board/register")

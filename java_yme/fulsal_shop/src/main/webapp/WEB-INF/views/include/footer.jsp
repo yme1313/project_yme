@@ -37,14 +37,14 @@
 	</div>
 <script>
 $(window).scroll(function(){
-	if ($(this).scrollTop() > 300){
+	if ($(this).scrollTop() > 200){
 		$('.go-top').show();
 	} else{
 		$('.go-top').hide();
 	}
 });
 $('.go-top').click(function(){
-	$('html, body').animate({scrollTop:0},300);
+	$('html, body').animate({scrollTop:0},200);
 	return false;
 });
 </script>	

@@ -8,7 +8,15 @@
 <title>스프링</title>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 </head>
+<style>
+	.body {min-height : calc(100vh - 240px)};
+</style>
 <body> 
-    <tiles:insertAttribute name="body"/>                                          
+	<tiles:insertAttribute name="nav"/>  
+	<div class="body">
+		<tiles:insertAttribute name="body2"/> 
+    	<tiles:insertAttribute name="body"/>                                          
+    </div>
+    <tiles:insertAttribute name="footer"/>                                    
 </body>
 </html>

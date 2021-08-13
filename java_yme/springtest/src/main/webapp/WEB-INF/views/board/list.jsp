@@ -4,10 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<style>
+.right-board {
+	width : 70%; 
+	float : left;
+}
+</style>
 </head>
 <body>
-	<div class="container">
+	<div class="container right-board">
 		<h1>게시판</h1>
 	  <form class="input-group float-right mb-3" action="<%=request.getContextPath()%>/board/list">
 		  <select class="form-control mr-2" name="type">

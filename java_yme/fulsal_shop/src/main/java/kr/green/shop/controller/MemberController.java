@@ -68,7 +68,7 @@ public class MemberController {
 	@GetMapping("member/mypage")
 	public ModelAndView mypageGet(ModelAndView mv) {
 		mv.addObject("title", "개인정보수정");
-		mv.setViewName("/template/member/mypage");
+		mv.setViewName("/template3/member/mypage");
 		return mv;
 	}
 	@PostMapping("member/mypage")
@@ -89,13 +89,13 @@ public class MemberController {
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
 		mv.addObject("title", "1:1문의 내역");
-		mv.setViewName("/template/member/boardlist");
+		mv.setViewName("/template3/member/boardlist");
 		return mv;
 	}
 	@GetMapping("member/memberout")
 	public ModelAndView memberoutGet(ModelAndView mv) {
 		mv.addObject("title", "회원탈퇴");
-		mv.setViewName("/template/member/memberout");
+		mv.setViewName("/template3/member/memberout");
 		return mv;
 	}
 	@PostMapping("member/memberout")
