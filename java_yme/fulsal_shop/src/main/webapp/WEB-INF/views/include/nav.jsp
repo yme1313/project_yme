@@ -22,7 +22,9 @@
 	<body>
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark top-menu">
 			<ul class="navbar-nav">
-				<a class="navbar-brand" href="<%=request.getContextPath()%>/" style="color: white;">HOME</a>
+				<li class="nav-item">
+					<a class="navbar-brand" href="<%=request.getContextPath()%>/" style="color: white;">HOME</a>
+				</li>
 			<c:if test="${user == null}">
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath()%>/member/signin" style="color: white;">로그인</a>
@@ -49,7 +51,7 @@
 			</c:if>
 			<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
 				<li class="nav-item">
-					<a class="nav-link" href="#" style="color: white;"><i class="fas fa-user-cog"></i>관리자전용메뉴</a>
+					<a class="nav-link" href="<%=request.getContextPath()%>/admin/user/list" style="color: white;"><i class="fas fa-user-cog"></i>관리자전용메뉴</a>
 				</li>
 			</c:if>
 			<li class="nav-item">
@@ -70,10 +72,12 @@
 			<li class="nav-item">
 				<a class="nav-link" href="# "style="color: black">의류</a>
 			</li>
-			<form class="form-inline" action="/action_page.php">
-				<input class="form-control mr-sm-2" type="text">
-				<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
-			</form>
+			<li class="nav-item">
+				<form class="form-inline" action="/action_page.php">
+					<input class="form-control mr-sm-2" type="text">
+					<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
+				</form>
+			</li>	
 		</ul>
 		<hr>
 </body>
