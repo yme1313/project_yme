@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,7 +38,8 @@ public class MemberController {
 	@PostMapping("/member/signup")
 	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
 		boolean signupOk = memberService.signup(user);
-		mv.setViewName("redirect:/");
+		if(signupOk) 
+			mv.setViewName("redirect:/member/signin");
 		return mv;
 	}
 	@GetMapping("/member/signin")
@@ -99,11 +101,10 @@ public class MemberController {
 		return mv;
 	}
 	@PostMapping("member/memberout")
-	public ModelAndView memberoutPost(ModelAndView mv, MemberVO user, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView memberoutPost(ModelAndView mv, HttpServletRequest request, HttpServletResponse response) {
 		MemberVO nowUser = memberService.getMemberByRequest(request);
-		memberService.memberOut(user,nowUser);
-		memberService.signout(request, response);
-		mv.setViewName("redirect:/");
+		if(nowUser == null) 
+			mv.setViewName("redirect:/");	
 		return mv;
 	}
 	
@@ -111,5 +112,11 @@ public class MemberController {
 	@PostMapping("/id/check")
 	public boolean idCheck(String me_id) {
 		return memberService.getMember(me_id) != null ? false : true;
+	}
+	@ResponseBody
+	@PostMapping("/member/outcheck")
+	public String outCheck(@RequestBody MemberVO user, HttpServletRequest request, HttpServletResponse response) {
+		MemberVO nowUser = memberService.getMemberByRequest(request);
+		return memberService.memberOut(user, nowUser, request, response);
 	}
 }

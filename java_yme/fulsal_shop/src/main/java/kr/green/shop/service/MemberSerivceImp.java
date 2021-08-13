@@ -181,16 +181,18 @@ public class MemberSerivceImp implements MemberService{
 	}
 
 	@Override
-	public void memberOut(MemberVO user, MemberVO nowUser) {
+	public String memberOut(MemberVO user, MemberVO nowUser, HttpServletRequest request,HttpServletResponse response) {
 		if(user.getMe_pw() == null || nowUser == null)
-			return;
-		if(!passwordEncoder.matches(user.getMe_pw(), nowUser.getMe_pw()))
-			return;
+			return "";
 		nowUser.setAgree(user.getAgree());
-		if(nowUser.getAgree() == null)
-			return;
+		if(nowUser.getAgree() == false)
+			return "FAIL2";
+		if(!passwordEncoder.matches(user.getMe_pw(), nowUser.getMe_pw()))
+			return "FAIL";
 		boardDao.erase(nowUser.getMe_id());
 		memberDao.memberOut(nowUser);
+		signout(request ,response);
+		return "OK";
 	}
 
 }

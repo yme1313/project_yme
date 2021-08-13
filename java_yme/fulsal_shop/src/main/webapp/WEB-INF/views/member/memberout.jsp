@@ -116,13 +116,13 @@
 				  	<form class=out-box method="post" action="<%=request.getContextPath()%>/member/memberout">
 					  	 <div class="form-check required-box">
 							  <label class="form-check-label">
-							     <input type="checkbox" class="form-check-input" name="agree" value="true"> 위 안내 사항에 동의 합니다.
+							     <input type="checkbox" class="form-check-input" name="agree"> 위 안내 사항에 동의 합니다.
 							  </label>
 						</div>
 				        <div class="check-pw">
 				          <input type="password" class="pw form-control" placeholder="비밀번호 재확인" name="me_pw">
 				        </div>
-				        <button type="submit" class="out-btn col-6">
+				        <button type="button" class="out-btn col-6">
 				          Good Bye !
 				        </button>       
 		  		    </form> 			 
@@ -131,9 +131,28 @@
 	</div>	
 <script>
 $(function(){
-	$('.out-box').click(function(e){
+	$('.out-btn').click(function(e){
 		e.preventDefault();
-		var bd_pw = $('.check-pw [name=me_pw]').val();
+		var me_pw = $('.check-pw [name=me_pw]').val();
+		var agree = $('[name=agree]').is(":checked");
+		var data = {me_pw : me_pw, agree : agree};
+		$.ajax({
+			type : 'post',
+			url : '<%=request.getContextPath()%>/member/outcheck',
+			data : JSON.stringify(data),
+			contentType : "application/json; charset:utf-8",
+			success : function(res){
+					if(res== 'OK'){
+						alert('회원 탈퇴에 성공했습니다.')
+						$('.out-box').submit();
+					} else if (res=='FAIL2') {
+						alert('안내 사항에 동의해야합니다.')
+						
+					} else if (res=='FAIL') {
+						alert('비밀번호를 확인하세요.')
+					} 
+				}
+		})
 	})
 })
 </script>
