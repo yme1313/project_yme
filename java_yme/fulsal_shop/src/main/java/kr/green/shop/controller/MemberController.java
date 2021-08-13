@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +26,6 @@ public class MemberController {
 	
 	private MemberService memberService;
 	private BoardService boardService;
-	BCryptPasswordEncoder passwordEncoder;
 	
 	@GetMapping("/member/signup")
 	public ModelAndView signupGet(ModelAndView mv) {
