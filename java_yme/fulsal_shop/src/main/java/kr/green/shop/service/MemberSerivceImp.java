@@ -1,5 +1,6 @@
 package kr.green.shop.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -15,6 +16,7 @@ import org.springframework.web.util.WebUtils;
 
 import kr.green.shop.dao.BoardDAO;
 import kr.green.shop.dao.MemberDAO;
+import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.MemberVO;
 
@@ -179,6 +181,13 @@ public class MemberSerivceImp implements MemberService{
 		memberDao.updateMember(nowUser);
 		return nowUser;
 	}
+	@Override
+	public MemberVO updateMemberAdmin(MemberVO user, MemberVO nowUser) {
+		updateMember(user,nowUser);
+		nowUser.setMe_name(user.getMe_name());
+		memberDao.updateMemberAdmin(nowUser);
+		return nowUser;
+	}
 
 	@Override
 	public String memberOut(MemberVO user, MemberVO nowUser, HttpServletRequest request,HttpServletResponse response) {
@@ -194,5 +203,18 @@ public class MemberSerivceImp implements MemberService{
 		signout(request ,response);
 		return "OK";
 	}
+
+	@Override
+	public int getTotalCount(MemberVO user, Criteria cri) {
+		if(user == null)
+			return 0;
+		return memberDao.getTotalCount(user.getMe_authority(), cri);
+	}
+
+	@Override
+	public ArrayList<MemberVO> getMemberList(Criteria cri) {
+		return memberDao.getMemberList(cri);
+	}
+
 
 }

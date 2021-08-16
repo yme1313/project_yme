@@ -60,7 +60,7 @@ a:hover{
 					</c:if>
 					<c:if test="${user != null}">
 					<!-- 공지이고, 관리자이거나 공지가 아니고 일반 사용자이면 -->
-						<c:if test="${(type eq '/notice' && (user.me_authority eq 'ADMIN' || user.me_authority eq 'SUPER ADMIN')) || (type ne '/notice')}">
+						<c:if test="${(type eq '/notice' && (user.me_authority eq 'ADMIN' || user.me_authority eq 'SUB ADMIN')) || (type ne '/notice')}">
 							<a href="<%=request.getContextPath()%>/board${type}/register">
 								<button class="btn btn-outline-dark reg-btn">글쓰기</button>
 							</a>
@@ -88,7 +88,7 @@ a:hover{
 								<c:choose>
 									<c:when test="${type ne '/notice'}">
 										<c:choose>
-											<c:when test="${user.me_authority == 'ADMIN' || user.me_authority == 'SUPER ADMIN'}">
+											<c:when test="${user.me_authority == 'ADMIN' || user.me_authority == 'SUB ADMIN'}">
 												<td>
 													<a href="<%=request.getContextPath()%>/board${type}/detail?num=${board.bd_num}">
 														${board.bd_title}

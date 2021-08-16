@@ -1,9 +1,11 @@
 package kr.green.shop.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.MemberVO;
 
 public interface MemberDAO {
@@ -19,5 +21,11 @@ public interface MemberDAO {
 	public int updateMember(@Param("user")MemberVO nowUser);
 
 	void memberOut(@Param("user")MemberVO nowUser);
+
+	int getTotalCount(@Param("me_authority")String me_authority, @Param("cri")Criteria cri);
+
+	ArrayList<MemberVO> getMemberList(@Param("cri")Criteria cri);
+
+	void updateMemberAdmin(@Param("user")MemberVO nowUser);
 
 }

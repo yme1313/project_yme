@@ -1,10 +1,12 @@
 package kr.green.shop.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.MemberVO;
 
 public interface MemberService {
@@ -24,7 +26,13 @@ public interface MemberService {
 	Object getMember(String id);
 
 	MemberVO updateMember(MemberVO user, MemberVO nowUser);
+	
+	MemberVO updateMemberAdmin(MemberVO user, MemberVO nowUser);
 
 	String memberOut(MemberVO user, MemberVO nowUser, HttpServletRequest request , HttpServletResponse response);
+
+	int getTotalCount(MemberVO user, Criteria cri);
+
+	ArrayList<MemberVO> getMemberList(Criteria cri);
 
 }

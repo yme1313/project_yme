@@ -24,11 +24,11 @@ public class MemberVO {
 		if(me_authority.equals("USER")) {
 			return "회원";
 		}
+		if(me_authority.equals("SUB ADMIN")) {
+			return "보조 관리자";
+		}
 		if(me_authority.equals("ADMIN")) {
 			return "관리자";
-		}
-		if(me_authority.equals("SUPER ADMIN")) {
-			return "최고 관리자";
 		}
 		return "";
 	}

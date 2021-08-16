@@ -55,7 +55,7 @@
 					<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart white-img"></i>장바구니</a>
 				</li>
 			</c:if>
-			<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
+			<c:if test="${user.me_authority == 'SUB ADMIN' || user.me_authority == 'ADMIN'}">
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath()%>/admin/user/list" style="color: white;"><i class="fas fa-user-cog white-img"></i>관리자전용메뉴</a>
 				</li>

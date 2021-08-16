@@ -71,7 +71,7 @@
 	<br>
 	<div class="container main-box">
 		<div class="right-board-box">
-			<form class="container modifyUser" method="post" action="<%=request.getContextPath()%>/member/mypage">
+			<form class="container modifyUser" method="post" action="<%=request.getContextPath()%>/admin/user/modify">
 				<h3>개인정보수정</h3>
 					<table class="table">
 				<thead>
@@ -96,7 +96,7 @@
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><input type="text" class="form-control col-12" name="me_name" value="${user.me_name}" readonly></td>
+						<td><input type="text" class="form-control col-12" name="me_name" value="${user.me_name}"></td>
 						<td></td>
 					</tr>
 					<tr>

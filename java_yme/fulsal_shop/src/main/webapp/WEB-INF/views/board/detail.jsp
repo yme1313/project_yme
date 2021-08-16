@@ -61,7 +61,7 @@ a:hover{
 						<label>답변</label>
 							<div class="contents">
 								<div class="reply-box form-group">
-									<c:if test="${user.me_authority == 'SUPER ADMIN' || user.me_authority == 'ADMIN'}">
+									<c:if test="${user.me_authority == 'ADMIN' || user.me_authority == 'SUB ADMIN'}">
 										<div class="admin">
 											<textarea class="reply-input form-control mb-2" rows="7" ></textarea>
 										</div>
