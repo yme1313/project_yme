@@ -3,5 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.shop.dao.FutsalDAO">
-
+	<select id="getFutsalList" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal 
+			where fu_valid = 'I' and 
+				<if test="cri.type==0">
+					fu_type like concat('%',#{cri.search},'%')
+					or fu_name like concat('%',#{cri.search},'%')		
+					or fu_brand like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==1">
+					fu_type like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==2">
+					fu_name like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==3">	
+					fu_brand like concat('%',#{cri.search},'%')
+				</if>
+			order by fu_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from futsal
+			where fu_valid = 'I' and
+				<if test="cri.type==0">
+					fu_type like concat('%',#{cri.search},'%')
+					or fu_name like concat('%',#{cri.search},'%')		
+					or fu_brand like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==1">
+					fu_type like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==2">
+					fu_name like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==3">	
+					fu_brand like concat('%',#{cri.search},'%')
+				</if>
+	</select>
 </mapper>

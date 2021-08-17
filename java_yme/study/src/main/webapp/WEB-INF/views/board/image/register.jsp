@@ -13,7 +13,6 @@
 		<div class="form-group">
 			<label>제목</label>
 			<input type="text" class="form-control" name="title">
-		</div>
 		<div class="form-group">
 			<label>비밀번호</label>
 			<input type="password" class="form-control" name="pw">

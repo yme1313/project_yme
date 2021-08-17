@@ -11,4 +11,7 @@ public class FutsalVO {
 	private String fu_img;
 	private String fu_info;
 	private int fu_price;
+	private String fu_valid;
+	private String fu_size;
+	private int fu_stock;
 }
