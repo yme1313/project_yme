@@ -62,8 +62,10 @@
 			     <th>타입</th>
 			     <th>상품이름</th>
 				 <th>브랜드</th>
-			     <th>기격</th>  
-			     <th>상세보기</th> 		     			      
+			     <th>기격</th>
+			     <th>사이즈</th>  
+   			     <th>재고</th> 
+   				 <th>상세보기</th> 			      
 		     </tr>
 		   </thead>
 		   <tbody>
@@ -72,10 +74,12 @@
 			       <td>${futsal.fu_type}</td>	
 				   <td>${futsal.fu_name}</td>	 
 			       <td>${futsal.fu_brand}</td>
-			       <td>${futsal.fu_price}</td> 
+			       <td>${futsal.fu_price}</td>     
+			       <td>${futsal.fu_size}</td>
+			       <td>${futsal.fu_stock}</td>  
 			       <td>
-					  <a href="<%=request.getContextPath()%>/admin/goods/detail">
-						 <button class="btn btn-outline-dark btn-sm">상세보기</button>
+					  <a href="<%=request.getContextPath()%>/admin/goods/detail?num=${futsal.fu_num}">
+						 <button type="button" class="btn btn-outline-dark btn-sm">상세보기</button>
 					  </a>
 			       </td>
 			     </tr>
@@ -84,13 +88,13 @@
 		 </table>
 		 <ul class="pagination justify-content-center">
 		 	<c:if test="${pm.prev}">
-		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/list?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
+		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/goods?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
 		    </c:if>
 		    <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-		   		<li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/list?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>	    
+		   		<li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/goods?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>	    
 		   </c:forEach>
 		    <c:if test="${pm.next}">
-		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/list?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
+		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/goods?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
 		    </c:if>
 		  </ul>
   		 </c:if>
@@ -98,11 +102,10 @@
 			 <table class="table table-striped">   
 			   <thead>
 			     <tr>
-			     <th>이름</th>
-				     <th>아이디</th>
-					 <th>생년월일</th>
-				     <th>등급</th> 
-					 <th>설정</th>  
+				     <th>타입</th>
+				     <th>상품이름</th>
+					 <th>브랜드</th>
+				     <th>기격</th>  	
 			     </tr>
 			   </thead>
 			   </table>

@@ -16,9 +16,6 @@
 .reg-box{
 	position : absolute; top 0; left :10%;
 }
-.cloth{
-	display : none;
-}
 </style>
 </head>
 <body>
@@ -42,52 +39,41 @@
 					<option value="퓨마">퓨마</option>
 		     	</select>	
 	      </div>
+   	   	   <div class="input-group-prepend">
+	   	  	 <span class="input-group-text">사이즈</span>
+	     		<select class="form-control col-6 mr-2" name="fu_size">
+					<option value="220">220</option>
+					<option value="225">225</option>
+					<option value="230">230</option>
+					<option value="235">235</option>
+					<option value="240">240</option>
+					<option value="245">245</option>
+					<option value="250">250</option>
+					<option value="255">255</option>
+					<option value="260">260</option>
+					<option value="265">265</option>
+					<option value="270">270</option>
+					<option value="275">275</option>
+					<option value="280">280</option>
+	     		</select>
+	      </div>
 	    </div>  
-   	    <div class="input-group mb-3">
-	      	<div class="input-group-prepend">
-	      	<span class="input-group-text">사이즈</span>
-     		<select class="form-control mr-2 shoes" name="fu_size">
-				<option value="220">220</option>
-				<option value="225">225</option>
-				<option value="230">230</option>
-				<option value="235">235</option>
-				<option value="240">240</option>
-				<option value="245">245</option>
-				<option value="250">250</option>
-				<option value="255">255</option>
-				<option value="260">260</option>
-				<option value="265">265</option>
-				<option value="270">270</option>
-				<option value="275">275</option>
-				<option value="280">280</option>
-	     	</select>	
-     		<select class="form-control mr-2 cloth" name="fu_size">
-				<option value="80(XXS)">80(XXS)</option>
-				<option value="85(XS)">85(XS)</option>
-				<option value="90(S)">90(S)</option>
-				<option value="95(M)">95(M)</option>
-				<option value="100(L)">100(L)</option>
-				<option value="105(XL)">105(XL)</option>
-				<option value="110(XXL)">110(XXL)</option>
-	     	</select>		      	  
-	   	   </div>	   
+   	    <div class="input-group mb-3">   
 	   	   <div class="input-group-prepend">
-	   	  	 <span class="input-group-text">수량</span>
-			<input type="text" class="form-control mr-2 col-3" name="fu_stock">	
+	   	  	 <span class="input-group-text">상품이름</span>
+			<input type="text" class="form-control mr-2" name="fu_name">	
+	      </div>
+	      <div class="input-group-prepend">
+	      	 <span class="input-group-text">가격</span>
+	      	 <input type="text" class="form-control mr-2 col-6" name="fu_price">
+	      </div>
+     	  <div class="input-group-prepend">
+	      	 <span class="input-group-text">수량</span>
+	      	 <input type="text" class="form-control mr-2 col-6" name="fu_stock">
 	      </div>
  	  </div>   
-	      <div class="input-group mb-3">
-		      <div class="input-group-prepend">
-		      	 <span class="input-group-text">가격</span>
-		      	 <input type="text" class="form-control mr-2 col-6" name="fu_price">
-		      </div>
-	      </div>
 		<div class="form-group">
-			<label>상품이름</label>
-			<input type="text" class="form-control" name="fu_name">
-		</div>		
-		<div class="form-group">
-			<label>정보</label>
+			<label>상품정보</label>
 			<textarea id="summernote" class="form-control" name="fu_info" rows="10"></textarea>
 		</div>
 		<div class="form-group">
@@ -107,16 +93,6 @@ $(function(){
         tabsize: 2,
         height: 350
       });
-    $('.fu_type').change(function(){
-    	var fu_type = $(this).val();
-    	if(fu_type == '의류'){
-    		$('.shoes').hide();
-    		$('.cloth').show();
-    	} else if(fu_type == '풋살화'){
-    		$('.cloth').hide();
-    		$('.shoes').show();    		
-    	}
-    })
 })
 </script>
 </body>

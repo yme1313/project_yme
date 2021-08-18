@@ -94,10 +94,20 @@ public class AdminController {
 		return mv;
 	}
 	@GetMapping("/goods/detail")
-	public ModelAndView goodsDetailGet(ModelAndView mv, Criteria cri) {
-		mv.addObject("title", "상품수정");
+	public ModelAndView goodsDetailGet(ModelAndView mv, Integer num) {
+		FutsalVO futsal = futsalService.getFutsal(num);
+		mv.addObject("title", "상품상세");
+		mv.addObject("futsal", futsal);
 		mv.setViewName("/template4/admin/goods/detail");
 		return mv;		
+	}
+	@GetMapping("/goods/delete")
+	public ModelAndView boardDeleteGet(ModelAndView mv, HttpServletRequest request, FutsalVO futsal) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		System.out.println(futsal);
+		futsalService.deleteGoods(futsal,user);
+		mv.setViewName("redirect:/admin/goods/list");
+		return mv;
 	}
 
 }

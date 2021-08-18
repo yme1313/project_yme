@@ -13,4 +13,10 @@ public interface FutsalDAO {
 
 	int getTotalCount(@Param("cri")Criteria cri);
 
+	void insertGoods(FutsalVO futsal);
+
+	void deleteGoods(int fu_num);
+
+	FutsalVO getFutsal(Integer num);
+
 }

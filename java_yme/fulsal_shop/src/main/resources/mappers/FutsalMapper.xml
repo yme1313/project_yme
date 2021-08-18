@@ -41,4 +41,18 @@
 					fu_brand like concat('%',#{cri.search},'%')
 				</if>
 	</select>
+	<select id="getFutsal" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal 
+			where fu_num = #{fu_num} and fu_valid = 'I'
+	</select>
+	<insert id="insertGoods" useGeneratedKeys="true" parameterType="kr.green.shop.vo.FutsalVO" keyProperty="futsal.fu_num">
+		insert into futsal(fu_type,fu_name,fu_brand,fu_img,fu_info,fu_price, fu_size, fu_stock)
+			values(#{fu_type},#{fu_name},#{fu_brand},#{fu_img}, #{fu_info},#{fu_price},#{fu_size},#{fu_stock})
+	</insert>	
+	<update id="deleteGoods">
+		update futsal set
+				fu_valid = 'D'
+			where fu_num = #{fu_num}
+	</update>
+
 </mapper>

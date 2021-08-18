@@ -19,6 +19,15 @@ public class UploadFileUtils {
 		return uploadFileName;
 	}
 	
+	public static String uploadFileOri(String uploadPath, String originalName, byte[] 	
+			fileData)throws Exception{
+		String savedPath = calcPath(uploadPath);
+		File target = new File(savedPath, originalName);
+		FileCopyUtils.copy(fileData, target);
+		String uploadFileName = makeIcon(uploadPath, savedPath, originalName);
+		return uploadFileName;
+	}
+	
 	private static String calcPath(String uploadPath) {
 		Calendar cal = Calendar.getInstance();
 		
