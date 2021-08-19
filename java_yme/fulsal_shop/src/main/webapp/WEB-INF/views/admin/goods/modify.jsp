@@ -13,52 +13,60 @@
 .right-board-box{
 	position: relative;
 }
-.reg-box{
+.mod-box{
 	position : absolute; top 0; left :10%;
+}
+.fa-times{
+	margin-left : 5px; cursor : pointer;
 }
 </style>
 </head>
 <body>
 <div class="container main-box"> 
 	<div class="right-board-box">	
- 		<form class="reg-box" method= "post" action="<%=request.getContextPath()%>/admin/goods/register">
+ 		<form class="mod-box" method= "post" action="<%=request.getContextPath()%>/admin/goods/modify">
  		<h3>상품등록</h3><hr>
 	    <div class="input-group mb-3">
 	      	<div class="input-group-prepend">
 	      	  <span class="input-group-text">상품타입</span>
-     		<select class="form-control fu_type mr-2" name="fu_type">
-				<option value="풋살화">풋살화</option>
-				<option value="의류">의류</option>
-	     	</select>
+			<input type="text" class="form-control mr-2" name="fu_type" value="${futsal.fu_type}" readonly>
 	   	   </div>
 	   	   <div class="input-group-prepend brand">
 	   	  	 <span class="input-group-text">브랜드</span>
-	     		<select class="form-control mr-2" name="fu_brand">
-					<option value="나이키">나이키</option>
-					<option value="아디다스">아디다스</option>
-					<option value="퓨마">퓨마</option>
-		     	</select>	
-	      </div>	
+			<input type="text" class="form-control mr-2" name="fu_brand" value="${futsal.fu_brand}" readonly>	
+	      </div>
+   	   	   <div class="input-group-prepend">
+	   	  	 <span class="input-group-text">사이즈</span>
+			 <input type="text" class="form-control mr-2" name="fu_size" value="${futsal.fu_size}" readonly>
+	     </div>	
 	    </div>  
    	    <div class="input-group mb-3">   
 	   	   <div class="input-group-prepend">
 	   	  	 <span class="input-group-text">상품이름</span>
-			<input type="text" class="form-control mr-2" name="fu_name">	
+			<input type="text" class="form-control mr-2" name="fu_name" value="${futsal.fu_name}">
 	      </div>
 	      <div class="input-group-prepend">
 	      	 <span class="input-group-text">가격</span>
-	      	 <input type="text" class="form-control mr-2 col-6" name="fu_price">
+	      	 <input type="text" class="form-control mr-2 col-6" name="fu_price" value="${futsal.fu_price}">
+	      </div>
+     	  <div class="input-group-prepend">
+	      	 <span class="input-group-text">수량</span>
+	      	 <input type="text" class="form-control mr-2 col-6" name="fu_stock">
 	      </div>
  	  </div>   
 		<div class="form-group">
 			<label>상품정보</label>
-			<textarea id="summernote" class="form-control" name="fu_info" rows="10"></textarea>
+			<textarea id="summernote" class="form-control" name="fu_info" rows="10">${futsal.fu_info}</textarea>
 		</div>
-		<div class="form-group">
+		<div class="form-group img-box">
 			<label>이미지</label>
-			<input type="file" name="fu_img" class="form-control">
+			<div class="form-control img-form">
+				<span>${futsal.fu_img}</span>
+				<i class="fas fa-times"></i>
+			</div>
 		</div>
-		<button class="btn btn-outline-dark">등록</button>
+		<input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		<button class="btn btn-outline-dark">수정</button>
 		<a href="<%=request.getContextPath()%>/admin/goods/list"><button type="button" class="btn btn-outline-dark">목록</button></a>
 		</form> 	 
 	</div>	
@@ -71,6 +79,11 @@ $(function(){
         tabsize: 2,
         height: 350
       });
+    $('.fa-times').click(function(){
+    	var img = '<input type="file" name="fu_img" class="form-control">'
+    	$('.img-form').remove()
+    	$('.img-box label').after(img)
+    })
 })
 </script>
 </body>

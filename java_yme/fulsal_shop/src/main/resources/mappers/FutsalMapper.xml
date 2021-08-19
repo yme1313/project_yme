@@ -5,50 +5,69 @@
 <mapper namespace="kr.green.shop.dao.FutsalDAO">
 	<select id="getFutsalList" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal 
-			where fu_valid = 'I' and 
+			where fu_valid = 'I'
 				<if test="cri.type==0">
-					fu_type like concat('%',#{cri.search},'%')
+					and (fu_type like concat('%',#{cri.search},'%')
 					or fu_name like concat('%',#{cri.search},'%')		
-					or fu_brand like concat('%',#{cri.search},'%')
+					or fu_brand like concat('%',#{cri.search},'%'))
 				</if>
 				<if test="cri.type==1">
-					fu_type like concat('%',#{cri.search},'%')
+					and fu_type like concat('%',#{cri.search},'%')
 				</if>
 				<if test="cri.type==2">
-					fu_name like concat('%',#{cri.search},'%')
+					and fu_name like concat('%',#{cri.search},'%')
 				</if>
 				<if test="cri.type==3">	
-					fu_brand like concat('%',#{cri.search},'%')
+					and fu_brand like concat('%',#{cri.search},'%')
 				</if>
 			order by fu_num desc
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getTotalCount" resultType="int">
 		select count(*) from futsal
-			where fu_valid = 'I' and
+			where fu_valid = 'I'
 				<if test="cri.type==0">
-					fu_type like concat('%',#{cri.search},'%')
+					and (fu_type like concat('%',#{cri.search},'%')
 					or fu_name like concat('%',#{cri.search},'%')		
-					or fu_brand like concat('%',#{cri.search},'%')
+					or fu_brand like concat('%',#{cri.search},'%'))
 				</if>
 				<if test="cri.type==1">
-					fu_type like concat('%',#{cri.search},'%')
+					and fu_type like concat('%',#{cri.search},'%')
 				</if>
 				<if test="cri.type==2">
-					fu_name like concat('%',#{cri.search},'%')
+					and fu_name like concat('%',#{cri.search},'%')
 				</if>
 				<if test="cri.type==3">	
-					fu_brand like concat('%',#{cri.search},'%')
+					and fu_brand like concat('%',#{cri.search},'%')
 				</if>
 	</select>
+	<select id="getShoesList" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal
+			where fu_valid = 'I' and fu_type = '풋살화'
+			order by fu_num desc
+			limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getShoesTotalCount" resultType="int">
+		select count(*) from futsal
+			where fu_valid = 'I' and fu_type = '풋살화'
+	</select>	
 	<select id="getFutsal" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal 
 			where fu_num = #{fu_num} and fu_valid = 'I'
 	</select>
 	<insert id="insertGoods" useGeneratedKeys="true" parameterType="kr.green.shop.vo.FutsalVO" keyProperty="futsal.fu_num">
-		insert into futsal(fu_type,fu_name,fu_brand,fu_img,fu_info,fu_price, fu_size, fu_stock)
-			values(#{fu_type},#{fu_name},#{fu_brand},#{fu_img}, #{fu_info},#{fu_price},#{fu_size},#{fu_stock})
+		insert into futsal(fu_type,fu_name,fu_brand,fu_img,fu_info,fu_price)
+			values(#{fu_type},#{fu_name},#{fu_brand},#{fu_img}, #{fu_info},#{fu_price})
 	</insert>	
+	<update id="updateGoods">
+		update futsal set
+				fu_name = #{fu_name},
+				fu_price = #{fu_price},
+				fu_stock = #{fu_stock},
+				fu_img = #{fu_img},
+				fu_info = #{fu_info}
+			where fu_num = #{fu_num}	
+	</update>
 	<update id="deleteGoods">
 		update futsal set
 				fu_valid = 'D'

@@ -19,4 +19,10 @@ public interface FutsalDAO {
 
 	FutsalVO getFutsal(Integer num);
 
+	void updateGoods(FutsalVO futsal);
+
+	ArrayList<FutsalVO> getShoesList(Criteria cri);
+
+	int getShoesTotalCount(Criteria cri);
+
 }

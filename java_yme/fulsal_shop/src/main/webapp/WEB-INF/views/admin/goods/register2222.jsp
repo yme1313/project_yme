@@ -38,7 +38,25 @@
 					<option value="아디다스">아디다스</option>
 					<option value="퓨마">퓨마</option>
 		     	</select>	
-	      </div>	
+	      </div>
+   	   	   <div class="input-group-prepend shoes-size">
+	   	  	 <span class="input-group-text">사이즈</span>
+	     		<select class="form-control col-6 mr-2" name="op_size">
+					<option value="220">220</option>
+					<option value="225">225</option>
+					<option value="230">230</option>
+					<option value="235">235</option>
+					<option value="240">240</option>
+					<option value="245">245</option>
+					<option value="250">250</option>
+					<option value="255">255</option>
+					<option value="260">260</option>
+					<option value="265">265</option>
+					<option value="270">270</option>
+					<option value="275">275</option>
+					<option value="280">280</option>
+	     		</select>
+	     </div>	
 	    </div>  
    	    <div class="input-group mb-3">   
 	   	   <div class="input-group-prepend">
@@ -71,6 +89,49 @@ $(function(){
         tabsize: 2,
         height: 350
       });
+    $('.fu_type').change(function(){
+    	var type = $('.fu_type').val()
+		var shoes = 
+   	   	 '<div class="input-group-prepend shoes-size">' +
+  	  	 	'<span class="input-group-text">사이즈</span>' +
+    		'<select class="form-control col-6 mr-2" name="op_size">' +
+				'<option value="220">220</option>' +
+				'<option value="225">225</option>' +
+				'<option value="230">230</option>' +
+				'<option value="235">235</option>' +
+				'<option value="240">240</option>' +
+				'<option value="245">245</option>' +
+				'<option value="250">250</option>' +
+				'<option value="255">255</option>' +
+				'<option value="260">260</option>' +
+				'<option value="265">265</option>' +
+				'<option value="270">270</option>' +
+				'<option value="275">275</option>' +
+				'<option value="280">280</option>' +
+    		'</select>' +
+   		 '</div>'	
+   		 var cloth =
+ 		  '<div class="input-group-prepend cloth-size">' +
+	     	'<span class="input-group-text">사이즈</span>' +	 
+	     		'<select class="form-control col-8 mr-2" name="op_size">' +
+					'<option value="80(XXS">80(XXS)</option>' +
+					'<option value="85(XS)">85(XS)</option>' +
+					'<option value="90(S)">90(S)</option>' +
+					'<option value="95(M)">95(M)</option>' +
+					'<option value="100(L)">100(L)</option>' +
+					'<option value="105(XL)">105(XL)</option>' +
+					'<option value="110(XXL)">110(XXL)</option>' +
+	     		'</select>' +
+	      '</div>'
+			
+    	if(type == '의류'){
+    		$('.shoes-size').remove();
+    		$('.brand').after(cloth);
+    	} else if(type == '풋살화'){
+    		$('.cloth-size').remove()
+    		$('.brand').after(shoes);
+    	}
+    })
 })
 </script>
 </body>

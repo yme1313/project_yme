@@ -3,5 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.shop.dao.OptionDAO">
-	
+	<select id="getOptionList" resultType="kr.green.shop.vo.OptionVO">
+		select * from `option` 
+			where op_fu_num = #{op_fu_num}
+			order by op_size asc
+	</select>
+	<insert id="addOption">
+		insert into `option`(op_fu_num, op_size, op_count)
+			values(#{op_fu_num}, #{op_size}, #{op_count})
+	</insert>
 </mapper>

@@ -63,9 +63,7 @@
 			     <th>상품이름</th>
 				 <th>브랜드</th>
 			     <th>기격</th>
-			     <th>사이즈</th>  
-   			     <th>재고</th> 
-   				 <th>상세보기</th> 			      
+   				 <th>상세보기/수량확인/수량변경</th> 			      
 		     </tr>
 		   </thead>
 		   <tbody>
@@ -74,12 +72,18 @@
 			       <td>${futsal.fu_type}</td>	
 				   <td>${futsal.fu_name}</td>	 
 			       <td>${futsal.fu_brand}</td>
-			       <td>${futsal.fu_price}</td>     
-			       <td>${futsal.fu_size}</td>
-			       <td>${futsal.fu_stock}</td>  
+			       <td>${futsal.fu_price}</td> 
 			       <td>
 					  <a href="<%=request.getContextPath()%>/admin/goods/detail?num=${futsal.fu_num}">
 						 <button type="button" class="btn btn-outline-dark btn-sm">상세보기</button>
+					  </a>
+					  /
+					  <a href="<%=request.getContextPath()%>/admin/goods/count?num=${futsal.fu_num}">
+						 <button type="button" class="btn btn-outline-dark btn-sm">수량확인</button>
+					  </a>
+					  /
+					  <a href="<%=request.getContextPath()%>/admin/goods/optionadd?num=${futsal.fu_num}">
+						 <button type="button" class="btn btn-outline-dark btn-sm">수량변경</button>
 					  </a>
 			       </td>
 			     </tr>

@@ -73,11 +73,21 @@
 		</nav>
 		<ul class="nav justify-content-end mt-3">
 			<li class="nav-item">
-				<a class="nav-link" href="#" style="color: black">풋살화</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/goods/shoes" style="color: black">풋살화</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="# "style="color: black">의류</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/goods/cloth" style="color: black">의류</a>
 			</li>
+			<li class="nav-item dropdown">
+		      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color : black">
+		        브랜드
+		      </a>
+		      <div class="dropdown-menu">
+		        <a class="dropdown-item" href="#">나이키</a>
+		        <a class="dropdown-item" href="#">아디다스</a>
+		        <a class="dropdown-item" href="#">퓨마</a>
+		      </div>
+		    </li>
 			<li class="nav-item">
 				<form class="form-inline" action="/action_page.php">
 					<input class="form-control mr-sm-2" type="text">

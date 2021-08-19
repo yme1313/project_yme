@@ -18,7 +18,7 @@
 	width: 800px; height : 200px;
 }
 .option-box{
-	width : 60%; height : 60%;
+	width : 60%;
 }
 </style>
 </head>
@@ -47,19 +47,22 @@
 	      	 <div class="form-control mr-2">${futsal.fu_price}</div>	
 	      </div>
  	  </div>     
-		<div class="form-group">
-			<label>상품정보</label>
-			<div class="form-control info-box">${futsal.fu_info}</div>
-		</div>
-		<div class="form-group">
-			<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}" width="100%" height="300">
-		</div>		
-		<div class="form-group">
-			<label>이미지파일</label>
-			<div class="form-control">${futsal.fu_img}</div>
-		</div>
-		<a href="<%=request.getContextPath()%>/admin/goods/modify?num=${futsal.fu_num}"><button class="btn btn-outline-dark">수정</button></a>
-		<a href="<%=request.getContextPath()%>/admin/goods/delete?num=${futsal.fu_num}"><button class="btn btn-outline-dark">삭제</button></a>
+		  <table class="table table-bordered option-box">
+		    <thead>
+		      <tr>
+		        <th>사이즈</th>
+		        <th>수량</th>
+		      </tr>
+		    </thead>
+		  <c:forEach items="${list}" var="option"> 
+		    <tbody>
+		      <tr>
+		        <td>${option.op_size}</td>
+		        <td>${option.op_count}</td>
+		      </tr>
+		    </tbody>
+		 </c:forEach>    
+		  </table>
 		<a href="<%=request.getContextPath()%>/admin/goods/list"><button type="button" class="btn btn-outline-dark">목록</button></a>
 		</div> 	 
 	</div>	

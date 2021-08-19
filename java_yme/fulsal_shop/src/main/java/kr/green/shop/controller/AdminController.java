@@ -15,9 +15,11 @@ import kr.green.shop.pagination.PageMaker;
 import kr.green.shop.service.BoardService;
 import kr.green.shop.service.FutsalService;
 import kr.green.shop.service.MemberService;
+import kr.green.shop.service.OptionService;
 import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
+import kr.green.shop.vo.OptionVO;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -28,6 +30,7 @@ public class AdminController {
 	private MemberService memberService;
 	private BoardService boardService;
 	private FutsalService futsalService;
+	private OptionService optionService;
 	
 	@GetMapping("/user/list")
 	public ModelAndView userListGet(ModelAndView mv, HttpServletRequest request, Criteria cri) {
@@ -101,11 +104,59 @@ public class AdminController {
 		mv.setViewName("/template4/admin/goods/detail");
 		return mv;		
 	}
-	@GetMapping("/goods/delete")
-	public ModelAndView boardDeleteGet(ModelAndView mv, HttpServletRequest request, FutsalVO futsal) {
+	@GetMapping("/goods/count")
+	public ModelAndView goodsCountGet(ModelAndView mv, Integer num) {
+		FutsalVO futsal = futsalService.getFutsal(num);
+		ArrayList <OptionVO> list = optionService.getOptionList(num);
+		mv.addObject("title", "수량확인");
+		mv.addObject("list", list);
+		mv.addObject("futsal", futsal);
+		mv.setViewName("/template4/admin/goods/count");
+		return mv;		
+	}	
+	
+	@GetMapping("/goods/optionadd")
+	public ModelAndView goodsOptionaddGet(ModelAndView mv, Integer num) {
+		FutsalVO futsal = futsalService.getFutsal(num);
+		mv.addObject("title", "수량추가");
+		mv.addObject("futsal", futsal);
+		mv.setViewName("/template4/admin/goods/optionadd");
+		return mv;		
+	}
+	@PostMapping("/goods/optionadd")
+	public ModelAndView goodsOptionAddPost(ModelAndView mv, FutsalVO futsal, OptionVO option) {
+		optionService.addOption(futsal, option);
+		mv.setViewName("redirect:/admin/goods/list");
+		return mv;
+	}
+	@GetMapping("/goods/modify")
+	public ModelAndView goodsModifyGet(ModelAndView mv, Integer num, HttpServletRequest request) { 
+		FutsalVO futsal = futsalService.getFutsal(num);
+		mv.addObject("futsal", futsal);
+		mv.addObject("title", "게시글 수정");
+		mv.setViewName("/template4/admin/goods/modify");
 		MemberVO user = memberService.getMemberByRequest(request);
-		System.out.println(futsal);
-		futsalService.deleteGoods(futsal,user);
+		if(futsal == null || user == null) {
+			mv.setViewName("redirect:/admin/goods/list");
+		}
+		return mv;
+	}
+	@PostMapping("/goods/modify")
+	public ModelAndView goodsModufyPost(ModelAndView mv, HttpServletRequest request, FutsalVO futsal) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		if(user == null || futsal == null) {
+			mv.setViewName("redirect:/admin/goods/register");
+		} else {
+			futsalService.updateGoods(futsal);
+			mv.setViewName("redirect:/admin/goods/detail");
+		}	
+		mv.addObject("num",futsal.getFu_num());	
+		return mv;
+	}	
+	@GetMapping("/goods/delete")
+	public ModelAndView boardDeleteGet(ModelAndView mv, HttpServletRequest request, Integer num) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		futsalService.deleteGoods(num,user);
 		mv.setViewName("redirect:/admin/goods/list");
 		return mv;
 	}
