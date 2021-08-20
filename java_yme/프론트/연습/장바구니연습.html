@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../JS수업/js/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<form method="post" action="n/GetPostData.php">
+		<!-- Shopin Cart -->
+		<tr class="cart_item">
+			<td class="product-remove">
+				<a id="" class="remove"  href="<?php echo $row['shoping_cart_id']; ?>">×</a>
+			</td>
+			<input id="p_id" type="hidden" name="shoping_cart_id" value="<?php echo $row['shoping_cart_id'] ?>">
+			<td class="product-thumbnail">
+				<a href="single-product.html"><img width="180" height="180" src="assets/images/products/2.jpg" alt=""></a>
+				<!-- <input type="hidden" name="image" value=""> -->
+			</td>
+			<td data-title="Product" class="product-name">
+				<a href="single-product.html"><?php echo $row['name']; ?></a>
+				<input type="hidden" name="product_id[]" value="<?php echo $row['product_id']; ?>">
+			</td>
+			<td data-title="Price" class="product-price">
+				<span class="amount">$<?php echo $row['price']; ?></span>
+				<input type="hidden" name="product_price[]" value="<?php echo $row['price']; ?>" class="p_price">
+			</td>
+			<td data-title="Quantity" class="product-quantity">
+				<input type="number" name="product_quantity[]" class="input-text qty text p_quantity" title="Qty" value="<?php echo $row['quantity']; ?>" max="29" min="0" step="1">
+			</td>
+			<td data-title="Total" class="product-subtotal">
+				<span class="amount p_total_s">$<?php echo $row['total']; ?></span>
+				<input type="hidden" name="product_total[]" value="<?php echo $row['total']; ?>" class="p_total">
+			</td>
+		</tr>
+		<tr>
+			<td class="actions" colspan="6">
+				<input type="submit" value="Update Cart" name="update_cart" class="button">
+				<span></span>
+			</td>
+		</tr>
+		</tbody>
+		</table>
+	</form>	
+<script>
+$(function(){
+		$('.p_quantity').change(function() {
+			var price = $('.p_price').val();
+			var quantity = $('.p_quantity').val();
+			$('.p_total').text(price * quantity);
+		})
+})
+ 
+
+</script>
+</body>
+</html>
