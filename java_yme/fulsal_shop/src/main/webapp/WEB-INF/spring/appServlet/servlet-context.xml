@@ -49,7 +49,10 @@
 		class="kr.green.shop.interceptor.GuestInterceptor"></beans:bean>
 	<!-- 회원만 접근할 수 있게 하는 인터셉터 -->
 	<beans:bean id="memberInterceptor" 
-		class="kr.green.shop.interceptor.MemberInterceptor"></beans:bean>		
+		class="kr.green.shop.interceptor.MemberInterceptor"></beans:bean>	
+	<!-- 관리자만 접근할 수 있게 하는 인터셉터 -->
+	<beans:bean id="adminInterceptor" 
+		class="kr.green.shop.interceptor.AdminInterceptor"></beans:bean>		
 	
 	<interceptors>
 		<interceptor>
@@ -71,6 +74,14 @@
 			<mapping path="/board/delete"/>			
 			<beans:ref bean="memberInterceptor"/>
 		</interceptor>
+		<interceptor>
+			<mapping path="/admin/**/"/>
+			<mapping path="/board/notice/register"/>
+			<mapping path="/board/notice/modify"/>
+			<mapping path="/board/notice/delete"/>
+			<beans:ref bean="adminInterceptor"/>
+		</interceptor>		
+		
 	</interceptors>
 	
 	<!-- 파일 업로드 기능 -->

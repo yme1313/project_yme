@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="../JS수업/js/jquery.min.js"></script>
+	<script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div id="goods_list">
+		<form>
+			<table align='' border='1' cellspacing='0' cellpadding='0'>
+				<tr>
+					<td>선택</td>
+					<td>박스</td>
+					<td>입수</td>
+					<td>수량</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="checkbox" value="1" style="border:0"></td>
+					<td>
+						<table>
+							<tr>
+								<td><input type="text" name="num" value="1" id="" class="num"/></td>
+								<td>
+									<div>
+										<img src="http://placehold.it/10x10" alt="" width="10" height="10" class="bt_up"/>
+									</div>
+									<div>
+										<img src="http://placehold.it/10x10" alt="" width="10" height="10" class="bt_down" />
+									</div>
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td>12</td>
+					<td><div class="total_num">12</div></td>
+				</tr>
+			</table>
+		</form>
+	
+	 
+	</div>
+	<script type="text/javascript">
+	$(function(){ 
+			$('.bt_up').click(function(){ 
+				var n = $('.bt_up').index(this);
+				var num = $(".num:eq("+n+")").val();
+				num = $(".num:eq("+n+")").val(num*1+1); 
+			});
+			$('.bt_down').click(function(){ 
+				var n = $('.bt_down').index(this);
+				var num = $(".num:eq("+n+")").val();
+				if(num == 1){
+					return;
+				}
+				num = $(".num:eq("+n+")").val(num*1-1); 
+			});
+		}) 
+	</script>
+</body>
+</html>
