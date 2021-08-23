@@ -10,6 +10,8 @@
     $(function(){
       $('input[name=gender]').change(function(){
         var value = $(this).val();
+        var checked = $(this).is(":checked")
+        console.log(checked)
         $('.box').text(value);
       })
     })

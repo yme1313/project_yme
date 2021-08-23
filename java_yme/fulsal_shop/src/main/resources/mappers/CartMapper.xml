@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.shop.dao.CartDAO">
+	<select id="getCartList" resultType="kr.green.shop.vo.CartVO">
+		select * from cart 
+			where ca_valid = 'I' 
+			order by ca_num desc
+	</select>
+	<insert id="insertCart">
+		insert into cart(ca_me_id, ca_fu_num, ca_count, ca_price)
+			values(#{ca_me_id}, #{ca_fu_num}, #{ca_count}, #{ca_price})
+	</insert>
+	
+</mapper>

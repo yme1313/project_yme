@@ -18,8 +18,24 @@
 	box-sizing: border-box; padding : 0 10px;
 }
 .item-list .item span{
-	display: block; width: 100%; margin: 5px 5px 20px 5px; line-height: 20px; 
+	display: block; width: 100%; margin: 5px 5px 10px 5px; line-height: 20px; 
 	height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.fu_name{
+	text-decoration : underline;
+}
+a{
+	color : black
+}
+a:hover{
+	text-decoration : none;	
+}
+.page-link{
+	color : black;
+}
+.pagination .page-item.active a {
+      background-color: darkslategray;
+      border : darkslategray;
 }
 </style>
 <style>
@@ -34,6 +50,7 @@
 					<a href="<%=request.getContextPath()%>/goods/detail?num=${futsal.fu_num}">
 						<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}" width="100%" height="300">
 						<span class="fu_name">${futsal.fu_name}</span>
+						<span class="fu_price">가격 : ${futsal.fu_price}</span>
 					</a>
 				</li>
 			</c:forEach>
