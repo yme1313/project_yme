@@ -5,12 +5,13 @@
 <mapper namespace="kr.green.shop.dao.CartDAO">
 	<select id="getCartList" resultType="kr.green.shop.vo.CartVO">
 		select * from cart 
+			join futsal on ca_fu_num = fu_num
 			where ca_valid = 'I' 
 			order by ca_num desc
 	</select>
 	<insert id="insertCart">
-		insert into cart(ca_me_id, ca_fu_num, ca_count, ca_price)
-			values(#{ca_me_id}, #{ca_fu_num}, #{ca_count}, #{ca_price})
+		insert into cart(ca_me_id, ca_fu_num, ca_size, ca_count, ca_price)
+			values(#{ca_me_id}, #{ca_fu_num}, #{ca_size}, #{ca_count}, #{ca_price})
 	</insert>
 	
 </mapper>

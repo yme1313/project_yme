@@ -17,7 +17,7 @@
 <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
 <style>
 	.body {
-	height: 1000px;
+	height: 1500px;
 	};
 </style>
 </head>

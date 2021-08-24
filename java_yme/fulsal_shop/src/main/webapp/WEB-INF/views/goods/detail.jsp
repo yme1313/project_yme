@@ -125,6 +125,7 @@ $(function(){
 		    		  '<i class="far fa-window-close"></i>' +
 					  '</span>'	+
 					  '</span>'	+
+					  '<input type="hidden" value="'+ opt +'" id="hidden">'
 					  '</div> ';
 					  if(num != 0){
 						  alert('한 가지 사이즈만 선택 가능합니다.')
@@ -169,9 +170,11 @@ $(function(){
 	$('.cart-add').click(function(){
 		var ca_count = $('[name=ca_count]').val()
 		var ca_price = $('.total').text()
+		var ca_size = $('#hidden').val()
 		var data = {
 			ca_fu_num : fu_num,
 			ca_count : ca_count,
+			ca_size : ca_size,
 			ca_price : ca_price
 		}
 		   $.ajax({
@@ -181,7 +184,7 @@ $(function(){
 				contentType : "application/json; charset=utf-8",
 			    success : function(res){
 					if(res == 'OK'){
-						$('opt-count-box').remove()		
+						$('.opt-count-box').remove()		
 						alert('장바구니에 등록하였습니다.')
 					}
 			    }

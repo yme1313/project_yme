@@ -52,7 +52,7 @@
 					<a class="nav-link" href="#" style="color: white;"><i class="fas fa-box white-img"></i>주문/배송조회</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#" style="color: white;"><i class="fas fa-shopping-cart white-img"></i>장바구니</a>
+					<a class="nav-link" href="<%=request.getContextPath()%>/cart/list" style="color: white;"><i class="fas fa-shopping-cart white-img"></i>장바구니</a>
 				</li>
 			</c:if>
 			<c:if test="${user.me_authority == 'SUB ADMIN' || user.me_authority == 'ADMIN'}">
