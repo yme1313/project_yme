@@ -1,6 +1,7 @@
 package kr.green.shop.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,4 +78,29 @@ public class GoodsController {
 		MemberVO user = memberService.getMemberByRequest(request);
 		return cartService.insertCart(cart, user);
 	}
+	@ResponseBody
+	@PostMapping("/cart/del")
+	public String cartDelPost(@RequestBody CartVO cart, HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		CartVO dbCart = cartService.getCartNum(cart.getCa_num()); 
+		return cartService.deleteCart(dbCart, user);
+	}	
+	@ResponseBody
+	@PostMapping("/cart/selectDel")
+	public String cartDelPost(CartVO cart, HttpServletRequest request, @RequestParam(value = "chbox[]") List<String> chArr) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		int ca_num =0;
+		if(user == null) {
+			return "FAIL";
+		} else {
+		  for(String i : chArr) {   
+			   ca_num = Integer.parseInt(i);
+			   cart.setCa_num(ca_num);
+			   cartService.selectDelCart(cart);
+		  }
+		  return "OK";
+		}
+	}
+
+	
 }

@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 *{ 
    list-style:none;
@@ -102,34 +103,129 @@ td{
 	 <table class="table">
     <thead>
       <tr>
+      	<th><input type="checkbox" id="allCheck"></th>
         <th>상품명</th>
         <th>상품금액</th>
-        <th>옵션/수량</th>
+        <th>옵션</th>
+        <th>수량</th>
         <th>합계금액</th>
         <th>비고</th>
       </tr>
     </thead>
     <tbody>
     <c:forEach items="${list}" var="cart">
-      <tr>
+      <tr class="list-box">
+      	<td><input type="checkbox" class="ckBox" data-target="${cart.ca_num}" value="${cart.ca_price }"></td>
         <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
         <td>${cart.fu_price }</td>
-        <td>${cart.ca_size}/${cart.ca_count}</td>
-        <td>${cart.ca_price}</td>
-        <td><button class="btn btn-outline-danger btn-sm">삭제</button></td>
-      </tr>
+        <td>${cart.ca_size}</td>
+        <td>총:${cart.ca_count}개</td>
+        <td>
+        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
+        </td>
+        <td>
+        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>
+        	<input type="hidden" id="ca_num" value="${cart.ca_num}">	
+        </td>
+      </tr> 
      </c:forEach>
       <tr>
-        <td><button class="btn btn-outline-danger btn-sm">전체 삭제</button></td>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td>합계금액 :</td>
-        <td class="total-price"></td>
+        <td class="total">0 원</td>
       </tr>
     </tbody>
   </table>
+  <button class="btn btn-outline-danger btn-sm all-sel-btn">전체 상품 선택</button>
+  <button class="btn btn-outline-danger btn-sm sel-del-btn">선택 삭제</button>
+  <button class="btn btn-outline-danger btn-sm test-btn">테스트</button>
 </div>
 
+<script type="text/javascript">
+var contextPath = '<%=request.getContextPath()%>';
+$(function(){
+	$('#allCheck').click(function(){
+		var chk = $('#allCheck').prop("checked");
+		if(chk){
+			$('.ckBox').prop("checked",true)
+			itemSum();
+		} else {
+			$('.ckBox').prop("checked",false)
+			itemSum();
+		}
+	})
+	
+	$('.all-sel-btn').click(function(){
+		$('#allCheck').prop("checked",true)
+		$('.ckBox').prop("checked",true)
+		itemSum();
+	})
+	
+	$('.ckBox').click(function(){
+		$('#allCheck').prop("checked",false)
+		itemSum();
+	})
+	
+	$('.del-btn').click(function(){
+		$(this).parent().parent().remove()
+		var ca_num = $(this).siblings('#ca_num').val()
+		var data = {ca_num : ca_num}
+	   $.ajax({
+		    type : "post",
+		    url : contextPath + '/cart/del',
+			data: JSON.stringify(data),
+			contentType : "application/json; charset=utf-8",
+		    success : function(res){
+					if(res== 'OK'){
+						alert('삭제 완료!')
+					}
+				}
+		})
+	})
+	
+	$('.sel-del-btn').click(function(){
+		var confirm_val = confirm("정말 삭제하시겠습니까?");		
+		  if(confirm_val) {
+			   var checkArr = new Array();
+			   
+			   $("input[class='ckBox']:checked").each(function(){
+			    checkArr.push($(this).attr("data-target"));
+			   })
 
+			   $.ajax({
+				    type : "post",
+				    url : contextPath + '/cart/selectDel',
+				    data : { chbox : checkArr },
+				    success : function(res){
+					     if(res == 'OK'){
+					    	 alert('삭제에 성공했습니다.')
+					     } else {
+					    	 alert('삭제에 실패했습니다.')
+					     }
+				    }
+				})
+		 } 
+		$('.list-box').children().remove()
+	})
+	
+})
+function itemSum(){
+	var str = "";
+	var sum = 0;
+	var count = $('.ckBox').length
+	for (var i = 0; i < count; i++) {
+		if ($('.ckBox')[i].checked == true) {
+			sum += parseInt($('.ckBox')[i].value);
+		}
+	}	
+	console.log(sum)
+	//var total = '<fmt:formatNumber pattern="###,###,###" value="' + sum + '" />원'
+	//console.log(total)
+	$('.total').html(sum)
+}
+</script>
 </body>
 </html>

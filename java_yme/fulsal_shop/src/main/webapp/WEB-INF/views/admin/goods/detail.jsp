@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 .main-box{
 	position: absolute; top : 2.5%; left : 16%; width : 80%;
@@ -44,7 +45,7 @@
 	      </div>
 	      <div class="input-group-prepend">
 	      	 <span class="input-group-text">가격</span>
-	      	 <div class="form-control mr-2">${futsal.fu_price}</div>	
+	      	 <div class="form-control mr-2"><fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price}" />원</div>	
 	      </div>
  	  </div>     
 		<div class="form-group">

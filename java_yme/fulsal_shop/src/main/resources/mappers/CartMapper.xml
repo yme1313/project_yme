@@ -9,9 +9,23 @@
 			where ca_valid = 'I' 
 			order by ca_num desc
 	</select>
+	<select id="getCartNum" resultType="kr.green.shop.vo.CartVO">
+		select * from cart
+			where ca_valid = 'I' and ca_num = #{ca_num}
+	</select>
 	<insert id="insertCart">
 		insert into cart(ca_me_id, ca_fu_num, ca_size, ca_count, ca_price)
 			values(#{ca_me_id}, #{ca_fu_num}, #{ca_size}, #{ca_count}, #{ca_price})
 	</insert>
+	<update id="deleteCart">
+		update cart set
+			ca_valid = 'D'
+			where ca_num = #{ca_num}
+	</update>
+	<update id="selectDelCart">
+		 update cart set
+		 	ca_valid = 'D'
+    		 where ca_num = #{ca_num}
+	</update>
 	
 </mapper>

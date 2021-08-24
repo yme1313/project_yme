@@ -4,6 +4,7 @@
 <!doctype html>
 <html>
 <head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <meta charset="UTF-8">
 </head>
 <style>
@@ -191,8 +192,8 @@ $(function(){
 			})
 	
 	})
-		
 })
+
 </script>
 </body>
 </html>

@@ -11,4 +11,9 @@ public interface CartService {
 
 	ArrayList<CartVO> getCartList();
 
+	CartVO getCartNum(int ca_num);
+
+	String deleteCart(CartVO dbCart, MemberVO user);
+
+	void selectDelCart(CartVO cart);
 }
