@@ -47,6 +47,13 @@ public class GoodsController {
 	}
 	@GetMapping("/goods/cloth")
 	public ModelAndView clothGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getClothList(cri);
+		int totalCount = futsalService.getClothTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.setViewName("/template/goods/shoes");
 		mv.addObject("title","의류");
 		mv.setViewName("/template/goods/cloth");
 		return mv;
@@ -64,8 +71,9 @@ public class GoodsController {
 	
 	
 	@GetMapping("/cart/list")
-	public ModelAndView listGet(ModelAndView mv) {
-		ArrayList <CartVO> list = cartService.getCartList();
+	public ModelAndView listGet(ModelAndView mv, HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		ArrayList <CartVO> list = cartService.getCartList(user);
 		mv.addObject("title","장바구니 목록");
 		mv.addObject("list", list);
 		mv.setViewName("/template/cart/list");

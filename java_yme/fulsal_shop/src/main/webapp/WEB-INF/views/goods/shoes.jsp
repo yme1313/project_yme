@@ -4,7 +4,7 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 </head>
 <style>
 .item-list{
@@ -21,7 +21,7 @@
 	display: block; width: 100%; margin: 5px 5px 10px 5px; line-height: 20px; 
 	height: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.fu_name{
+.item:hover{
 	text-decoration : underline;
 }
 a{
@@ -50,7 +50,7 @@ a:hover{
 					<a href="<%=request.getContextPath()%>/goods/detail?num=${futsal.fu_num}">
 						<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}" width="100%" height="300">
 						<span class="fu_name">${futsal.fu_name}</span>
-						<span class="fu_price">가격 : ${futsal.fu_price}</span>
+						<span class="fu_price">가격 : <fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price}" />원</span>
 					</a>
 				</li>
 			</c:forEach>

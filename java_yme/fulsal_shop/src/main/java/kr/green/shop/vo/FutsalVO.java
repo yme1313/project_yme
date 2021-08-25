@@ -13,5 +13,11 @@ public class FutsalVO {
 	private String fu_info;
 	private int fu_price;
 	private String fu_valid;
+	
+	//사이즈 정보
+	private String op_size;
+	private int ca_count;
+
+	
 	public FutsalVO(){}
 }

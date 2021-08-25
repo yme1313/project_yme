@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.green.shop.dao.FutsalDAO;
 import kr.green.shop.dao.OptionDAO;
 import kr.green.shop.pagination.Criteria;
+import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OptionVO;
@@ -18,6 +19,8 @@ import kr.green.shop.vo.OptionVO;
 public class FutsalServiceImp implements FutsalService{
 	@Autowired
 	FutsalDAO futsalDao;
+	@Autowired
+	OptionDAO optionDao;
 		
 	@Override
 	public ArrayList<FutsalVO> getFutsalList(Criteria cri) {
@@ -66,5 +69,20 @@ public class FutsalServiceImp implements FutsalService{
 	@Override
 	public int getShoesTotalCount(Criteria cri) {
 		return futsalDao.getShoesTotalCount(cri);
+	}
+
+	@Override
+	public ArrayList<FutsalVO> getClothList(Criteria cri) {
+		return futsalDao.getClothList(cri);
+	}
+
+	@Override
+	public int getClothTotalCount(Criteria cri) {
+		return futsalDao.getClothTotalCount(cri);
+	}
+
+	@Override
+	public FutsalVO getDirectBuy(FutsalVO futsal, OptionVO option, CartVO cart) {
+		return futsalDao.getDirectBuy(futsal , option, cart);
 	}
 }

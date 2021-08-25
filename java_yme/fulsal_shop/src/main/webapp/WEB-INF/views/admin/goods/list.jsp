@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
  a{
  	color : black
@@ -72,7 +72,7 @@
 			       <td>${futsal.fu_type}</td>	
 				   <td>${futsal.fu_name}</td>	 
 			       <td>${futsal.fu_brand}</td>
-			       <td>${futsal.fu_price}</td> 
+			       <td><fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price}" />원</td> 
 			       <td>
 					  <a href="<%=request.getContextPath()%>/admin/goods/detail?num=${futsal.fu_num}">
 						 <button type="button" class="btn btn-outline-dark btn-sm">상세보기</button>

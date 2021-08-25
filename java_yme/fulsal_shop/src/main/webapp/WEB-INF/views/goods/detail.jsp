@@ -45,7 +45,7 @@
 </style>
 </head>
 <body>
-<div class="container main-box">
+<form class="container main-box" method="post" action="<%=request.getContextPath()%>/order/direct">
 		<div class="main-img-box">
 			<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}">
 			<div class="info">${futsal.fu_info}</div>
@@ -60,7 +60,7 @@
 			      </tr>
 			      <tr>
 			        <td class="first">가격 :</td>
-			        <td>${futsal.fu_price}</td>
+			        <td><fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price}" />원</td>
 			      </tr>
 			    </tbody>
 			  </table>
@@ -71,13 +71,14 @@
 			      <tr>	      
 			        <td class="first">사이즈 :</td>
 			        <td>		        
-			        	<select class="form-control col-8 ml-2 select-box" name="op_size">
+			        	<select class="form-control col-8 ml-2 select-box" name="size">
 			        		<option value="choice" selected>옵션 선택</option>
 			        		<c:forEach items="${list}" var="option">
 								<option value="${option.op_size}">${option.op_size}<c:if test="${option.op_count == 0}">(품절)</c:if></option>
 							</c:forEach>	
 		     			</select>	
 						<span class="caution">주문량이 많은 상품은 주문완료시 품절이 될 수 있습니다.</span>
+						<input type="hidden" name="fu_num" value="${futsal.fu_num}">
 			        </td>
 			      </tr>
 			    </tbody>
@@ -85,12 +86,12 @@
 			 <hr>
 		  </div> 
 	   <span class="btn-box mr-5">
-		  <a href="#"><button class="btn btn-outline-dark mr-1 cart-add">장바구니</button></a>
-	      <a href="#"><button class="btn btn-outline-dark go-buy">구매하기</button></a>
+		  <a href="#"><button type="button" class="btn btn-outline-dark mr-1 cart-add">장바구니</button></a>
+	      	<button type="submit" class="btn btn-outline-dark go-buy">구매하기</button>
 	   </span>
-	   <span>총 가격 : </span><span class="total">0</span>
+	   <span>총 가격 : </span><span class="total">0 원</span>
 	</div>
-</div>	
+</form>	
 <script type="text/javascript">
 var name = "${futsal.fu_name}";
 var price = "${futsal.fu_price}";
@@ -103,8 +104,9 @@ $(function(){
 		$('.total').text(zero)
 	})
 	
-	$('[name=op_size]').change(function(){
+	$('[name=size]').change(function(){
 		var opt = $(this).val();
+		var opt = parseInt(opt)
 		var optext = $('.select-box option:checked').text()
 		var soldout = "(품절)";
 		var num = $('.opt-count-box').length
@@ -126,7 +128,8 @@ $(function(){
 		    		  '<i class="far fa-window-close"></i>' +
 					  '</span>'	+
 					  '</span>'	+
-					  '<input type="hidden" value="'+ opt +'" id="hidden">'
+					  '<input type="hidden" value="'+ opt +'" id="hidden" name="op_size">' +
+					  '<input type="hidden" value="'+ opt +'" name="ca_size">' +
 					  '</div> ';
 					  if(num != 0){
 						  alert('한 가지 사이즈만 선택 가능합니다.')
@@ -134,7 +137,7 @@ $(function(){
 					  } else {
 						  $('.option-box').append(str)	 
 						  $('.select-box').val("choice").attr("selected","selected")
-						  $('.total').text(totalpri)					  
+						  $('.total').text(totalpri + " 원")					  
 					  }		  
 			} else if($('[data-target='+ opt +']').length != 0){
 				alert('이미 추가된 옵션입니다.')
@@ -146,14 +149,14 @@ $(function(){
 		$(this).parents('.opt-count-box').remove();
 		var num = $('.opt-count-box').length
 		var totalpri = (price * (num))
-		$('.total').text(totalpri)
+		$('.total').text(totalpri + " 원")
 	})
 	
 	$(document).on('click','.fa-caret-up',function(){
 	var n = $(this).index(this);
 	var num = $(".num-box:eq("+n+")").val();
 	var totalpri = (price * (num*1+1))
-	$('.total').text(totalpri)
+	$('.total').text(totalpri + " 원")
 	num = $(".num-box:eq("+n+")").val(num*1+1); 
 	})
 	
@@ -178,6 +181,9 @@ $(function(){
 			ca_size : ca_size,
 			ca_price : ca_price
 		}
+		if($('.num-box').length == 0){
+			alert('옵션을 선택하세요.')
+		}
 		   $.ajax({
 			    type : "post",
 			    url : contextPath + '/cart/add',
@@ -191,6 +197,12 @@ $(function(){
 			    }
 			})
 	
+	})
+	$('.go-buy').click(function(e){
+		if($('.num-box').length == 0){
+			e.preventDefault();
+			alert('옵션을 선택하세요.')
+		} 
 	})
 })
 

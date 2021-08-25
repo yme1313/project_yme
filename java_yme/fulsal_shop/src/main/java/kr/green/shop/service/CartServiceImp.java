@@ -26,8 +26,11 @@ public class CartServiceImp implements CartService{
 	}
 
 	@Override
-	public ArrayList<CartVO> getCartList() {	
-		return cartDao.getCartList();
+	public ArrayList<CartVO> getCartList(MemberVO user) {	
+		if(user == null) {
+			return null;
+		}
+		return cartDao.getCartList(user);
 	}
 	
 	@Override
@@ -52,9 +55,15 @@ public class CartServiceImp implements CartService{
 		if(cart == null) {
 			return;
 		}
-		cartDao.selectDelCart(cart);
+		cartDao.deleteCart(cart);
 		
 	}
+
+	@Override
+	public ArrayList<CartVO> getOrderCart(Integer[] ca_num) {
+		return cartDao.getCart(ca_num);
+	}
+
 
 
 

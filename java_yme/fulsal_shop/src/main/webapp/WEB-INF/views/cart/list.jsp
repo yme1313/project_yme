@@ -71,16 +71,20 @@ img{
 td{
 	line-height : 100px;
 }
+.cart-price{
+	float : right;
+}
 .delivery-text{
 	float : right; color : blue;
 }
 .price-box{
-	height : 100px; text-align : center;
+	height : 100px;
 	font-size : 25px;
 }
 </style>
 </head>
 <body>
+<form method="post" action="<%=request.getContextPath()%>/order/cart_order">
 <div class="main-box">
 	<ul class="img-box">
 		<li class="round-box">
@@ -122,12 +126,19 @@ td{
 	    <tbody>
 	    <c:forEach items="${list}" var="cart">
 	      <tr class="list-box">
-	      	<td><input type="checkbox" class="ckBox" data-target="${cart.ca_num}" value="${cart.ca_price }"></td>
+	      	<td><input type="checkbox" class="ckBox" name="ca_num" data-target="${cart.ca_price}" value="${cart.ca_num}"></td>
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
 	        </td>
-	        <td>${cart.ca_size}</td>
+	        <c:choose>
+	        	<c:when test="${cart.ca_size <= 130}">
+	        		<td>${cart.ca_size} /(의류)</td>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<td>${cart.ca_size}</td>
+	        	</c:otherwise>
+	        </c:choose>
 	        <td>총 : ${cart.ca_count}개</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
@@ -135,37 +146,36 @@ td{
 	        <td>
 	        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>
 	        	<input type="hidden" id="ca_num" value="${cart.ca_num}">	
+	        	<input type="hidden" name="fu_num" value="${cart.fu_num}">
 	        </td>
 	      </tr> 
 	     </c:forEach>
-	      <tr>
-	        <td></td>
-	        <td></td>
-	        <td></td>
-	        <td></td>
-	        <td></td>
-	        <td>합계금액 :</td>
-	        <td class="total">0 원</td>
-	      </tr>
 	    </tbody>
-  	</table>
-	 <button class="btn btn-outline-danger btn-sm all-sel-btn">전체 상품 선택</button>
-	 <button class="btn btn-outline-danger btn-sm sel-del-btn">선택 삭제</button>
-	 <div class="delivery-text">※ 10만원 이상 구매시 배송비 무료 !</div>
-  	 <div class="price-box mt-3">
-		<span>총 주문 금액 : <span class="total">0 원</span>
-		<i class="fas fa-plus"></i> 배송비 : <span class="delivery">0 원</span>
-		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">0 원</span>
-		</span>
+  	 </table>
+  	 <div class="cart-price">
+	     <span>합계금액 :</span>
+	     <span class="total">0 원</span>
+     </div>
+     <div class="cart-btn-box">
+		 <button class="btn btn-outline-danger btn-sm all-sel-btn">전체 상품 선택</button>
+		 <button class="btn btn-outline-danger btn-sm sel-del-btn">선택 삭제</button>
+	 </div>
+	 <div class="delivery-text mt-2">※ 10만원 이상 구매시 배송비 무료 !</div>
+  	 <div class="row justify-content-center mt-5 price-box ">
+		<div>총 주문 금액 : <span class="total">0 원</span>
+		<i class="fas fa-plus"></i> 배송비 : 
+		<span class="delivery">2,500 원</span>
+		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2500 원</span>
+		</div>
 	 </div>
 	 <div class="row justify-content-center"> 
-	 	<a href="<%=request.getContextPath()%>/goods/shoes">
-		  <button class="btn btn-dark btn-lg mr-2">계속 쇼핑하기</button>
-		</a>
-		 <button class="btn btn-danger btn-lg">주문하기</button>
+		<a href="<%=request.getContextPath()%>/goods/shoes">
+		    <button type="button" class="btn btn-dark btn-lg mr-2">계속 쇼핑하기</button>
+		 </a>
+		 <button type="submit" class="btn btn-danger btn-lg order-btn">주문하기</button>
 	 </div>
 </div>
-
+</form>
 
 
 <script type="text/javascript">
@@ -191,6 +201,7 @@ $(function(){
 	
 	$('.ckBox').click(function(){
 		$('#allCheck').prop("checked",false)
+		var ddd = $(this).attr('data-target')
 		itemSum();
 	})
 	
@@ -217,7 +228,7 @@ $(function(){
 			   var checkArr = new Array();
 			   
 			   $("input[class='ckBox']:checked").each(function(){
-			    checkArr.push($(this).attr("data-target"));
+			    checkArr.push($(this).val());
 			   })
 
 			   $.ajax({
@@ -233,22 +244,44 @@ $(function(){
 				    }
 				})
 		 } 
-		$('.list-box').children().remove()
 	})
+	$('.order-btn').click(function(e){
+		var length = $('input:checkbox[name=ca_num]:checked').length
+		if(length == 0){
+			e.preventDefault()
+			alert('구매할 물건을 선택하세요.')
+		} 
+	})
+
 	
 })
+
 function itemSum(){
 	var str = "";
 	var sum = 0;
+	var free= "0 원";
+	var basic = "2,500 원"
 	var count = $('.ckBox').length
+	var regex = /[^0-9]/g;	
 	for (var i = 0; i < count; i++) {
 		if ($('.ckBox')[i].checked == true) {
-			sum += parseInt($('.ckBox')[i].value);
+			sum += parseInt($('.ckBox')[i].getAttribute('data-target'));
 		}
 	}	
-
-	$('.total').html(sum + " 원")
+	if(sum > 100000){
+		$('.delivery').text(free)
+	} else {
+		$('.delivery').text(basic)
+	}
+	var deprice = $('.delivery').text()
+	var price = deprice.replace(regex, "");
+	var intprice = parseInt(price)
+	var orderprice = sum + intprice
+	
+	$('.total').html(sum + ' 원')
+	$('.order-price').html(orderprice + ' 원')
 }
+
 </script>
 </body>
 </html>

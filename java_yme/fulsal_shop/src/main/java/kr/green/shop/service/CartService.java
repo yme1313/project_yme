@@ -9,11 +9,14 @@ public interface CartService {
 
 	String insertCart(CartVO cart, MemberVO user);
 
-	ArrayList<CartVO> getCartList();
+	ArrayList<CartVO> getCartList(MemberVO user);
 
 	CartVO getCartNum(int ca_num);
 
 	String deleteCart(CartVO dbCart, MemberVO user);
 
 	void selectDelCart(CartVO cart);
+
+	ArrayList<CartVO> getOrderCart(Integer[] ca_num);
+
 }
