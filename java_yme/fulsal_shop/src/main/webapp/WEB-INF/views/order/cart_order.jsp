@@ -159,6 +159,7 @@ td{
 </style>
 </head>
 <body>
+<form method="post" action="<%=request.getContextPath()%>/order/order_sheet">
 <div class="main-box">
 	<ul class="img-box">
 		<li class="round-box">
@@ -196,6 +197,7 @@ td{
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
+	        	<input type="hidden" name="or_name" value="${cart.fu_name}">
 	        </td>
 	        <c:choose>
 	        	<c:when test="${cart.ca_size <= 130}">
@@ -208,6 +210,7 @@ td{
 	        <td>총 : ${cart.ca_count}개</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
+	        	<input type="hidden" name="ca_num" value="${cart.ca_num}">
 	        </td>
 	      </tr> 
 	      <c:set var="sum" value="${sum + cart.ca_price}" />
@@ -366,9 +369,9 @@ td{
 		      <tr>
 		        <td></td>
 		        <td style="line-height : 20px;">
-		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_payment" value="card">카드결제</label>
-		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_payment" value="real-time">실시간 계좌이체</label>
-		        	<label class="mr-2"><input type="radio" name="or_payment" value="without-bankbook">무통장 입금</label>
+		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_paytype" value="card">카드결제</label>
+		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_paytype" value="real-time">실시간 계좌이체</label>
+		        	<label class="mr-2"><input type="radio" name="or_paytype" value="without-bankbook">무통장 입금</label>
 		        </td>
 		        <td></td>
 		      </tr>
@@ -382,9 +385,10 @@ td{
     	</div>
     </div>
   	 <div class="row justify-content-center">
-	 	<button type="submit" class="btn btn-danger btn-lg mt-5">주문하기</button>
+	 	<button type="submit" class="btn btn-danger btn-lg mt-1">주문하기</button>
  	</div>
 </div>
+</form>
 
 <script>
 $(function(){

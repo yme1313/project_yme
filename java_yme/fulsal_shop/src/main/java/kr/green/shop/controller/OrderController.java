@@ -12,10 +12,12 @@ import kr.green.shop.service.CartService;
 import kr.green.shop.service.FutsalService;
 import kr.green.shop.service.MemberService;
 import kr.green.shop.service.OptionService;
+import kr.green.shop.service.OrderService;
 import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OptionVO;
+import kr.green.shop.vo.OrderVO;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -25,6 +27,7 @@ public class OrderController {
 	OptionService optionService;
 	MemberService memberService;
 	CartService cartService;
+	OrderService orderService;
 	
 	@PostMapping("/order/direct")
 	public ModelAndView directPost(ModelAndView mv, FutsalVO futsal, OptionVO option, CartVO cart) {
@@ -47,6 +50,15 @@ public class OrderController {
 		mv.addObject("user", user);
 		mv.addObject("title", "주문서 작성");
 		mv.setViewName("/template/order/cart_order");
+		return mv;
+	}
+	@PostMapping("/order/order_sheet")
+	public ModelAndView Order_sheetPost(ModelAndView mv, OrderVO ord, HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		System.out.println(ord);
+		mv.addObject("user", user);
+		mv.addObject("title", "주문서 확인");
+		mv.setViewName("/template/order/order_sheet");
 		return mv;
 	}
 
