@@ -5,6 +5,51 @@
 <html>
 <head>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress; 
+                var extraRoadAddr = ''; 
+
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                document.getElementById('sample4_postcode').value = data.zonecode;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+                
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }    
+</script>
 <style>
 *{ 
    list-style:none;
@@ -38,7 +83,7 @@
 	margin-top : 3px;
 	font-weight : bold;
 }
-.cart-box{
+.order-box{
 	width : 1000px;
 	height : 700px;
 	margin-left : auto;
@@ -78,8 +123,18 @@ td{
 	float : right; color : blue;
 }
 .price-box{
-	height : 100px;
+	height : 60px;
 	font-size : 25px;
+}
+.title-th{
+	line-height :40px;
+}
+.order-table tbody tr td{
+	width : 20px;
+	line-height : 20px;
+}
+.orderinfo-new{
+	display : none;
 }
 </style>
 </head>
@@ -100,7 +155,7 @@ td{
 		</li>
 	</ul>
 </div>	
-<div class="cart-box">
+<div class="order-box">
 	<div class="title-box">02.주문/결제</div>
 	<hr style="background:#343a40;">
 	<div class="veryimpo-box">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
@@ -115,6 +170,7 @@ td{
 	      </tr>
 	    </thead>
 	    <tbody>
+	    <c:set var="sum" value="0" />
 	    <c:forEach items="${list}" var="cart">
 	      <tr class="list-box">
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
@@ -129,20 +185,144 @@ td{
 	        		<td>${cart.ca_size}</td>
 	        	</c:otherwise>
 	        </c:choose>
-	        <td></td>
+	        <td>총 : ${cart.ca_count}개</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
 	        </td>
 	      </tr> 
+	      <c:set var="sum" value="${sum + cart.ca_price}" />
 	      </c:forEach>
 	    </tbody>
   	 </table>
   	 <div class="delivery-text mt-2">※ 10만원 이상 구매시 배송비 무료 !</div>
   	 <div class="row justify-content-end mt-5 price-box ">
-		<div>총 주문 금액 : <span class="total">0 원</span>
+		<div>총 주문 금액 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
 		<i class="fas fa-plus"></i> 배송비 : 
-		<span class="delivery">2,500 원</span>
+		<c:choose>
+			<c:when test="${sum >= 100000}">
+				<span class="delivery">0 원</span>
+			</c:when>
+			<c:otherwise>
+				<span class="delivery">2500 원</span>
+			</c:otherwise>
+		</c:choose>
 		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2500 원</span>
 		</div>
 	 </div>
+	<table class="table order-table">
+	    <thead>
+	      <tr>
+	        <th class="title-th">배송정보</th>
+	        <th>
+				<label><input type="radio" class="mr-1 basic" name="choice-box" checked><span class="mr-3">주문고객 정보 동일</span></label>
+				<label><input type="radio" class="mr-1 new" name="choice-box">새로 입력</label>
+	        </th>
+	        <th></th>
+	        <th></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+		    <tbody class="orderinfo-basic">
+		      <tr>
+		        <td >이름</td>
+		        <td>${user.me_id}<input type="hidden" class="form-control" name="or_me_id" value="${user.me_id}"></td>
+		       	<td>이메일</td>
+		        <td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>
+		      </tr>
+		      <tr>
+		        <td>전화번호</td>
+		        <td>${user.me_phone}<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}"></td>
+		        <td></td>
+		        <td></td>
+		      </tr>
+		      <tr>
+     		    <td>주소</td>
+		        <td>${user.me_postnum}<br>
+		        	${user.me_add1} / ${user.me_add2} <br>
+		        	${user.me_add3} / ${user.me_add4}
+		        </td>
+		        <td>
+		        	<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">
+		        	<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">
+		        	<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">
+		        	<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">
+		        </td>
+		        <td></td>
+			 </tbody>
+ 		    <tbody class="orderinfo-new">
+		      <tr>
+		        <td >이름</td>
+		        <td style="width:150px;"><input type="text" class="form-control" name="or_me_id"></td>
+		       	<td style="width:80px; float:right;">이메일 </td>
+		        <td style="width:100px;"><input type="text" class="form-control" name="or_email"></td>
+		      </tr>
+		      <tr>
+		        <td>전화번호</td>
+		        <td><input type="text" class="form-control" name="or_phone"></td>
+		        <td></td>
+		        <td></td>
+		      </tr>
+		      <tr>
+		        <td>주소</td>
+				<td>
+					<input type="text" class="form-control mb-2" id="sample4_postcode" name="or_postnum"  readonly placeholder="우편번호">
+					<input type="text" class="form-control mb-2" id="sample4_roadAddress" name="or_add1" placeholder="도로명주소">
+					<span id="guide" style="color:#999;display:none"></span>
+					<input type="text" class="form-control" id="sample4_detailAddress" name="or_add2" placeholder="상세주소">
+					
+				</td>
+				<td>
+					<input type="button" class="btn btn-outline-dark mb-2" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" class="form-control col-8 mb-2" id="sample4_jibunAddress" name="or_add3" placeholder="지번주소">
+					<input type="text" class="form-control col-8" id="sample4_extraAddress" name="or_add4" placeholder="참고항목">
+				</td>
+		        <td></td>
+			 </tbody>
+     	  <tr>
+	        <td>배송<br>메시지</td>
+	        <td>
+	        	<select class="form-control mess-box mb-2" name="mess-box">
+	        		<option value="">(직접 입력)</option>
+	        		<option value="부재시 경비실에 맡겨 주세요.">부재시 경비실에 맡겨 주세요.</option>
+	        		<option value="부재시 문 앞에 두고 가주세요.">부재시 문 앞에 두고 가주세요.</option>
+	        	</select>
+	        	<textarea class="form-control" style="height : 150px"></textarea>
+	        </td>
+	        <td></td>
+	        <td></td>
+	      </tr>
+          <tr>
+	        <td></td>
+	        <td></td>
+	        <td></td>
+	        <td></td>
+	      </tr>
+	    </tbody>
+    </table>
 </div>
+<script>
+$(function(){
+	$('[name=choice-box]').change(function(){
+		var basic = $('.basic').prop("checked")
+		var insert = $('.new').prop("checked")
+		if(insert){
+			$('.orderinfo-basic').hide()
+			$('.orderinfo-new').show()			
+		} else if(basic){
+			$('.orderinfo-new').hide()
+			$('.orderinfo-basic').show()
+		}
+	})
+})
+$(document).ready(function(){
+	var delivery = parseInt($('.delivery').text())
+	var sum = "${sum}"
+	var sum = parseInt(sum)
+	var orderprice = delivery + sum
+	$('.order-price').text(orderprice + ' 원')
+
+});
+
+</script>
+</body>
+</html>

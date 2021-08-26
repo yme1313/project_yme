@@ -147,6 +147,7 @@ td{
 	        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>
 	        	<input type="hidden" id="ca_num" value="${cart.ca_num}">	
 	        	<input type="hidden" name="fu_num" value="${cart.fu_num}">
+	        	<input type="hidden" name="ca_me_id" value="${cart.ca_me_id}">
 	        </td>
 	      </tr> 
 	     </c:forEach>
@@ -172,6 +173,7 @@ td{
 		<a href="<%=request.getContextPath()%>/goods/shoes">
 		    <button type="button" class="btn btn-dark btn-lg mr-2">계속 쇼핑하기</button>
 		 </a>
+		
 		 <button type="submit" class="btn btn-danger btn-lg order-btn">주문하기</button>
 	 </div>
 </div>
@@ -268,7 +270,7 @@ function itemSum(){
 			sum += parseInt($('.ckBox')[i].getAttribute('data-target'));
 		}
 	}	
-	if(sum > 100000){
+	if(sum >= 100000){
 		$('.delivery').text(free)
 	} else {
 		$('.delivery').text(basic)

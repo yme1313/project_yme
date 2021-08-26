@@ -17,6 +17,6 @@ public interface CartDAO {
 
 	void selectDelCart(CartVO cart);
 
-	ArrayList<CartVO> getCart(Integer[] ca_num);
+	CartVO getCart(int num);
 
 }

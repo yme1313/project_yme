@@ -10,13 +10,14 @@
 			order by ca_num desc
 	</select>
 	<select id="getCartNum" resultType="kr.green.shop.vo.CartVO">
-		select * from cart
+		select * from cart 
+			join futsal on ca_fu_num = fu_num
 			where ca_valid = 'I' and ca_num = #{ca_num}
 	</select>
 	<select id="getCart" resultType="kr.green.shop.vo.CartVO">
 		select * from cart 
 			join futsal on ca_fu_num = ca_num
-			where ca_valid = 'I' and ca_num = #{ca_num}
+			where ca_valid = 'I' and ca_num = #{num}
 	</select>
 	<insert id="insertCart">
 		insert into cart(ca_me_id, ca_fu_num, ca_size, ca_count, ca_price)

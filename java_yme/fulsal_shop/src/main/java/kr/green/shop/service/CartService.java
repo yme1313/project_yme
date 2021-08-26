@@ -17,6 +17,7 @@ public interface CartService {
 
 	void selectDelCart(CartVO cart);
 
-	ArrayList<CartVO> getOrderCart(Integer[] ca_num);
+	CartVO getOrderCart(Integer num);
+
 
 }

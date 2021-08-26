@@ -60,9 +60,11 @@ public class CartServiceImp implements CartService{
 	}
 
 	@Override
-	public ArrayList<CartVO> getOrderCart(Integer[] ca_num) {
-		return cartDao.getCart(ca_num);
+	public CartVO getOrderCart(Integer num) {
+		return cartDao.getCart(num);
 	}
+
+
 
 
 

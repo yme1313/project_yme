@@ -2,6 +2,8 @@ package kr.green.shop.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +14,7 @@ import kr.green.shop.service.MemberService;
 import kr.green.shop.service.OptionService;
 import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.FutsalVO;
+import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OptionVO;
 import lombok.AllArgsConstructor;
 
@@ -32,10 +35,16 @@ public class OrderController {
 		return mv;
 	}	
 	@PostMapping("/order/cart_order")
-	public ModelAndView Cart_orderPost(ModelAndView mv, Integer[] ca_num) {
-		System.out.println(ca_num);
-		ArrayList <CartVO> list = cartService.getOrderCart(ca_num);
+	public ModelAndView Cart_orderPost(ModelAndView mv, Integer[] ca_num, HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		ArrayList <CartVO> list = new ArrayList<CartVO>(); 
+		if(ca_num != null) {
+			for(Integer num : ca_num) {
+				list.add(cartService.getCartNum(num));
+			}
+		}
 		mv.addObject("list", list);
+		mv.addObject("user", user);
 		mv.addObject("title", "주문서 작성");
 		mv.setViewName("/template/order/cart_order");
 		return mv;
