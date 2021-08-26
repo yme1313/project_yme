@@ -136,6 +136,26 @@ td{
 .orderinfo-new{
 	display : none;
 }
+.bottom-box{
+	display : flex;
+	height : 200px;
+	justify-content: space-between;
+}
+.end-price, .paytype{
+	width : 420px;
+	height : 100%;
+}
+.end-price{
+	border : 1px solid #dee2e6;
+}
+.paytype{
+	width :550px;
+	height : 105px;
+	border : 1px solid #dee2e6;
+}
+.end-price tbody tr td{
+	line-height : 20px;
+}
 </style>
 </head>
 <body>
@@ -192,9 +212,16 @@ td{
 	      </tr> 
 	      <c:set var="sum" value="${sum + cart.ca_price}" />
 	      </c:forEach>
+         <tr>
+	        <th></th>
+	        <th></th>
+	        <th></th>
+	        <th></th>
+	        <th></th>
+	      </tr> 
 	    </tbody>
   	 </table>
-  	 <div class="delivery-text mt-2">※ 10만원 이상 구매시 배송비 무료 !</div>
+  	 <div class="delivery-text">※ 10만원 이상 구매시 배송비 무료 !</div>
   	 <div class="row justify-content-end mt-5 price-box ">
 		<div>총 주문 금액 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
 		<i class="fas fa-plus"></i> 배송비 : 
@@ -225,7 +252,7 @@ td{
 		    <tbody class="orderinfo-basic">
 		      <tr>
 		        <td >이름</td>
-		        <td>${user.me_id}<input type="hidden" class="form-control" name="or_me_id" value="${user.me_id}"></td>
+		        <td>${user.me_id}<input type="hidden" class="form-control" name="or_me_name" value="${user.me_name}"></td>
 		       	<td>이메일</td>
 		        <td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>
 		      </tr>
@@ -259,7 +286,7 @@ td{
 		      <tr>
 		        <td>전화번호</td>
 		        <td><input type="text" class="form-control" name="or_phone"></td>
-		        <td></td>
+		        <td>(숫자만 입력하세요.)</td>
 		        <td></td>
 		      </tr>
 		      <tr>
@@ -286,7 +313,8 @@ td{
 	        		<option value="부재시 경비실에 맡겨 주세요.">부재시 경비실에 맡겨 주세요.</option>
 	        		<option value="부재시 문 앞에 두고 가주세요.">부재시 문 앞에 두고 가주세요.</option>
 	        	</select>
-	        	<textarea class="form-control" style="height : 150px"></textarea>
+	        	<textarea class="form-control" style="height : 150px" name="or_message"></textarea>
+	        	<input type="hidden" name="or_me_id" value="${user.me_id}">
 	        </td>
 	        <td></td>
 	        <td></td>
@@ -299,7 +327,65 @@ td{
 	      </tr>
 	    </tbody>
     </table>
+    <div class="bottom-box">
+    	<div class="end-price">
+    	  <table class="table" style="width :420px;">
+		    <thead>
+		      <tr>
+		        <th style="width:150px;">결제금액</th>
+		        <th></th>
+		        <th></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td>총 결제 금액</td>
+		        <td id="final-price" ></td>
+		        <td><input type="hidden" name="or_price" value=""></td>
+		      </tr>
+		      <tr>
+		        <td></td>
+		        <td id="final_detail">
+
+		        </td>
+		        <td></td>
+		      </tr>
+		    </tbody>
+		  </table>
+    	</div>
+    	<div class="paytype">
+  	    <table class="table" style="width :550px;">
+		    <thead>
+		      <tr>
+		        <th style="width:150px;">결제방법</th>
+		        <th></th>
+		        <th></th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+		        <td></td>
+		        <td style="line-height : 20px;">
+		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_payment" value="card">카드결제</label>
+		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_payment" value="real-time">실시간 계좌이체</label>
+		        	<label class="mr-2"><input type="radio" name="or_payment" value="without-bankbook">무통장 입금</label>
+		        </td>
+		        <td></td>
+		      </tr>
+		      <tr>
+		        <td></td>
+		        <td></td>
+		        <td></td>
+		      </tr>
+		    </tbody>
+		  </table>
+    	</div>
+    </div>
+  	 <div class="row justify-content-center">
+	 	<button type="submit" class="btn btn-danger btn-lg mt-5">주문하기</button>
+ 	</div>
 </div>
+
 <script>
 $(function(){
 	$('[name=choice-box]').change(function(){
@@ -313,14 +399,23 @@ $(function(){
 			$('.orderinfo-basic').show()
 		}
 	})
+	$('[name=mess-box]').change(function(){
+		var text = $(this).val()
+		$('[name=or_message]').val(text)
+	})
 })
 $(document).ready(function(){
 	var delivery = parseInt($('.delivery').text())
 	var sum = "${sum}"
 	var sum = parseInt(sum)
 	var orderprice = delivery + sum
+	var str = 
+    	'<div>총 주문 금액: '+ sum +' 원</div>' +
+    	'<div>배송비: '+delivery+' 원</div>'
 	$('.order-price').text(orderprice + ' 원')
-
+	$('#final-price').text(orderprice + ' 원')
+	$('[name=or_price]').val(orderprice)
+	$('#final_detail').html(str)
 });
 
 </script>
