@@ -53,9 +53,16 @@ public class OrderController {
 		return mv;
 	}
 	@PostMapping("/order/order_sheet")
-	public ModelAndView Order_sheetPost(ModelAndView mv, OrderVO ord, HttpServletRequest request) {
+	public ModelAndView Order_sheetPost(ModelAndView mv, OrderVO ord, HttpServletRequest request, Integer[] ca_num) {
 		MemberVO user = memberService.getMemberByRequest(request);
-		System.out.println(ord);
+		ArrayList <CartVO> list = new ArrayList<CartVO>(); 
+		if(ca_num != null) {
+			for(Integer num : ca_num) {
+				list.add(cartService.getCartNum(num));
+			}
+		}
+		orderService.insertOrder(ord , user);
+		mv.addObject("list", list);
 		mv.addObject("user", user);
 		mv.addObject("title", "주문서 확인");
 		mv.setViewName("/template/order/order_sheet");

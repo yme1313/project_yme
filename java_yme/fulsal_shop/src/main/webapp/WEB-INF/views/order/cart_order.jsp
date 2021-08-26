@@ -133,9 +133,6 @@ td{
 	width : 20px;
 	line-height : 20px;
 }
-.orderinfo-new{
-	display : none;
-}
 .bottom-box{
 	display : flex;
 	height : 200px;
@@ -160,6 +157,7 @@ td{
 </head>
 <body>
 <form method="post" action="<%=request.getContextPath()%>/order/order_sheet">
+<input type="hidden" class="form-control" name="or_me_id" value="${user.me_id}">
 <div class="main-box">
 	<ul class="img-box">
 		<li class="round-box">
@@ -197,7 +195,6 @@ td{
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
-	        	<input type="hidden" name="or_name" value="${cart.fu_name}">
 	        </td>
 	        <c:choose>
 	        	<c:when test="${cart.ca_size <= 130}">
@@ -252,12 +249,18 @@ td{
 	      </tr>
 	    </thead>
 	    <tbody>
-		    <tbody class="orderinfo-basic">
+ 			<tbody class="orderinfo">
 		      <tr>
 		        <td >이름</td>
-		        <td>${user.me_id}<input type="hidden" class="form-control" name="or_me_name" value="${user.me_name}"></td>
-		       	<td>이메일</td>
+		        <td>${user.me_name}<input type="hidden" class="form-control" name="or_name" value="${user.me_name}"></td>
+		       	<td></td>
+		        <td></td>
+		      </tr>
+		      <tr>
+		      	<td>이메일</td>
 		        <td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>
+		        <td></td>
+		        <td></td>
 		      </tr>
 		      <tr>
 		        <td>전화번호</td>
@@ -279,35 +282,6 @@ td{
 		        </td>
 		        <td></td>
 			 </tbody>
- 		    <tbody class="orderinfo-new">
-		      <tr>
-		        <td >이름</td>
-		        <td style="width:150px;"><input type="text" class="form-control" name="or_me_id"></td>
-		       	<td style="width:80px; float:right;">이메일 </td>
-		        <td style="width:100px;"><input type="text" class="form-control" name="or_email"></td>
-		      </tr>
-		      <tr>
-		        <td>전화번호</td>
-		        <td><input type="text" class="form-control" name="or_phone"></td>
-		        <td>(숫자만 입력하세요.)</td>
-		        <td></td>
-		      </tr>
-		      <tr>
-		        <td>주소</td>
-				<td>
-					<input type="text" class="form-control mb-2" id="sample4_postcode" name="or_postnum"  readonly placeholder="우편번호">
-					<input type="text" class="form-control mb-2" id="sample4_roadAddress" name="or_add1" placeholder="도로명주소">
-					<span id="guide" style="color:#999;display:none"></span>
-					<input type="text" class="form-control" id="sample4_detailAddress" name="or_add2" placeholder="상세주소">
-					
-				</td>
-				<td>
-					<input type="button" class="btn btn-outline-dark mb-2" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" class="form-control col-8 mb-2" id="sample4_jibunAddress" name="or_add3" placeholder="지번주소">
-					<input type="text" class="form-control col-8" id="sample4_extraAddress" name="or_add4" placeholder="참고항목">
-				</td>
-		        <td></td>
-			 </tbody>
      	  <tr>
 	        <td>배송<br>메시지</td>
 	        <td>
@@ -317,7 +291,6 @@ td{
 	        		<option value="부재시 문 앞에 두고 가주세요.">부재시 문 앞에 두고 가주세요.</option>
 	        	</select>
 	        	<textarea class="form-control" style="height : 150px" name="or_message"></textarea>
-	        	<input type="hidden" name="or_me_id" value="${user.me_id}">
 	        </td>
 	        <td></td>
 	        <td></td>
@@ -369,7 +342,7 @@ td{
 		      <tr>
 		        <td></td>
 		        <td style="line-height : 20px;">
-		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_paytype" value="card">카드결제</label>
+		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_paytype" value="card" checked>카드결제</label>
 		        	<label class="mr-2"><input class="mr-1" type="radio" name="or_paytype" value="real-time">실시간 계좌이체</label>
 		        	<label class="mr-2"><input type="radio" name="or_paytype" value="without-bankbook">무통장 입금</label>
 		        </td>
@@ -395,12 +368,78 @@ $(function(){
 	$('[name=choice-box]').change(function(){
 		var basic = $('.basic').prop("checked")
 		var insert = $('.new').prop("checked")
+		var basicStr =
+		  '<tr>' +
+	        '<td >이름</td>' +
+	        '<td>${user.me_name}<input type="hidden" class="form-control" name="or_name" value="${user.me_name}"></td>' +
+	       	'<td></td>' +
+	        '<td></td>' +
+	      '</tr>' +
+	      '<tr>' +
+	      	'<td>이메일</td>' +
+	        '<td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>' +
+	        '<td></td>' +
+	        '<td></td>' +
+	      '</tr>' +
+	      '<tr>' +
+	        '<td>전화번호</td>' +
+	        '<td>${user.me_phone}<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}"></td>' +
+	        '<td></td>' +
+	        '<td></td>' +
+	      '</tr>' +
+	      '<tr>' +
+ 		    '<td>주소</td>' +
+	        '<td>${user.me_postnum}<br>' +
+	        	'${user.me_add1} / ${user.me_add2} <br>' +
+	        	'${user.me_add3} / ${user.me_add4}' +
+	        '</td>' +
+	        '<td>' +
+	        	'<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">' +
+	        	'<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">' +
+	        	'<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">' +
+	        	'<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">' +
+	        '</td>' +
+	        '<td></td>'
+					
+		var insertStr =		
+		      '<tr>' +
+		        '<td >이름</td>' +
+		        '<td style="width:150px;"><input type="text" class="form-control" name="or_name"></td>' +
+		       	'<td></td>' +
+		        '<td></td>' +
+		      '</tr>' +
+			  '<tr>' +
+		       ' <td >이메일</td>' +
+		        '<td><input type="text" class="form-control" name="or_email"></td>' +
+		       	'<td></td>' +
+		        '<td></td>' +
+		      '</tr>' +
+		      '<tr>' +
+		        '<td>전화번호</td>' +
+		        '<td><input type="text" class="form-control" name="or_phone"></td>' +
+		        '<td>(숫자만 입력하세요.)</td>' +
+		        '<td></td>' +
+		      '</tr>' +
+		      '<tr>' +
+		        '<td>주소</td>' +
+				'<td>' +
+					'<input type="text" class="form-control mb-2" id="sample4_postcode" name="or_postnum"  readonly placeholder="우편번호">' +
+					'<input type="text" class="form-control mb-2" id="sample4_roadAddress" name="or_add1" placeholder="도로명주소">' +
+					'<span id="guide" style="color:#999;display:none"></span>' +
+					'<input type="text" class="form-control" id="sample4_detailAddress" name="or_add2" placeholder="상세주소">	' +
+				'</td>' +
+				'<td>' +
+					'<input type="button" class="btn btn-outline-dark mb-2" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>' +
+					'<input type="text" class="form-control col-8 mb-2" id="sample4_jibunAddress" name="or_add3" placeholder="지번주소">' +
+					'<input type="text" class="form-control col-8" id="sample4_extraAddress" name="or_add4" placeholder="참고항목">' +
+				'</td>' +
+		        '<td></td>' 
+			
+			
 		if(insert){
-			$('.orderinfo-basic').hide()
-			$('.orderinfo-new').show()			
+			$('.orderinfo').html(insertStr)		
 		} else if(basic){
-			$('.orderinfo-new').hide()
-			$('.orderinfo-basic').show()
+			$('.orderinfo').html(basicStr)	
 		}
 	})
 	$('[name=mess-box]').change(function(){

@@ -16,6 +16,7 @@ public class OrderVO {
 	private String or_phone;
 	private String or_email;
 	private String or_state;
+	private String or_valid;
 	private int or_price;
 	private String or_cancle;
 	private String or_message;
