@@ -17,6 +17,20 @@
     <definition name="/template/*/*/*" extends=".template">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
     </definition>
+
+    <!-- 장바구니 -->
+   <definition name=".template1" template="/WEB-INF/views/template/base1.jsp">
+        <put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>       
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+    
+    <definition name="/template1/*/*" extends=".template5">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template1/*/*/*" extends=".template5">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>     
     
     <!-- 고객센터 메뉴 레이아웃 -->
     <definition name=".template2" template="/WEB-INF/views/template/base2.jsp">
@@ -61,7 +75,24 @@
     
     <definition name="/template4/*/*/*" extends=".template4">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
-    </definition>    
+    </definition>   
+    
+   	<!-- 주문관리 레이아웃 -->
+    <definition name=".template5" template="/WEB-INF/views/template/base5.jsp">
+    	<put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>     
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    	<put-attribute name="body5" value="/WEB-INF/views/include/body5.jsp" />
+    </definition>
+    
+    <definition name="/template5/*/*" extends=".template5">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template5/*/*/*" extends=".template5">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition> 
+    
+
     
     
     

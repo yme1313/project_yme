@@ -17,16 +17,18 @@
 <script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
-	.body {
-	min-height: 1000px;
-	};
+
+.body {
+	height: 1000px; position: relative;
+}
 </style>
 </head>
 <body>
-    <tiles:insertAttribute name="nav"/>
-    <div class="body">
- 	   <tiles:insertAttribute name="body" />   
-    </div>                                              
-    <tiles:insertAttribute name="footer" />
+	<tiles:insertAttribute name="nav"/>  
+	<div class="body">
+		<tiles:insertAttribute name="body5"/>
+		<tiles:insertAttribute name="body"/>	       
+	</div>                                 
+    <tiles:insertAttribute name="footer"/> 
 </body>
 </html>

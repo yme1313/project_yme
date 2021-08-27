@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,7 +35,7 @@ public class OrderController {
 		FutsalVO buyFutsal = futsalService.getDirectBuy(futsal, option, cart);
 		mv.addObject("futsal", buyFutsal);
 		mv.addObject("title", "주문서 작성");
-		mv.setViewName("/template/order/direct");
+		mv.setViewName("/template1/order/direct");
 		return mv;
 	}	
 	@PostMapping("/order/cart_order")
@@ -49,11 +50,11 @@ public class OrderController {
 		mv.addObject("list", list);
 		mv.addObject("user", user);
 		mv.addObject("title", "주문서 작성");
-		mv.setViewName("/template/order/cart_order");
+		mv.setViewName("/template1/order/cart_order");
 		return mv;
 	}
 	@PostMapping("/order/orderOk")
-	public ModelAndView OrdersheetPost(ModelAndView mv, OrderVO order,HttpServletRequest request, 
+	public ModelAndView OrdeOkPost(ModelAndView mv, OrderVO order,HttpServletRequest request, 
 			Integer[] ca_num) {
 		MemberVO user = memberService.getMemberByRequest(request);
 		orderService.insertOrder(order,user);
@@ -63,4 +64,10 @@ public class OrderController {
 		mv.setViewName("/template/order/orderOk");
 		return mv;
 	}
+	@GetMapping("/order/list")
+	public ModelAndView listGet(ModelAndView mv) {
+		mv.setViewName("/template5/order/list");
+		return mv;
+	}
+
 }

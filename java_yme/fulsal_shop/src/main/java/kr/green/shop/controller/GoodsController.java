@@ -75,7 +75,7 @@ public class GoodsController {
 		ArrayList <CartVO> list = cartService.getCartList(user);
 		mv.addObject("title","장바구니 목록");
 		mv.addObject("list", list);
-		mv.setViewName("/template/cart/list");
+		mv.setViewName("/template1/cart/list");
 		return mv;
 	}	
 
