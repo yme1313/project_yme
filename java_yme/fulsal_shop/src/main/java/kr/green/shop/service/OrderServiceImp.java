@@ -16,12 +16,12 @@ public class OrderServiceImp implements OrderService{
 	OrderDAO orderDao;
 	
 	@Override
-	public void insertOrder(OrderVO ord, MemberVO user) {
-		if(!ord.getOr_me_id().equals(user.getMe_id())) {
+	public void insertOrder(OrderVO order, MemberVO user) {
+		if(!order.getOr_me_id().equals(user.getMe_id())) {
 			return;
 		}
-		ord.setOr_title(makeOr_title());
-		orderDao.insertOrder(ord);
+		order.setOr_title(makeOr_title());
+		orderDao.insertOrder(order);
 	}
 	
 	

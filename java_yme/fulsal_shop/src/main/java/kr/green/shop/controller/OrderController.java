@@ -52,21 +52,15 @@ public class OrderController {
 		mv.setViewName("/template/order/cart_order");
 		return mv;
 	}
-	@PostMapping("/order/order_sheet")
-	public ModelAndView Order_sheetPost(ModelAndView mv, OrderVO ord, HttpServletRequest request, Integer[] ca_num) {
+	@PostMapping("/order/orderOk")
+	public ModelAndView OrdersheetPost(ModelAndView mv, OrderVO order,HttpServletRequest request, 
+			Integer[] ca_num) {
 		MemberVO user = memberService.getMemberByRequest(request);
-		ArrayList <CartVO> list = new ArrayList<CartVO>(); 
-		if(ca_num != null) {
-			for(Integer num : ca_num) {
-				list.add(cartService.getCartNum(num));
-			}
-		}
-		orderService.insertOrder(ord , user);
-		mv.addObject("list", list);
+		orderService.insertOrder(order,user);
+		cartService.deletdOrderCart(ca_num);
 		mv.addObject("user", user);
 		mv.addObject("title", "주문서 확인");
-		mv.setViewName("/template/order/order_sheet");
+		mv.setViewName("/template/order/orderOk");
 		return mv;
 	}
-
 }

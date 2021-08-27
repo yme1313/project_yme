@@ -156,7 +156,7 @@ td{
 </style>
 </head>
 <body>
-<form method="post" action="<%=request.getContextPath()%>/order/order_sheet">
+<form method="post" action="<%=request.getContextPath()%>/order/orderOk">
 <input type="hidden" class="form-control" name="or_me_id" value="${user.me_id}">
 <div class="main-box">
 	<ul class="img-box">
@@ -191,6 +191,7 @@ td{
 	    <tbody>
 	    <c:set var="sum" value="0" />
 	    <c:forEach items="${list}" var="cart">
+	    <input type="hidden" name="or_goodsname" value="${cart.fu_name}">
 	      <tr class="list-box">
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 	        <td>
@@ -358,10 +359,11 @@ td{
     	</div>
     </div>
   	 <div class="row justify-content-center">
-	 	<button type="submit" class="btn btn-danger btn-lg mt-1">주문하기</button>
+	 	<button type="submit" class="btn btn-danger btn-lg mt-1">결제하기</button>
  	</div>
 </div>
 </form>
+
 
 <script>
 $(function(){
@@ -445,6 +447,20 @@ $(function(){
 	$('[name=mess-box]').change(function(){
 		var text = $(this).val()
 		$('[name=or_message]').val(text)
+	})
+	$('#buyOrder').click(function(e){
+		e.preventDefault()
+		console.log('123')
+		
+		$.ajax({
+			type : 'post',
+			url : '<%=request.getContextPath()%>/order/addsheet',
+			data : JSON.stringify(data),
+			contentType : "application/json; charset:utf-8",
+			success : function(res){
+				console.log(res)
+			}
+		})
 	})
 })
 $(document).ready(function(){

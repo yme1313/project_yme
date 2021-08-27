@@ -11,5 +11,4 @@ public interface OptionService {
 
 	ArrayList<OptionVO> getOptionList(Integer num);
 
-
 }

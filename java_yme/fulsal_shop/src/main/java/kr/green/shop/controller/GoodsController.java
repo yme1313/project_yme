@@ -53,7 +53,6 @@ public class GoodsController {
 		PageMaker pm = new PageMaker(totalCount , 6, cri);
 		mv.addObject("pm",pm);
 		mv.addObject("list", list);
-		mv.setViewName("/template/goods/shoes");
 		mv.addObject("title","의류");
 		mv.setViewName("/template/goods/cloth");
 		return mv;

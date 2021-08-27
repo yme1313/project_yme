@@ -19,4 +19,6 @@ public interface CartDAO {
 
 	CartVO getCart(int num);
 
+	void deletdOrderCart(Integer num);
+
 }

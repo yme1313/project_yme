@@ -7,6 +7,6 @@
 <meta charset="UTF-8">
 </head>
 <body>
-	123
+	결제완료 되었습니다.
 </body>
 </html>

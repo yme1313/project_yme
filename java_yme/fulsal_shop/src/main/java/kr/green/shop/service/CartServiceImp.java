@@ -64,6 +64,26 @@ public class CartServiceImp implements CartService{
 		return cartDao.getCart(num);
 	}
 
+	@Override
+	public CartVO getDeleteCart(Integer num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deletdOrderCart(Integer[] ca_num) {
+		if(ca_num != null) {
+			for(Integer num : ca_num) {
+				cartDao.deletdOrderCart(num);
+			}
+		}
+		
+	}
+
+
+
+
+
 
 
 

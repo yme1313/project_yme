@@ -10,6 +10,7 @@ public class OrderVO {
 	private int or_num;
 	private String or_me_id;
 	private String or_title; //주문번호
+	private String or_goodsname;
 	private Date or_date;
 	private String or_paytype;
 	private String or_name;

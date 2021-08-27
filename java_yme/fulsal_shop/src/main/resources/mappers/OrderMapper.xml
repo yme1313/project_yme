@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.green.shop.dao.OrderDAO">
 	<insert id="insertOrder">
-		insert into `order`(or_me_id, or_title, or_paytype, or_name, or_phone, or_email, or_price, or_message)
-			values(#{or_me_id}, #{or_title}, #{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message})
+		insert into `order`(or_me_id, or_title, or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message)
+			values(#{or_me_id}, #{or_title}, #{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message})
 	</insert>
 	
 </mapper>

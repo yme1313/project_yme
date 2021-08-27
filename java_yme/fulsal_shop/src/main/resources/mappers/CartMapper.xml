@@ -28,5 +28,10 @@
 			ca_valid = 'D'
 			where ca_num = #{ca_num}
 	</update>
+	<update id="deletdOrderCart">
+		update cart set
+			ca_valid = 'D'
+			where ca_num = #{ca_num}
+	</update>
 	
 </mapper>

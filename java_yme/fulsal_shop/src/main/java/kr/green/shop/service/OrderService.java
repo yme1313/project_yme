@@ -5,6 +5,6 @@ import kr.green.shop.vo.OrderVO;
 
 public interface OrderService {
 
-	void insertOrder(OrderVO ord, MemberVO user);
+	void insertOrder(OrderVO order, MemberVO user);
 
 }

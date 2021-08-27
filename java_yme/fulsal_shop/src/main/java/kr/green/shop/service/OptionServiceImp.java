@@ -28,5 +28,4 @@ public class OptionServiceImp implements OptionService{
 			return null;
 		return optionDao.getOptionList(num);
 	}
-
 }

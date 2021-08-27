@@ -19,5 +19,9 @@ public interface CartService {
 
 	CartVO getOrderCart(Integer num);
 
+	CartVO getDeleteCart(Integer num);
+
+	void deletdOrderCart(Integer[] ca_num);
+
 
 }
