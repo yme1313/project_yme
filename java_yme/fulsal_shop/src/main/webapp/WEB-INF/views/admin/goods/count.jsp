@@ -58,7 +58,7 @@
 		  <c:forEach items="${list}" var="option"> 
 		    <tbody>
 		      <tr>
-		        <td>${option.op_size}</td>
+		        <td>${option.size}</td>
 		        <td>${option.op_count}</td>
 		      </tr>
 		    </tbody>

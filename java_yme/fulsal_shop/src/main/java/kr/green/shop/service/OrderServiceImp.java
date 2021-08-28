@@ -1,11 +1,13 @@
 package kr.green.shop.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
 import kr.green.shop.dao.OrderDAO;
+import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OrderVO;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,21 @@ public class OrderServiceImp implements OrderService{
 		String str =sdf.format(d);
 		String orTitle=String.valueOf(c1)+c2+c3+str;
 		return orTitle;
+	}
+
+
+	@Override
+	public ArrayList<OrderVO> getOrderList(Criteria cri, MemberVO user) {
+		if(user == null) {
+			return null;
+		}
+		return orderDao.getOrderList(cri ,user);
+	}
+
+
+	@Override
+	public int getTotalCount(Criteria cri, MemberVO user) {
+		return orderDao.getTotalCount(cri, user);
 	}
 
 }

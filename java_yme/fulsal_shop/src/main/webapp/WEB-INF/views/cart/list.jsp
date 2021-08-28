@@ -131,14 +131,7 @@ td{
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
 	        </td>
-	        <c:choose>
-	        	<c:when test="${cart.ca_size <= 130}">
-	        		<td>${cart.ca_size} /(의류)</td>
-	        	</c:when>
-	        	<c:otherwise>
-	        		<td>${cart.ca_size}</td>
-	        	</c:otherwise>
-	        </c:choose>
+			<td>${cart.size}</td>
 	        <td>총 : ${cart.ca_count}개</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원

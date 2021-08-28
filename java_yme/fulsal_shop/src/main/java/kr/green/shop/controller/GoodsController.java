@@ -57,6 +57,42 @@ public class GoodsController {
 		mv.setViewName("/template/goods/cloth");
 		return mv;
 	}	
+	@GetMapping("/goods/nike")
+	public ModelAndView nikeGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getNikeList(cri);
+		int totalCount = futsalService.getNikeTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("title","풋살화");
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.setViewName("/template/goods/shoes");
+		return mv;
+	}
+	@GetMapping("/goods/adidas")
+	public ModelAndView adidasGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getAdidasList(cri);
+		int totalCount = futsalService.getAdidasTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("title","풋살화");
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.setViewName("/template/goods/shoes");
+		return mv;
+	}
+	@GetMapping("/goods/puma")
+	public ModelAndView pumaGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getPumaList(cri);
+		int totalCount = futsalService.getPumaTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("title","풋살화");
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.setViewName("/template/goods/shoes");
+		return mv;
+	}
 	@GetMapping("/goods/detail")
 	public ModelAndView detailGet(ModelAndView mv, Integer num) {
 		FutsalVO futsal = futsalService.getFutsal(num);
@@ -75,7 +111,11 @@ public class GoodsController {
 		ArrayList <CartVO> list = cartService.getCartList(user);
 		mv.addObject("title","장바구니 목록");
 		mv.addObject("list", list);
-		mv.setViewName("/template1/cart/list");
+		if(user == null) {
+			mv.setViewName("/template/member/signin");
+		} else {
+			mv.setViewName("/template1/cart/list");
+		}
 		return mv;
 	}	
 

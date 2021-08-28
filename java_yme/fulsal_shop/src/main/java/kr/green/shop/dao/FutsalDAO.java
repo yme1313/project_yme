@@ -33,4 +33,16 @@ public interface FutsalDAO {
 
 	FutsalVO getDirectBuy(@Param("futsal")FutsalVO futsal, @Param("option")OptionVO option, @Param("cart")CartVO cart);
 
+	ArrayList<FutsalVO> getNikeList(Criteria cri);
+
+	int getNikeTotalCount(Criteria cri);
+
+	ArrayList<FutsalVO> getAdidasList(Criteria cri);
+
+	int getAdidasTotalCount(Criteria cri);
+
+	ArrayList<FutsalVO> getPumaList(Criteria cri);
+
+	int getPumaTotalCount(Criteria cri);
+
 }

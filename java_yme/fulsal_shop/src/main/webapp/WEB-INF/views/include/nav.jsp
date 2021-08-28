@@ -83,9 +83,9 @@
 		        브랜드
 		      </a>
 		      <div class="dropdown-menu">
-		        <a class="dropdown-item" href="#">나이키</a>
-		        <a class="dropdown-item" href="#">아디다스</a>
-		        <a class="dropdown-item" href="#">퓨마</a>
+		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/nike">나이키</a>
+		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/adidas">아디다스</a>
+		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/puma">퓨마</a>
 		      </div>
 		    </li>
 			<li class="nav-item">

@@ -191,20 +191,13 @@ td{
 	    <tbody>
 	    <c:set var="sum" value="0" />
 	    <c:forEach items="${list}" var="cart">
-	    <input type="hidden" name="or_goodsname" value="${cart.fu_name}">
+	    <input type="hidden" name="or_goodsname" value="${cart.fu_name} ${cart.size}">
 	      <tr class="list-box">
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
 	        </td>
-	        <c:choose>
-	        	<c:when test="${cart.ca_size <= 130}">
-	        		<td>${cart.ca_size} /(의류)</td>
-	        	</c:when>
-	        	<c:otherwise>
-	        		<td>${cart.ca_size}</td>
-	        	</c:otherwise>
-	        </c:choose>
+			<td>${cart.size}</td>
 	        <td>총 : ${cart.ca_count}개</td>
 	        <td>
 	        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
@@ -276,6 +269,7 @@ td{
 		        	${user.me_add3} / ${user.me_add4}
 		        </td>
 		        <td>
+		        	<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">
 		        	<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">
 		        	<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">
 		        	<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">
@@ -396,6 +390,7 @@ $(function(){
 	        	'${user.me_add3} / ${user.me_add4}' +
 	        '</td>' +
 	        '<td>' +
+	        	'<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">' +
 	        	'<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">' +
 	        	'<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">' +
 	        	'<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">' +

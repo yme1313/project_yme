@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.green.shop.pagination.Criteria;
+import kr.green.shop.pagination.PageMaker;
 import kr.green.shop.service.CartService;
 import kr.green.shop.service.FutsalService;
 import kr.green.shop.service.MemberService;
@@ -65,8 +67,19 @@ public class OrderController {
 		return mv;
 	}
 	@GetMapping("/order/list")
-	public ModelAndView listGet(ModelAndView mv) {
-		mv.setViewName("/template5/order/list");
+	public ModelAndView listGet(ModelAndView mv, Criteria cri, HttpServletRequest request) {
+		cri.setPerPageNum(2);
+		MemberVO user = memberService.getMemberByRequest(request);
+		ArrayList <OrderVO> list = orderService.getOrderList(cri, user);
+		int total = orderService.getTotalCount(cri, user);
+		PageMaker pm = new PageMaker(total, 10, cri);
+		mv.addObject("list", list);
+		mv.addObject("pm", pm);
+		if(user == null) {
+			mv.setViewName("/template/member/signin");
+		} else {
+			mv.setViewName("/template5/order/list");
+		}
 		return mv;
 	}
 

@@ -21,7 +21,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();	
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		if(user == null) {
-			response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/member/signin");
 			return false;
 		}
 		return true;

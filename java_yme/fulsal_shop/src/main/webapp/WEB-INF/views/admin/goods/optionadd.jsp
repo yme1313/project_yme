@@ -70,13 +70,13 @@
 	 	      <div class="input-group-prepend">
 		   	  	 <span class="input-group-text">사이즈</span>
 		     		<select class="form-control col-6 mr-2" name="op_size">
-						<option value="80(XXS)">80(XXS)</option>
-						<option value="85(XS)">85(XS)</option>
-						<option value="90(S)">90(S)</option>
-						<option value="95(M)">95(M)</option>
-						<option value="100(L)">100(L)</option>
-						<option value="105(XL)">105(XL)</option>
-						<option value="110(XXL)">110(XXL)</option>
+						<option value="80">80(XXS)</option>
+						<option value="85">85(XS)</option>
+						<option value="90">90(S)</option>
+						<option value="95">95(M)</option>
+						<option value="100">100(L)</option>
+						<option value="105">105(XL)</option>
+						<option value="110">110(XXL)</option>
 		     		</select>
 		      </div>
 	      </c:if>

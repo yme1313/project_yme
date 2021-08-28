@@ -74,7 +74,7 @@
 			        	<select class="form-control col-8 ml-2 select-box" name="size">
 			        		<option value="choice" selected>옵션 선택</option>
 			        		<c:forEach items="${list}" var="option">
-								<option value="${option.op_size}">${option.op_size}<c:if test="${option.op_count == 0}">(품절)</c:if></option>
+								<option value="${option.op_size}">${option.size}<c:if test="${option.op_count == 0}">(품절)</c:if></option>
 							</c:forEach>	
 		     			</select>	
 						<span class="caution">주문량이 많은 상품은 주문완료시 품절이 될 수 있습니다.</span>
@@ -173,8 +173,9 @@ $(function(){
 
 	$('.cart-add').click(function(){
 		var ca_count = $('[name=ca_count]').val()
-		var ca_price = $('.total').text()
+		var ca_price = parseInt($('.total').text())
 		var ca_size = $('#hidden').val()
+		var zero = '0 원';
 		var data = {
 			ca_fu_num : fu_num,
 			ca_count : ca_count,
@@ -193,6 +194,9 @@ $(function(){
 					if(res == 'OK'){
 						$('.opt-count-box').remove()		
 						alert('장바구니에 등록하였습니다.')
+						$('.total').text(zero)
+					} else if(res == 'FAIL'){
+						alert('로그인이 필요합니다.')
 					}
 			    }
 			})

@@ -35,10 +35,6 @@
 	   	  	 <span class="input-group-text">브랜드</span>
 			<input type="text" class="form-control mr-2" name="fu_brand" value="${futsal.fu_brand}" readonly>	
 	      </div>
-   	   	   <div class="input-group-prepend">
-	   	  	 <span class="input-group-text">사이즈</span>
-			 <input type="text" class="form-control mr-2" name="fu_size" value="${futsal.fu_size}" readonly>
-	     </div>	
 	    </div>  
    	    <div class="input-group mb-3">   
 	   	   <div class="input-group-prepend">
@@ -48,10 +44,6 @@
 	      <div class="input-group-prepend">
 	      	 <span class="input-group-text">가격</span>
 	      	 <input type="text" class="form-control mr-2 col-6" name="fu_price" value="${futsal.fu_price}">
-	      </div>
-     	  <div class="input-group-prepend">
-	      	 <span class="input-group-text">수량</span>
-	      	 <input type="text" class="form-control mr-2 col-6" name="fu_stock">
 	      </div>
  	  </div>   
 		<div class="form-group">

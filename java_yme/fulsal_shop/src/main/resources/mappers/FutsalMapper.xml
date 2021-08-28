@@ -61,6 +61,36 @@
 		select count(*) from futsal
 			where fu_valid = 'I' and fu_type = '의류'
 	</select>
+	<select id="getNikeList" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal
+			where fu_valid = 'I' and fu_brand = '나이키'
+			order by fu_num desc
+			limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getNikeTotalCount" resultType="int">
+		select count(*) from futsal
+			where fu_valid = 'I' and fu_brand = '나이키'
+	</select>	
+	<select id="getAdidasList" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal
+			where fu_valid = 'I' and fu_brand = '아디다스'
+			order by fu_num desc
+			limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getAdidasTotalCount" resultType="int">
+		select count(*) from futsal
+			where fu_valid = 'I' and fu_brand = '아디다스'
+	</select>
+	<select id="getPumaList" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal
+			where fu_valid = 'I' and fu_brand = '푸마'
+			order by fu_num desc
+			limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getPumaTotalCount" resultType="int">
+		select count(*) from futsal
+			where fu_valid = 'I' and fu_brand = '푸마'
+	</select>	
 	<select id="getFutsal" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal 
 			where fu_num = #{fu_num} and fu_valid = 'I'

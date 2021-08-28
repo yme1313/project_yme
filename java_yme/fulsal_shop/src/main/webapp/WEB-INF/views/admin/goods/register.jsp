@@ -36,7 +36,7 @@
 	     		<select class="form-control mr-2" name="fu_brand">
 					<option value="나이키">나이키</option>
 					<option value="아디다스">아디다스</option>
-					<option value="퓨마">퓨마</option>
+					<option value="푸마">푸마</option>
 		     	</select>	
 	      </div>	
 	    </div>  
