@@ -41,6 +41,16 @@
 					and fu_brand like concat('%',#{cri.search},'%')
 				</if>
 	</select>
+	<select id="getSearchList" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal 
+			where fu_valid = 'I' and fu_name like concat('%',#{search},'%')
+			order by fu_num desc
+			limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getSearchTotalCount" resultType="int">
+		select count(*) from futsal 
+			where fu_valid = 'I' and fu_name like concat('%',#{search},'%')
+	</select>	
 	<select id="getShoesList" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal
 			where fu_valid = 'I' and fu_type = '풋살화'

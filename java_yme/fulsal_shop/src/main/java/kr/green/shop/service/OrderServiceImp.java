@@ -53,5 +53,40 @@ public class OrderServiceImp implements OrderService{
 	public int getTotalCount(Criteria cri, MemberVO user) {
 		return orderDao.getTotalCount(cri, user);
 	}
+	
+	@Override
+	public ArrayList<OrderVO> getOrderCancleList(Criteria cri, MemberVO user) {
+		if(user == null) {
+			return null;
+		}
+		return orderDao.getOrderCancleList(cri ,user);
+	}
+
+	@Override
+	public int getCancleTotalCount(Criteria cri, MemberVO user) {
+		return orderDao.getCancleTotalCount(cri, user);
+	}
+
+
+	@Override
+	public OrderVO getOrder(int or_num) {
+		if(or_num <=0) {
+			return null;
+		}
+		return orderDao.getOrder(or_num);
+	}
+
+
+	@Override
+	public String cancleOrder(OrderVO order) {
+		if(order == null) {
+			return "FAIL";
+		}
+		orderDao.cancleOrder(order);
+		return "OK";
+	}
+
+
+
 
 }

@@ -16,4 +16,12 @@ public interface OrderDAO {
 
 	int getTotalCount(@Param("cri")Criteria cri, @Param("user")MemberVO user);
 
+	OrderVO getOrder(int or_num);
+
+	void cancleOrder(OrderVO order);
+
+	ArrayList<OrderVO> getOrderCancleList(@Param("cri")Criteria cri, @Param("user")MemberVO user);
+
+	int getCancleTotalCount(@Param("cri")Criteria cri, @Param("user")MemberVO user);
+
 }

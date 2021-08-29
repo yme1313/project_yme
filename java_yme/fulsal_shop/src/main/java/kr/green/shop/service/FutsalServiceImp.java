@@ -115,4 +115,14 @@ public class FutsalServiceImp implements FutsalService{
 	public int getPumaTotalCount(Criteria cri) {
 		return futsalDao.getPumaTotalCount(cri);
 	}
+
+	@Override
+	public ArrayList<FutsalVO> getSearchList(Criteria cri) {
+		return futsalDao.getSearchList(cri);
+	}
+
+	@Override
+	public int getSearchTotalCount(Criteria cri) {
+		return futsalDao.getSearchTotalCount(cri);
+	}
 }

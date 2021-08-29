@@ -89,12 +89,23 @@
 		      </div>
 		    </li>
 			<li class="nav-item">
-				<form class="form-inline" action="/action_page.php">
-					<input class="form-control mr-sm-2" type="text">
-					<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
+				<form class="form-inline" action="<%=request.getContextPath()%>/goods/all">
+					<input class="form-control mr-sm-2" type="text" id="goods_text" name="search" value="<c:out value="${pm.criteria.search}"/>">
+					<button class="btn btn-outline-white" type="submit" id="goods_search"><i class="fas fa-search"></i></button>
 				</form>
 			</li>	
 		</ul>
 		<hr>
+<script type="text/javascript">
+$(function(){
+	$('#goods_search').click(function(e){
+		var search = $('#goods_text').val()
+		if(search == ''){
+			e.preventDefault()
+			alert('검색어를 입력하세요.')
+		}
+	})
+})
+</script>		
 </body>
 </html>

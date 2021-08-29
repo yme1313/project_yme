@@ -93,6 +93,18 @@ public class GoodsController {
 		mv.setViewName("/template/goods/shoes");
 		return mv;
 	}
+	@GetMapping("/goods/all")
+	public ModelAndView searchGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getSearchList(cri);
+		int totalCount = futsalService.getSearchTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("title","검색상품");
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.setViewName("/template/goods/all");
+		return mv;
+	}
 	@GetMapping("/goods/detail")
 	public ModelAndView detailGet(ModelAndView mv, Integer num) {
 		FutsalVO futsal = futsalService.getFutsal(num);
@@ -103,7 +115,6 @@ public class GoodsController {
 		mv.setViewName("/template/goods/detail");
 		return mv;
 	}	
-	
 	
 	@GetMapping("/cart/list")
 	public ModelAndView listGet(ModelAndView mv, HttpServletRequest request) {

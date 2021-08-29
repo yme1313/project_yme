@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.shop.pagination.Criteria;
@@ -81,6 +83,29 @@ public class OrderController {
 			mv.setViewName("/template5/order/list");
 		}
 		return mv;
+	}
+	@GetMapping("/order/cancle_list")
+	public ModelAndView cancle_listGet(ModelAndView mv, Criteria cri, HttpServletRequest request) {
+		cri.setPerPageNum(2);
+		MemberVO user = memberService.getMemberByRequest(request);
+		ArrayList <OrderVO> list = orderService.getOrderCancleList(cri, user);
+		int total = orderService.getCancleTotalCount(cri, user);
+		PageMaker pm = new PageMaker(total, 10, cri);
+		mv.addObject("list", list);
+		mv.addObject("pm", pm);
+		if(user == null) {
+			mv.setViewName("/template/member/signin");
+		} else {
+			mv.setViewName("/template5/order/cancle_list");
+		}
+		return mv;
+	}
+	
+	@ResponseBody
+	@PostMapping("/order/cancle")
+	public String canclePost(@RequestBody OrderVO ord) {
+		OrderVO order = orderService.getOrder(ord.getOr_num());
+		return orderService.cancleOrder(order);
 	}
 
 }

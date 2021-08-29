@@ -6,16 +6,39 @@
 	<select id="getOrderList" resultType="kr.green.shop.vo.OrderVO">
 		select * from `order`
 			where or_me_id = #{user.me_id} and or_cancle = 'N'
+			and or_title like concat('%',#{cri.search},'%')
 			order by or_num desc
 			limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	<select id="getTotalCount" resultType="int">
 		select count(*) from `order`
 			where or_me_id = #{user.me_id} and or_cancle = 'N'
+			and or_title like concat('%',#{cri.search},'%')
+	</select>
+	<select id="getOrderCancleList" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where or_me_id = #{user.me_id} and or_cancle = 'Y'
+			order by or_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getCancleTotalCount" resultType="int">
+		select count(*) from `order`
+			where or_me_id = #{user.me_id} and or_cancle = 'Y'
+	</select>	
+	<select id="getOrder" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where or_num = #{or_num}
 	</select>	
 	<insert id="insertOrder">
 		insert into `order`(or_me_id, or_title, or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message, or_postnum, or_add1, or_add2, or_add3, or_add4)
 			values(#{or_me_id}, #{or_title}, #{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message}, #{or_postnum}, #{or_add1}, #{or_add2}, #{or_add3}, #{or_add4})
 	</insert>
+	<update id="cancleOrder">
+		update `order` set
+			or_cancle = 'Y',
+			or_state = '주문취소'
+			where or_num = #{or_num}
+	</update>
+
 	
 </mapper>

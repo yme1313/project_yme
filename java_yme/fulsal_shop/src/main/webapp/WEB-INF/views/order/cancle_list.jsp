@@ -15,10 +15,6 @@
 .right-board-box{
 	position: relative;
 }
-.search-box{
-	position : absolute; 
-	top : 0; right :3%;
-}
  a:hover{
 	text-decoration : none;	
 }
@@ -60,11 +56,6 @@ h3{
 	<div class="container main-box">
 		<div class="right-board-box">	
 			<h3>주문 내역</h3> 
-			<form class="form-inline search-box" action="<%=request.getContextPath()%>/order/list">
-			 	 <span class="mr-2">주문번호</span>
-				<input class="form-control mr-sm-2 col-6" type="text" name="search" value="<c:out value="${pm.criteria.search}"/>">
-				<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
-			</form> 
 			<c:if test="${list.size() != 0 }">
 				<div class="container board-box">    	  
 					<c:forEach items="${list}" var="order">
@@ -73,8 +64,7 @@ h3{
 							<input type="hidden" name="or_num" value="${order.or_num}">
 							<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 							<span class="order-title-text mr-2">${order.or_title}</span>
-							<span>[</span><span class="state-text">주문확인중</span><span>]</span>
-							<button id="cancle_btn" class="btn btn-outline-danger btn-sm">주문취소</button>
+							<span>[</span><span class="state-text">주문취소</span><span>]</span>
 						</div>
 						<div class="container">
 						  <table class="table table-bordered">
@@ -127,49 +117,29 @@ h3{
 				</div>
 			  	<ul class="pagination justify-content-center">
 				  <c:if test="${pm.prev}">
-				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${pm.startPage-1}">이전</a></li>
+				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${pm.startPage-1}">이전</a></li>
 				  </c:if> 
 				  <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
 				  	<c:choose>
 					  	<c:when test="${pm.criteria.page == index}">
-					    	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${index}">${index}</a></li>
+					    	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${index}">${index}</a></li>
 		    			</c:when>
 		    			 <c:otherwise>
-		    				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${index}">${index}</a></li>
+		    				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${index}">${index}</a></li>
 		    			</c:otherwise>
 	    			</c:choose>
 				  </c:forEach> 
 				  <c:if test="${pm.next}">
-				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${pm.endPage+1}">다음</a></li>
+				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${pm.endPage+1}">다음</a></li>
 				  </c:if>  
 			 	 </ul>
 			 </c:if>
 			 <c:if test="${list.size() == 0}">
-			 등록된 주문번호가 없습니다.
+			 취소된 주문번호가 없습니다.
 			 </c:if>	 
 		</div>
 	</div>	
 <script>
-$(function(){
-	$(document).on('click','#cancle_btn',function(){
-		var or_num = $(this).siblings('[name=or_num]').val();
-		var data = {or_num : or_num}
-		$.ajax({
-			type : 'post',
-			url : '<%=request.getContextPath()%>/order/cancle',
-			data : JSON.stringify(data),
-			contentType : "application/json; charset:utf-8",
-			success : function(res){
-				if(res == 'OK'){
-					alert('주문이 최소되었습니다.')
-				} else {
-					alert('주문 취소에 실패했습니다.')
-				}	
-			}
-		})
-		$(this).parent().parent().remove()	
-	})
-})
 </script>
 </body>
 </html>

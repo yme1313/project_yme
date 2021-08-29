@@ -44,4 +44,8 @@ public interface FutsalService {
 	
 	int getPumaTotalCount(Criteria cri);
 
+	ArrayList<FutsalVO> getSearchList(Criteria cri);
+
+	int getSearchTotalCount(Criteria cri);
+
 }

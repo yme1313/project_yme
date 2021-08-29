@@ -14,4 +14,12 @@ public interface OrderService {
 
 	int getTotalCount(Criteria cri, MemberVO user);
 
+	OrderVO getOrder(int or_num);
+
+	String cancleOrder(OrderVO order);
+
+	ArrayList<OrderVO> getOrderCancleList(Criteria cri, MemberVO user);
+
+	int getCancleTotalCount(Criteria cri, MemberVO user);
+
 }
