@@ -12,4 +12,9 @@
 		insert into `option`(op_fu_num, op_size, op_count)
 			values(#{op_fu_num}, #{op_size}, #{op_count})
 	</insert>
+	<update id="changeStock">
+		update `option` set
+			op_count = (op_count - #{or_count.count})
+			where op_fu_num = #{fu_num.num} and op_size = #{op_size.size}
+	</update>
 </mapper>

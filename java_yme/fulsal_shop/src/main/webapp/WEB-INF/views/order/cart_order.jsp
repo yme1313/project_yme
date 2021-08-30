@@ -194,6 +194,7 @@ td{
 	    <input type="hidden" name="or_fuNums" value="${cart.fu_num}">
 	    <input type="hidden" name="or_goodsname" value="${cart.fu_name} ${cart.size}/${cart.ca_count}개">
 	    <input type="hidden" name="or_count" value="${cart.ca_count}">
+	    <input type="hidden" name="or_size" value="${cart.ca_size}">
 	      <tr class="list-box">
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 	        <td>

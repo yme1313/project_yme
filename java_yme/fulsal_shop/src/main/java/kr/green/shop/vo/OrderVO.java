@@ -12,6 +12,7 @@ public class OrderVO {
 	private String or_title; //주문번호
 	private String or_fuNums;
 	private String or_count;
+	private String or_size;
 	private String or_goodsname;
 	private Date or_date;
 	private String or_paytype;

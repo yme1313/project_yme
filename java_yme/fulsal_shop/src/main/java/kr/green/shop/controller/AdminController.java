@@ -195,7 +195,12 @@ public class AdminController {
 	}
 	
 	@PostMapping("/order/ok")
-	public ModelAndView orderOkPost(ModelAndView mv) {
+	public ModelAndView orderOkPost(ModelAndView mv, HttpServletRequest request, OrderVO order) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		String[] fu_Nums = order.getOr_fuNums().split(",");
+		String[] counts = order.getOr_count().split(",");
+		String[] size = order.getOr_size().split(",");
+		optionService.changeStock(user, fu_Nums, counts, size);
 		mv.setViewName("redirect:/admin/order/list");
 		return mv;
 	}	

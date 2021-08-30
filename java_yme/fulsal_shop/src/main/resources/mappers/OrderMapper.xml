@@ -52,8 +52,8 @@
 				</if>
 	</select>	
 	<insert id="insertOrder">
-		insert into `order`(or_me_id, or_title, or_fuNums, or_count, or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message, or_postnum, or_add1, or_add2, or_add3, or_add4)
-			values(#{or_me_id}, #{or_title}, #{or_fuNums}, #{or_count} ,#{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message}, #{or_postnum}, #{or_add1}, #{or_add2}, #{or_add3}, #{or_add4})
+		insert into `order`(or_me_id, or_title, or_fuNums, or_count, or_size ,or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message, or_postnum, or_add1, or_add2, or_add3, or_add4)
+			values(#{or_me_id}, #{or_title}, #{or_fuNums}, #{or_count} , #{or_size},#{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message}, #{or_postnum}, #{or_add1}, #{or_add2}, #{or_add3}, #{or_add4})
 	</insert>
 	<update id="cancleOrder">
 		update `order` set

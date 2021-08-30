@@ -76,6 +76,7 @@ h3{
 					<div class="container">
 					<input type="hidden" name="or_fuNums" value="${order.or_fuNums}">
 					<input type="hidden" name="or_count" value="${order.or_count}">
+					<input type="hidden" name="or_size" value="${order.or_size}">
 					  <table class="table table-bordered">
 					    <tbody>
 					      <tr>
@@ -127,27 +128,6 @@ h3{
 	</div>	
 	</form>
 <script>
-$(function(){
-	$('#stock_zero_btn').click(function(){
-		var or_num = $('[name=or_num]').val()
-		var data = {or_num : or_num}
-		$.ajax({
-			type : 'post',
-			url : '<%=request.getContextPath()%>/admin/order/stockZero',
-			data : JSON.stringify(data),
-			contentType : "application/json; charset:utf-8",
-			success : function(res){
-				if(res == 'OK'){
-					alert('주문을 취소했습니다.')
-				} else {
-					alert('주문 취소에 실패했습니다.')
-				}
-				
-			}
-		})
-		
-	})
-})
 </script>
 </body>
 </html>

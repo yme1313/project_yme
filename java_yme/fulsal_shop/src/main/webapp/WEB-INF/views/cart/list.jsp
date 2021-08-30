@@ -151,8 +151,8 @@ td{
 	     <span class="total">0 원</span>
      </div>
      <div class="cart-btn-box">
-		 <button class="btn btn-outline-danger btn-sm all-sel-btn">전체 상품 선택</button>
-		 <button class="btn btn-outline-danger btn-sm sel-del-btn">선택 삭제</button>
+		 <button type ="button" class="btn btn-outline-danger btn-sm all-sel-btn">전체 상품 선택</button>
+		 <button type ="button" class="btn btn-outline-danger btn-sm sel-del-btn">선택 삭제</button>
 	 </div>
 	 <div class="delivery-text mt-2">※ 10만원 이상 구매시 배송비 무료 !</div>
   	 <div class="row justify-content-center mt-5 price-box ">
