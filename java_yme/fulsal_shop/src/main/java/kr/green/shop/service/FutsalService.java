@@ -3,7 +3,6 @@ package kr.green.shop.service;
 import java.util.ArrayList;
 
 import kr.green.shop.pagination.Criteria;
-import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OptionVO;
@@ -22,27 +21,15 @@ public interface FutsalService {
 
 	void updateGoods(FutsalVO futsal);
 
-	ArrayList<FutsalVO> getShoesList(Criteria cri);
+	ArrayList<FutsalVO> getGoodsList(Criteria cri);
 
-	int getShoesTotalCount(Criteria cri);
+	int getGoodsTotalCount(Criteria cri);
 
-	ArrayList<FutsalVO> getClothList(Criteria cri);
+	FutsalVO getDirectBuy(FutsalVO futsal, OptionVO option);
 
-	int getClothTotalCount(Criteria cri);
-
-	FutsalVO getDirectBuy(FutsalVO futsal, OptionVO option, CartVO cart);
-
-	ArrayList<FutsalVO> getNikeList(Criteria cri);
+	ArrayList<FutsalVO> getBrandList(Criteria cri);
 	
-	int getNikeTotalCount(Criteria cri);
-	
-	ArrayList<FutsalVO> getAdidasList(Criteria cri);
-	
-	int getAdidasTotalCount(Criteria cri);
-	
-	ArrayList<FutsalVO> getPumaList(Criteria cri);
-	
-	int getPumaTotalCount(Criteria cri);
+	int getBrandTotalCount(Criteria cri);
 
 	ArrayList<FutsalVO> getSearchList(Criteria cri);
 

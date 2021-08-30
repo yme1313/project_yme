@@ -191,7 +191,9 @@ td{
 	    <tbody>
 	    <c:set var="sum" value="0" />
 	    <c:forEach items="${list}" var="cart">
-	    <input type="hidden" name="or_goodsname" value="${cart.fu_name} ${cart.size}">
+	    <input type="hidden" name="or_fuNums" value="${cart.fu_num}">
+	    <input type="hidden" name="or_goodsname" value="${cart.fu_name} ${cart.size}/${cart.ca_count}개">
+	    <input type="hidden" name="or_count" value="${cart.ca_count}">
 	      <tr class="list-box">
 	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 	        <td>

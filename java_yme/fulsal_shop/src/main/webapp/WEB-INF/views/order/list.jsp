@@ -68,12 +68,12 @@ h3{
 			<c:if test="${list.size() != 0 }">
 				<div class="container board-box">    	  
 					<c:forEach items="${list}" var="order">
-					<div class="order-list-box mr-4 mb-3">
+					<div class="order-list-box mr-2 mb-3">
 						<div class="order-title-box mb-2">
 							<input type="hidden" name="or_num" value="${order.or_num}">
 							<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 							<span class="order-title-text mr-2">${order.or_title}</span>
-							<span>[</span><span class="state-text">주문확인중</span><span>]</span>
+							<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
 							<button id="cancle_btn" class="btn btn-outline-danger btn-sm">주문취소</button>
 						</div>
 						<div class="container">

@@ -64,7 +64,7 @@ h3{
 							<input type="hidden" name="or_num" value="${order.or_num}">
 							<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 							<span class="order-title-text mr-2">${order.or_title}</span>
-							<span>[</span><span class="state-text">주문취소</span><span>]</span>
+							<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
 						</div>
 						<div class="container">
 						  <table class="table table-bordered">

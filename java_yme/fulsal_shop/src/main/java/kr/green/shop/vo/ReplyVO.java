@@ -17,7 +17,7 @@ public class ReplyVO {
 	private Date rp_regDate;
 	
 	public String getRp_regDateStr() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(rp_regDate);
 	}
 	

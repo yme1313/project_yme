@@ -10,6 +10,8 @@ public class OrderVO {
 	private int or_num;
 	private String or_me_id;
 	private String or_title; //주문번호
+	private String or_fuNums;
+	private String or_count;
 	private String or_goodsname;
 	private Date or_date;
 	private String or_paytype;
@@ -27,7 +29,7 @@ public class OrderVO {
 	private String or_add4;
 	
 	public String getOr_DateStr() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(or_date);
 	}
 	public String getPayStr() {

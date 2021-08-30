@@ -5,7 +5,7 @@
 <mapper namespace="kr.green.shop.dao.FutsalDAO">
 	<select id="getFutsalList" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal 
-			where fu_valid = 'I'
+			where fu_valid = 'I' 
 				<if test="cri.type==0">
 					and (fu_type like concat('%',#{cri.search},'%')
 					or fu_name like concat('%',#{cri.search},'%')		
@@ -51,56 +51,26 @@
 		select count(*) from futsal 
 			where fu_valid = 'I' and fu_name like concat('%',#{search},'%')
 	</select>	
-	<select id="getShoesList" resultType="kr.green.shop.vo.FutsalVO">
+	<select id="getGoodsList" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal
-			where fu_valid = 'I' and fu_type = '풋살화'
+			where fu_valid = 'I' and fu_type = #{fu_type}
 			order by fu_num desc
 			limit #{pageStart}, #{perPageNum}
 	</select>
-	<select id="getShoesTotalCount" resultType="int">
+	<select id="getGoodsTotalCount" resultType="int">
 		select count(*) from futsal
-			where fu_valid = 'I' and fu_type = '풋살화'
+			where fu_valid = 'I' and fu_type = #{fu_type}
 	</select>	
-	<select id="getClothList" resultType="kr.green.shop.vo.FutsalVO">
+	<select id="getBrandList" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal
-			where fu_valid = 'I' and fu_type = '의류'
+			where fu_valid = 'I' and fu_brand = #{fu_brand}
 			order by fu_num desc
 			limit #{pageStart}, #{perPageNum}
 	</select>
-	<select id="getClothTotalCount" resultType="int">
+	<select id="getBrandTotalCount" resultType="int">
 		select count(*) from futsal
-			where fu_valid = 'I' and fu_type = '의류'
-	</select>
-	<select id="getNikeList" resultType="kr.green.shop.vo.FutsalVO">
-		select * from futsal
-			where fu_valid = 'I' and fu_brand = '나이키'
-			order by fu_num desc
-			limit #{pageStart}, #{perPageNum}
-	</select>
-	<select id="getNikeTotalCount" resultType="int">
-		select count(*) from futsal
-			where fu_valid = 'I' and fu_brand = '나이키'
-	</select>	
-	<select id="getAdidasList" resultType="kr.green.shop.vo.FutsalVO">
-		select * from futsal
-			where fu_valid = 'I' and fu_brand = '아디다스'
-			order by fu_num desc
-			limit #{pageStart}, #{perPageNum}
-	</select>
-	<select id="getAdidasTotalCount" resultType="int">
-		select count(*) from futsal
-			where fu_valid = 'I' and fu_brand = '아디다스'
-	</select>
-	<select id="getPumaList" resultType="kr.green.shop.vo.FutsalVO">
-		select * from futsal
-			where fu_valid = 'I' and fu_brand = '푸마'
-			order by fu_num desc
-			limit #{pageStart}, #{perPageNum}
-	</select>
-	<select id="getPumaTotalCount" resultType="int">
-		select count(*) from futsal
-			where fu_valid = 'I' and fu_brand = '푸마'
-	</select>	
+			where fu_valid = 'I' and fu_brand = #{fu_brand}
+	</select>		
 	<select id="getFutsal" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal 
 			where fu_num = #{fu_num} and fu_valid = 'I'
@@ -108,8 +78,7 @@
 	<select id="getDirectBuy" resultType="kr.green.shop.vo.FutsalVO">
 		select * from futsal join `option`
 			on fu_num = op_fu_num
-			join cart on fu_num = ca_fu_num
-		    where op_size = #{option.op_size} and fu_num = #{futsal.fu_num} and ca_size = #{cart.ca_size}
+		    where fu_num = #{futsal.fu_num} and op_size = #{option.op_size}
 	</select>
 	<insert id="insertGoods" useGeneratedKeys="true" parameterType="kr.green.shop.vo.FutsalVO" keyProperty="futsal.fu_num">
 		insert into futsal(fu_type,fu_name,fu_brand,fu_img,fu_info,fu_price)

@@ -23,7 +23,7 @@ public class BoardVO {
 	}
 	//등록한 날짜를 년월일 시분초까지 문자열로 보여주는 getter
 	public String getDateTime() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(bd_regdate);
 	}
 	public String getAnswerStr() {

@@ -32,7 +32,7 @@ a:hover{
 			<div class="sub-menu-box"><a href="<%=request.getContextPath()%>/admin/user/list" class="menu-font">회원관리</a></div>
 			<div class="sub-menu-box"><a href="<%=request.getContextPath()%>/admin/goods/list" class="menu-font">상품관리</a></div>
 			<div class="sub-menu-box"><a href="<%=request.getContextPath()%>/admin/board/list" class="menu-font">1:1문의 관리</a></div>
-			<div class="sub-menu-box"><a href="#" class="menu-font">주문관리</a></div>
+			<div class="sub-menu-box"><a href="<%=request.getContextPath()%>/admin/order/list" class="menu-font">주문관리</a></div>
 		</div>	
 </body>
 </html>

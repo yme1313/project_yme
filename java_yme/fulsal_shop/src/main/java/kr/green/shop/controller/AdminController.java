@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.shop.pagination.Criteria;
@@ -16,10 +18,12 @@ import kr.green.shop.service.BoardService;
 import kr.green.shop.service.FutsalService;
 import kr.green.shop.service.MemberService;
 import kr.green.shop.service.OptionService;
+import kr.green.shop.service.OrderService;
 import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OptionVO;
+import kr.green.shop.vo.OrderVO;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -31,6 +35,7 @@ public class AdminController {
 	private BoardService boardService;
 	private FutsalService futsalService;
 	private OptionService optionService;
+	private OrderService orderService;
 	
 	@GetMapping("/user/list")
 	public ModelAndView userListGet(ModelAndView mv, HttpServletRequest request, Criteria cri) {
@@ -160,5 +165,38 @@ public class AdminController {
 		mv.setViewName("redirect:/admin/goods/list");
 		return mv;
 	}
-
+	@GetMapping("/order/list")
+	public ModelAndView orderListGet(ModelAndView mv, HttpServletRequest request, Criteria cri) {
+		cri.setPerPageNum(8);
+		MemberVO user = memberService.getMemberByRequest(request);
+		ArrayList<OrderVO> list = orderService.getAdminOrderList(cri, user);
+		int totalCount = orderService.getAdminTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 5, cri);
+		mv.addObject("title","주문관리");
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.setViewName("/template4/admin/order/list");
+		return mv;
+	}
+	@GetMapping("/order/detail")
+	public ModelAndView orderDetailGet(ModelAndView mv, Integer num) {
+		OrderVO order = orderService.getOrder(num);
+		mv.addObject("title", "주문서 상세");
+		mv.addObject("order",order);
+		mv.setViewName("/template4/admin/order/detail");
+		return mv;
+	}
+	
+	@ResponseBody
+	@PostMapping("/order/stockZero")
+	public String orderStockZero(@RequestBody OrderVO ord) {
+		OrderVO order = orderService.getOrder(ord.getOr_num());
+		return orderService.updateOrderZero(order);
+	}
+	
+	@PostMapping("/order/ok")
+	public ModelAndView orderOkPost(ModelAndView mv) {
+		mv.setViewName("redirect:/admin/order/list");
+		return mv;
+	}	
 }

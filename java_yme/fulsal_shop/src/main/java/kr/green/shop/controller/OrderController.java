@@ -35,9 +35,11 @@ public class OrderController {
 	OrderService orderService;
 	
 	@PostMapping("/order/direct")
-	public ModelAndView directPost(ModelAndView mv, FutsalVO futsal, OptionVO option, CartVO cart) {
-		FutsalVO buyFutsal = futsalService.getDirectBuy(futsal, option, cart);
-		mv.addObject("futsal", buyFutsal);
+	public ModelAndView directPost(ModelAndView mv, FutsalVO futsal, OptionVO option) {
+		System.out.println(futsal);
+		System.out.println(option);
+		FutsalVO directBuy = futsalService.getDirectBuy(futsal, option);
+		mv.addObject("futsal", directBuy);
 		mv.addObject("title", "주문서 작성");
 		mv.setViewName("/template1/order/direct");
 		return mv;

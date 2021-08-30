@@ -22,4 +22,10 @@ public interface OrderService {
 
 	int getCancleTotalCount(Criteria cri, MemberVO user);
 
+	ArrayList<OrderVO> getAdminOrderList(Criteria cri, MemberVO user);
+
+	int getAdminTotalCount(Criteria cri);
+
+	String updateOrderZero(OrderVO order);
+
 }

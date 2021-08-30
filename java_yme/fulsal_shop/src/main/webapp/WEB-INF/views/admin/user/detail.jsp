@@ -86,12 +86,12 @@
 					</tr>
 					<tr>
 						<td>비밀번호</td>
-						<td><input type="password" class="form-control col-12" name="me_pw" id="me_pw"></td>
+						<td><input type="password" class="form-control col-12" name="me_pw" id="me_pw" value="${user.me_pw}" readonly></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td>비밀번호 확인</td>
-						<td><input type="password" class="form-control col-12" name="me_pw2"></td>
+						<td><input type="password" class="form-control col-12" name="me_pw2" value="${user.me_pw}" readonly></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -153,14 +153,6 @@
 	$(function(){
 		$(".modifyUser").validate({
 	        rules: {
-	            me_pw: {
-	                required : true,
-	                regex: /^[a-z0-9!@#]{8,16}$/i
-	            },
-	            me_pw2: {
-	                required : true,
-	                equalTo : me_pw
-	            },
 	            me_phone: {
 	            	required : true,
 	            	maxlength : 11,
@@ -178,14 +170,6 @@
 	        },
 	        //규칙체크 실패시 출력될 메시지
 	        messages : {
-		            me_pw: {
-		                required : "필수항목 입니다.",
-		                regex: "8~16자 영문 대 소문자, 숫자, 특수문자(!@#)를 사용하세요."
-		            },
-		            me_pw2: {
-		                required : "필수항목 입니다.",
-		                equalTo : "비밀번호가 일치하지 않습니다."
-		            },
 		            me_phone: {
 		            	required : "필수항목 입니다.",
 		            	maxlength : "최대 11자리이하이어야 합니다.",
@@ -202,16 +186,6 @@
 		            }
 	        }
 	    })
-		$('.modifyUser').submit(function(){
-			var me_pw = $('[name=me_pw]').val();
-			var me_pw2 = $('[name=me_pw2]').val();
-			if(me_pw == me_pw2){
-				return true;
-			} else {
-				alert('비밀번호와 비밀번호 확인이 다릅니다.');
-				return false;
-			}
-		})
 	})
 $.validator.addMethod(
     "regex",

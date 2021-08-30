@@ -158,7 +158,7 @@ td{
   	 <div class="row justify-content-center mt-5 price-box ">
 		<div>총 주문 금액 : <span class="total">0 원</span>
 		<i class="fas fa-plus"></i> 배송비 : 
-		<span class="delivery">2,500 원</span>
+		<span class="delivery">2500 원</span>
 		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2500 원</span>
 		</div>
 	 </div>
@@ -175,7 +175,6 @@ td{
 
 <script type="text/javascript">
 var contextPath = '<%=request.getContextPath()%>';
-
 $(function(){
 	$('#allCheck').click(function(){
 		var chk = $('#allCheck').prop("checked");

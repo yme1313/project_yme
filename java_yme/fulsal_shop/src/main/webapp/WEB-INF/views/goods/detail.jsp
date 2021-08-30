@@ -24,12 +24,12 @@
 .caution{
     color : red;
 }
-.fas{
+.fa-caret-up, .fa-caret-up{
 	cursor : pointer;
 	margin : 3px;
 	font-size : 20px;
 }
-.far{
+.fa-window-close{
 	cursor : pointer;
 	margin : 3px;
 }
@@ -122,6 +122,7 @@ $(function(){
 					  '<span class="add-opt-box mr-5">' + name + '-' + opt + '</span>' +
 					  '<span class="count-box">' +
 					  '<input class="mr-2 num-box" type="text" value="1" name="ca_count" + readonly>' +
+					  '<input class="num-box" type="hidden" value="1" name="fu_direct">' +
 					  '<span class="img-box">' +
 					  '<i class="fas fa-caret-up"></i>' +
 					  '<i class="fas fa-caret-down"></i>' +
@@ -157,7 +158,8 @@ $(function(){
 	var num = $(".num-box:eq("+n+")").val();
 	var totalpri = (price * (num*1+1))
 	$('.total').text(totalpri + " 원")
-	num = $(".num-box:eq("+n+")").val(num*1+1); 
+	num = $(".num-box:eq("+n+")").val(num*1+1);
+
 	})
 	
 	$(document).on('click','.fa-caret-down',function(){
@@ -167,7 +169,7 @@ $(function(){
 		return;
 	}
 	var totalpri = (price * (num*1-1))
-	$('.total').text(totalpri)
+	$('.total').text(totalpri + " 원")
 	num = $(".num-box:eq("+n+")").val(num*1-1); 
 	})
 

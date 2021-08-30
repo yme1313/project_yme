@@ -128,9 +128,9 @@ td{
 	        		<td>${futsal.op_size}</td>
 	        	</c:otherwise>
 	        </c:choose>
-	        <td>총 : 2개</td>
+	        <td>2</td>
 	        <td>
-	        	<fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price * 2}" />원
+	        	<fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price * 2" />원
 	        </td>
 	      </tr> 
 	    </tbody>

@@ -30,7 +30,7 @@ public class CartVO {
 		return format.format(ca_regdate);
 	}
 	public String getDateTime() {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return format.format(ca_regdate);
 	}
 	public String getSize() {

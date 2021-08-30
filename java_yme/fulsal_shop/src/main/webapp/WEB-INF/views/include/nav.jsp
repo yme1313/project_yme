@@ -13,14 +13,23 @@
 	font-size : 25px;
 }
 .top-menu{
-	position : relative;
-}
-.memberName{
-	position : absolute; top: 2vh; right : 0;
-	color : white; margin-right : 20px;
+	position : relative; 
+	justify-content : flex-end
 }
 .btn-outline-white{
 	padding : 5px;
+}
+.gohome{
+	position : absolute; 
+	top : 0.3vh; left : 1vw;
+	display : flex;
+}
+.fa-home{
+	font-size : 40px;
+	color: white;
+}
+.userName{
+	color : white;
 }
 	
 </style>
@@ -28,9 +37,14 @@
 	<body>
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark top-menu">
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="navbar-brand" href="<%=request.getContextPath()%>/" style="color: white;">HOME</a>
-				</li>
+			<li class="nav-item">
+				<div class="gohome">
+					<a class="navbar-brand" href="<%=request.getContextPath()%>/"><i class="fas fa-home"></i></a>
+					<c:if test="${user != null}">
+						<div class="userName ml-2 mt-3">[${user.me_name}] 님 반갑습니다 !</div>
+					</c:if>	
+				</div>
+			</li>
 			<c:if test="${user == null}">
 				<li class="nav-item">
 					<a class="nav-link" href="<%=request.getContextPath()%>/member/signin" style="color: white;">로그인</a>
@@ -60,32 +74,26 @@
 					<a class="nav-link" href="<%=request.getContextPath()%>/admin/user/list" style="color: white;"><i class="fas fa-user-cog white-img"></i>관리자전용메뉴</a>
 				</li>
 			</c:if>
-			<li class="nav-item">
-				<a class="nav-link" href="<%=request.getContextPath()%>/board/notice/list" style="color: white;">고객센터</a>
-			</li>
-			<li>
-				<c:if test="${user != null}">
-					<div class="memberName">${user.me_name} 님 반갑습니다 !</div>
-				</c:if>
-			</li>
-			
+				<li class="nav-item">
+					<a class="nav-link" href="<%=request.getContextPath()%>/board/notice/list" style="color: white;">고객센터</a>
+				</li>
 			</ul>
 		</nav>
 		<ul class="nav justify-content-end mt-3">
 			<li class="nav-item">
-				<a class="nav-link" href="<%=request.getContextPath()%>/goods/shoes" style="color: black">풋살화</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/goods/shoes/list" style="color: black">풋살화</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="<%=request.getContextPath()%>/goods/cloth" style="color: black">의류</a>
+				<a class="nav-link" href="<%=request.getContextPath()%>/goods/cloth/list" style="color: black">의류</a>
 			</li>
 			<li class="nav-item dropdown">
 		      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color : black">
 		        브랜드
 		      </a>
 		      <div class="dropdown-menu">
-		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/nike">나이키</a>
-		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/adidas">아디다스</a>
-		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/puma">퓨마</a>
+		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/nike/list2">나이키</a>
+		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/adidas/list2">아디다스</a>
+		        <a class="dropdown-item" href="<%=request.getContextPath()%>/goods/puma/list2">퓨마</a>
 		      </div>
 		    </li>
 			<li class="nav-item">

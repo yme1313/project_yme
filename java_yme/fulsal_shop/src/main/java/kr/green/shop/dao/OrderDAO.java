@@ -24,4 +24,10 @@ public interface OrderDAO {
 
 	int getCancleTotalCount(@Param("cri")Criteria cri, @Param("user")MemberVO user);
 
+	ArrayList<OrderVO> getAdminOrderList(@Param("cri")Criteria cri);
+
+	int getAdminTotalCount(@Param("cri")Criteria cri);
+
+	void updateOrderZero(OrderVO order);
+
 }

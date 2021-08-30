@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import kr.green.shop.dao.FutsalDAO;
 import kr.green.shop.dao.OptionDAO;
 import kr.green.shop.pagination.Criteria;
-import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OptionVO;
@@ -62,58 +61,29 @@ public class FutsalServiceImp implements FutsalService{
 	}
 
 	@Override
-	public ArrayList<FutsalVO> getShoesList(Criteria cri) {
-		return futsalDao.getShoesList(cri);
+	public ArrayList<FutsalVO> getGoodsList(Criteria cri) {
+		return futsalDao.getGoodsList(cri);
 	}
 
 	@Override
-	public int getShoesTotalCount(Criteria cri) {
-		return futsalDao.getShoesTotalCount(cri);
+	public int getGoodsTotalCount(Criteria cri) {
+		return futsalDao.getGoodsTotalCount(cri);
 	}
 
 	@Override
-	public ArrayList<FutsalVO> getClothList(Criteria cri) {
-		return futsalDao.getClothList(cri);
+	public FutsalVO getDirectBuy(FutsalVO futsal, OptionVO option) {
+		option.setOp_fu_num(futsal.getFu_num());
+		return futsalDao.getDirectBuy(futsal, option);
 	}
 
 	@Override
-	public int getClothTotalCount(Criteria cri) {
-		return futsalDao.getClothTotalCount(cri);
+	public ArrayList<FutsalVO> getBrandList(Criteria cri) {
+		return futsalDao.getBrandList(cri);
 	}
 
 	@Override
-	public FutsalVO getDirectBuy(FutsalVO futsal, OptionVO option, CartVO cart) {
-		return futsalDao.getDirectBuy(futsal , option, cart);
-	}
-
-	@Override
-	public ArrayList<FutsalVO> getNikeList(Criteria cri) {
-		return futsalDao.getNikeList(cri);
-	}
-
-	@Override
-	public int getNikeTotalCount(Criteria cri) {
-		return futsalDao.getNikeTotalCount(cri);
-	}
-
-	@Override
-	public ArrayList<FutsalVO> getAdidasList(Criteria cri) {
-		return futsalDao.getAdidasList(cri);
-	}
-
-	@Override
-	public int getAdidasTotalCount(Criteria cri) {
-		return futsalDao.getAdidasTotalCount(cri);
-	}
-
-	@Override
-	public ArrayList<FutsalVO> getPumaList(Criteria cri) {
-		return futsalDao.getPumaList(cri);
-	}
-
-	@Override
-	public int getPumaTotalCount(Criteria cri) {
-		return futsalDao.getPumaTotalCount(cri);
+	public int getBrandTotalCount(Criteria cri) {
+		return futsalDao.getBrandTotalCount(cri);
 	}
 
 	@Override
@@ -125,4 +95,5 @@ public class FutsalServiceImp implements FutsalService{
 	public int getSearchTotalCount(Criteria cri) {
 		return futsalDao.getSearchTotalCount(cri);
 	}
+
 }

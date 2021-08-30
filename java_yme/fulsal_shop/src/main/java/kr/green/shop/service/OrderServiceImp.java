@@ -87,6 +87,34 @@ public class OrderServiceImp implements OrderService{
 	}
 
 
+	@Override
+	public ArrayList<OrderVO> getAdminOrderList(Criteria cri, MemberVO user) {
+		if(user == null || user.getMe_authority().equals("USER")) {
+			return null;
+		}
+		return orderDao.getAdminOrderList(cri);
+	}
+
+
+	@Override
+	public int getAdminTotalCount(Criteria cri) {
+		return orderDao.getAdminTotalCount(cri);
+	}
+
+
+	@Override
+	public String updateOrderZero(OrderVO order) {
+		if(order == null) {
+			return"FAIL";
+		}
+		orderDao.updateOrderZero(order);
+		return "OK";
+	}
+
+
+
+
+
 
 
 }

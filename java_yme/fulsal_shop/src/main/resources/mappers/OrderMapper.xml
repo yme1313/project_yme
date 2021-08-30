@@ -27,16 +27,44 @@
 	</select>	
 	<select id="getOrder" resultType="kr.green.shop.vo.OrderVO">
 		select * from `order`
-			where or_num = #{or_num}
+			where or_num = #{or_num} 
+	</select>	
+	<select id="getAdminOrderList" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where 				
+				<if test="cri.type==0">
+					or_title like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==1">
+					or_me_id like concat('%',#{cri.search},'%')
+				</if>
+			order by or_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getAdminTotalCount" resultType="int">
+		select count(*) from `order`
+			where
+				<if test="cri.type==0">
+					 or_title like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==1">
+					 or_me_id like concat('%',#{cri.search},'%')
+				</if>
 	</select>	
 	<insert id="insertOrder">
-		insert into `order`(or_me_id, or_title, or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message, or_postnum, or_add1, or_add2, or_add3, or_add4)
-			values(#{or_me_id}, #{or_title}, #{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message}, #{or_postnum}, #{or_add1}, #{or_add2}, #{or_add3}, #{or_add4})
+		insert into `order`(or_me_id, or_title, or_fuNums, or_count, or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message, or_postnum, or_add1, or_add2, or_add3, or_add4)
+			values(#{or_me_id}, #{or_title}, #{or_fuNums}, #{or_count} ,#{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message}, #{or_postnum}, #{or_add1}, #{or_add2}, #{or_add3}, #{or_add4})
 	</insert>
 	<update id="cancleOrder">
 		update `order` set
 			or_cancle = 'Y',
 			or_state = '주문취소'
+			where or_num = #{or_num}
+	</update>
+	<update id="updateOrderZero">
+		update `order` set
+			or_cancle = 'Y',
+			or_state = '재고부족'
 			where or_num = #{or_num}
 	</update>
 
