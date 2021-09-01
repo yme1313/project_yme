@@ -67,6 +67,11 @@
 			or_state = '재고부족'
 			where or_num = #{or_num}
 	</update>
+	<update id="updateOrderOK">
+		update `order` set
+			or_state = '배송시작'
+			where or_num = #{or_num}
+	</update>
 
 	
 </mapper>

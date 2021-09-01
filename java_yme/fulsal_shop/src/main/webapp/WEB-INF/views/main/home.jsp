@@ -7,15 +7,40 @@
 	<title>Home</title>
 <style>
 .box{
-	margin-left : 100px;
-	margin-top : 30px;
+	margin-left : 5vw;
+	margin-top : 70px;
+	display : flex
+}
+.box .logo,.person{
+	margin-right : 20px;
+	width: 450px;
+	height : 400px;
+}
+.person{
+	height : 550px;
 }
 </style>
 </head>
 <body>
 	<div class="box">
-		<img src="<%=request.getContextPath()%>/resources/img/winter.gif">
-		<img src="<%=request.getContextPath()%>/resources/img/karina.gif">
-	</div><br>
+		<label>
+			<a href="<%=request.getContextPath()%>/goods/nike/list2">
+				<img class="person" src="<%=request.getContextPath()%>/resources/img/main/호날두.png">
+				<img class="logo" src="<%=request.getContextPath()%>/resources/img/main/나이키.jpg">
+			</a>
+		</label>
+		<label>
+			<a href="<%=request.getContextPath()%>/goods/adidas/list2">
+				<img class="person" src="<%=request.getContextPath()%>/resources/img/main/메시.png">
+				<img class="logo" src="<%=request.getContextPath()%>/resources/img/main/아디다스.jpg">
+			</a>
+		</label>
+		<label>
+			<a href="<%=request.getContextPath()%>/goods/puma/list2">
+				<img class="person" src="<%=request.getContextPath()%>/resources/img/main/네이마르.jpg">
+				<img class="logo" src="<%=request.getContextPath()%>/resources/img/main/푸마.png">
+			</a>
+		</label>
+	</div>
 </body>
 </html>

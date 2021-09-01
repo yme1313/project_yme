@@ -6,15 +6,20 @@
 	<select id="getOptionList" resultType="kr.green.shop.vo.OptionVO">
 		select * from `option` 
 			where op_fu_num = #{op_fu_num}
-			order by op_size asc
+			order by op_num asc, op_size asc
 	</select>
 	<insert id="addOption">
 		insert into `option`(op_fu_num, op_size, op_count)
-			values(#{op_fu_num}, #{op_size}, #{op_count})
+			values( #{num}, #{size}, #{count} )
 	</insert>
 	<update id="changeStock">
 		update `option` set
-			op_count = (op_count - #{or_count.count})
-			where op_fu_num = #{fu_num.num} and op_size = #{op_size.size}
+			op_count = (op_count - #{count})
+			where op_fu_num = #{num} and op_size = #{size}
+	</update>
+	<update id="addStock">
+		update `option` set
+			op_count = (op_count + #{count})
+			where op_num = #{num}
 	</update>
 </mapper>

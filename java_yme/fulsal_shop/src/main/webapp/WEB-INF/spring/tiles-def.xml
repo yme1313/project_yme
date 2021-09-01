@@ -92,7 +92,19 @@
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
     </definition> 
     
-
+    <!-- 기본레이아웃 확장 -->
+     <definition name=".template6" template="/WEB-INF/views/template/base6.jsp">
+        <put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>       
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+    
+    <definition name="/template6/*/*" extends=".template6">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template6/*/*/*" extends=".template6">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>
     
     
     

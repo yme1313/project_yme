@@ -29,11 +29,11 @@
 	    <div class="input-group mb-3">
 	      	<div class="input-group-prepend">
 	      	  <span class="input-group-text">상품타입</span>
-			<input type="text" class="form-control mr-2" name="fu_type" value="${futsal.fu_type}" readonly>
+	     		<input class="form-control mr-2" name="fu_type" value="${futsal.fu_type}">
 	   	   </div>
 	   	   <div class="input-group-prepend brand">
 	   	  	 <span class="input-group-text">브랜드</span>
-			<input type="text" class="form-control mr-2" name="fu_brand" value="${futsal.fu_brand}" readonly>	
+	     		<input class="form-control mr-2" name="fu_brand" value="${futsal.fu_brand}">		
 	      </div>
 	    </div>  
    	    <div class="input-group mb-3">   
@@ -52,10 +52,11 @@
 		</div>
 		<div class="form-group img-box">
 			<label>이미지</label>
-			<div class="form-control img-form">
-				<span>${futsal.fu_img}</span>
-				<i class="fas fa-times"></i>
-			</div>
+					<div class="form-control img-form">
+						<span>${futsal.fu_img}</span>
+						<i class="fas fa-times"></i>
+						<input type="hidden" name="fu_img" value="${futsal.fu_img}"> 
+					</div>
 		</div>
 		<input type="hidden" name="fu_num" value="${futsal.fu_num}">
 		<button class="btn btn-outline-dark">수정</button>

@@ -61,20 +61,20 @@ a:hover{
 	</ul>
 	    <ul class="pagination justify-content-center">
     	<c:if test="${pm.prev}">
-	    	<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}?page=${pm.startPage-1}">이전</a></li>
+	    	<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}/list2?page=${pm.startPage-1}">이전</a></li>
 	    </c:if>
 	    <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
 	    	<c:choose>
 	    		<c:when test="${pm.criteria.page == index}">
-	    			<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}?page=${index}">${index}</a></li>
+	    			<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}/list2?page=${index}">${index}</a></li>
 	    		</c:when>
 	    		<c:otherwise>
-	    			<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}?page=${index}">${index}</a></li>
+	    			<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}/list2?page=${index}">${index}</a></li>
 	    		</c:otherwise>
 	    	</c:choose>
 	    </c:forEach>
 	    <c:if test="${pm.next}">
-	   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}?page=${pm.endPage+1}">다음</a></li>
+	   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/goods/${brand}/list2?page=${pm.endPage+1}">다음</a></li>
 	    </c:if>
     </ul>
 </div>	

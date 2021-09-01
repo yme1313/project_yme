@@ -30,4 +30,6 @@ public interface OrderDAO {
 
 	void updateOrderZero(OrderVO order);
 
+	void updateOrderOK(OrderVO order);
+
 }

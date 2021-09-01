@@ -112,6 +112,15 @@ public class OrderServiceImp implements OrderService{
 	}
 
 
+	@Override
+	public void updateOrderOK(OrderVO order) {
+		if(order==null) {
+			return;
+		}
+		orderDao.updateOrderOK(order);
+	}
+
+
 
 
 

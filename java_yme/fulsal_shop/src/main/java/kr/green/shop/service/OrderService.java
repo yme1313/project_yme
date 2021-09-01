@@ -28,4 +28,6 @@ public interface OrderService {
 
 	String updateOrderZero(OrderVO order);
 
+	void updateOrderOK(OrderVO order);
+
 }

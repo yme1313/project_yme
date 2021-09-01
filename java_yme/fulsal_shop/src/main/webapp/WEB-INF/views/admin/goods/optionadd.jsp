@@ -17,6 +17,15 @@
 .info-box{
 	width: 800px; height : 200px;
 }
+.size-box{
+	border : none;
+	width : 60px;
+	line-height : 40px;
+	text-align : center;
+}
+.size-box:hover{
+	border : none;
+}
 </style>
 </head>
 <body>
@@ -46,60 +55,131 @@
  	  </div>     
  	  <form class="option-box" method= "post" action="<%=request.getContextPath()%>/admin/goods/optionadd">
  	   <div class="input-group mb-3">
-	 	   <c:if test="${futsal.fu_type == '풋살화'}">
-	 	      <div class="input-group-prepend">
-		   	  	 <span class="input-group-text">사이즈</span>
-		     		 <select class="form-control col-6 mr-2" name="op_size">
-						<option value="220">220</option>
-						<option value="225">225</option>
-						<option value="230">230</option>
-						<option value="235">235</option>
-						<option value="240">240</option>
-						<option value="245">245</option>
-						<option value="250">250</option>
-						<option value="255">255</option>
-						<option value="260">260</option>
-						<option value="265">265</option>
-						<option value="270">270</option>
-						<option value="275">275</option>
-						<option value="280">280</option>
-		     		</select>
-		      </div>
+ 	      <div>
+	   	  	 <div class="mb-2">사이즈</div>
+	   	  	 <c:if test="${futsal.fu_type == '풋살화'}">
+			  <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th style="text-align : center;">사이즈</th>
+			        <th style="text-align : center;">수량</th>
+			        <th style="text-align : center;">사이즈</th>
+			        <th style="text-align : center;">수량</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td><input class="size-box" type="text" name="op_size" value="220" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			        <td><input class="size-box" type="text" name="op_size" value="225" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			      </tr>
+			      <tr>
+			        <td><input class="size-box" type="text" name="op_size" value="230" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			        <td><input class="size-box" type="text" name="op_size" value="235" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			      </tr>
+			      <tr>
+			        <td><input class="size-box" type="text" name="op_size" value="240" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			        <td><input class="size-box" type="text" name="op_size" value="245" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			      </tr>
+			      <tr>
+			        <td><input class="size-box" type="text" name="op_size" value="250" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			        <td><input class="size-box" type="text" name="op_size" value="255" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			      </tr>
+			      <tr>
+			        <td><input class="size-box" type="text" name="op_size" value="260" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			        <td><input class="size-box" type="text" name="op_size" value="265" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			      </tr>
+			      <tr>
+			        <td><input class="size-box" type="text" name="op_size" value="270" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			        <td><input class="size-box" type="text" name="op_size" value="275" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			      </tr>
+			      <tr>
+			        <td><input class="size-box" type="text" name="op_size" value="280" readonly></td>
+			        <td><input class="form-control" type="text" name="op_count"></td>
+			        <td></td>
+			        <td></td>
+			      </tr>
+			    </tbody>
+			  </table>
+			  </c:if>
+	  	      <c:if test="${futsal.fu_type == '의류'}">
+				<table class="table table-bordered">
+				    <thead>
+				      <tr>
+				        <th style="text-align : center;">사이즈</th>
+				        <th style="text-align : center;">수량</th>
+				        <th style="text-align : center;">사이즈</th>
+				        <th style="text-align : center;">수량</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td><input class="size-box" type="text" name="op_size" value="80" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+				        <td><input class="size-box" type="text" name="op_size" value="85" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+				      </tr>
+				      <tr>
+				        <td><input class="size-box" type="text" name="op_size" value="90" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+				        <td><input class="size-box" type="text" name="op_size" value="95" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+				      </tr>
+				      <tr>
+				        <td><input class="size-box" type="text" name="op_size" value="100" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+				        <td><input class="size-box" type="text" name="op_size" value="105" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+				      </tr>
+				      <tr>
+				        <td><input class="size-box" type="text" name="op_size" value="110" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+						<td></td>
+						<td></td>
+				      </tr>
+				    </tbody>
+			   </table>
 	      </c:if>
-	      <c:if test="${futsal.fu_type == '의류'}">
-	 	      <div class="input-group-prepend">
-		   	  	 <span class="input-group-text">사이즈</span>
-		     		<select class="form-control col-6 mr-2" name="op_size">
-						<option value="80">80(XXS)</option>
-						<option value="85">85(XS)</option>
-						<option value="90">90(S)</option>
-						<option value="95">95(M)</option>
-						<option value="100">100(L)</option>
-						<option value="105">105(XL)</option>
-						<option value="110">110(XXL)</option>
-		     		</select>
-		      </div>
-	      </c:if>
-	      <div class="input-group-prepend">
-	      	 <span class="input-group-text">수량</span>
-	      	 <input type="text" class="form-control col-4" name="op_count">
 	      </div>
-	      <button class="btn btn-outline-dark">옵션 추가</button>
 	    </div>
-	    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
-	  </form>  
-		<div class="form-group">
-			<label>상품정보</label>
-			<div class="form-control info-box">${futsal.fu_info}</div>
-		</div>
-		<div class="form-group">
-			<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}" width="100%" height="300">
-		</div>		
-		<div class="form-group">
-			<label>이미지파일</label>
-			<div class="form-control">${futsal.fu_img}</div>
-		</div>
+	    <c:if test="${futsal.fu_type == '풋살화'}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		</c:if> 
+	    <c:if test="${futsal.fu_type == '의류'}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		</c:if>		
+	    <button type="submit" class="btn btn-outline-dark">등록</button>
 		<a href="<%=request.getContextPath()%>/admin/goods/list"><button type="button" class="btn btn-outline-dark">목록</button></a>
+		</form>  
 		</div> 	 
 	</div>	
 </div>

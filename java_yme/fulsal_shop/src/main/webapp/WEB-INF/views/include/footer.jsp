@@ -7,8 +7,11 @@
 <style>
 .jumbotron{
 	margin-bottom : 0;
-	height : 150px;
+	height : 100px;
 	font-size : 20px;
+}
+.jumbotron .text{
+	
 }
 .go-top {
 	display:none;
@@ -29,7 +32,7 @@
 <body>
 	<div class="footer">
 	  <div class="jumbotron">
-		포트폴리오 작업중입니다.
+		<div class="text">포트폴리오 작업중입니다.</div>
 	    <span class="go-top">
 			TOP
 		</span>

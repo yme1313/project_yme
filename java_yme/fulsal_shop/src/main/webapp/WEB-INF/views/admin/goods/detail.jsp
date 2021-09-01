@@ -16,9 +16,10 @@
 	position : absolute; top 0; left :10%;
 }
 .info-box{
-	width: 800px; height : 200px;
+	overflow : scroll;
+	width: 800px; height : 500px;
 }
-.option-box{
+.fu-img{
 	width : 60%; height : 60%;
 }
 </style>
@@ -31,7 +32,7 @@
 	    <div class="input-group mb-3">
 	      	<div class="input-group-prepend">
 	      	  <span class="input-group-text">상품타입</span>
-     		<div class="form-control fu_type mr-2">${futsal.fu_type}</div>
+     		<div class="form-control mr-2">${futsal.fu_type}</div>
 	   	   </div>
 	   	   <div class="input-group-prepend">
 	   	  	 <span class="input-group-text">브랜드</span>
@@ -57,7 +58,7 @@
 		</div>		
 		<div class="form-group">
 			<label>이미지파일</label>
-			<div class="form-control">${futsal.fu_img}</div>
+			<div class="form-control fu_img">${futsal.fu_img}</div>
 		</div>
 		<a href="<%=request.getContextPath()%>/admin/goods/modify?num=${futsal.fu_num}"><button class="btn btn-outline-dark">수정</button></a>
 		<a href="<%=request.getContextPath()%>/admin/goods/delete?num=${futsal.fu_num}"><button class="btn btn-outline-dark">삭제</button></a>

@@ -78,12 +78,12 @@
 						 <button type="button" class="btn btn-outline-dark btn-sm">상세보기</button>
 					  </a>
 					  /
-					  <a href="<%=request.getContextPath()%>/admin/goods/count?num=${futsal.fu_num}">
-						 <button type="button" class="btn btn-outline-dark btn-sm">수량확인</button>
+					  <a href="<%=request.getContextPath()%>/admin/goods/stock?num=${futsal.fu_num}">
+						 <button type="button" class="btn btn-outline-dark btn-sm">재고확인</button>
 					  </a>
 					  /
 					  <a href="<%=request.getContextPath()%>/admin/goods/optionadd?num=${futsal.fu_num}">
-						 <button type="button" class="btn btn-outline-dark btn-sm">수량변경</button>
+						 <button type="button" class="btn btn-outline-dark btn-sm">옵션등록</button>
 					  </a>
 			       </td>
 			     </tr>
@@ -92,13 +92,13 @@
 		 </table>
 		 <ul class="pagination justify-content-center">
 		 	<c:if test="${pm.prev}">
-		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/goods?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
+		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/goods/list?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
 		    </c:if>
 		    <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-		   		<li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/goods?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>	    
+		   		<li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/goods/list?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>	    
 		   </c:forEach>
 		    <c:if test="${pm.next}">
-		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/goods?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
+		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/goods/list?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
 		    </c:if>
 		  </ul>
   		 </c:if>

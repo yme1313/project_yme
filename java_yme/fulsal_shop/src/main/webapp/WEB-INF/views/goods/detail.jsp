@@ -24,7 +24,7 @@
 .caution{
     color : red;
 }
-.fa-caret-up, .fa-caret-up{
+.fa-caret-up, .fa-caret-down{
 	cursor : pointer;
 	margin : 3px;
 	font-size : 20px;
@@ -34,8 +34,8 @@
 	margin : 3px;
 }
 .info{
-	width: 200%; height: 70%;
-	border : 1px solid black;
+	overflow : scroll;
+	width: 200%; height: 950px;
 }
 .num-box{
 	width : 50px; text-align : center;
@@ -138,7 +138,7 @@ $(function(){
 					  } else {
 						  $('.option-box').append(str)	 
 						  $('.select-box').val("choice").attr("selected","selected")
-						  $('.total').text(totalpri + " 원")					  
+						  $('.total').text(totalpri.toLocaleString() + " 원")					  
 					  }		  
 			} else if($('[data-target='+ opt +']').length != 0){
 				alert('이미 추가된 옵션입니다.')
@@ -150,14 +150,14 @@ $(function(){
 		$(this).parents('.opt-count-box').remove();
 		var num = $('.opt-count-box').length
 		var totalpri = (price * (num))
-		$('.total').text(totalpri + " 원")
+		$('.total').text(totalpri.toLocaleString() + " 원")
 	})
 	
 	$(document).on('click','.fa-caret-up',function(){
 	var n = $(this).index(this);
 	var num = $(".num-box:eq("+n+")").val();
 	var totalpri = (price * (num*1+1))
-	$('.total').text(totalpri + " 원")
+	$('.total').text(totalpri.toLocaleString() +"원")
 	num = $(".num-box:eq("+n+")").val(num*1+1);
 
 	})
@@ -169,13 +169,15 @@ $(function(){
 		return;
 	}
 	var totalpri = (price * (num*1-1))
-	$('.total').text(totalpri + " 원")
+	$('.total').text(totalpri.toLocaleString() + " 원")
 	num = $(".num-box:eq("+n+")").val(num*1-1); 
 	})
 
 	$('.cart-add').click(function(){
 		var ca_count = $('[name=ca_count]').val()
-		var ca_price = parseInt($('.total').text())
+		var regex = /[^0-9]/g;
+		var price = $('.total').text()
+		var ca_price = parseInt(price.replace(regex, ""))
 		var ca_size = $('#hidden').val()
 		var zero = '0 원';
 		var data = {

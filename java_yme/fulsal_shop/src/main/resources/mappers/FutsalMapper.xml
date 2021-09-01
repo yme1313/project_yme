@@ -87,8 +87,9 @@
 	<update id="updateGoods">
 		update futsal set
 				fu_name = #{fu_name},
+				fu_type = #{fu_type},
 				fu_price = #{fu_price},
-				fu_stock = #{fu_stock},
+				fu_brand = #{fu_brand},
 				fu_img = #{fu_img},
 				fu_info = #{fu_info}
 			where fu_num = #{fu_num}	

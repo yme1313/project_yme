@@ -177,7 +177,7 @@ td{
 <div class="order-box">
 	<div class="title-box">02.주문/결제</div>
 	<hr style="background:#343a40;">
-	<div class="veryimpo-box">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
+	<div class="veryimpo-box mb-2">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
 	 <table class="table">
 	    <thead>
 	      <tr>
@@ -227,10 +227,10 @@ td{
 				<span class="delivery">0 원</span>
 			</c:when>
 			<c:otherwise>
-				<span class="delivery">2500 원</span>
+				<span class="delivery">2,500 원</span>
 			</c:otherwise>
 		</c:choose>
-		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2500 원</span>
+		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2,500 원</span>
 		</div>
 	 </div>
 	<table class="table order-table">
@@ -462,15 +462,17 @@ $(function(){
 	})
 })
 $(document).ready(function(){
-	var delivery = parseInt($('.delivery').text())
+	var regex = /[^0-9]/g;
+	var deliv = $('.delivery').text()
+	var delivery = parseInt(deliv.replace(regex,""))
 	var sum = "${sum}"
 	var sum = parseInt(sum)
 	var orderprice = delivery + sum
 	var str = 
-    	'<div>총 주문 금액: '+ sum +' 원</div>' +
-    	'<div>배송비: '+delivery+' 원</div>'
-	$('.order-price').text(orderprice + ' 원')
-	$('#final-price').text(orderprice + ' 원')
+    	'<div>총 주문 금액: '+ sum.toLocaleString() +' 원</div>' +
+    	'<div>배송비: '+ delivery.toLocaleString() + ' 원</div>'
+	$('.order-price').text(orderprice.toLocaleString() + ' 원')
+	$('#final-price').text(orderprice.toLocaleString() + ' 원')
 	$('[name=or_price]').val(orderprice)
 	$('#final_detail').html(str)
 });

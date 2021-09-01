@@ -35,13 +35,12 @@ public class OrderController {
 	OrderService orderService;
 	
 	@PostMapping("/order/direct")
-	public ModelAndView directPost(ModelAndView mv, FutsalVO futsal, OptionVO option) {
-		System.out.println(futsal);
-		System.out.println(option);
+	public ModelAndView directPost(ModelAndView mv, FutsalVO futsal, OptionVO option, CartVO cart) {
 		FutsalVO directBuy = futsalService.getDirectBuy(futsal, option);
+		mv.addObject("cart", cart);
 		mv.addObject("futsal", directBuy);
 		mv.addObject("title", "주문서 작성");
-		mv.setViewName("/template1/order/direct");
+		mv.setViewName("/template6/order/direct");
 		return mv;
 	}	
 	@PostMapping("/order/cart_order")
@@ -57,6 +56,15 @@ public class OrderController {
 		mv.addObject("user", user);
 		mv.addObject("title", "주문서 작성");
 		mv.setViewName("/template1/order/cart_order");
+		return mv;
+	}
+	@PostMapping("/order/orderDirectOk")
+	public ModelAndView OrdeDirectOkPost(ModelAndView mv, OrderVO order,HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		orderService.insertOrder(order,user);
+		mv.addObject("user", user);
+		mv.addObject("title", "주문서 확인");
+		mv.setViewName("/template/order/orderOk");
 		return mv;
 	}
 	@PostMapping("/order/orderOk")

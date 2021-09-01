@@ -53,6 +53,11 @@ h3{
 	float : right;
 	margin-top : 10px; margin-right : 10px;
 }
+.veryimpo-box{
+	font-size : 18px;
+	font-weight : bold;
+	color : red;
+}	
 </style>
 </head>
 <body>
@@ -60,6 +65,7 @@ h3{
 	<div class="container main-box">
 		<div class="right-board-box">	
 			<h3>주문 내역</h3> 
+			<div class="veryimpo-box mb-2">※ 주문내역은 3개월까지만 보관됩니다.</div>
 			<form class="form-inline search-box" action="<%=request.getContextPath()%>/order/list">
 			 	 <span class="mr-2">주문번호</span>
 				<input class="form-control mr-sm-2 col-6" type="text" name="search" value="<c:out value="${pm.criteria.search}"/>">
@@ -74,7 +80,9 @@ h3{
 							<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 							<span class="order-title-text mr-2">${order.or_title}</span>
 							<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
-							<button id="cancle_btn" class="btn btn-outline-danger btn-sm">주문취소</button>
+							<c:if test = "${order.or_state == '주문확인중'}">
+								<button id="cancle_btn" class="btn btn-outline-danger btn-sm">주문취소</button>
+							</c:if>	
 						</div>
 						<div class="container">
 						  <table class="table table-bordered">

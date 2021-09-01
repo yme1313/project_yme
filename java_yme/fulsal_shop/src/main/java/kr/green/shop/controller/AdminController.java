@@ -109,16 +109,23 @@ public class AdminController {
 		mv.setViewName("/template4/admin/goods/detail");
 		return mv;		
 	}
-	@GetMapping("/goods/count")
+	@GetMapping("/goods/stock")
 	public ModelAndView goodsCountGet(ModelAndView mv, Integer num) {
 		FutsalVO futsal = futsalService.getFutsal(num);
 		ArrayList <OptionVO> list = optionService.getOptionList(num);
 		mv.addObject("title", "수량확인");
 		mv.addObject("list", list);
 		mv.addObject("futsal", futsal);
-		mv.setViewName("/template4/admin/goods/count");
+		mv.setViewName("/template4/admin/goods/stock");
 		return mv;		
 	}	
+	@PostMapping("/goods/stockadd")
+	public ModelAndView	stockAddPost(ModelAndView mv, FutsalVO futsal, Integer[] op_num, Integer[] addStock) {
+		optionService.addStock(op_num, addStock);
+		mv.addObject("num", futsal.getFu_num());
+		mv.setViewName("redirect:/admin/goods/stock");
+		return mv;
+	}
 	
 	@GetMapping("/goods/optionadd")
 	public ModelAndView goodsOptionaddGet(ModelAndView mv, Integer num) {
@@ -129,11 +136,12 @@ public class AdminController {
 		return mv;		
 	}
 	@PostMapping("/goods/optionadd")
-	public ModelAndView goodsOptionAddPost(ModelAndView mv, FutsalVO futsal, OptionVO option) {
-		optionService.addOption(futsal, option);
+	public ModelAndView goodsOptionAddPost(ModelAndView mv, Integer[] fu_num, String[] op_size ,Integer[] op_count) {
+		optionService.addOption(fu_num, op_size, op_count);
 		mv.setViewName("redirect:/admin/goods/list");
 		return mv;
 	}
+	
 	@GetMapping("/goods/modify")
 	public ModelAndView goodsModifyGet(ModelAndView mv, Integer num, HttpServletRequest request) { 
 		FutsalVO futsal = futsalService.getFutsal(num);
@@ -201,6 +209,7 @@ public class AdminController {
 		String[] counts = order.getOr_count().split(",");
 		String[] size = order.getOr_size().split(",");
 		optionService.changeStock(user, fu_Nums, counts, size);
+		orderService.updateOrderOK(order);
 		mv.setViewName("redirect:/admin/order/list");
 		return mv;
 	}	

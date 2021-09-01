@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.shop.dao.OptionDAO;
-import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
 import kr.green.shop.vo.OptionVO;
 
@@ -17,13 +16,12 @@ public class OptionServiceImp implements OptionService{
 	OptionDAO optionDao;
 	@Autowired
 	OptionService optionService;
-
+	
 	@Override
-	public void addOption(FutsalVO futsal, OptionVO option) {
-		if(futsal == null || option == null)
-			return;
-		option.setOp_fu_num(futsal.getFu_num());
-		optionDao.addOption(option);
+	public void addOption(Integer[] fu_num, String[] op_size, Integer[] op_count) {
+		for(int i=0 ; i < fu_num.length ; i++) {
+			optionDao.addOption(fu_num[i], op_size[i], op_count[i]);	
+		}
 	}
 
 	@Override
@@ -40,15 +38,19 @@ public class OptionServiceImp implements OptionService{
 		}
 		int[] nums = Arrays.asList(fu_Nums).stream().mapToInt(Integer::parseInt).toArray();
 		int[] count = Arrays.asList(counts).stream().mapToInt(Integer::parseInt).toArray();
-		int[] size1 = Arrays.asList(size).stream().mapToInt(Integer::parseInt).toArray();
 		for(int i=0 ; i <fu_Nums.length ; i++) {
-			System.out.println(nums[i]);
-			System.out.println(count[i]);
-			System.out.println(size1[i]);
+			optionDao.changeStock(nums[i],count[i],size[i]);
 		}
+		
 
 	}
-
+	@Override
+	public void addStock(Integer[] op_num, Integer[] addStock) {
+		for(int i = 0 ;  i < op_num.length ; i++) {
+			optionDao.addStock(op_num[i], addStock[i]);
+		}
+		
+	}
 
 
 

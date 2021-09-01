@@ -8,11 +8,13 @@ import kr.green.shop.vo.OptionVO;
 
 public interface OptionDAO {
 
-	void addOption(OptionVO option);
-
 	ArrayList<OptionVO> getOptionList(Integer num);
 
-	void changeStock(@Param("fu_num")int num, @Param("or_count")int count, @Param("op_size")int size);
+	void changeStock(@Param("num")int num, @Param("count")int count, @Param("size")String size);
+
+	void addOption(@Param("num")int num, @Param("size")String size, @Param("count")int count);
+
+	void addStock(@Param("num")int num, @Param("count")int count);
 
 
 

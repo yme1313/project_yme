@@ -68,7 +68,7 @@ h3{
 						<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 						<span class="order-title-text mr-2">${order.or_title}</span>
 						<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
-						<c:if test="${order.or_cancle == 'N' }">
+						<c:if test="${order.or_cancle == 'N' && order.or_state == '주문확인중' }">
 							<button id="order_ok_btn" class="btn btn-outline-dark btn-sm">주문접수</button>
 							<button type="button" id="stock_zero_btn" class="btn btn-outline-danger btn-sm">재고량부족</button>
 						</c:if>				
@@ -128,6 +128,28 @@ h3{
 	</div>	
 	</form>
 <script>
+$(function(){
+	$('#stock_zero_btn').click(function(){
+		var or_num = $('[name=or_num]').val()
+		var data = {or_num : or_num}
+		   $.ajax({
+			    type : "post",
+			    url : '<%=request.getContextPath()%>/admin/order/stockZero',
+				data: JSON.stringify(data),
+				contentType : "application/json; charset=utf-8",
+			    success : function(res){
+						if(res== 'OK'){
+							alert('주문이 취소되었습니다.')
+							$('.state-text').text('재고부족');
+							$('#order_ok_btn').remove();
+							$('#stock_zero_btn').remove();
+						} else {
+							alert('주문취소에 실패했습니다.')
+						}
+					}
+			})
+	})
+})
 </script>
 </body>
 </html>
