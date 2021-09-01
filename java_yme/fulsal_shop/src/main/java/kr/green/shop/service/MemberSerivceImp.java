@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
@@ -17,7 +20,6 @@ import org.springframework.web.util.WebUtils;
 import kr.green.shop.dao.BoardDAO;
 import kr.green.shop.dao.MemberDAO;
 import kr.green.shop.pagination.Criteria;
-import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.MemberVO;
 
 @Service
@@ -29,6 +31,8 @@ public class MemberSerivceImp implements MemberService{
 	BoardDAO boardDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private JavaMailSender mailSender;
 
 	@Override
 	public boolean signup(MemberVO user) {
@@ -149,9 +153,8 @@ public class MemberSerivceImp implements MemberService{
 		if(user == null || nowUser == null || user.getMe_id() == null || !user.getMe_id().equals(nowUser.getMe_id())) {
 			return null;
 		}
-		if(user.getMe_pw() != null && user.getMe_pw().trim().length() != 0) {
-			String encodePw = passwordEncoder.encode(user.getMe_pw());
-			nowUser.setMe_pw(encodePw);
+		if(user.getMe_pw() == null && user.getMe_pw().trim().length() == 0) {
+			return null;
 		}
 		String pwRegex = "^[a-zA-Z0-9!@#]{8,16}$";
 		if(user.getMe_pw() == null || !Pattern.matches(pwRegex, user.getMe_pw())) {
@@ -161,7 +164,6 @@ public class MemberSerivceImp implements MemberService{
 		if(user.getMe_phone() == null || !Pattern.matches(phoneRegex, user.getMe_phone())) {
 			return null;
 		}
-			
 		if(user.getMe_birth() == 0) {
 			return null;
 		}
@@ -169,6 +171,8 @@ public class MemberSerivceImp implements MemberService{
 		if(user.getMe_email() == null || !Pattern.matches(emailRegex, user.getMe_email())) {
 			return null;
 		}
+		String encodePw = passwordEncoder.encode(user.getMe_pw());
+		nowUser.setMe_pw(encodePw);
 		nowUser.setMe_phone(user.getMe_phone());
 		nowUser.setMe_birth(user.getMe_birth());
 		nowUser.setMe_gender(user.getMe_gender());
@@ -214,6 +218,55 @@ public class MemberSerivceImp implements MemberService{
 	@Override
 	public ArrayList<MemberVO> getMemberList(Criteria cri) {
 		return memberDao.getMemberList(cri);
+	}
+
+	@Override
+	public String findPw(String id) {
+		if(id == null) {
+			return "FAIL";
+		}
+		MemberVO user = memberDao.getMember(id);
+		if(user == null) {
+			return "FAIL";
+		}
+		String newPw = newRandomPw(8);
+		user.setMe_pw(newPw);
+		updateMember(user, user);
+	    try {
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper 
+	            = new MimeMessageHelper(message, true, "UTF-8");
+
+	        messageHelper.setFrom("yme131313@gmail.com");  // 보내는사람 생략하거나 하면 정상작동을 안함
+	        messageHelper.setTo(user.getMe_email());     // 받는사람 이메일
+	        messageHelper.setSubject("새 비밀번호 입니다."); // 메일제목은 생략이 가능하다
+	        messageHelper.setText("","새 비밀번호는 <b>" + newPw + "</b>입니다." );  // 메일 내용
+
+	        mailSender.send(message);
+	        return "OK";
+	    } catch(Exception e){
+	        System.out.println(e);
+	    }
+		return "FAIL";
+	}
+	private String newRandomPw(int size) {
+		//랜덤숫자 : 0~9 =>  문자열 : 0~9
+		//랜덤숫자 : 10~35 => 문자열 : a~z
+		//랜덤숫자 : 36~61 => 문자열 : A~Z
+		String pw="";
+		int max = 61;
+		int min = 0;
+		for(int i=0 ; i < size ; i++) {
+			int r = (int)(Math.random()*(max-min+1)) + min;
+			if(r < 10) {
+				pw += r;
+			} else if(r < 36) {
+				pw += (char)('a'+(r-10));
+			} else {
+				pw += (char)('A'+(r-36));
+			}
+		}	
+		return pw;
 	}
 
 

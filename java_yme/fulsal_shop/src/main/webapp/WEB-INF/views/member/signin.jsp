@@ -109,7 +109,7 @@
  
       <div class="no-id">
         아이디가 없으신가요? <a href="<%=request.getContextPath()%>/member/signup">회원가입</a><br>
-        비밀번호를 잊으셨나요? <a href="<%=request.getContextPath()%>/">비밀번호찾기</a>
+        비밀번호를 잊으셨나요? <a href="<%=request.getContextPath()%>/findPw">비밀번호찾기</a>
       </div>
    </form> 
 </body>

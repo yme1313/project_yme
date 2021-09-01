@@ -35,4 +35,6 @@ public interface MemberService {
 
 	ArrayList<MemberVO> getMemberList(Criteria cri);
 
+	String findPw(String id);
+
 }

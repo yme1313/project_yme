@@ -87,12 +87,12 @@
 					<tr>
 						<td>비밀번호</td>
 						<td><input type="password" class="form-control col-12" name="me_pw" id="me_pw"></td>
-						<td></td>
+						<td>[비밀번호 유지하려면 기존 비밀번호 입력하세요.]</td>
 					</tr>
 					<tr>
 						<td>비밀번호 확인</td>
 						<td><input type="password" class="form-control col-12" name="me_pw2"></td>
-						<td></td>
+						<td>[비밀번호 유지하려면 기존 비밀번호 입력하세요.]</td>
 					</tr>
 					<tr>
 						<td>이름</td>
@@ -101,13 +101,13 @@
 					</tr>
 					<tr>
 						<td>휴대폰번호</td>
-						<td><input type="text" class="form-control col-12" name="me_phone" value="${user.me_phone}"></td>
-						<td><span class="ml-2">[숫자만 입력하세요. 예) 01012345678]</span></td>
+						<td><input type="text" class="form-control col-12" name="me_phone" value="${user.me_phone}" readonly></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>생년월일</td>
 						<td><input type="text" class="form-control col-12" id="birth" name="me_birth" maxlength="8" value="${user.me_birth}"></td>
-						<td><span class="ml-2">[숫자만 입력하세요. 예) 20000101]</span></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td>성별</td>
@@ -161,11 +161,6 @@
 	                required : true,
 	                equalTo : me_pw
 	            },
-	            me_phone: {
-	            	required : true,
-	            	maxlength : 11,
-	            	regex : /^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$/
-	            },
 	            me_brith: {
 	                required : true,
 	                maxlength : 8,
@@ -185,11 +180,6 @@
 		            me_pw2: {
 		                required : "필수항목 입니다.",
 		                equalTo : "비밀번호가 일치하지 않습니다."
-		            },
-		            me_phone: {
-		            	required : "필수항목 입니다.",
-		            	maxlength : "최대 11자리이하이어야 합니다.",
-		            	regex : "전화번호를 확인하세요."
 		            },
 		            me_brith: {
 		                required : "필수항목 입니다.",
