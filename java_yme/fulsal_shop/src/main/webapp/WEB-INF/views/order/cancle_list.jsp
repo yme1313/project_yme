@@ -49,6 +49,11 @@ h3{
 	float : right;
 	margin-top : 10px; margin-right : 10px;
 }
+.veryimpo-box{
+	font-size : 18px;
+	font-weight : bold;
+	color : red;
+}	
 </style>
 </head>
 <body>
@@ -56,6 +61,7 @@ h3{
 	<div class="container main-box">
 		<div class="right-board-box">	
 			<h3>주문 내역</h3> 
+			<div class="veryimpo-box mb-2">※ 주문내역은 3개월까지만 보관됩니다.</div>
 			<c:if test="${list.size() != 0 }">
 				<div class="container board-box">    	  
 					<c:forEach items="${list}" var="order">
