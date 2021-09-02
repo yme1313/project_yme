@@ -37,14 +37,16 @@ a:hover{
 }
 .pw-box .pw-input-box{
 	width : 250px; height : 130px; border: 1px solid darkslategray; background : white;
-	top : 30%; left : 40vw; z-index :3;  border-radius : 10px; text-align : center;
+	top : 55%; left : 25vw; z-index :3;  border-radius : 10px; text-align : center;
 	position : absolute; 
 }
 .pw-bg-box{
-	position : absolute; width : 100vw; height : 130vh;
-	top : -25%; 
-	background : black; opacity : 0.3;
+	width : 100%;
+	height : 100%;
+	background : black;
+	opacity : 0.3;
 }
+
 </style>
 </head>
 <body>
