@@ -437,20 +437,7 @@ $(function(){
 		var text = $(this).val()
 		$('[name=or_message]').val(text)
 	})
-	$('#buyOrder').click(function(e){
-		e.preventDefault()
-		console.log('123')
-		
-		$.ajax({
-			type : 'post',
-			url : '<%=request.getContextPath()%>/order/addsheet',
-			data : JSON.stringify(data),
-			contentType : "application/json; charset:utf-8",
-			success : function(res){
-				console.log(res)
-			}
-		})
-	})
+
 })
 $(document).ready(function(){
 	var regex = /[^0-9]/g;

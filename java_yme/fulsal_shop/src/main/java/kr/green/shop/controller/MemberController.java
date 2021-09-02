@@ -1,6 +1,7 @@
 package kr.green.shop.controller;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,7 @@ import kr.green.shop.pagination.Criteria;
 import kr.green.shop.pagination.PageMaker;
 import kr.green.shop.service.BoardService;
 import kr.green.shop.service.MemberService;
+import kr.green.shop.utils.SendSMS;
 import kr.green.shop.vo.BoardVO;
 import kr.green.shop.vo.MemberVO;
 import lombok.AllArgsConstructor;
@@ -23,7 +25,6 @@ import lombok.AllArgsConstructor;
 @Controller
 @AllArgsConstructor
 public class MemberController {
-	
 	private MemberService memberService;
 	private BoardService boardService;
 	
@@ -46,6 +47,25 @@ public class MemberController {
 		mv.setViewName("/template/member/signin");
 		return mv;
 	}
+	@GetMapping("member/confirmSMS")
+	public ModelAndView confirmSMSGet(ModelAndView mv) {
+		mv.addObject("title","SMS인증");
+		mv.setViewName("/member/confirmSMS");
+		return mv;
+	}
+	@ResponseBody
+	@PostMapping("member/sendSMS")
+	public String sendSMSPost(String toPhone,String ranNum) {
+		String phoneRegex = "^010([1-9]{1})([0-9]{3})([1-9]{1})([0-9]{3})$";
+		if(toPhone == null) {
+			return "FAIL";
+		} else if(!Pattern.matches(phoneRegex, toPhone)) {
+			return "FAIL";
+		}		
+		SendSMS.sendSMS(toPhone, ranNum);
+		return "OK";
+	}
+	
 	@PostMapping("/member/signin")
 	public ModelAndView SigninPost(ModelAndView mv, MemberVO user) {
 		MemberVO loginUser = memberService.signin(user);
@@ -117,4 +137,5 @@ public class MemberController {
 		MemberVO nowUser = memberService.getMemberByRequest(request);
 		return memberService.memberOut(user, nowUser, request, response);
 	}
+	
 }

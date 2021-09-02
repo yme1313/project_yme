@@ -59,7 +59,6 @@
 </style>	
 </head>
 <body>
-
 <form class="container signupCheck" method="post" action="<%=request.getContextPath()%>/member/signup">
 	<h1>회원가입</h1><br>
 	<table class="table">
@@ -92,8 +91,10 @@
 			</tr>
 			<tr>
 				<td>휴대폰번호</td>
-				<td><input type="text" class="form-control col-12" name="me_phone"></td>
-				<td><span class="ml-2">[숫자만 입력하세요. 예) 01012345678]</span></td>
+				<td><input type="text" class="form-control col-12" name="me_phone" id="phone" readonly></td>
+				<td>
+					<button type="button" class="btn btn-outline-danger confirmSMS">SMS인증</button>
+				</td>
 			</tr>
 			<tr>
 				<td>생년월일</td>
@@ -141,7 +142,12 @@
 <script type="text/javascript">
 var contextPath = '<%=request.getContextPath()%>';
 $(function(){
-    $(".signupCheck").validate({
+	$('.confirmSMS').click(function(){
+		window.open('confirmSMS', 'SMS인증','width=600, height=280 , resizable = no ,left=200 ,top=200')
+	})
+})
+$(function(){
+    $('.signupCheck').validate({
         rules: {
             me_id: {
                 required : true,
