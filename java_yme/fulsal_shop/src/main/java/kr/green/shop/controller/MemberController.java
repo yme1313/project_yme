@@ -38,7 +38,7 @@ public class MemberController {
 	public ModelAndView signupPost(ModelAndView mv, MemberVO user) {
 		boolean signupOk = memberService.signup(user);
 		if(signupOk) 
-			mv.setViewName("redirect:/member/signin");
+			mv.setViewName("redirect:/");
 		return mv;
 	}
 	@GetMapping("/member/signin")

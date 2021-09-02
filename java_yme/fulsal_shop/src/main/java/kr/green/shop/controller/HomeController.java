@@ -26,6 +26,12 @@ public class HomeController {
 		mv.setViewName("/template/main/findpw");
 		return mv;
 	}
+	@GetMapping("/testPort")
+	public ModelAndView testPortGet(ModelAndView mv) {
+		mv.addObject("title","결제APIㅅtest");
+		mv.setViewName("/template/order/testPort");
+		return mv;
+	}
 	@ResponseBody
 	@GetMapping("/find/pw/{id}")
 	public String findPwGet(@PathVariable("id") String id) {

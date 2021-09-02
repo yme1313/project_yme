@@ -20,7 +20,7 @@ public class SendSMS {
 	    // 4 params(to, from, type, text) are mandatory. must be filled
 	    HashMap<String, String> params = new HashMap<String, String>();
 	    params.put("to", toNumber);
-	    params.put("from", "상대방에게 보여지는 전화번호"); //무조건 자기번호 (인증)
+	    params.put("from", "01050442109"); //무조건 자기번호 (인증)
 	    params.put("type", "SMS");
 	    params.put("text", "[그린풋살] 인증번호 " + ranNum +" 를 입력하세요.");
 	    params.put("app_version", "test app 1.2"); // application name and version

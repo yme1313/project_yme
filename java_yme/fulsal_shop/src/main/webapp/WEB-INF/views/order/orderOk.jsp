@@ -95,7 +95,7 @@
 		</div>
 	</div>
 	 <div class="row justify-content-center"> 
-		<a href="<%=request.getContextPath()%>/goods/shoes">
+		<a href="<%=request.getContextPath()%>/goods/shoes/list">
 		    <button type="button" class="btn btn-dark btn-lg mr-2">계속 쇼핑하기</button>
 		 </a>
 		<a href="<%=request.getContextPath()%>/order/list">

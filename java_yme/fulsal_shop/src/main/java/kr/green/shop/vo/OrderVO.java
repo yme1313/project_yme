@@ -40,6 +40,8 @@ public class OrderVO {
 			return "실시간 계좌이체";
 		} else if(or_paytype.equals("without-bankbook")) {
 			return "무통장 입금";
+		} else if(or_paytype.equals("kakaopay")) {
+			return "카카오페이";
 		}
 		return "";
 	}
