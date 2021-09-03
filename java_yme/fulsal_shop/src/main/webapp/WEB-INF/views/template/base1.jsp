@@ -18,7 +18,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style>
 	.body {
-	min-height: 2200px;
+	min-height: 1300px;
 	};
 </style>
 </head>

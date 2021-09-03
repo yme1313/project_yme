@@ -21,4 +21,6 @@ public interface CartDAO {
 
 	void deletdOrderCart(Integer num);
 
+	void erase(String me_id);
+
 }

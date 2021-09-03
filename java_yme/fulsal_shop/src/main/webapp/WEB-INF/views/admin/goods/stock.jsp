@@ -30,6 +30,7 @@
 </head>
 <body>
 <form method="post" action="<%=request.getContextPath()%>/admin/goods/stockadd">
+<!-- input hidden -->
 <input type="hidden" name="fu_num" value="${futsal.fu_num}">
 	<div class="container main-box"> 
 		<div class="right-board-box">	
@@ -64,6 +65,7 @@
 			      </tr>
 			    </thead>
 				 <c:forEach items="${list}" var="option"> 
+				 	<!-- input hidden -->
 				 	<input type="hidden" name="op_num" value="${option.op_num}">
 				    <tbody>
 				      <tr>

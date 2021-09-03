@@ -26,29 +26,30 @@
 	<div class="container main-box">
 		<div class="right-board-box">
 			<form class="container" method="post" action="<%=request.getContextPath()%>/board${type}/modify">
-					<div class="form-group">
-						<label>제목</label>
-						<input type="text" class="form-control" name="bd_title" value="${board.bd_title}">
-					</div>
-					<div class="form-group">
-						<label>작성자</label>
-						<input type="text" class="form-control" name="bd_me_id" value="${board.bd_me_id}" readonly>
-					</div>
-					<div class="form-group">
-						<label>작성일</label>
-						<input type="text" class="form-control" name="dateTime" value="${board.dateTime}" readonly>
-					</div>
-					<div class="form-group">
-						<label>내용</label>
-						<textarea id="summernote" class="form-control" name="bd_contents">${board.bd_contents}</textarea>
-					</div>
-					<div class="input-group">
-						<input type="hidden" name="bd_num" value="${board.bd_num}">
-						<button type ="submit" class="btn btn-outline-dark">등록</button>
-						<a href="<%=request.getContextPath()%>/board${type}/list">
-							<button type="button" class="btn btn-outline-drak mod-list ml-2">목록</button>
-						</a>
-					</div>
+			<!-- input hidden -->
+			<input type="hidden" name="bd_num" value="${board.bd_num}">
+				<div class="form-group">
+					<label>제목</label>
+					<input type="text" class="form-control" name="bd_title" value="${board.bd_title}">
+				</div>
+				<div class="form-group">
+					<label>작성자</label>
+					<input type="text" class="form-control" name="bd_me_id" value="${board.bd_me_id}" readonly>
+				</div>
+				<div class="form-group">
+					<label>작성일</label>
+					<input type="text" class="form-control" name="dateTime" value="${board.dateTime}" readonly>
+				</div>
+				<div class="form-group">
+					<label>내용</label>
+					<textarea id="summernote" class="form-control" name="bd_contents">${board.bd_contents}</textarea>
+				</div>
+				<div class="input-group">
+					<button type ="submit" class="btn btn-outline-dark">등록</button>
+					<a href="<%=request.getContextPath()%>/board${type}/list">
+						<button type="button" class="btn btn-outline-drak mod-list ml-2">목록</button>
+					</a>
+				</div>
 			</form>
 		</div>
 	</div>

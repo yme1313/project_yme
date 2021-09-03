@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
 import kr.green.shop.dao.BoardDAO;
+import kr.green.shop.dao.CartDAO;
 import kr.green.shop.dao.MemberDAO;
+import kr.green.shop.dao.OrderDAO;
 import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.MemberVO;
 
@@ -29,6 +31,10 @@ public class MemberSerivceImp implements MemberService{
 	MemberDAO memberDao;
 	@Autowired
 	BoardDAO boardDao;
+	@Autowired
+	CartDAO cartDao;
+	@Autowired
+	OrderDAO orderDao;	
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
     @Autowired
@@ -203,6 +209,8 @@ public class MemberSerivceImp implements MemberService{
 		if(!passwordEncoder.matches(user.getMe_pw(), nowUser.getMe_pw()))
 			return "FAIL";
 		boardDao.erase(nowUser.getMe_id());
+		cartDao.erase(nowUser.getMe_id());
+		orderDao.erase(nowUser.getMe_id());
 		memberDao.memberOut(nowUser);
 		signout(request ,response);
 		return "OK";

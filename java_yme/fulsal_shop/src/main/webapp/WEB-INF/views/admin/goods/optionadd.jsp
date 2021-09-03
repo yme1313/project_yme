@@ -153,6 +153,7 @@
 	      </c:if>
 	      </div>
 	    </div>
+	    <!-- input hidden -->
 	    <c:if test="${futsal.fu_type == '풋살화'}">
 		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
 		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">

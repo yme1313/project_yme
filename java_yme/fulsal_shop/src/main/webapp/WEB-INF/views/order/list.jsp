@@ -65,74 +65,45 @@ h3{
 	<div class="container main-box">
 		<div class="right-board-box">	
 			<h3>주문 내역</h3> 
-			<div class="veryimpo-box mb-2">※ 주문내역은 3개월까지만 보관됩니다.</div>
+			<div class="veryimpo-box mb-2">※ 주문/취소내역은 3개월까지만 보관됩니다.</div>
 			<form class="form-inline search-box" action="<%=request.getContextPath()%>/order/list">
 			 	 <span class="mr-2">주문번호</span>
 				<input class="form-control mr-sm-2 col-6" type="text" name="search" value="<c:out value="${pm.criteria.search}"/>">
 				<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
 			</form> 
-			<c:if test="${list.size() != 0 }">
-				<div class="container board-box">    	  
-					<c:forEach items="${list}" var="order">
-					<div class="order-list-box mr-2 mb-3">
-						<div class="order-title-box mb-2">
-							<input type="hidden" name="or_num" value="${order.or_num}">
-							<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
-							<span class="order-title-text mr-2">${order.or_title}</span>
-							<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
-							<c:if test = "${order.or_state == '주문확인중'}">
-								<button id="cancle_btn" class="btn btn-outline-danger btn-sm">주문취소</button>
-							</c:if>	
-						</div>
-						<div class="container">
-						  <table class="table table-bordered">
-						    <tbody>
-						      <tr>
-						        <td>상품명</td>
-						        <td>${order.or_goodsname}</td>
-						      </tr>
-						      <tr>
-						        <td>가격</td>
-						        <td><fmt:formatNumber pattern="###,###,###" value="${order.or_price}" />원</td>
-						      </tr>
-						      <tr>
-						        <td>결제방법</td>
-						        <td>${order.payStr}</td>
-						      </tr>
-						      <tr>
-						        <td>받는사람</td>
-						        <td>${order.or_name}</td>
-						      </tr>
-						      <tr>
-						        <td>전화번호</td>
-						        <td>${order.or_phone}</td>
-						      </tr>
-						      <tr>
-						        <td style="width : 120px;">이메일주소</td>
-						        <td>${order.or_email}</td>
-						      </tr>
-						      <tr>
-						        <td>주문날짜</td>
-						        <td>${order.or_DateStr}</td>
-						      </tr>
-						      <tr>
-						        <td>도로명주소</td>
-						        <td>${order.or_add1}, ${order.or_add2} / ${order.or_add4}</td>
-						      </tr>
-						      <tr>
-						        <td>지번주소</td>
-						        <td>${order.or_add3}, ${order.or_add2}</td>
-						      </tr>
-						      <tr>
-						        <td>배송메시지</td>
-						        <td>${order.or_message}</td>
-						      </tr>
-						    </tbody>
-						  </table>
-						</div>  
-					</div>	  
-					</c:forEach>
-				</div>
+	  <c:if test="${list.size() != 0 }">
+		 <table class="table table-striped">   
+		   <thead>
+		     <tr>
+		     	<th>주문번호</th>
+			    <th>상품명</th>
+			    <th>주문날짜</th>
+				<th>결제방법</th>
+			    <th>주문상태</th>   
+		     </tr>
+		   </thead>
+		   <tbody>
+		   <c:forEach items="${list}" var="order">
+			     <tr>
+			       <td>
+			       		<a href="<%=request.getContextPath()%>/order/detail?num=${order.or_num}">	
+			       			${order.or_title}
+			       		</a>
+			       </td>	
+			       <td style="width : 300px;">
+				        <div style = "height : 23.33px; overflow : hidden;">
+				       		<a href="<%=request.getContextPath()%>/order/detail?num=${order.or_num}">	
+				       			${order.or_goodsname}
+				       		</a>
+			      		</div>
+			       </td>	 
+			       <td>${order.or_DateStr}</td>
+			       <td>${order.payStr}</td>
+			       <td>${order.or_state}</td>   
+			     </tr>
+			</c:forEach>
+		   </tbody>
+		 </table>
 			  	<ul class="pagination justify-content-center">
 				  <c:if test="${pm.prev}">
 				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${pm.startPage-1}">이전</a></li>
@@ -157,27 +128,5 @@ h3{
 			 </c:if>	 
 		</div>
 	</div>	
-<script>
-$(function(){
-	$(document).on('click','#cancle_btn',function(){
-		var or_num = $(this).siblings('[name=or_num]').val();
-		var data = {or_num : or_num}
-		$.ajax({
-			type : 'post',
-			url : '<%=request.getContextPath()%>/order/cancle',
-			data : JSON.stringify(data),
-			contentType : "application/json; charset:utf-8",
-			success : function(res){
-				if(res == 'OK'){
-					alert('주문이 최소되었습니다.')
-				} else {
-					alert('주문 취소에 실패했습니다.')
-				}	
-			}
-		})
-		$(this).parent().parent().remove()	
-	})
-})
-</script>
 </body>
 </html>

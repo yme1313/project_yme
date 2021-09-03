@@ -6,9 +6,6 @@
 <head>
 <style>
 .footer-box{
-	position : relative;
-}
-.footer-box{
 	margin-bottom : 0;
 	height : 150px;
 	font-size : 20px;

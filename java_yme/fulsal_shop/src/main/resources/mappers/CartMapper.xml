@@ -33,5 +33,9 @@
 			ca_valid = 'D'
 			where ca_num = #{ca_num}
 	</update>
+	<delete id="erase">
+		delete from cart
+			where ca_me_id = #{me_id}
+	</delete>
 	
 </mapper>

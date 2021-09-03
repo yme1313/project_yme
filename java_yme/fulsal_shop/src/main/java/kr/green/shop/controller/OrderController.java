@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.shop.pagination.Criteria;
@@ -55,7 +53,7 @@ public class OrderController {
 		mv.addObject("list", list);
 		mv.addObject("user", user);
 		mv.addObject("title", "주문서 작성");
-		mv.setViewName("/template1/order/cart_order");
+		mv.setViewName("/template6/order/cart_order");
 		return mv;
 	}
 	@PostMapping("/order/orderDirectOk")
@@ -73,6 +71,7 @@ public class OrderController {
 		MemberVO user = memberService.getMemberByRequest(request);
 		orderService.insertOrder(order,user);
 		cartService.deletdOrderCart(ca_num);
+		mv.addObject("order", order);
 		mv.addObject("user", user);
 		mv.addObject("title", "주문서 확인");
 		mv.setViewName("/template/order/orderOk");
@@ -80,7 +79,7 @@ public class OrderController {
 	}
 	@GetMapping("/order/list")
 	public ModelAndView listGet(ModelAndView mv, Criteria cri, HttpServletRequest request) {
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(8);
 		MemberVO user = memberService.getMemberByRequest(request);
 		ArrayList <OrderVO> list = orderService.getOrderList(cri, user);
 		int total = orderService.getTotalCount(cri, user);
@@ -94,6 +93,21 @@ public class OrderController {
 		}
 		return mv;
 	}
+	@GetMapping("/order/detail")
+	public ModelAndView orderDetailGet(ModelAndView mv, Integer num) {
+		OrderVO order = orderService.getOrder(num);
+		mv.addObject("title", "주문서 상세");
+		mv.addObject("order",order);
+		mv.setViewName("/template5/order/detail");
+		return mv;
+	}
+	@PostMapping("order/cancle")
+	public ModelAndView orderCanclePost(ModelAndView mv, OrderVO order) {
+		orderService.cancleOrder(order);
+		mv.setViewName("redirect:/order/list");
+		return mv;
+	}
+
 	@GetMapping("/order/cancle_list")
 	public ModelAndView cancle_listGet(ModelAndView mv, Criteria cri, HttpServletRequest request) {
 		cri.setPerPageNum(2);
@@ -110,12 +124,4 @@ public class OrderController {
 		}
 		return mv;
 	}
-	
-	@ResponseBody
-	@PostMapping("/order/cancle")
-	public String canclePost(@RequestBody OrderVO ord) {
-		OrderVO order = orderService.getOrder(ord.getOr_num());
-		return orderService.cancleOrder(order);
-	}
-
 }

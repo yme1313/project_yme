@@ -78,12 +78,11 @@ public class OrderServiceImp implements OrderService{
 
 
 	@Override
-	public String cancleOrder(OrderVO order) {
+	public void cancleOrder(OrderVO order) {
 		if(order == null) {
-			return "FAIL";
+			return;
 		}
 		orderDao.cancleOrder(order);
-		return "OK";
 	}
 
 

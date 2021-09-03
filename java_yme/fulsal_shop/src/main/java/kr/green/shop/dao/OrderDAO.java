@@ -32,4 +32,6 @@ public interface OrderDAO {
 
 	void updateOrderOK(OrderVO order);
 
+	void erase(String me_id);
+
 }

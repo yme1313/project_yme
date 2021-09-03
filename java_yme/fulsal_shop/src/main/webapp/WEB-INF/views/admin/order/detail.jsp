@@ -57,14 +57,18 @@ h3{
 </head>
 <body>
 	<br>
-	<form method="post" action="<%=request.getContextPath()%>/admin/order/ok">	
+	<form method="post" action="<%=request.getContextPath()%>/admin/order/ok">
+	<!-- input hidden -->	
+	<input type="hidden" name="or_num" value="${order.or_num}">
+	<input type="hidden" name="or_fuNums" value="${order.or_fuNums}">
+	<input type="hidden" name="or_count" value="${order.or_count}">
+	<input type="hidden" name="or_size" value="${order.or_size}">
 	<div class="container main-box">
 		<div class="right-board-box">	
 			<h3>주문 내역</h3> 
 			<div class="container board-box">    	 
 				<div class="order-list-box mr-4 mb-3">
 					<div class="order-title-box mb-2">
-						<input type="hidden" name="or_num" value="${order.or_num}">
 						<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 						<span class="order-title-text mr-2">${order.or_title}</span>
 						<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
@@ -74,9 +78,6 @@ h3{
 						</c:if>				
 					</div>
 					<div class="container">
-					<input type="hidden" name="or_fuNums" value="${order.or_fuNums}">
-					<input type="hidden" name="or_count" value="${order.or_count}">
-					<input type="hidden" name="or_size" value="${order.or_size}">
 					  <table class="table table-bordered">
 					    <tbody>
 					      <tr>
@@ -132,6 +133,8 @@ $(function(){
 	$('#stock_zero_btn').click(function(){
 		var or_num = $('[name=or_num]').val()
 		var data = {or_num : or_num}
+		var confirm_val = confirm("정말 취소하시겠습니까?");		
+		  if(confirm_val) {
 		   $.ajax({
 			    type : "post",
 			    url : '<%=request.getContextPath()%>/admin/order/stockZero',
@@ -148,6 +151,7 @@ $(function(){
 						}
 					}
 			})
+		}
 	})
 })
 </script>

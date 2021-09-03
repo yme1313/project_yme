@@ -67,7 +67,11 @@
 	margin-left: 25%;
     margin-right: 13%;
     justify-content: space-around;
-}    
+}  
+.cart-list-box{
+	height : 450px;
+	overflow : auto;
+}  
 .img-box .round-box{
 	margin-right : 200px; z-index : 10;
 }
@@ -161,206 +165,214 @@ td{
 </head>
 <body>
 <form id="cart_order" method="post" action="<%=request.getContextPath()%>/order/orderOk">
+<!-- input hidden -->
 <input type="hidden" class="form-control" name="or_me_id" value="${user.me_id}">
-<div class="main-box">
-	<ul class="img-box">
-		<li class="round-box">
-			<i class="fas fa-shopping-cart mb-1"></i><br>장바구니
-			<div class="num-box">01</div>
-		</li>
-		<li class="round-box">
-			<i class="fas fa-calculator mb-1"></i><br>주문/결제
-			<div class="num-box">02</div>
-		</li>
-		<li class="round-box">
-			<i class="fas fa-check-square mb-1"></i><br>결제완료
-			<div class="num-box">03</div>
-		</li>
-	</ul>
-</div>	
-<div class="order-box">
-	<div class="title-box">02.주문/결제</div>
-	<hr style="background:#343a40;">
-	<div class="veryimpo-box mb-2">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
-	 <table class="table">
-	    <thead>
-	      <tr>
-	        <th>상품명</th>
-	        <th>상품금액</th>
-	        <th>옵션</th>
-	        <th>수량</th>
-	        <th>합계금액</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	    <c:set var="sum" value="0" />
-	    <c:forEach items="${list}" var="cart">
-	    <input type="hidden" name="or_fuNums" value="${cart.fu_num}">
-	    <input type="hidden" name="or_goodsname" value="${cart.fu_name} ${cart.size}/${cart.ca_count}개">
-	    <input type="hidden" name="or_count" value="${cart.ca_count}">
-	    <input type="hidden" name="or_size" value="${cart.ca_size}">
-	      <tr class="list-box">
-	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
-	        <td>
-	        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
-	        </td>
-			<td>${cart.size}</td>
-	        <td>총 : ${cart.ca_count}개</td>
-	        <td>
-	        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
-	        	<input type="hidden" name="ca_num" value="${cart.ca_num}">
-	        </td>
-	      </tr> 
-	      <c:set var="sum" value="${sum + cart.ca_price}" />
-	      </c:forEach>
-         <tr>
-	        <th></th>
-	        <th></th>
-	        <th></th>
-	        <th></th>
-	        <th></th>
-	      </tr> 
-	    </tbody>
-  	 </table>
-  	 <div class="delivery-text">※ 10만원 이상 구매시 배송비 무료 !</div>
-  	 <div class="row justify-content-end mt-5 price-box ">
-		<div>총 주문 금액 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
-		<i class="fas fa-plus"></i> 배송비 : 
-		<c:choose>
-			<c:when test="${sum >= 100000}">
-				<span class="delivery">0 원</span>
-			</c:when>
-			<c:otherwise>
-				<span class="delivery">2,500 원</span>
-			</c:otherwise>
-		</c:choose>
-		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2,500 원</span>
-		</div>
-	 </div>
-	<table class="table order-table">
-	    <thead>
-	      <tr>
-	        <th class="title-th">배송정보</th>
-	        <th>
-				<label><input type="radio" class="mr-1 basic" name="choice-box" checked><span class="mr-3">주문고객 정보 동일</span></label>
-				<label><input type="radio" class="mr-1 new" name="choice-box">새로 입력</label>
-	        </th>
-	        <th></th>
-	        <th></th>
-	      </tr>
-	    </thead>
-	    <tbody>
- 			<tbody class="orderinfo">
+	<div class="main-box">
+		<ul class="img-box">
+			<li class="round-box">
+				<i class="fas fa-shopping-cart mb-1"></i><br>장바구니
+				<div class="num-box">01</div>
+			</li>
+			<li class="round-box">
+				<i class="fas fa-calculator mb-1"></i><br>주문/결제
+				<div class="num-box">02</div>
+			</li>
+			<li class="round-box">
+				<i class="fas fa-check-square mb-1"></i><br>결제완료
+				<div class="num-box">03</div>
+			</li>
+		</ul>
+	</div>	
+	<div class="order-box">
+		<div class="title-box">02.주문/결제</div>
+		<hr style="background:#343a40;">
+		<div class="veryimpo-box mb-2">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
+		<div class="cart-list-box">
+		 <table class="table">
+		    <thead>
 		      <tr>
-		        <td >이름</td>
-		        <td>${user.me_name}<input type="hidden" class="form-control" name="or_name" value="${user.me_name}"></td>
-		       	<td></td>
-		        <td></td>
+		        <th>상품명</th>
+		        <th>상품금액</th>
+		        <th>옵션</th>
+		        <th>수량</th>
+		        <th>합계금액</th>
 		      </tr>
-		      <tr>
-		      	<td>이메일</td>
-		        <td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>
-		        <td></td>
-		        <td></td>
-		      </tr>
-		      <tr>
-		        <td>전화번호</td>
-		        <td>${user.me_phone}<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}"></td>
-		        <td></td>
-		        <td></td>
-		      </tr>
-		      <tr>
-     		    <td>주소</td>
-		        <td>${user.me_postnum}<br>
-		        	${user.me_add1} / ${user.me_add2} <br>
-		        	${user.me_add3} / ${user.me_add4}
-		        </td>
+		    </thead>
+		    <tbody>
+		    <c:set var="sum" value="0" />
+		    <c:forEach items="${list}" var="cart">
+		    <!-- input hidden -->
+		    <input type="hidden" name="or_fuNums" value="${cart.fu_num}">
+		    <input type="hidden" name="or_goodsname" value="${cart.fu_name} ${cart.size}/${cart.ca_count}개">
+		    <input type="hidden" name="or_count" value="${cart.ca_count}">
+		    <input type="hidden" name="or_size" value="${cart.ca_size}">
+		    <input type="hidden" name="ca_num" value="${cart.ca_num}">
+		      <tr class="list-box">
+		        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 		        <td>
-		        	<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">
-		        	<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">
-		        	<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">
-		        	<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">
-		        	<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">
+		        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
 		        </td>
-		        <td></td>
-			 </tbody>
-     	  <tr>
-	        <td>배송<br>메시지</td>
-	        <td>
-	        	<select class="form-control mess-box mb-2" name="mess-box">
-	        		<option value="">(직접 입력)</option>
-	        		<option value="부재시 경비실에 맡겨 주세요.">부재시 경비실에 맡겨 주세요.</option>
-	        		<option value="부재시 문 앞에 두고 가주세요.">부재시 문 앞에 두고 가주세요.</option>
-	        	</select>
-	        	<textarea class="form-control" style="height : 150px" name="or_message"></textarea>
-	        </td>
-	        <td></td>
-	        <td></td>
-	      </tr>
-          <tr>
-	        <td></td>
-	        <td></td>
-	        <td></td>
-	        <td></td>
-	      </tr>
-	    </tbody>
-    </table>
-    <div class="bottom-box">
-    	<div class="end-price">
-    	  <table class="table" style="width :420px;">
+				<td>${cart.size}</td>
+		        <td>총 : ${cart.ca_count}개</td>
+		        <td>
+		        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
+		        </td>
+		      </tr> 
+		      <c:set var="sum" value="${sum + cart.ca_price}" />
+		      </c:forEach>
+	         <tr>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
+		      </tr> 
+		    </tbody>
+	  	 </table>
+	  	 </div>
+	  	 <div class="delivery-text">※ 10만원 이상 구매시 배송비 무료 !</div>
+	  	 <div class="row justify-content-end mt-5 price-box ">
+			<div>총 주문 금액 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
+			<i class="fas fa-plus"></i> 배송비 : 
+			<c:choose>
+				<c:when test="${sum >= 100000}">
+					<span class="delivery">0 원</span>
+				</c:when>
+				<c:otherwise>
+					<span class="delivery">2,500 원</span>
+				</c:otherwise>
+			</c:choose>
+			<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2,500 원</span>
+			</div>
+		 </div>
+		<table class="table order-table">
 		    <thead>
 		      <tr>
-		        <th style="width:150px;">결제금액</th>
+		        <th class="title-th">배송정보</th>
+		        <th>
+					<label><input type="radio" class="mr-1 basic" name="choice-box" checked><span class="mr-3">주문고객 정보 동일</span></label>
+					<label><input type="radio" class="mr-1 new" name="choice-box">새로 입력</label>
+		        </th>
 		        <th></th>
 		        <th></th>
 		      </tr>
 		    </thead>
 		    <tbody>
-		      <tr>
-		        <td>총 결제 금액</td>
-		        <td id="final-price" ></td>
-		        <td><input type="hidden" name="or_price" value=""></td>
-		      </tr>
-		      <tr>
-		        <td></td>
-		        <td id="final_detail">
-
+	 			<tbody class="orderinfo">
+			      <tr>
+			        <td >이름</td>
+			        <td>${user.me_name}</td>
+			       	<td></td>
+			        <td>
+			        	<!-- input hidden -->
+			        	<input type="hidden" class="form-control" name="or_name" value="${user.me_name}">
+			        	<input type="hidden" class="form-control" name="or_email" value="${user.me_email}">
+			        	<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}">
+			        	<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">
+			        	<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">
+			        	<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">
+			        	<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">
+			        	<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">
+			        </td>
+			      </tr>
+			      <tr>
+			      	<td>이메일</td>
+			        <td>${user.me_email}</td>
+			        <td></td>
+			        <td></td>
+			      </tr>
+			      <tr>
+			        <td>전화번호</td>
+			        <td>${user.me_phone}</td>
+			        <td></td>
+			        <td></td>
+			      </tr>
+			      <tr>
+	     		    <td>주소</td>
+			        <td>${user.me_postnum}<br>
+			        	${user.me_add1} / ${user.me_add2} <br>
+			        	${user.me_add3} / ${user.me_add4}
+			        </td>
+			        <td></td>
+			        <td></td>
+				 </tbody>
+	     	  <tr>
+		        <td>배송<br>메시지</td>
+		        <td>
+		        	<select class="form-control mess-box mb-2" name="mess-box">
+		        		<option value="">(직접 입력)</option>
+		        		<option value="부재시 경비실에 맡겨 주세요.">부재시 경비실에 맡겨 주세요.</option>
+		        		<option value="부재시 문 앞에 두고 가주세요.">부재시 문 앞에 두고 가주세요.</option>
+		        	</select>
+		        	<textarea class="form-control" style="height : 150px" name="or_message"></textarea>
 		        </td>
+		        <td></td>
+		        <td></td>
+		      </tr>
+	          <tr>
+		        <td></td>
+		        <td></td>
+		        <td></td>
 		        <td></td>
 		      </tr>
 		    </tbody>
-		  </table>
-    	</div>
-    	<div class="paytype">
-  	    <table class="table" style="width :550px;">
-		    <thead>
-		      <tr>
-		        <th style="width:100px;">결제방법</th>
-		        <th></th>
-		      </tr>
-		    </thead>
-		    <tbody>
-		      <tr>
-		        <td></td>
-		        <td style="line-height : 20px;">
-		        	<label class="pay-option mr-2"><input class="mr-1" type="radio" name="or_paytype" value="kakaopay" checked>카카오페이</label>
-		        	<label class="pay-option mr-2"><input class="mr-1" type="radio" name="or_paytype" value="card">카드결제</label>
-		        	<label class="pay-option mr-2"><input class="mr-1" type="radio" name="or_paytype" value="real-time">실시간 계좌이체</label>
-		        	<label class="pay-option mr-2"><input type="radio" name="or_paytype" value="without-bankbook">무통장 입금</label>
-		        </td>
-		      </tr>
-		      <tr>
-		        <td></td>
-		        <td></td>
-		      </tr>
-		    </tbody>
-		  </table>
-    	</div>
-    </div>
-  	 <div class="row justify-content-center">
-	 	<button type="button" class="btn btn-danger btn-lg mt-3" id="buy_btn">결제하기</button>
- 	</div>
-</div>
+	    </table>
+	    <div class="bottom-box">
+	    	<div class="end-price">
+	    	  <table class="table" style="width :420px;">
+			    <thead>
+			      <tr>
+			        <th style="width:150px;">결제금액</th>
+			        <th></th>
+			        <th></th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td>총 결제 금액</td>
+			        <td id="final-price" ></td>
+			        <td><input type="hidden" name="or_price" value=""></td>
+			      </tr>
+			      <tr>
+			        <td></td>
+			        <td id="final_detail">
+	
+			        </td>
+			        <td></td>
+			      </tr>
+			    </tbody>
+			  </table>
+	    	</div>
+	    	<div class="paytype">
+	  	    <table class="table" style="width :550px;">
+			    <thead>
+			      <tr>
+			        <th style="width:100px;">결제방법</th>
+			        <th></th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr>
+			        <td></td>
+			        <td style="line-height : 20px;">
+			        	<label class="pay-option mr-2"><input class="mr-1" type="radio" name="or_paytype" value="kakaopay" checked>카카오페이</label>
+			        	<label class="pay-option mr-2"><input class="mr-1" type="radio" name="or_paytype" value="card">카드결제</label>
+			        	<label class="pay-option mr-2"><input class="mr-1" type="radio" name="or_paytype" value="real-time">실시간 계좌이체</label>
+			        	<label class="pay-option mr-2"><input type="radio" name="or_paytype" value="without-bankbook">무통장 입금</label>
+			        </td>
+			      </tr>
+			      <tr>
+			        <td></td>
+			        <td></td>
+			      </tr>
+			    </tbody>
+			  </table>
+	    	</div>
+	    </div>
+	  	 <div class="row justify-content-center">
+		 	<button type="button" class="btn btn-danger btn-lg mt-3" id="buy_btn">결제하기</button>
+	 	</div>
+	</div>
 </form>
 
 
@@ -372,19 +384,28 @@ $(function(){
 		var basicStr =
 		  '<tr>' +
 	        '<td >이름</td>' +
-	        '<td>${user.me_name}<input type="hidden" class="form-control" name="or_name" value="${user.me_name}"></td>' +
+	        '<td>${user.me_name}</td>' +
 	       	'<td></td>' +
-	        '<td></td>' +
+	        '<td>' +
+	        	'<input type="hidden" class="form-control" name="or_name" value="${user.me_name}">' +
+	        	'<input type="hidden" class="form-control" name="or_email" value="${user.me_email}">' +
+	        	'<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}">' +
+	        	'<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">' +
+	        	'<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">' +
+	        	'<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">' +
+	        	'<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">' +
+	        	'<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">' +
+	       	'</td>' +
 	      '</tr>' +
 	      '<tr>' +
 	      	'<td>이메일</td>' +
-	        '<td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>' +
+	        '<td>${user.me_email}</td>' +
 	        '<td></td>' +
 	        '<td></td>' +
 	      '</tr>' +
 	      '<tr>' +
 	        '<td>전화번호</td>' +
-	        '<td>${user.me_phone}<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}"></td>' +
+	        '<td>${user.me_phone}</td>' +
 	        '<td></td>' +
 	        '<td></td>' +
 	      '</tr>' +
@@ -394,13 +415,7 @@ $(function(){
 	        	'${user.me_add1} / ${user.me_add2} <br>' +
 	        	'${user.me_add3} / ${user.me_add4}' +
 	        '</td>' +
-	        '<td>' +
-	        	'<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">' +
-	        	'<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">' +
-	        	'<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">' +
-	        	'<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">' +
-	        	'<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">' +
-	        '</td>' +
+	        '<td></td>' +
 	        '<td></td>'
 					
 		var insertStr =		
@@ -469,7 +484,7 @@ $(function(){
 		        pay_method : 'card',
 		        merchant_uid : 'merchant_' + new Date().getTime(),
 		        name : goods,
-		        amount : amount,
+		        amount : '100', //amount 입력
 		        buyer_email : email,
 		        buyer_name : name,
 		        buyer_tel : phone,

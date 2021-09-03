@@ -25,6 +25,8 @@
 <div class="container main-box"> 
 	<div class="right-board-box">	
  		<form class="mod-box" method= "post" action="<%=request.getContextPath()%>/admin/goods/modify">
+ 		<!-- input hidden -->
+		<input type="hidden" name="fu_img" value="${futsal.fu_img}"> 
  		<h3>상품등록</h3><hr>
 	    <div class="input-group mb-3">
 	      	<div class="input-group-prepend">
@@ -55,7 +57,6 @@
 					<div class="form-control img-form">
 						<span>${futsal.fu_img}</span>
 						<i class="fas fa-times"></i>
-						<input type="hidden" name="fu_img" value="${futsal.fu_img}"> 
 					</div>
 		</div>
 		<input type="hidden" name="fu_num" value="${futsal.fu_num}">

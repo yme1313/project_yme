@@ -12,11 +12,12 @@
   text-decoration: none;
   list-style : none;
 }
-.order-img-box {
-
+.title-box{
+	font-size : 30px;
+	font-weight : bold;
 }
 .fa-gifts{
-	font-size : 500px;
+	font-size : 300px;
 	text-align : center; 
 	color : red;
 	margin-bottom : 10px;
@@ -63,6 +64,16 @@
 	font-weight: bold;
 	font-size : 20px;
 }
+.order-info{
+	text-align : left;
+	width : 375px;
+	margin-left : auto;
+	margin-right : auto;
+}
+.info-bold{
+	font-weight : bold;
+	font-size : 20px;
+}
 </style>
 </head>
 <body>
@@ -87,8 +98,12 @@
 	<hr style="background:#343a40;">
 	<div class="order-img-box">
 		<div class="gift-box">
-		<i class="fas fa-gifts"></i><br>
-		<div class="order-text mb-2">
+			<i class="fas fa-gifts mb-2"></i><br>
+			<div class="order-info mb-3">
+				<div class="info-bold">주문번호 : ${order.or_title}</div>
+				<div class="info-bold">주문가격 : <fmt:formatNumber pattern="###,###,###" value="${order.or_price}" />원</div>
+			</div>
+		<div class="order-text mb-4">
 			결제가 완료 되었습니다.<br>
 			자세한 주문내역은 주문내역 확인하기 버튼을 클릭해주세요.
 		</div>
@@ -103,6 +118,15 @@
 		 </a>
 	 </div>
 </div>
-
+<script>
+function NotReload(){
+	if( (event.ctrlKey == true && (event.keyCode == 78 || event.keyCode == 82)) || (event.keyCode == 116) ) {
+		event.keyCode = 0; 
+		event.cancelBubble = true; 
+		event.returnValue = false; 
+		} 
+	} 
+document.onkeydown = NotReload;
+</script>
 </body>
 </html>

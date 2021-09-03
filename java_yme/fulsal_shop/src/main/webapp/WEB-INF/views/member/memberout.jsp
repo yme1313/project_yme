@@ -110,23 +110,26 @@ $(function(){
 		var me_pw = $('.check-pw [name=me_pw]').val();
 		var agree = $('[name=agree]').is(":checked");
 		var data = {me_pw : me_pw, agree : agree};
-		$.ajax({
-			type : 'post',
-			url : '<%=request.getContextPath()%>/member/outcheck',
-			data : JSON.stringify(data),
-			contentType : "application/json; charset:utf-8",
-			success : function(res){
-					if(res== 'OK'){
-						alert('회원 탈퇴에 성공했습니다.')
-						$('.out-box').submit();
-					} else if (res=='FAIL2') {
-						alert('안내 사항에 동의해야합니다.')
-						
-					} else if (res=='FAIL') {
-						alert('비밀번호를 확인하세요.')
-					} 
-				}
-		})
+		var confirm_val = confirm("정말 탈퇴하시겠습니까?");		
+		  if(confirm_val) {
+			$.ajax({
+				type : 'post',
+				url : '<%=request.getContextPath()%>/member/outcheck',
+				data : JSON.stringify(data),
+				contentType : "application/json; charset:utf-8",
+				success : function(res){
+						if(res== 'OK'){
+							alert('회원 탈퇴에 성공했습니다.')
+							$('.out-box').submit();
+						} else if (res=='FAIL2') {
+							alert('안내 사항에 동의해야합니다.')
+							
+						} else if (res=='FAIL') {
+							alert('비밀번호를 확인하세요.')
+						} 
+					}
+			})
+		  }
 	})
 })
 </script>

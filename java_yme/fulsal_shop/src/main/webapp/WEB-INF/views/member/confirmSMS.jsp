@@ -18,6 +18,7 @@
 <body>
 <h2 class="mt-2 ml-4">SMS 인증하기</h2>
 <div class="mt-2 ml-4">
+<!-- input hidden -->
 <input type="hidden" name="ranNum">
 	 <table class="table table-borderless sms-box">
 	   <tbody>

@@ -62,6 +62,10 @@
 	width : 120px; height : 120px;
 	text-align : center; 
 }
+.cart-list-box{
+	height : 450px;
+	overflow : auto;
+} 
 .img-box{
 	display : flex;  
 	margin-left: 25%;
@@ -161,7 +165,7 @@ td{
 </head>
 <body>
 <form id="direct_order" method="post" action="<%=request.getContextPath()%>/order/orderDirectOk">
-<!-- order 테이블에 저장할 내용 -->
+<!-- input hidden -->
 <input type="hidden" class="form-control" name="or_me_id" value="${user.me_id}">
 <input type="hidden" name="or_fuNums" value="${futsal.fu_num}">
 <input type="hidden" name="or_goodsname" value="${futsal.fu_name} ${futsal.size}/${cart.ca_count}개">
@@ -187,6 +191,7 @@ td{
 		<div class="title-box">02.주문/결제</div>
 		<hr style="background:#343a40;">
 		<div class="veryimpo-box mb-2">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
+		<div class="cart-list-box">
 		 <table class="table">
 		    <thead>
 		      <tr>
@@ -213,6 +218,7 @@ td{
 		      <c:set var="sum" value="${sum + (futsal.fu_price * cart.ca_count)}" />
 		    </tbody>
 	  	 </table>
+	  	 </div>
 	  	 <div class="delivery-text mt-2">※ 10만원 이상 구매시 배송비 무료 !</div>
 	  	 <div class="row justify-content-end mt-5 price-box ">
 			<div>총 주문 금액 : <fmt:formatNumber pattern="###,###,###" value="${sum}" />원
@@ -241,22 +247,32 @@ td{
 		      </tr>
 		    </thead>
 		    <tbody>
-					<tbody class="orderinfo">
+				<tbody class="orderinfo">
 			      <tr>
 			        <td >이름</td>
-			        <td>${user.me_name}<input type="hidden" class="form-control" name="or_name" value="${user.me_name}"></td>
+			        <td>${user.me_name}</td>
 			       	<td></td>
-			        <td></td>
+			        <td>
+			        	<!-- input hidden -->
+			        	<input type="hidden" class="form-control" name="or_name" value="${user.me_name}">
+			        	<input type="hidden" class="form-control" name="or_email" value="${user.me_email}">
+			        	<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}">
+     				    <input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">
+			        	<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">
+			        	<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">
+			        	<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">
+			        	<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">
+			        </td>
 			      </tr>
 			      <tr>
 			      	<td>이메일</td>
-			        <td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>
+			        <td>${user.me_email}</td>
 			        <td></td>
 			        <td></td>
 			      </tr>
 			      <tr>
 			        <td>전화번호</td>
-			        <td>${user.me_phone}<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}"></td>
+			        <td>${user.me_phone}</td>
 			        <td></td>
 			        <td></td>
 			      </tr>
@@ -267,11 +283,7 @@ td{
 			        	${user.me_add3} / ${user.me_add4}
 			        </td>
 			        <td>
-			        	<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">
-			        	<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">
-			        	<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">
-			        	<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">
-			        	<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">
+
 			        </td>
 			        <td></td>
 				 </tbody>
@@ -363,19 +375,28 @@ $(function(){
 		var basicStr =
 		  '<tr>' +
 	        '<td >이름</td>' +
-	        '<td>${user.me_name}<input type="hidden" class="form-control" name="or_name" value="${user.me_name}"></td>' +
+	        '<td>${user.me_name}</td>' +
 	       	'<td></td>' +
-	        '<td></td>' +
+	        '<td>' +
+	        	'<input type="hidden" class="form-control" name="or_name" value="${user.me_name}">' +
+	        	'<input type="hidden" class="form-control" name="or_email" value="${user.me_email}">' +
+	        	'<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}">' +
+	        	'<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">' +
+	        	'<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">' +
+	        	'<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">' +
+	        	'<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">' +
+	        	'<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">' +
+       		'</td>' +
 	      '</tr>' +
 	      '<tr>' +
 	      	'<td>이메일</td>' +
-	        '<td>${user.me_email}<input type="hidden" class="form-control" name="or_email" value="${user.me_email}"></td>' +
+	        '<td>${user.me_email}</td>' +
 	        '<td></td>' +
 	        '<td></td>' +
 	      '</tr>' +
 	      '<tr>' +
 	        '<td>전화번호</td>' +
-	        '<td>${user.me_phone}<input type="hidden" class="form-control" name="or_phone" value="${user.me_phone}"></td>' +
+	        '<td>${user.me_phone}</td>' +
 	        '<td></td>' +
 	        '<td></td>' +
 	      '</tr>' +
@@ -385,13 +406,7 @@ $(function(){
 	        	'${user.me_add1} / ${user.me_add2} <br>' +
 	        	'${user.me_add3} / ${user.me_add4}' +
 	        '</td>' +
-	        '<td>' +
-	        	'<input type="hidden" class="form-control" name="or_postnum" value="${user.me_postnum}">' +
-	        	'<input type="hidden" class="form-control" name="or_add1" value="${user.me_add1}">' +
-	        	'<input type="hidden" class="form-control" name="or_add2" value="${user.me_add2}">' +
-	        	'<input type="hidden" class="form-control" name="or_add3" value="${user.me_add3}">' +
-	        	'<input type="hidden" class="form-control" name="or_add4" value="${user.me_add4}">' +
-	        '</td>' +
+	        '<td></td>' +
 	        '<td></td>'
 					
 		var insertStr =		

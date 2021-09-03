@@ -15,6 +15,10 @@
 .right-board-box{
 	position: relative;
 }
+.search-box{
+	position : absolute; 
+	top : 0; right :3%;
+}
  a:hover{
 	text-decoration : none;	
 }
@@ -32,7 +36,7 @@ h3{
 	display : flex;
 }
 .order-list-box{
-	width : 500px; height : 650px;
+	width : 800px; height : 650px;
 }
 .order-title-text{
 	font-size : 20px;
@@ -49,27 +53,28 @@ h3{
 	float : right;
 	margin-top : 10px; margin-right : 10px;
 }
-.veryimpo-box{
-	font-size : 18px;
-	font-weight : bold;
-	color : red;
-}	
 </style>
 </head>
 <body>
 	<br>
-	<div class="container main-box">
-		<div class="right-board-box">	
-			<h3>주문 내역</h3> 
-			<div class="veryimpo-box mb-2">※ 주문/취소내역은 3개월까지만 보관됩니다.</div>
-			<c:if test="${list.size() != 0 }">
-				<div class="container board-box">    	  
-					<c:forEach items="${list}" var="order">
+	<form id="orderCancle" method="post" action="<%=request.getContextPath()%>/order/cancle">	
+	<!-- input hidden -->
+	<input type="hidden" name="or_fuNums" value="${order.or_fuNums}">
+	<input type="hidden" name="or_count" value="${order.or_count}">
+	<input type="hidden" name="or_size" value="${order.or_size}">	
+		<div class="container main-box">
+			<div class="right-board-box">	
+				<h3>주문 내역</h3> 
+				<div class="container board-box">    	 
 					<div class="order-list-box mr-4 mb-3">
 						<div class="order-title-box mb-2">
+							<input type="hidden" name="or_num" value="${order.or_num}">
 							<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 							<span class="order-title-text mr-2">${order.or_title}</span>
 							<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
+							<c:if test="${order.or_cancle == 'N' && order.or_state == '주문확인중' }">
+								<button type="button" id="cancle_btn" class="btn btn-outline-danger btn-sm">주문취소</button>
+							</c:if>				
 						</div>
 						<div class="container">
 						  <table class="table table-bordered">
@@ -118,33 +123,19 @@ h3{
 						  </table>
 						</div>  
 					</div>	  
-					</c:forEach>
 				</div>
-			  	<ul class="pagination justify-content-center">
-				  <c:if test="${pm.prev}">
-				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${pm.startPage-1}">이전</a></li>
-				  </c:if> 
-				  <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-				  	<c:choose>
-					  	<c:when test="${pm.criteria.page == index}">
-					    	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${index}">${index}</a></li>
-		    			</c:when>
-		    			 <c:otherwise>
-		    				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${index}">${index}</a></li>
-		    			</c:otherwise>
-	    			</c:choose>
-				  </c:forEach> 
-				  <c:if test="${pm.next}">
-				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/cancle_list?page=${pm.endPage+1}">다음</a></li>
-				  </c:if>  
-			 	 </ul>
-			 </c:if>
-			 <c:if test="${list.size() == 0}">
-			 취소된 주문번호가 없습니다.
-			 </c:if>	 
-		</div>
-	</div>	
+			</div>
+		</div>	
+	</form>
 <script>
-</script>
+$(function(){
+	$('#cancle_btn').click(function(){
+		var confirm_val = confirm("정말 취소하시겠습니까?");		
+		  if(confirm_val) {
+		  		$('#orderCancle').submit();
+		  }
+	})
+})
+</script>	
 </body>
 </html>

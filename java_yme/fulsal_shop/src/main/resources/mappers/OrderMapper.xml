@@ -72,6 +72,10 @@
 			or_state = '배송시작'
 			where or_num = #{or_num}
 	</update>
+	<delete id="erase">
+		delete from cart
+			where or_me_id = #{me_id}
+	</delete>
 
 	
 </mapper>

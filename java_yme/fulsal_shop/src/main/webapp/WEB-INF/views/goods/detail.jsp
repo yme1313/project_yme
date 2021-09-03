@@ -34,7 +34,7 @@
 	margin : 3px;
 }
 .info{
-	overflow : scroll;
+	overflow : auto;
 	width: 200%; height: 950px;
 }
 .num-box{
@@ -46,25 +46,27 @@
 </head>
 <body>
 <form class="container main-box" method="post" action="<%=request.getContextPath()%>/order/direct">
-		<div class="main-img-box">
-			<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}">
-			<div class="info">${futsal.fu_info}</div>
-		</div>
-		<div class="text-box">
-			<div class="title">${futsal.fu_name}</div>
-			  <table class="table table-borderless">
-			    <tbody>
-			      <tr>
-			        <td class="first">브랜드 :</td>
-			        <td>${futsal.fu_brand}</td>
-			      </tr>
-			      <tr>
-			        <td class="first">가격 :</td>
-			        <td><fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price}" />원</td>
-			      </tr>
-			    </tbody>
-			  </table>
-			  <hr>
+<!-- input hidden -->
+<input type="hidden" name="fu_num" value="${futsal.fu_num}">
+	<div class="main-img-box">
+		<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}">
+		<div class="info">${futsal.fu_info}</div>
+	</div>
+	<div class="text-box">
+		<div class="title">${futsal.fu_name}</div>
+		  <table class="table table-borderless">
+		    <tbody>
+		      <tr>
+		        <td class="first">브랜드 :</td>
+		        <td>${futsal.fu_brand}</td>
+		      </tr>
+		      <tr>
+		        <td class="first">가격 :</td>
+		        <td><fmt:formatNumber pattern="###,###,###" value="${futsal.fu_price}" />원</td>
+		      </tr>
+		    </tbody>
+		  </table>
+		  <hr>
 		  <div class="option-box">
 	 		  <table class="table table-borderless">
 			    <tbody>		    
@@ -78,18 +80,17 @@
 							</c:forEach>	
 		     			</select>	
 						<span class="caution">주문량이 많은 상품은 주문완료시 품절이 될 수 있습니다.</span>
-						<input type="hidden" name="fu_num" value="${futsal.fu_num}">
 			        </td>
 			      </tr>
 			    </tbody>
 			  </table>	
 			 <hr>
-		  </div> 
-	   <span class="btn-box mr-5">
-		  <a href="#"><button type="button" class="btn btn-outline-dark mr-1 cart-add">장바구니</button></a>
-	      	<button type="submit" class="btn btn-outline-dark go-buy">구매하기</button>
-	   </span>
-	   <span>총 가격 : </span><span class="total">0 원</span>
+		 </div> 
+		 <span class="btn-box mr-5">
+			 <a href="#"><button type="button" class="btn btn-outline-dark mr-1 cart-add">장바구니</button></a>
+		     	<button type="submit" class="btn btn-outline-dark go-buy">구매하기</button>
+		 </span>
+	 	 <span>총 가격 : </span><span class="total">0 원</span>
 	</div>
 </form>	
 <script type="text/javascript">

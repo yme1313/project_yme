@@ -37,9 +37,10 @@ a:hover{
 					<c:if test="${type ne '/notice'}">  
 						<input type="text" class="form-control" name="bd_me_id" value="${board.bd_me_id}" readonly>
 					</c:if>
-					<c:if test="${type eq '/notice'}">  
+					<c:if test="${type eq '/notice'}"> 
+						<!-- input hidden -->
+						<input type="hidden" name="bd_me_id" value="${board.bd_me_id}"> 
 						<div class="form-control writer">관리자</div>
-						<input type="hidden" name="bd_me_id" value="${board.bd_me_id}" readonly>
 					</c:if>
 				</div>
 				<div class="form-group">

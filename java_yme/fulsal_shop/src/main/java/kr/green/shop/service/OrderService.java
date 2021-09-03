@@ -16,7 +16,7 @@ public interface OrderService {
 
 	OrderVO getOrder(int or_num);
 
-	String cancleOrder(OrderVO order);
+	void cancleOrder(OrderVO order);
 
 	ArrayList<OrderVO> getOrderCancleList(Criteria cri, MemberVO user);
 

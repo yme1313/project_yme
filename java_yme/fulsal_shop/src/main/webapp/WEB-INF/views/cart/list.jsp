@@ -65,6 +65,10 @@
 	font-weight : bold;
 	color : blue;
 }
+.cart-list-box{
+	height : 450px;
+	overflow : auto;
+}
 img{
 	width : 70px; height : 90px;
 }
@@ -85,91 +89,93 @@ td{
 </head>
 <body>
 <form method="post" action="<%=request.getContextPath()%>/order/cart_order">
-<div class="main-box">
-	<ul class="img-box">
-		<li class="round-box">
-			<i class="fas fa-shopping-cart mb-1"></i><br>장바구니
-			<div class="num-box">01</div>
-		</li>
-		<li class="round-box">
-			<i class="fas fa-calculator mb-1"></i><br>주문/결제
-			<div class="num-box">02</div>
-		</li>
-		<li class="round-box">
-			<i class="fas fa-check-square mb-1"></i><br>결제완료
-			<div class="num-box">03</div>
-		</li>
-	</ul>
-</div>	
-<div class="cart-box">
-	<div class="title-box">01.장바구니</div>
-	<hr style="background:#343a40;">
-	<div class="waring-box mb-2">
-		<div class="title">장바구니 유의사항</div><br>
-		장바구니에 담긴 상품은 30일까지만 저장됩니다.(이후 삭제)<br>
-		구매하실 상품을 장바구니에 담으시고, 주문하기를 눌러주지 않으시면, 주문이 전혀 안됩니다.<br>
-		주문하실 다른 물건이 있으면, 하단에 <span class="bold-text">"쇼핑계속하기"</span> 버튼을 클릭 하셔서 이용해주세요.
-	</div>
-	<div class="veryimpo-box">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
-	 <table class="table">
-	    <thead>
-	      <tr>
-	      	<th><input type="checkbox" id="allCheck"></th>
-	        <th>상품명</th>
-	        <th>상품금액</th>
-	        <th>옵션</th>
-	        <th>수량</th>
-	        <th>합계금액</th>
-	        <th>비고</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	    <c:forEach items="${list}" var="cart">
-	      <tr class="list-box">
-	      	<td><input type="checkbox" class="ckBox" name="ca_num" data-target="${cart.ca_price}" value="${cart.ca_num}"></td>
-	        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
-	        <td>
-	        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
-	        </td>
-			<td>${cart.size}</td>
-	        <td>총 : ${cart.ca_count}개</td>
-	        <td>
-	        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
-	        </td>
-	        <td>
-	        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>
-	        	<input type="hidden" id="ca_num" value="${cart.ca_num}">	
-	        	<input type="hidden" name="fu_num" value="${cart.fu_num}">
-	        	<input type="hidden" name="ca_me_id" value="${cart.ca_me_id}">
-	        </td>
-	      </tr> 
-	     </c:forEach>
-	    </tbody>
-  	 </table>
-  	 <div class="cart-price">
-	     <span>합계금액 :</span>
-	     <span class="total">0 원</span>
-     </div>
-     <div class="cart-btn-box">
-		 <button type ="button" class="btn btn-outline-danger btn-sm all-sel-btn">전체 상품 선택</button>
-		 <button type ="button" class="btn btn-outline-danger btn-sm sel-del-btn">선택 삭제</button>
-	 </div>
-	 <div class="delivery-text mt-2">※ 10만원 이상 구매시 배송비 무료 !</div>
-  	 <div class="row justify-content-center mt-5 price-box ">
-		<div>총 주문 금액 : <span class="total">0 원</span>
-		<i class="fas fa-plus"></i> 배송비 : 
-		<span class="delivery">2,500 원</span>
-		<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2,500 원</span>
+	<div class="main-box">
+		<ul class="img-box">
+			<li class="round-box">
+				<i class="fas fa-shopping-cart mb-1"></i><br>장바구니
+				<div class="num-box">01</div>
+			</li>
+			<li class="round-box">
+				<i class="fas fa-calculator mb-1"></i><br>주문/결제
+				<div class="num-box">02</div>
+			</li>
+			<li class="round-box">
+				<i class="fas fa-check-square mb-1"></i><br>결제완료
+				<div class="num-box">03</div>
+			</li>
+		</ul>
+	</div>	
+	<div class="cart-box">
+		<div class="title-box">01.장바구니</div>
+		<hr style="background:#343a40;">
+		<div class="waring-box mb-2">
+			<div class="title">장바구니 유의사항</div><br>
+			장바구니에 담긴 상품은 30일까지만 저장됩니다.(이후 삭제)<br>
+			구매하실 상품을 장바구니에 담으시고, 주문하기를 눌러주지 않으시면, 주문이 전혀 안됩니다.<br>
+			주문하실 다른 물건이 있으면, 하단에 <span class="bold-text">"쇼핑계속하기"</span> 버튼을 클릭 하셔서 이용해주세요.
 		</div>
-	 </div>
-	 <div class="row justify-content-center"> 
-		<a href="<%=request.getContextPath()%>/goods/shoes">
-		    <button type="button" class="btn btn-dark btn-lg mr-2">계속 쇼핑하기</button>
-		 </a>
-		
-		 <button type="submit" class="btn btn-danger btn-lg order-btn">주문하기</button>
-	 </div>
-</div>
+		<div class="veryimpo-box">※ 주문량이 많은 상품은 주문 도중에도 재고 수량이 부족할 수 있습니다.</div>
+		<div class="cart-list-box mb-2">
+		 <table class="table">
+		    <thead>
+		      <tr>
+		      	<th><input type="checkbox" id="allCheck"></th>
+		        <th>상품명</th>
+		        <th>상품금액</th>
+		        <th>옵션</th>
+		        <th>수량</th>
+		        <th>합계금액</th>
+		        <th>비고</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    <c:forEach items="${list}" var="cart">
+		    <!-- input hidden -->
+		    <input type="hidden" id="ca_num" value="${cart.ca_num}">	
+        	<input type="hidden" name="fu_num" value="${cart.fu_num}">
+        	<input type="hidden" name="ca_me_id" value="${cart.ca_me_id}">
+		      <tr class="list-box">
+		      	<td><input type="checkbox" class="ckBox" name="ca_num" data-target="${cart.ca_price}" value="${cart.ca_num}"></td>
+		        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
+		        <td>
+		        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
+		        </td>
+				<td>${cart.size}</td>
+		        <td>총 : ${cart.ca_count}개</td>
+		        <td>
+		        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
+		        </td>
+		        <td>
+		        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>
+		        </td>
+		      </tr> 
+		     </c:forEach>
+		    </tbody>
+	  	 </table>
+	  	 </div>
+	  	 <div class="cart-price">
+		     <span>합계금액 :</span>
+		     <span class="total">0 원</span>
+	     </div>
+	     <div class="cart-btn-box">
+			 <button type ="button" class="btn btn-outline-danger btn-sm all-sel-btn">전체 상품 선택</button>
+			 <button type ="button" class="btn btn-outline-danger btn-sm sel-del-btn">선택 삭제</button>
+		 </div>
+		 <div class="delivery-text mt-2">※ 10만원 이상 구매시 배송비 무료 !</div>
+	  	 <div class="row justify-content-center mt-5 price-box ">
+			<div>총 주문 금액 : <span class="total">0 원</span>
+			<i class="fas fa-plus"></i> 배송비 : 
+			<span class="delivery">2,500 원</span>
+			<i class="fas fa-equals mr-1"></i>결제 금액 : <span class="order-price">2,500 원</span>
+			</div>
+		 </div>
+		 <div class="row justify-content-center"> 
+			<a href="<%=request.getContextPath()%>/goods/shoes">
+			    <button type="button" class="btn btn-dark btn-lg mr-2">계속 쇼핑하기</button>
+			</a>
+			<button type="submit" class="btn btn-danger btn-lg order-btn">주문하기</button>
+		 </div>
+	</div>
 </form>
 
 
@@ -232,6 +238,7 @@ $(function(){
 				    success : function(res){
 					     if(res == 'OK'){
 					    	 alert('삭제에 성공했습니다.')
+					    	 $("input[class='ckBox']:checked").parent().parent().remove()
 					     } else {
 					    	 alert('삭제에 실패했습니다.')
 					     }

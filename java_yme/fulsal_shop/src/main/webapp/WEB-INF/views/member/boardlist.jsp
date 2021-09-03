@@ -99,10 +99,11 @@
 				</div>
 		</div>
 		<form id="pwBox" class="pw-box" method="post" action="<%=request.getContextPath()%>/board/detail">
+		<!-- input hidden -->
+		<input type="hidden" name="bd_num">
 			<div class="pw-input-box form-group pl-2 pr-2">
 				<label class="mt-1">비밀번호를 입력하세요</label>
 				<input type="password" name="bd_pw" class="form-control mb-2">
-				<input type="hidden" name="bd_num">
 				<button type="button" class="btn btn-outline-danger col-4 mr-2">확인</button>
 				<a href="<%=request.getContextPath()%>/board/list"><span class="btn btn-outline-dark col-4">닫기</span></a>
 			</div>

@@ -46,7 +46,7 @@
 		</form> 
 		<div class="container board-box">   
 		<h3>주문 관리</h3> 
-	  <c:if test="${list.size() != 0 }">
+	  	<c:if test="${list.size() != 0 }">
 		 <table class="table table-striped">   
 		   <thead>
 		     <tr>
@@ -78,7 +78,7 @@
 		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/order/list?page=${pm.startPage-1}&type=${pm.criteria.type}&search=${pm.criteria.search}">이전</a></li>
 		    </c:if>
 		    <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-		   		<li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/user/list?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>	    
+		   		<li class="page-item <c:if test="${pm.criteria.page == index}">active</c:if>"><a class="page-link" href="<%=request.getContextPath()%>/admin/order/list?page=${index}&type=${pm.criteria.type}&search=${pm.criteria.search}">${index}</a></li>	    
 		   </c:forEach>
 		    <c:if test="${pm.next}">
 		   		<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/admin/order/list?page=${pm.endPage+1}&type=${pm.criteria.type}&search=${pm.criteria.search}">다음</a></li>
