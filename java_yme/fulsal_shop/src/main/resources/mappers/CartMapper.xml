@@ -43,6 +43,12 @@
 			ca_price = (ca_price + #{ca_price})
 			where ca_me_id = #{ca_me_id} and ca_fu_num = #{ca_fu_num} and ca_size = #{ca_size}
 	</update>
+	<update id="updateCount">
+		update cart set 
+			ca_count = #{ca_count},
+			ca_price = #{ca_price}
+			where ca_num = #{ca_num}
+	</update>
 	<delete id="erase">
 		delete from cart
 			where ca_me_id = #{me_id}

@@ -85,10 +85,15 @@ td{
 	height : 100px;
 	font-size : 25px;
 }
+.count{
+	width : 30px;
+	height : 30px;
+	text-align : center;
+}
 </style>
 </head>
 <body>
-<form method="post" action="<%=request.getContextPath()%>/order/cart_order">
+<form id="cart_order" method="post" action="<%=request.getContextPath()%>/order/cart_order">
 	<div class="main-box">
 		<ul class="img-box">
 			<li class="round-box">
@@ -131,22 +136,26 @@ td{
 		    <tbody>
 		    <c:forEach items="${list}" var="cart">
 		    <!-- input hidden -->
-        	<input type="hidden" name="fu_num" value="${cart.fu_num}">
+        	<input type="hidden" name="ca_fu_num" value="${cart.ca_fu_num}">
         	<input type="hidden" name="ca_me_id" value="${cart.ca_me_id}">
+        	<input type="hidden" name="ca_size" value="${cart.ca_size}">
+        	<input type="hidden" id="ca_num" value="${cart.ca_num}">
+        	<input type="hidden" name="fu_price" value="${cart.fu_price}">
 		      <tr class="list-box">
-		      	<td><input type="checkbox" class="ckBox" name="ca_num" data-target="${cart.ca_price}" value="${cart.ca_num}"></td>
+		      	<td class="check">
+		      		<input type="checkbox" class="ckBox" name="ca_num" data-target="${cart.ca_price}" value="${cart.ca_num}">
+		      	</td>
 		        <td><img alt="" class="mr-2" src="<%=request.getContextPath()%>/resources/img/${cart.fu_img}">${cart.fu_name}</td>
 		        <td>
 		        	<fmt:formatNumber pattern="###,###,###" value="${cart.fu_price}" />원
 		        </td>
 				<td>${cart.size}</td>
-		        <td>총 : ${cart.ca_count}개</td>
-		        <td>
-		        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원
+		        <td class="count-box"><input type="text" class="count" name="ca_count" value="${cart.ca_count}">개</td>
+		        <td class="price">
+		        	<fmt:formatNumber pattern="###,###,###" value="${cart.ca_price}" />원	
 		        </td>
 		        <td>
-		        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>
-		        	<input type="hidden" id="ca_num" value="${cart.ca_num}">	
+		        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>        		
 		        </td>
 		      </tr> 
 		     </c:forEach>
@@ -201,7 +210,6 @@ $(function(){
 	
 	$('.ckBox').click(function(){
 		$('#allCheck').prop("checked",false)
-		var ddd = $(this).attr('data-target')
 		itemSum();
 	})
 	
@@ -247,14 +255,56 @@ $(function(){
 				})
 		 } 
 	})
+	$('.count').change(function(){
+		var count = $(this).val()
+		var price = $(this).parent().parent().siblings('[name=fu_price]').val()
+		var cgPrice = (count * price)
+		$(this).parent().siblings('.price').html(cgPrice.toLocaleString() + '원')
+		$(this).parent().siblings('.check').children('[name=ca_num]').attr('data-target', cgPrice)	
+		$('.ckBox').prop("checked",false)
+		itemSum()
+	})
 	
 	$('.order-btn').click(function(e){
+		e.preventDefault()
 		var length = $('input:checkbox[name=ca_num]:checked').length
+		var checkArr = [];
+		var countArr = [];
+		var priceArr = [];
+		$("input[class='ckBox']:checked").each(function(){
+			checkArr.push($(this).val());
+		})
+		$("input[class='ckBox']:checked").parent().siblings('.count-box').children().each(function(){
+			countArr.push($(this).val());
+		})
+		$("input[class='ckBox']:checked").each(function(){
+			priceArr.push($(this).attr('data-target'));
+		})
+		var data = {
+			ca_num : checkArr,
+			ca_count : countArr,
+			ca_price : priceArr
+		}
 		if(length == 0){
-			e.preventDefault()
 			alert('구매할 물건을 선택하세요.')
 		} 
-	})
+		var confirm_val = confirm("구매하시겠습니까?");		
+		  if(confirm_val) {
+			   $.ajax({
+				    type : "post",
+				    url : contextPath + '/order/buyGoods',
+					data: data,
+				    success : function(res){
+						if(res == 'OK'){
+							alert('주문 페이지로 이동합니다.')
+							$('#cart_order').submit();
+						} else {
+							alert('주문에 실패했습니다.')
+						}
+				    }
+				})
+		 } 
+	})	
 
 	
 })

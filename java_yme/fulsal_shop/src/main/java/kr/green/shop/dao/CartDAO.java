@@ -2,6 +2,8 @@ package kr.green.shop.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.MemberVO;
 
@@ -26,5 +28,8 @@ public interface CartDAO {
 	void updateCart(CartVO cart);
 
 	CartVO getDbCart(CartVO cart);
+
+	void updateCount(@Param("ca_num")int ca_num, @Param("ca_count")int ca_count, @Param("ca_price")int ca_price);
+
 
 }

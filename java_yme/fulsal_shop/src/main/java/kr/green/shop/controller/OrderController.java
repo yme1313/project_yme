@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.shop.pagination.Criteria;
@@ -41,6 +43,16 @@ public class OrderController {
 		mv.setViewName("/template6/order/direct");
 		return mv;
 	}	
+	@ResponseBody
+	@PostMapping("/order/buyGoods")
+	public String buyGoodsPost(			
+			@RequestParam(value = "ca_num[]") String[] checkArr, 
+			@RequestParam(value = "ca_count[]") String[] countArr,
+			@RequestParam(value = "ca_price[]") String[] priceArr) {
+			return cartService.updateCount(checkArr,countArr, priceArr);
+		}
+		
+	
 	@PostMapping("/order/cart_order")
 	public ModelAndView Cart_orderPost(ModelAndView mv, Integer[] ca_num, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);

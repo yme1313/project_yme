@@ -16,6 +16,10 @@
       */
       $('#male').prop('checked',true);
       $('#pw').prop('readonly',true)
+      $('#button').click(function(){
+        var str = $('#pw').attr('data-target')
+        console.log(str)
+      })
 
 
     })
@@ -26,6 +30,7 @@
   <input type="text" id="id" readonly> <br>
   <input type="checkbox" name="gender" id="male">남성<br>
   <input type="checkbox" name="gender" id="female">여성<br>
-  <input type="text" id="pw"><br>
+  <input type="text" id="pw" data-target="123"><br>
+  <button id="button">버튼</button>
 </body>
 </html>

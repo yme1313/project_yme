@@ -19,9 +19,9 @@ public interface CartService {
 
 	CartVO getOrderCart(Integer num);
 
-	CartVO getDeleteCart(Integer num);
-
 	void deletdOrderCart(Integer[] ca_num);
+
+	String updateCount(String[] checkArr, String[] countArr, String[] priceArr);
 
 
 }

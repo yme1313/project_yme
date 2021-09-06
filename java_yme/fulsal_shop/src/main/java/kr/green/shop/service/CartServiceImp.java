@@ -1,6 +1,7 @@
 package kr.green.shop.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
 
@@ -77,12 +78,6 @@ public class CartServiceImp implements CartService{
 	}
 
 	@Override
-	public CartVO getDeleteCart(Integer num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void deletdOrderCart(Integer[] ca_num) {
 		if(ca_num != null) {
 			for(Integer num : ca_num) {
@@ -92,13 +87,19 @@ public class CartServiceImp implements CartService{
 		
 	}
 
-
-
-
-
-
-
-
+	@Override
+	public String updateCount(String[] checkArr, String[] countArr, String[] priceArr) {
+		int[] nums = Arrays.asList(checkArr).stream().mapToInt(Integer::parseInt).toArray();
+		int[] count = Arrays.asList(countArr).stream().mapToInt(Integer::parseInt).toArray();
+		int[] price = Arrays.asList(priceArr).stream().mapToInt(Integer::parseInt).toArray();
+		if(checkArr == null || countArr == null || priceArr == null) {
+			return "FAIL";
+		} 
+		for(int i=0 ; i < checkArr.length ; i++) {
+			cartDao.updateCount(nums[i],count[i],price[i]);
+		}
+		return "OK";
+	}
 
 
 }
