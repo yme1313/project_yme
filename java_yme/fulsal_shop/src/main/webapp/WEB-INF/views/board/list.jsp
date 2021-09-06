@@ -42,7 +42,7 @@ a:hover{
 }
 .pw-bg-box{
 	width : 100%;
-	height : 100%;
+	height : 270%;
 	background : black;
 	opacity : 0.3;
 }

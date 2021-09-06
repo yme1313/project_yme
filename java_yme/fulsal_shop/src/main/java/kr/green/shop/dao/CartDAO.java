@@ -23,4 +23,8 @@ public interface CartDAO {
 
 	void erase(String me_id);
 
+	void updateCart(CartVO cart);
+
+	CartVO getDbCart(CartVO cart);
+
 }

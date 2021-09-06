@@ -131,7 +131,6 @@ td{
 		    <tbody>
 		    <c:forEach items="${list}" var="cart">
 		    <!-- input hidden -->
-		    <input type="hidden" id="ca_num" value="${cart.ca_num}">	
         	<input type="hidden" name="fu_num" value="${cart.fu_num}">
         	<input type="hidden" name="ca_me_id" value="${cart.ca_me_id}">
 		      <tr class="list-box">
@@ -147,6 +146,7 @@ td{
 		        </td>
 		        <td>
 		        	<button class="btn btn-outline-danger btn-sm del-btn">삭제</button>
+		        	<input type="hidden" id="ca_num" value="${cart.ca_num}">	
 		        </td>
 		      </tr> 
 		     </c:forEach>
@@ -209,6 +209,7 @@ $(function(){
 		$(this).parent().parent().remove()
 		var ca_num = $(this).siblings('#ca_num').val()
 		var data = {ca_num : ca_num}
+		console.log(ca_num);
 	   $.ajax({
 		    type : "post",
 		    url : contextPath + '/cart/del',

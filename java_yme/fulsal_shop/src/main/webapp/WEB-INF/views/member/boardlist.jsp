@@ -34,14 +34,16 @@
 }
 .pw-box .pw-input-box{
 	width : 250px; height : 130px; border: 1px solid darkslategray; background : white;
-	top : 30%; left : 40vw; z-index :3;  border-radius : 10px; text-align : center;
+	top : 55%; left : 25vw; z-index :3;  border-radius : 10px; text-align : center;
 	position : absolute; 
 }
 .pw-bg-box{
-	position : absolute; width : 100vw; height : 130vh;
-	top : -25%; 
-	background : black; opacity : 0.3;
+	width : 100%;
+	height : 270%;
+	background : black;
+	opacity : 0.3;
 }
+
 </style>
 </head>
 <body>
@@ -105,7 +107,7 @@
 				<label class="mt-1">비밀번호를 입력하세요</label>
 				<input type="password" name="bd_pw" class="form-control mb-2">
 				<button type="button" class="btn btn-outline-danger col-4 mr-2">확인</button>
-				<a href="<%=request.getContextPath()%>/board/list"><span class="btn btn-outline-dark col-4">닫기</span></a>
+				<a href="<%=request.getContextPath()%>/member/boardlist"><span class="btn btn-outline-dark col-4">닫기</span></a>
 			</div>
 			<div class="pw-bg-box"></div>
 		</form>	

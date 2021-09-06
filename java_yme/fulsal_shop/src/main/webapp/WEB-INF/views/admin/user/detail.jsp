@@ -72,8 +72,10 @@
 	<div class="container main-box">
 		<div class="right-board-box">
 			<form class="container modifyUser" method="post" action="<%=request.getContextPath()%>/admin/user/modify">
+			<!-- input hidden -->
+			<input type="hidden" name="me_pw" value="${user.me_pw}">
 				<h3>개인정보수정</h3>
-					<table class="table">
+				<table class="table">
 				<thead>
 				</thead>
 				<tbody>
@@ -82,16 +84,6 @@
 						<td>
 							<input type="text" class="form-control col-12" name="me_id" value="${user.me_id}" readonly>
 						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>비밀번호</td>
-						<td><input type="password" class="form-control col-12" name="me_pw" id="me_pw" value="${user.me_pw}" readonly></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>비밀번호 확인</td>
-						<td><input type="password" class="form-control col-12" name="me_pw2" value="${user.me_pw}" readonly></td>
 						<td></td>
 					</tr>
 					<tr>

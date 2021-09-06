@@ -68,7 +68,8 @@
 			       <td>${order.or_me_id}</td>	 
 			       <td>${order.or_DateStr}</td>
 			       <td>${order.payStr}</td>
-			       <td>${order.or_state}</td>   
+			       <td>${order.or_state}</td>  
+			       <td></td> 
 			     </tr>
 			</c:forEach>
 		   </tbody>

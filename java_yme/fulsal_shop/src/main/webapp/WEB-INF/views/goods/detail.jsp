@@ -48,6 +48,7 @@
 <form class="container main-box" method="post" action="<%=request.getContextPath()%>/order/direct">
 <!-- input hidden -->
 <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+<input type="hidden" name="ca_me_id" value="${user.me_id}">
 	<div class="main-img-box">
 		<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}">
 		<div class="info">${futsal.fu_info}</div>
@@ -123,7 +124,6 @@ $(function(){
 					  '<span class="add-opt-box mr-5">' + name + '-' + opt + '</span>' +
 					  '<span class="count-box">' +
 					  '<input class="mr-2 num-box" type="text" value="1" name="ca_count" + readonly>' +
-					  '<input class="num-box" type="hidden" value="1" name="fu_direct">' +
 					  '<span class="img-box">' +
 					  '<i class="fas fa-caret-up"></i>' +
 					  '<i class="fas fa-caret-down"></i>' +
@@ -180,12 +180,14 @@ $(function(){
 		var price = $('.total').text()
 		var ca_price = parseInt(price.replace(regex, ""))
 		var ca_size = $('#hidden').val()
+		var ca_me_id = $('[name=ca_me_id]').val()
 		var zero = '0 원';
 		var data = {
 			ca_fu_num : fu_num,
 			ca_count : ca_count,
 			ca_size : ca_size,
-			ca_price : ca_price
+			ca_price : ca_price,
+			ca_me_id : ca_me_id
 		}
 		if($('.num-box').length == 0){
 			alert('옵션을 선택하세요.')

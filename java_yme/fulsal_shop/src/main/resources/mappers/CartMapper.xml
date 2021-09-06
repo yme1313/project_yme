@@ -19,6 +19,10 @@
 			join futsal on ca_fu_num = ca_num
 			where ca_valid = 'I' and ca_num = #{num}
 	</select>
+	<select id="getDbCart" resultType="kr.green.shop.vo.CartVO">
+		select * from cart
+			where ca_me_id = #{ca_me_id} and ca_fu_num = #{ca_fu_num} and ca_size = #{ca_size} and ca_valid = 'I'
+	</select>
 	<insert id="insertCart">
 		insert into cart(ca_me_id, ca_fu_num, ca_size, ca_count, ca_price)
 			values(#{ca_me_id}, #{ca_fu_num}, #{ca_size}, #{ca_count}, #{ca_price})
@@ -32,6 +36,12 @@
 		update cart set
 			ca_valid = 'D'
 			where ca_num = #{ca_num}
+	</update>
+	<update id="updateCart">
+		update cart set
+			ca_count = (ca_count + #{ca_count}),
+			ca_price = (ca_price + #{ca_price})
+			where ca_me_id = #{ca_me_id} and ca_fu_num = #{ca_fu_num} and ca_size = #{ca_size}
 	</update>
 	<delete id="erase">
 		delete from cart

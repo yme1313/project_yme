@@ -12,16 +12,28 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class CartServiceImp implements CartService{
-	
 	CartDAO cartDao;
 	
 	@Override
 	public String insertCart(CartVO cart, MemberVO user) {
-		if(cart == null || user == null) {
+		if(cart == null || user == null || !cart.getCa_me_id().equals(user.getMe_id())) {
 			return"FAIL";
 		}
-		cart.setCa_me_id(user.getMe_id());
-		cartDao.insertCart(cart);	
+		CartVO dbcart = cartDao.getDbCart(cart);
+		//장바구니 담을시 아이디, 상품, 사이즈가 중복되면 update, 아니면 insert
+		if(dbcart == null) {
+			cartDao.insertCart(cart);
+		} else {
+			String cart_id = cart.getCa_me_id();
+			int cart_fu_num = cart.getCa_fu_num();
+			String cart_size = cart.getCa_size();
+			String dbcart_id = dbcart.getCa_me_id();
+			int dbcart_fu_num = dbcart.getCa_fu_num();
+			String dbcart_size = dbcart.getCa_size();
+			if(cart_id.equals(dbcart_id) && cart_fu_num == dbcart_fu_num && cart_size.equals(dbcart_size)) {
+				cartDao.updateCart(cart);
+			}
+		}
 		return "OK";
 	}
 

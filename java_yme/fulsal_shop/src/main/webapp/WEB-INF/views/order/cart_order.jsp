@@ -467,7 +467,7 @@ $(function(){
 	
 	$('#buy_btn').click(function(){
 	    var IMP = window.IMP; // 생략가능
-	    IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	    IMP.init('imp32184606'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 	    var msg;
 	    var goods= $('[name=or_goodsname]').val()
 	    var amount = $('[name=or_price]').val()
