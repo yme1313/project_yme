@@ -86,6 +86,15 @@
 			<li class="nav-item">
 				<a class="nav-link" href="<%=request.getContextPath()%>/goods/cloth/list" style="color: black">의류</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" style="color: black">풋살공</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" style="color: black">골키퍼장갑</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" style="color: black">스포츠가방</a>
+			</li>
 			<li class="nav-item dropdown">
 		      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color : black">
 		        브랜드

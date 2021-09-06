@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 </head>
 <style>
+*{
+	list-style : none;
+}
 .main-box{
 	display : flex;
 }
@@ -33,12 +36,35 @@
 	cursor : pointer;
 	margin : 3px;
 }
-.info{
+.num-box{
+	width : 50px; text-align : center;
+}
+.sub-menu-box{
+	margin : 0;
+	width : 200%; height : 40px; line-height : 40px;
+	display : flex;
+}
+.sub-menu-box li{
+	width : calc(200% / 4);
+	border-bottom : 1px solid gray;
+	text-align : center;
+	z-index : 100;
+
+}
+.sub-menu-box:hover{
+	cursor : pointer;
+}
+.select{
+	border : 1px solid gray;
+	border-bottom : none !important;
+}
+.view{
+	border-top : none;
 	overflow : auto;
 	width: 200%; height: 950px;
 }
-.num-box{
-	width : 50px; text-align : center;
+.review, .delivery, .change{
+	dispaly : none;
 }
 </style>
 <style>
@@ -51,7 +77,16 @@
 <input type="hidden" name="ca_me_id" value="${user.me_id}">
 	<div class="main-img-box">
 		<img alt="" src="<%=request.getContextPath()%>/resources/img/${futsal.fu_img}">
-		<div class="info">${futsal.fu_info}</div>
+		<ul class="sub-menu-box">
+			<li class="menu-info select">정보</li>
+			<li class="menu-review">리뷰</li>
+			<li class="menu-delivery">배송정보</li>
+			<li class="menu-change">교환/반품</li>
+		</ul>
+		<div class="info view"><br>${futsal.fu_info}</div>
+		<div class="review view"><br>123</div>
+		<div class="delivery view"><br>456</div>
+		<div class="change view"><br>789</div>
 	</div>
 	<div class="text-box">
 		<div class="title">${futsal.fu_name}</div>
@@ -214,6 +249,46 @@ $(function(){
 			e.preventDefault();
 			alert('옵션을 선택하세요.')
 		} 
+	})
+	$('.menu-review').click(function(){
+		$(this).addClass('select')
+		$('.menu-info').removeClass('select')
+		$('.menu-delivery').removeClass('select')
+		$('.menu-change').removeClass('select')
+		$('.review').show()
+		$('.info').hide()
+		$('.delivery').hide()
+		$('.change').hide()
+	})
+	$('.menu-delivery').click(function(){
+		$(this).addClass('select')
+		$('.menu-info').removeClass('select')
+		$('.menu-review').removeClass('select')
+		$('.menu-change').removeClass('select')
+		$('.delivery').show()
+		$('.info').hide()
+		$('.review').hide()
+		$('.change').hide()
+	})
+	$('.menu-change').click(function(){
+		$(this).addClass('select')
+		$('.menu-info').removeClass('select')
+		$('.menu-delivery').removeClass('select')
+		$('.menu-review').removeClass('select')
+		$('.change').show()
+		$('.info').hide()
+		$('.delivery').hide()
+		$('.review').hide()
+	})
+	$('.menu-info').click(function(){
+		$(this).addClass('select')
+		$('.menu-change').removeClass('select')
+		$('.menu-delivery').removeClass('select')
+		$('.menu-review').removeClass('select')
+		$('.info').show()
+		$('.change').hide()
+		$('.delivery').hide()
+		$('.review').hide()
 	})
 })
 
