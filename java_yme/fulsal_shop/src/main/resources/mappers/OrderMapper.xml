@@ -15,6 +15,18 @@
 			where or_me_id = #{user.me_id} and or_cancle = 'N'
 			and or_title like concat('%',#{cri.search},'%')
 	</select>
+	<select id="getOrderReturnList" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where or_me_id = #{user.me_id} and or_state = '교환반품접수'
+			and or_title like concat('%',#{cri.search},'%')
+			order by or_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getReturnTotalCount" resultType="int">
+		select count(*) from `order`
+			where or_me_id = #{user.me_id} and or_state = '교환반품접수'
+			and or_title like concat('%',#{cri.search},'%')
+	</select>	
 	<select id="getOrderCancleList" resultType="kr.green.shop.vo.OrderVO">
 		select * from `order`
 			where or_me_id = #{user.me_id} and or_cancle = 'Y'

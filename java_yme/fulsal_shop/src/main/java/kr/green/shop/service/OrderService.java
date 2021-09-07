@@ -32,4 +32,8 @@ public interface OrderService {
 
 	String returnGoods(OrderVO order, OrderVO ord);
 
+	ArrayList<OrderVO> getOrderReturnList(Criteria cri, MemberVO user);
+
+	int getReturnTotalCount(Criteria cri, MemberVO user);
+
 }

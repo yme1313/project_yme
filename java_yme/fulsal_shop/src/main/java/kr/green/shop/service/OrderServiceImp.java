@@ -26,7 +26,6 @@ public class OrderServiceImp implements OrderService{
 		orderDao.insertOrder(order);
 	}
 	
-	
 	private String makeOr_title() {
 		char c1=(char)(Math.random()*26+'A');
 		char c2=(char)(Math.random()*26+'A');
@@ -38,7 +37,6 @@ public class OrderServiceImp implements OrderService{
 		String orTitle=String.valueOf(c1)+c2+c3+str;
 		return orTitle;
 	}
-
 
 	@Override
 	public ArrayList<OrderVO> getOrderList(Criteria cri, MemberVO user) {
@@ -127,6 +125,19 @@ public class OrderServiceImp implements OrderService{
 		}
 		orderDao.returnGoods(order,ord);
 		return "OK";
+	}
+
+	@Override
+	public ArrayList<OrderVO> getOrderReturnList(Criteria cri, MemberVO user) {
+		if(user == null) {
+			return null;
+		}
+		return orderDao.getOrderReturnList(cri, user);
+	}
+
+	@Override
+	public int getReturnTotalCount(Criteria cri, MemberVO user) {
+		return orderDao.getReturnTotalCount(cri, user);
 	}
 
 

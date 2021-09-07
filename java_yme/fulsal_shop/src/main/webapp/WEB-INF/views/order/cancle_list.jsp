@@ -60,7 +60,7 @@ h3{
 	<br>
 	<div class="container main-box">
 		<div class="right-board-box">	
-			<h3>주문 내역</h3> 
+			<h3>취소 내역</h3> 
 			<div class="veryimpo-box mb-2">※ 주문,취소,교환/반품내역은 3개월까지만 보관됩니다.</div>
 			<c:if test="${list.size() != 0 }">
 				<div class="container board-box">    	  

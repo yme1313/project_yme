@@ -124,6 +124,22 @@ public class OrderController {
 		OrderVO order = orderService.getOrder(ord.getOr_num());
 		return orderService.returnGoods(order, ord);
 	}
+	@GetMapping("/order/return_list")
+	public ModelAndView return_listGet(ModelAndView mv, Criteria cri, HttpServletRequest request) {
+		cri.setPerPageNum(8);
+		MemberVO user = memberService.getMemberByRequest(request);
+		ArrayList <OrderVO> list = orderService.getOrderReturnList(cri, user);
+		int total = orderService.getReturnTotalCount(cri, user);
+		PageMaker pm = new PageMaker(total, 10, cri);
+		mv.addObject("list", list);
+		mv.addObject("pm", pm);
+		if(user == null) {
+			mv.setViewName("/template/member/signin");
+		} else {
+			mv.setViewName("/template5/order/return_list");
+		}
+		return mv;
+	}
 	@PostMapping("order/cancle")
 	public ModelAndView orderCanclePost(ModelAndView mv, OrderVO order) {
 		orderService.cancleOrder(order);
