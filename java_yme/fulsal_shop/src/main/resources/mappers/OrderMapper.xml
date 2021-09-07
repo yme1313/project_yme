@@ -72,6 +72,14 @@
 			or_state = '배송시작'
 			where or_num = #{or_num}
 	</update>
+	<update id="returnGoods">
+		update `order` set
+			or_cancle = 'Y',
+			or_state = '교환/반품접수',
+			or_return = #{ord.or_return},
+			or_returnMessage = #{ord.or_returnMessage}
+			where or_num = #{ord.or_num}
+	</update>
 	<delete id="erase">
 		delete from cart
 			where or_me_id = #{me_id}

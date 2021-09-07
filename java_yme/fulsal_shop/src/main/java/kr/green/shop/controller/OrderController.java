@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -51,8 +52,7 @@ public class OrderController {
 			@RequestParam(value = "ca_price[]") String[] priceArr) {
 			return cartService.updateCount(checkArr,countArr, priceArr);
 		}
-		
-	
+
 	@PostMapping("/order/cart_order")
 	public ModelAndView Cart_orderPost(ModelAndView mv, Integer[] ca_num, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
@@ -112,6 +112,17 @@ public class OrderController {
 		mv.addObject("order",order);
 		mv.setViewName("/template5/order/detail");
 		return mv;
+	}
+	@GetMapping("order/return")
+	public ModelAndView returnGet(ModelAndView mv) {
+		mv.setViewName("/order/return");
+		return mv;
+	}
+	@ResponseBody
+	@PostMapping("/order/Return")
+	public String ReturnPost(@RequestBody OrderVO ord) {
+		OrderVO order = orderService.getOrder(ord.getOr_num());
+		return orderService.returnGoods(order, ord);
 	}
 	@PostMapping("order/cancle")
 	public ModelAndView orderCanclePost(ModelAndView mv, OrderVO order) {

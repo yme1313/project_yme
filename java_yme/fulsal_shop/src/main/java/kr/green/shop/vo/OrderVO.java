@@ -28,6 +28,9 @@ public class OrderVO {
 	private String or_add2;
 	private String or_add3;
 	private String or_add4;
+	private String or_refund;
+	private String or_return;
+	private String or_returnMessage;
 	
 	public String getOr_DateStr() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -42,6 +45,14 @@ public class OrderVO {
 			return "무통장 입금";
 		} else if(or_paytype.equals("kakaopay")) {
 			return "카카오페이";
+		}
+		return "";
+	}
+	public String getRefundStr() {
+		if(or_refund.equals("Y")) {
+			return "환불완료";
+		} else if(or_refund.equals("N")) {
+			return "환불대기중";
 		}
 		return "";
 	}

@@ -34,4 +34,6 @@ public interface OrderDAO {
 
 	void erase(String me_id);
 
+	void returnGoods(@Param("order")OrderVO order, @Param("ord")OrderVO ord);
+
 }

@@ -14,11 +14,14 @@
         - prop('속성명')
         - 둘다 속성 정보를 가져오는 역할이지만 가져오는 값이 다름
       */
-      $('#male').prop('checked',true);
       $('#pw').prop('readonly',true)
       $('#button').click(function(){
         var str = $('#pw').attr('data-target')
         console.log(str)
+        var str2 = $('[name=gender]').prop('checked')
+        console.log(str2)
+        var str3 = $('#female').prop('checked')
+        console.log(str3)
       })
 
 
@@ -28,8 +31,8 @@
 <body>
   <a href="http://www.naver.com" class="link-naver">네이버</a> <br>
   <input type="text" id="id" readonly> <br>
-  <input type="checkbox" name="gender" id="male">남성<br>
-  <input type="checkbox" name="gender" id="female">여성<br>
+  <input type="radio" name="gender" id="male">남성<br>
+  <input type="radio" name="gender" id="female">여성<br>
   <input type="text" id="pw" data-target="123"><br>
   <button id="button">버튼</button>
 </body>

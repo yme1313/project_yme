@@ -27,10 +27,11 @@ a:hover{
 <body>
 	<br>
 	<div class="menu-box">
-		<h3>주문내역관리</h3>
+		<h3>주문관리</h3>
 			<hr>
 			<div class="sub-menu-box"><a href="<%=request.getContextPath()%>/order/list" class="menu-font">주문내역</a></div>
 			<div class="sub-menu-box"><a href="<%=request.getContextPath()%>/order/cancle_list" class="menu-font">취소내역</a></div>
+			<div class="sub-menu-box"><a href="#" class="menu-font">교환/반품내역</a></div>
 		</div>	
 </body>
 </html>

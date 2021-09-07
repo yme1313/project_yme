@@ -65,7 +65,7 @@ h3{
 	<div class="container main-box">
 		<div class="right-board-box">	
 			<h3>주문 내역</h3> 
-			<div class="veryimpo-box mb-2">※ 주문/취소내역은 3개월까지만 보관됩니다.</div>
+			<div class="veryimpo-box mb-2">※ 주문,취소,교환/반품내역은 3개월까지만 보관됩니다.</div>
 			<form class="form-inline search-box" action="<%=request.getContextPath()%>/order/list">
 			 	 <span class="mr-2">주문번호</span>
 				<input class="form-control mr-sm-2 col-6" type="text" name="search" value="<c:out value="${pm.criteria.search}"/>">

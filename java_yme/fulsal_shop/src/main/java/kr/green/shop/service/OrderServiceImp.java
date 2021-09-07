@@ -120,6 +120,16 @@ public class OrderServiceImp implements OrderService{
 	}
 
 
+	@Override
+	public String returnGoods(OrderVO order, OrderVO ord) {
+		if(order == null || ord == null || order.getOr_num() != ord.getOr_num()) {
+			return "FAIL";
+		}
+		orderDao.returnGoods(order,ord);
+		return "OK";
+	}
+
+
 
 
 

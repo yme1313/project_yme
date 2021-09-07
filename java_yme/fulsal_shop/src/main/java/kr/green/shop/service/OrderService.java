@@ -30,4 +30,6 @@ public interface OrderService {
 
 	void updateOrderOK(OrderVO order);
 
+	String returnGoods(OrderVO order, OrderVO ord);
+
 }

@@ -49,7 +49,6 @@
 	border-bottom : 1px solid gray;
 	text-align : center;
 	z-index : 100;
-
 }
 .sub-menu-box:hover{
 	cursor : pointer;
@@ -61,13 +60,41 @@
 .view{
 	border-top : none;
 	overflow : auto;
-	width: 200%; height: 950px;
+	width: 200%; height: 900px;
 }
-.review, .delivery, .change{
-	dispaly : none;
+.review,.delivery,.change{
+	display : none;
 }
-</style>
-<style>
+.box{
+	display: flex;
+}
+.box1{
+	display: flex;
+}
+.left-box{
+	width : 25%;
+	height : 100%;
+	text-align: center;
+}
+.right-box{
+	width: 75%;
+	height : 100%;
+}
+.right-text-box{
+	margin-left: 10%;
+}
+#change_box_type{
+	margin : 0;
+	height : 70%;
+	width : 450px;
+}
+
+
+
+.bold{
+	font-weight : bold;
+	font-size : 20px;
+}
 </style>
 </head>
 <body>
@@ -85,8 +112,59 @@
 		</ul>
 		<div class="info view"><br>${futsal.fu_info}</div>
 		<div class="review view"><br>123</div>
-		<div class="delivery view"><br>456</div>
-		<div class="change view"><br>789</div>
+		<div class="delivery view"><br>
+			<div class="box">
+				<div class="left-box bold">
+					<br>배송정보
+				</div>
+				<div class="right-box mt-3">
+					<div class="right-text-box">
+						<div class="bold mb-2 mt-3">배송비</div>
+						<div class="mb-1">* 10만원 미만 구매시 2,500원</div>
+						<div class="mb-1">* 10만원 이상 구매시 전액 무료(제주도 및 기타 도선료 추가 지역포함</div><br>
+						<div class="bold mb-2">평균 배송일</div>
+						<div class="mb-1">* 평일 오후 2시 이전 주문 당일 출고됩니다.</div>
+						<div class="mb-1">* 결제완료 후 평균 2일 소요됩니다. (주말 및 공휴일 제외)</div>
+						<div class="mb-1">* 택배사의 사정에 따라 다소 지연될 수 있습니다. (우체국 1588-1300)</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="change view"><br>
+			<div class="box1">
+				<div class="left-box bold">
+					<br>교환/반품
+				</div>
+				<div class="right-box mt-3">
+					<div class="right-text-box">
+						<div class="bold mb-2 mt-3">교환/반품 안내</div>
+							<div class="mb-1">* 교환은 사이즈 교환만 가능합니다.</div>
+							<div>* 상품하자 이외 사이즈, 색상교환 등 단순 변심에 의한 교환/반품 </div>
+							<div class="mb-1">택배비 고객부담으로 왕복택배비가 발생합니다.</div>
+							<div>* 제품을 받으신 날부터 7일 이내에 접수해주시기 바랍니다.</div>
+							<div class="mb-1">(상품불량인 경우 30일)</div>
+							<div>* 접수 후 14일 이내에 상품이 반품지로 도착하지 않을 경우 </div>
+							<div class="mb-1">접수가 취소됩니다. (배송 지연 제외)</div><br>
+						<div class="bold mb-2">교환반품(환불)이 불가능한 경우</div>
+							<div class="mb-1">* 신발/의류를 외부에서 착용한 경우</div>
+							<div>* 제품을 사용 또는 훼손한 경우, 상품 TAG</div>
+							<div class="mb-1">보증서, 상품 부자재가 제거 혹은 분실된 경우</div>
+							<div>* 밀봉포장을 개봉했거나 내부 포장재를 훼손 또는 분실한 경우</div>
+							<div class="mb-1">(단, 제품확인을 위한 개봉 제외)</div>
+							<div class="mb-1">* 브랜드 박스 분실/훼손된 경우</div>
+							<div class="mb-1">* 고객 부주의로 상품이 훼손,변경된 경우</div><br>
+						<div class="bold mb-2">교환/반품(환불) 시 박스 포장 예</div>
+							<div>* 브랜드 박스(신발 박스)의 훼손이 없도록</div>
+							<div class="mb-1"> 택배 박스 및 타 박스로 포장하여 발송해주시기 바랍니다.</div><br>
+							<img id="change_box_type" alt="" src="<%=request.getContextPath()%>/resources/img/기타/택배포장방법.PNG">
+						<div class="bold mb-2">교환/반품(환불) 배송비 안내</div>
+							<div>* 왕복 택배비 : 최초 배송비(2,500원) + 반품 배송비(2,500원)</div>
+							<div> = 총 5,000원이 부과됩니다.</div>	
+							<div class="mb-1">(택배비 미동봉 시 결제금액에서 차감)</div><br><br>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="text-box">
 		<div class="title">${futsal.fu_name}</div>
@@ -251,47 +329,28 @@ $(function(){
 		} 
 	})
 	$('.menu-review').click(function(){
-		$(this).addClass('select')
-		$('.menu-info').removeClass('select')
-		$('.menu-delivery').removeClass('select')
-		$('.menu-change').removeClass('select')
-		$('.review').show()
-		$('.info').hide()
-		$('.delivery').hide()
-		$('.change').hide()
+		subMenu('.menu-review', '.review' , '.menu-info' , '.info' ,'.menu-delivery' ,'.delivery' ,'.menu-change' ,'.change')
 	})
 	$('.menu-delivery').click(function(){
-		$(this).addClass('select')
-		$('.menu-info').removeClass('select')
-		$('.menu-review').removeClass('select')
-		$('.menu-change').removeClass('select')
-		$('.delivery').show()
-		$('.info').hide()
-		$('.review').hide()
-		$('.change').hide()
+		subMenu('.menu-delivery', '.delivery' , '.menu-info' , '.info' ,'.menu-review' ,'.review' ,'.menu-change' ,'.change')
 	})
 	$('.menu-change').click(function(){
-		$(this).addClass('select')
-		$('.menu-info').removeClass('select')
-		$('.menu-delivery').removeClass('select')
-		$('.menu-review').removeClass('select')
-		$('.change').show()
-		$('.info').hide()
-		$('.delivery').hide()
-		$('.review').hide()
-	})
+		subMenu('.menu-change', '.change' , '.menu-info' , '.info' ,'.menu-delivery' ,'.delivery' ,'.menu-review' ,'.review')
+	})	
 	$('.menu-info').click(function(){
-		$(this).addClass('select')
-		$('.menu-change').removeClass('select')
-		$('.menu-delivery').removeClass('select')
-		$('.menu-review').removeClass('select')
-		$('.info').show()
-		$('.change').hide()
-		$('.delivery').hide()
-		$('.review').hide()
+		subMenu('.menu-info', '.info' , '.menu-review' , '.review' ,'.menu-delivery' ,'.delivery' ,'.menu-change' ,'.change')
 	})
 })
-
+function subMenu(showmenu, show , hidemenu1 , hide1, hidemenu2 , hide2, hidemenu3 , hide3){
+	$(showmenu).addClass('select')
+	$(hidemenu1).removeClass('select')
+	$(hidemenu2).removeClass('select')
+	$(hidemenu3).removeClass('select')
+	$(show).show()
+	$(hide1).hide()
+	$(hide2).hide()
+	$(hide3).hide()
+}
 </script>
 </body>
 </html>

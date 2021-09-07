@@ -122,7 +122,7 @@ public class GoodsController {
 		mv.addObject("futsal", futsal);
 		mv.addObject("title","풋살화 상세");
 		mv.addObject("list", list);
-		mv.setViewName("/template6/goods/detail");
+		mv.setViewName("/template1/goods/detail");
 		return mv;
 	}	
 	
