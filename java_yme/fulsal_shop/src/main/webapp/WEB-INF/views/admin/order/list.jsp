@@ -4,7 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script><!-- jQuery CDN --->
 <style>
  a{
  	color : black
@@ -45,7 +48,7 @@
 			<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
 		</form> 
 		<div class="container board-box">   
-		<h3>주문 관리</h3> 
+		<h3>주문 관리</h3>
 	  	<c:if test="${list.size() != 0 }">
 		 <table class="table table-striped">   
 		   <thead>
@@ -54,7 +57,9 @@
 			    <th>아이디</th>
 			    <th>주문날짜</th>
 				<th>결제방법</th>
-			    <th>주문상태</th>   
+			    <th>주문상태</th>  
+			    <th>교환/반품</th>
+			    <th>환불하기</th> 
 		     </tr>
 		   </thead>
 		   <tbody>
@@ -68,8 +73,18 @@
 			       <td>${order.or_me_id}</td>	 
 			       <td>${order.or_DateStr}</td>
 			       <td>${order.payStr}</td>
-			       <td>${order.or_state}</td>  
-			       <td></td> 
+			       <td>${order.stateStr}</td>  
+			       <td>${order.or_returntype}</td> 
+			       <td class="refund-box">
+	       			  <c:if test="${(order.stateStr == '주문취소' || order.stateStr == '재고부족' || order.or_returntype == '반품') && order.or_refund == 'N'}">
+	       			  		<button class="btn btn-outline-danger btn-sm return-btn">환불</button>
+	       			  		<input type="hidden" name="or_price" value="${order.or_price}">
+	       			  		<input type="hidden" name="or_num" value="${order.or_num}">
+	       			  </c:if>
+ 			  	      <c:if test="${(order.stateStr == '주문취소' || order.stateStr == '재고부족' || order.or_returntype == '반품') && order.or_refund == 'Y'}">
+	       			  		<div class="btn btn-danger btn-sm">환불완료</div>
+	       			  </c:if>
+			       </td>
 			     </tr>
 			</c:forEach>
 		   </tbody>
@@ -92,5 +107,51 @@
 		</div>
 	</div>	
 </div>
+<script>
+
+$(function(){
+	$('.return-btn').click(function(){
+		var or_num = $(this).siblings('[name=or_num]').val()
+		var btn = $(this).parent()
+		var data = {or_num : or_num}
+		var confirm_val = confirm('정말 환불하시겠습니까?')
+		var price = '100'
+		var str = '<div class="btn btn-danger btn-sm">환불완료</div>'
+		if(confirm_val){
+			$.ajax({
+				type : 'post',
+				url : '<%=request.getContextPath()%>/admin/order/refund',
+				data : JSON.stringify(data),
+				contentType : "application/json; charset=utf-8",
+				success : function(res){
+					if(res == 'OK'){
+						alert('환불이 완료되었습니다.')
+						canclePay(price);
+						btn.html(str)
+					} else {
+						alert('환불에 실패했습니다.')
+					}
+				}
+			})	
+		}
+	})
+})
+function canclePay(price) {
+  	jQuery.ajax({
+    	"url": "{환불요청을 받을 서비스 URL}", // 예: http://www.myservice.com/payments/cancel
+    	"type": "POST",
+    	"contentType": "application/json",
+    	"data": JSON.stringify({
+      		"merchant_uid": "1630894279954", // 예: ORD20180131-0000011
+      		"cancel_request_amount": price, // 환불금액
+      		"reason": "테스트 결제 환불", // 환불사유
+      		"refund_holder": "", // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
+      		"refund_bank": "", // [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(예: KG이니시스의 경우 신한은행은 88번)
+      		"refund_account": "" // [가상계좌 환불시 필수입력] 환불 수령계좌 번호
+    	}),
+    	"dataType": "json"
+  });
+}
+</script>
 </body>
 </html>

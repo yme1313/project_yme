@@ -27,11 +27,21 @@ a:hover{
 	<br>
 	<div class="container main-box">
 		<div class="right-board-box">
-			<div class="container">
-				<div class="form-group">
-					<label>제목</label>
-					<input type="text" class="form-control" name="bd_title" value="${board.bd_title}" readonly>
-				</div>
+			<div class="container">	
+				<c:choose>
+					<c:when test="${type ne '/notice'}">
+						<div class="form-group">
+							<label>제목</label>
+							<input type="text" class="form-control" name="bd_title" value="[${board.bd_head}] ${board.bd_title}" readonly>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="form-group">
+							<label>제목</label>
+							<input type="text" class="form-control" name="bd_title" value="${board.bd_title}" readonly>
+						</div>
+					</c:otherwise>
+				</c:choose>
 				<div class="form-group">
 					<label>작성자</label>
 					<c:if test="${type ne '/notice'}">  
@@ -50,10 +60,10 @@ a:hover{
 				<div class="form-group">
 					<label>내용</label>
 					<c:if test="${type ne '/notice'}">  
-						<div class="form-control" style="min-height:350px;">${board.bd_contents}</div>
+						<div class="form-control" style="min-height:350px; overflow : auto;">${board.bd_contents}</div>
 					</c:if>
 					<c:if test="${type eq '/notice'}">
-						<div class="form-control" style="min-height:550px;">${board.bd_contents}</div>
+						<div class="form-control" style="min-height:550px; overflow : auto;">${board.bd_contents}</div>
 					</c:if>
 				</div>
 				<c:if test="${type ne '/notice'}">  

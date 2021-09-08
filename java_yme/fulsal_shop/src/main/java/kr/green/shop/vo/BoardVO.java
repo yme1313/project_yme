@@ -10,6 +10,7 @@ public class BoardVO {
 	private int bd_num;
 	private String bd_me_id;
 	private String bd_type;
+	private String bd_head;
 	private String bd_title;
 	private String bd_contents;
 	private Date bd_regdate;

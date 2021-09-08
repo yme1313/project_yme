@@ -34,10 +34,12 @@ public interface OrderDAO {
 
 	void erase(String me_id);
 
-	void returnGoods(@Param("order")OrderVO order, @Param("ord")OrderVO ord);
-
 	ArrayList<OrderVO> getOrderReturnList(@Param("cri")Criteria cri, @Param("user")MemberVO user);
 
 	int getReturnTotalCount(@Param("cri")Criteria cri, @Param("user")MemberVO user);
+
+	void returnOrder(OrderVO order);
+
+	void refundOrder(OrderVO order);
 
 }

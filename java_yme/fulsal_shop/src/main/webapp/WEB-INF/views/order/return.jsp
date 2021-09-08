@@ -11,8 +11,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <style>
-
-
 h2{
 	color : red;
 	font-weight : bold;
@@ -23,26 +21,9 @@ h2{
 }
 </style>
 <body>
-<h2 class="mt-2 ml-2">아래에 교환/반품 정보를 꼭 읽고 작성해주세요.</h2>
-<div class="ml-2 mb-2">
-	<div class="mb-1 bold">구분</div>
-	<div class="form-check-inline">
-	  <label class="form-check-label">
-	    <input type="radio" class="form-check-input" name="or_return" value="교환" checked>교환
-	  </label>
-	</div>
-	<div class="form-check-inline">
-	  <label class="form-check-label">
-	    <input type="radio" class="form-check-input" name="or_return" value="반품">반품
-	  </label>
-	</div>
-	<div class="mb-2 bold">사유</div>
-	<textarea class="form-control col-12" id="message" name="or_returnMessage" style="height : 150px;"></textarea>
-</div>
-<div class="row justify-content-center"> 
-	<button type="button" class="btn btn-outline-danger mr-2 insert-btn">입력하기</button>
-	<button type="button" class="btn btn-outline-dark close-btn">닫기</button>
-</div>
+<h2 class="mt-2 ml-2">아래에 교환/반품 정보를 꼭 읽어주세요.</h2>
+<h4 class="mt-2 ml-2">1:1문의 게시판에 말머리(교환/반품) 선택하시고</h4>
+<h4 class="mt-2 ml-2">내용에 [주문번호]를 꼭 기재해주세요.</h4>
 <hr>
 <div class="mt-3 ml-2">
 	<div>
@@ -72,29 +53,11 @@ h2{
 			<div class="mb-1">(택배비 미동봉 시 결제금액에서 차감)</div><br><br>
 	</div>
 </div>
+<div class="row justify-content-center mb-2"> 
+	<button type="button" class="btn btn-outline-dark close-btn">닫기</button>
+</div>
 <script type="text/javascript">
-$(function(){
-	$('[value=반품]').click(function(){
-		$(this).prop('checked',true)
-		$('[value=교환]').prop('checked',false)
-	})
-	$('[value=교환]').click(function(){
-		$(this).prop('checked',true)
-		$('[value=반품]').prop('checked',false)
-	})
-	
-	$('.insert-btn').click(function(){
-		var or_return = $("input[name='or_return']:checked").val();
-		var message = $('#message').val()
-		if(message == ''){
-			alert('사유를 작성하세요.')
-		} else {
-	        $(opener.document).find('#type').val(or_return);
-	        $(opener.document).find('#message').val(message);
-	        alert('교환/반품정보가 등록되었습니다.')
-		}
-	})
-	
+$(function(){	
 	$('.close-btn').click(function(){
 		window.close()
 	})

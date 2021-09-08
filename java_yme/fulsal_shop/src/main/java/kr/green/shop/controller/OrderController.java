@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -117,12 +116,6 @@ public class OrderController {
 	public ModelAndView returnGet(ModelAndView mv) {
 		mv.setViewName("/order/return");
 		return mv;
-	}
-	@ResponseBody
-	@PostMapping("/order/Return")
-	public String ReturnPost(@RequestBody OrderVO ord) {
-		OrderVO order = orderService.getOrder(ord.getOr_num());
-		return orderService.returnGoods(order, ord);
 	}
 	@GetMapping("/order/return_list")
 	public ModelAndView return_listGet(ModelAndView mv, Criteria cri, HttpServletRequest request) {

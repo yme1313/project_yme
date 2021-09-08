@@ -57,7 +57,7 @@
 												<c:if test="${user.me_authority != 'ADMIN' || user.me_authority != 'SUB ADMIN'}">
 													<td>
 														<a href="<%=request.getContextPath()%>/board/detail?num=${board.bd_num}">
-															${board.bd_title}
+															[${board.bd_head}] ${board.bd_title}
 														</a>
 													</td>
 												</c:if>

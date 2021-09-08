@@ -44,9 +44,18 @@ a:hover{
 			<c:if test="${type ne '/notice'}">        
 				<form class="container" method="post" id="enquiry_reg">
 					<div class="form-group">
+				       <label for="sel1">말머리</label>
+				          <select class="form-control col-2" id="sel1" name="bd_head">
+				          	 <option value="">선택</option>
+				             <option value="상품문의">상품문의</option>
+				             <option value="교환반품문의">교환/반품문의</option>
+				             <option value="기타문의">기타문의</option>
+				          </select>
+					</div>	
+					<div class="form-group">
 						<label>제목</label>
 						<input type="text" class="form-control" name="bd_title">
-					</div>
+					</div>				
 					<div class="form-group">
 						<label>비밀번호</label>
 						<input type="password" class="form-control" name="bd_pw">
@@ -55,7 +64,7 @@ a:hover{
 						<label>내용</label>
 						<textarea id="summernote" class="form-control" name="bd_contents" rows="10">${board.bd_contents}</textarea>
 					</div>
-					<button class="btn btn-outline-dark">등록</button>
+					<button class="btn btn-outline-dark ENQUIRY">등록</button>
 					<a href="<%=request.getContextPath()%>/board${type}/list"><button type="button" class="btn btn-outline-dark">목록</button></a>
 				</form>
 			</c:if>
@@ -75,8 +84,17 @@ a:hover{
 			</c:if>
 		</div>
 	</div>
-	<script type="text/javascript">
+<script type="text/javascript">
 $(function(){
+	$('.ENQUIRY').click(function(e){
+		e.preventDefault()
+		var val = $('[name=bd_head]').val()
+		if(val == ''){
+			alert('말머리를 선택하세요.')
+		} else {
+			$('#enquiry_reg').submit()
+		}
+	})
     $('#summernote').summernote({
         placeholder: '내용을 입력하세요.',
         tabsize: 2,

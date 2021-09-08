@@ -29,8 +29,8 @@ public class OrderVO {
 	private String or_add3;
 	private String or_add4;
 	private String or_refund;
-	private String or_return;
-	private String or_returnMessage;
+	private String or_returntype;
+	private String or_approve;
 	
 	public String getOr_DateStr() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -55,5 +55,18 @@ public class OrderVO {
 			return "환불대기중";
 		}
 		return "";
+	}
+	public String getStateStr() {
+		if(or_state.equals("교환반품접수")) {
+			return "교환/반품접수";
+		}
+		return or_state;
+	}
+	public String getApproveStr() {
+		if(or_approve.equals("Y")) {
+			return "승인완료";
+		} else {
+			return "승인대기";
+		}
 	}
 }

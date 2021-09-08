@@ -84,7 +84,7 @@
 			<div class="container board-box">
 				<h3>회원 탈퇴</h3>
 					<div class="out-text-box"> 
-						※ 회원 탈퇴시 저장된 모든 정보는 삭제됩니다.<br><br>
+						※ 회원 탈퇴시 저장된 모든 정보는 즉시 삭제됩니다.<br><br>
 						※ 재가입 하더라도 기존 정보는 복원되지 않습니다.
 					</div>
 				  	<form class=out-box method="post" action="<%=request.getContextPath()%>/member/memberout">

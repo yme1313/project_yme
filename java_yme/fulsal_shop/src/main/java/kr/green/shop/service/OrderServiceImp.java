@@ -46,7 +46,6 @@ public class OrderServiceImp implements OrderService{
 		return orderDao.getOrderList(cri ,user);
 	}
 
-
 	@Override
 	public int getTotalCount(Criteria cri, MemberVO user) {
 		return orderDao.getTotalCount(cri, user);
@@ -117,16 +116,6 @@ public class OrderServiceImp implements OrderService{
 		orderDao.updateOrderOK(order);
 	}
 
-
-	@Override
-	public String returnGoods(OrderVO order, OrderVO ord) {
-		if(order == null || ord == null || order.getOr_num() != ord.getOr_num()) {
-			return "FAIL";
-		}
-		orderDao.returnGoods(order,ord);
-		return "OK";
-	}
-
 	@Override
 	public ArrayList<OrderVO> getOrderReturnList(Criteria cri, MemberVO user) {
 		if(user == null) {
@@ -138,6 +127,24 @@ public class OrderServiceImp implements OrderService{
 	@Override
 	public int getReturnTotalCount(Criteria cri, MemberVO user) {
 		return orderDao.getReturnTotalCount(cri, user);
+	}
+
+	@Override
+	public String returnOrder(OrderVO order) {
+		if(order == null) {
+			return "FAIL";
+		}
+		orderDao.returnOrder(order);
+		return "OK";
+	}
+
+	@Override
+	public String refundOrder(OrderVO order) {
+		if(order == null) {
+			return "FAIL";
+		}
+		orderDao.refundOrder(order);
+		return "OK";
 	}
 
 

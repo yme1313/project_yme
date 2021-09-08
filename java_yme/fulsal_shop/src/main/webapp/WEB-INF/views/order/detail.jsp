@@ -34,7 +34,6 @@ h3{
 }
 .board-box{
 	display : flex;
-	justify-content: space-around;
 }
 .order-list-box{
 	width : 800px; height : 650px;
@@ -46,31 +45,13 @@ h3{
 .fa-newspaper{
 	font-size : 30px;
 }
-.state-text{
+.state-text, .return-text{
 	color : red;
 	font-weight : bold;
 }
 .btn-sm{
 	float : right;
 	margin-top : 10px; margin-right : 10px;
-}
-.return-box{
-	margin-left : 14%;
-	width : 70%;
-	height : 200px;
-
-}
-.return-type{
-	position : absolute;
-	top : 68%; 
-	font-size : 30px;
-	font-weight : bold;
-}
-.return-type2{
-	position : absolute;
-	top : 70%; 
-	font-size : 30px;
-	font-weight : bold;
 }
 </style>
 </head>
@@ -91,12 +72,18 @@ h3{
 							<input type="hidden" name="or_num" value="${order.or_num}">
 							<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 							<span class="order-title-text mr-2">${order.or_title}</span>
-							<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
+							<span>[</span><span class="state-text">${order.stateStr}</span><span>]</span>
+							<c:if test="${order.or_state == '교환반품접수'}">
+								<span>[</span><span class="return-text">${order.or_returntype}</span><span>]</span>
+							</c:if>
 							<c:if test="${order.or_cancle == 'N' && order.or_state == '주문확인중' }">
 								<button type="button" id="cancle_btn" class="btn btn-outline-danger btn-sm">주문취소</button>
 							</c:if>
 							<c:if test="${order.or_cancle == 'N' && order.or_state == '배송시작' }">
-								<button type="button" id="return_btn" class="btn btn-outline-danger btn-sm">교환/반품정보입력</button>							
+								<a href="<%=request.getContextPath()%>/board/list">
+									<button type="button" class="btn btn-outline-dark btn-sm">교환/반품하기</button>	
+								</a>	
+								<button type="button" id="return_btn" class="btn btn-outline-danger btn-sm">교환/반품주의사항</button>						
 							</c:if>						
 						</div>
 						<div class="container">
@@ -148,23 +135,6 @@ h3{
 					</div>	  
 				</div>
 			</div>
-			<c:if test="${(order.or_cancle == 'N' && order.or_state == '배송시작') || (order.or_cancle == 'Y' && order.or_state == '교환반품접수')}">
-				<div class="return-box">
-					<c:if test="${order.or_cancle == 'N' && order.or_state == '배송시작'}">
-						<div class="return-type mb-2">교환/반품 신청하기</div>
-					</c:if>
-					<c:if test="${order.or_cancle == 'Y' && order.or_state == '교환반품접수'}">
-						<div class="return-type2">교환/반품 신청내용</div>
-					</c:if>
-					<div class="mb-2">[교환/반품]</div>
-					<input type="text" class="form-control col-1" id="type" name="or_return" value="${order.or_return}" readonly>
-					<div class="mb-2">[사유]</div>
-					<textarea class="return-text form-control" id="message" name="or_returnMessage" readonly style="height : 110px;">${order.or_returnMessage}</textarea>
-					<c:if test="${order.or_cancle == 'N' && order.or_state == '배송시작'}">
-						<button type="button" class="btn btn-outline-danger btn-sm go-return">신청하기</button>
-					</c:if>
-				</div>
-			</c:if>
 		</div>	
 	</form>
 <script>
@@ -179,39 +149,10 @@ $(function(){
 	$('#return_btn').click(function(){
 		popupWindow('return','교환/반품정보입력')
 	})
-	$('.go-return').click(function(){
-		var confirm_val = confirm("교환/반품 신청하시겠습니까?");
-		var or_num = $('[name=or_num]').val()
-		var or_return = $('#type').val()
-		var or_returnMessage = $('[name=or_returnMessage]').val()
-		var data = {
-			or_num : or_num,
-			or_return : or_return,
-			or_returnMessage : or_returnMessage
-		}
-		if(or_returnMessage == ''){
-			alert('교환/반품 정보를 입력하세요.')
-		} else if(confirm_val){
-			$.ajax({
-				type : 'post',
-				url : '<%=request.getContextPath()%>/order/Return',
-				data: JSON.stringify(data),
-				contentType : "application/json; charset=utf-8",
-				success : function(res){
-					if(res == 'OK'){
-						alert('교환/반품 접수되었습니다.')
-					} else {
-						alert('교환/반품 접수에 실패했습니다.')
-					}
-				}	
-			})
-		}
-
-	})
 })
 
 function popupWindow(type, title){
-	var settings ='width=800, height=500 , resizable = no ,left=200 ,top=200';
+	var settings ='width=800, height=650 , resizable = no ,left=150 ,top=150';
 	winObject = window.open(type, title, settings);
 }
 </script>	

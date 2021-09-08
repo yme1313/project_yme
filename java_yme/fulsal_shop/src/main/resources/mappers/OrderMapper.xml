@@ -84,13 +84,18 @@
 			or_state = '배송시작'
 			where or_num = #{or_num}
 	</update>
-	<update id="returnGoods">
+	<update id="returnOrder">
 		update `order` set
 			or_cancle = 'Y',
-			or_state = '교환/반품접수',
-			or_return = #{ord.or_return},
-			or_returnMessage = #{ord.or_returnMessage}
-			where or_num = #{ord.or_num}
+			or_state = '교환반품접수',
+			or_returntype = #{or_returntype},
+			or_approve = 'Y'
+			where or_num = #{or_num}
+	</update>
+	<update id="refundOrder">
+		update `order` set
+			or_refund = 'Y'
+			where or_num = #{or_num}
 	</update>
 	<delete id="erase">
 		delete from cart

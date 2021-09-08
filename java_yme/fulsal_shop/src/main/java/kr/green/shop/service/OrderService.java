@@ -30,10 +30,12 @@ public interface OrderService {
 
 	void updateOrderOK(OrderVO order);
 
-	String returnGoods(OrderVO order, OrderVO ord);
-
 	ArrayList<OrderVO> getOrderReturnList(Criteria cri, MemberVO user);
 
 	int getReturnTotalCount(Criteria cri, MemberVO user);
+
+	String returnOrder(OrderVO order);
+
+	String refundOrder(OrderVO order);
 
 }

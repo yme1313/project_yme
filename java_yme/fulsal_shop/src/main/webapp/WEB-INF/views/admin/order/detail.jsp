@@ -45,7 +45,7 @@ h3{
 .fa-newspaper{
 	font-size : 30px;
 }
-.state-text{
+.state-text, .return-text{
 	color : red;
 	font-weight : bold;
 }
@@ -71,11 +71,22 @@ h3{
 					<div class="order-title-box mb-2">
 						<i class="far fa-newspaper mr-3 ml-3 mt-1"></i>
 						<span class="order-title-text mr-2">${order.or_title}</span>
-						<span>[</span><span class="state-text">${order.or_state}</span><span>]</span>
+						<span>[</span><span class="state-text">${order.stateStr}</span><span>]</span>
+						<c:if test="${order.or_state == '교환반품접수'}">
+							<span>[</span><span class="return-text">${order.or_returntype}</span><span>]</span>
+						</c:if>
 						<c:if test="${order.or_cancle == 'N' && order.or_state == '주문확인중' }">
 							<button id="order_ok_btn" class="btn btn-outline-dark btn-sm">주문접수</button>
 							<button type="button" id="stock_zero_btn" class="btn btn-outline-danger btn-sm">재고량부족</button>
-						</c:if>				
+						</c:if>		
+						<c:if test="${order.or_cancle == 'N' && order.or_state == '배송시작' }">
+							<button type="button" id="approve_btn" class="btn btn-outline-danger btn-sm">승인</button>	
+					         <select class="btn-sm" name="or_returntype">
+					          	<option value="">선택</option>
+					            <option value="교환">교환</option>
+					            <option value="반품">반품</option>
+					         </select>						
+						</c:if>			
 					</div>
 					<div class="container">
 					  <table class="table table-bordered">
@@ -150,6 +161,36 @@ $(function(){
 							alert('주문취소에 실패했습니다.')
 						}
 					}
+			})
+		}
+	})
+	$('#approve_btn').click(function(){
+		var or_num = $('[name=or_num]').val()
+		var or_returntype = $('[name=or_returntype]').val()
+		var data = {
+			or_num : or_num,
+			or_returntype : or_returntype
+		}
+		var confirm_val = confirm("교환/반품요청을 승인하시겠습니까?")
+		if(or_returntype == ''){
+			alert('교환/반품타입을 선택하세요.')
+			return;
+		}
+		if(confirm_val){
+			$.ajax({
+				type : "post",
+				url : '<%=request.getContextPath()%>/admin/order/Return',
+				data : JSON.stringify(data),
+				contentType : "application/json; charset=utf-8",
+				success : function(res){
+					if(res == 'OK'){
+						alert('승인이 완료되었습니다.')
+						$('.btn-sm').remove()
+						$('.state-text').text('교환/반품접수')
+					} else {
+						alert('승인에 싪패했습니다.')
+					}
+				}
 			})
 		}
 	})

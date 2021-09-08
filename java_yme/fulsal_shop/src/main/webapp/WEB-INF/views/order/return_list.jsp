@@ -98,8 +98,8 @@ h3{
 			      		</div>
 			       </td>	 
 			       <td>${order.or_DateStr}</td>
-			       <td>${order.or_state}</td>
-			       <td>N</td>   
+			       <td>${order.stateStr}</td>
+			       <td>${order.approveStr}</td>   
 			     </tr>
 			</c:forEach>
 		   </tbody>

@@ -99,7 +99,7 @@ h3{
 			       </td>	 
 			       <td>${order.or_DateStr}</td>
 			       <td>${order.payStr}</td>
-			       <td>${order.or_state}</td>   
+			       <td>${order.stateStr}</td>   
 			     </tr>
 			</c:forEach>
 		   </tbody>

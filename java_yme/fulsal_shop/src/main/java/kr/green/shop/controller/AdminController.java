@@ -201,6 +201,18 @@ public class AdminController {
 		OrderVO order = orderService.getOrder(ord.getOr_num());
 		return orderService.updateOrderZero(order);
 	}
+	@ResponseBody
+	@PostMapping("/order/Return")
+	public String orderReturn(@RequestBody OrderVO ord) {
+		OrderVO order = orderService.getOrder(ord.getOr_num());
+		return orderService.returnOrder(order);
+	}
+	@ResponseBody
+	@PostMapping("/order/refund")
+	public String orderRefund(@RequestBody OrderVO ord) {
+		OrderVO order = orderService.getOrder(ord.getOr_num());
+		return orderService.refundOrder(order);
+	}
 	
 	@PostMapping("/order/ok")
 	public ModelAndView orderOkPost(ModelAndView mv, HttpServletRequest request, OrderVO order) {
