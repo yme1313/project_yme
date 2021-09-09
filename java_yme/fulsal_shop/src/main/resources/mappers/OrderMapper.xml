@@ -63,6 +63,10 @@
 					 or_me_id like concat('%',#{cri.search},'%')
 				</if>
 	</select>	
+	<select id="getOrderFuNumsList" resultType="String">
+		select or_fuNums from `order`
+			where or_me_id = #{or_me_id} 
+	</select>
 	<insert id="insertOrder">
 		insert into `order`(or_me_id, or_title, or_fuNums, or_count, or_size ,or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message, or_postnum, or_add1, or_add2, or_add3, or_add4)
 			values(#{or_me_id}, #{or_title}, #{or_fuNums}, #{or_count} , #{or_size},#{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message}, #{or_postnum}, #{or_add1}, #{or_add2}, #{or_add3}, #{or_add4})

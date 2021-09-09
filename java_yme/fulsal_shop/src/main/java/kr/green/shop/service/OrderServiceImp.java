@@ -147,10 +147,13 @@ public class OrderServiceImp implements OrderService{
 		return "OK";
 	}
 
-
-
-
-
+	@Override
+	public ArrayList<String> getOrderFuNumsList(String or_me_id) {
+		if(or_me_id== null) {
+			return null;
+		}
+		return orderDao.getOrderFuNumsList(or_me_id);
+	}
 
 
 }

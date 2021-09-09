@@ -111,7 +111,9 @@
 			<li class="menu-change">교환/반품</li>
 		</ul>
 		<div class="info view"><br>${futsal.fu_info}</div>
-		<div class="review view"><br>123</div>
+		<div class="review view"><br>
+			<button type="button" class="btn btn-outline-success btn-lg">리뷰쓰기</button>
+		</div>
 		<div class="delivery view"><br>
 			<div class="box">
 				<div class="left-box bold">
@@ -339,6 +341,30 @@ $(function(){
 	})	
 	$('.menu-info').click(function(){
 		subMenu('.menu-info', '.info' , '.menu-review' , '.review' ,'.menu-delivery' ,'.delivery' ,'.menu-change' ,'.change')
+	})
+	$('.btn-lg').click(function(){
+		var or_me_id = $('[name=ca_me_id]').val()
+		var fu_num = $('[name=fu_num]').val()
+		var data = { 
+			or_me_id : or_me_id,
+			fu_num : fu_num
+		}
+		$.ajax({
+			type : 'post',
+			url : contextPath + '/goods/review',
+			data : data,
+			success : function(res){
+				if(res == 'OK'){
+					console.log('성공')
+				} else if(res == 'LOGIN'){
+					alert('회원만 작성 가능합니다.')
+					return;
+				} else if(res == 'FAIL'){
+					alert('구매한 상품이 아니거나 구매 후 3개월 이내에만 작성 가능합니다.')
+					return;
+				}
+			}
+		})
 	})
 })
 function subMenu(showmenu, show , hidemenu1 , hide1, hidemenu2 , hide2, hidemenu3 , hide3){

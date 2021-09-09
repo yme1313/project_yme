@@ -42,4 +42,6 @@ public interface OrderDAO {
 
 	void refundOrder(OrderVO order);
 
+	ArrayList<String> getOrderFuNumsList(String or_me_id);
+
 }

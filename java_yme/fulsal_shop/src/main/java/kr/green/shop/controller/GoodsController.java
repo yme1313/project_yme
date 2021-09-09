@@ -19,6 +19,7 @@ import kr.green.shop.service.CartService;
 import kr.green.shop.service.FutsalService;
 import kr.green.shop.service.MemberService;
 import kr.green.shop.service.OptionService;
+import kr.green.shop.service.OrderService;
 import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
@@ -32,6 +33,7 @@ public class GoodsController {
 	OptionService optionService;
 	MemberService memberService;
 	CartService cartService;
+	OrderService orderService;
 	
 	@GetMapping("/goods/shoes/list")
 	public ModelAndView shoesGet(ModelAndView mv, Criteria cri) {
@@ -125,6 +127,26 @@ public class GoodsController {
 		mv.setViewName("/template1/goods/detail");
 		return mv;
 	}	
+	@ResponseBody
+	@PostMapping("/goods/review")
+	public String reviewPost(String or_me_id, int fu_num ,HttpServletRequest request) {
+		MemberVO user = memberService.getMemberByRequest(request);
+		String Num = String.valueOf(fu_num);
+		ArrayList <String> or_fuNums = orderService.getOrderFuNumsList(or_me_id);
+		String str = "";
+		for (String fu_num_str : or_fuNums) {
+			str += fu_num_str+" ";
+		}
+		str = str.replace(',', ' ');
+		if(user == null) {
+			return "LOGIN";
+		}
+		if(str.matches("(.*)"+Num+"(.*)")) {
+			return "OK";
+		} else {
+			return "FAIL";
+		}
+	}
 	
 	@GetMapping("/cart/list")
 	public ModelAndView listGet(ModelAndView mv, HttpServletRequest request) {
