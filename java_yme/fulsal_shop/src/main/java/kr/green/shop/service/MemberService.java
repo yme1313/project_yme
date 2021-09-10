@@ -27,7 +27,7 @@ public interface MemberService {
 
 	MemberVO updateMember(MemberVO user, MemberVO nowUser);
 	
-	MemberVO updateMemberAdmin(MemberVO user, MemberVO nowUser);
+	MemberVO updateMemberAdmin(MemberVO user, MemberVO admin);
 
 	String memberOut(MemberVO user, MemberVO nowUser, HttpServletRequest request , HttpServletResponse response);
 
@@ -36,5 +36,7 @@ public interface MemberService {
 	ArrayList<MemberVO> getMemberList(Criteria cri);
 
 	String findPw(String id);
+
+	MemberVO getMemberAdmin(String me_id);
 
 }

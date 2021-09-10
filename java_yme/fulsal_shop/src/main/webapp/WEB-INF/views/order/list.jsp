@@ -71,61 +71,61 @@ h3{
 				<input class="form-control mr-sm-2 col-6" type="text" name="search" value="<c:out value="${pm.criteria.search}"/>">
 				<button class="btn btn-outline-white" type="submit"><i class="fas fa-search"></i></button>
 			</form> 
-	  <c:if test="${list.size() != 0 }">
-		 <table class="table table-striped">   
-		   <thead>
-		     <tr>
-		     	<th>주문번호</th>
-			    <th>상품명</th>
-			    <th>주문날짜</th>
-				<th>결제방법</th>
-			    <th>주문상태</th>   
-		     </tr>
-		   </thead>
-		   <tbody>
-		   <c:forEach items="${list}" var="order">
+	 	 <c:if test="${list.size() != 0 }">
+		   <table class="table table-striped">   
+			   <thead>
 			     <tr>
-			       <td>
-			       		<a href="<%=request.getContextPath()%>/order/detail?num=${order.or_num}">	
-			       			${order.or_title}
-			       		</a>
-			       </td>	
-			       <td style="width : 300px;">
-				        <div style = "height : 23.33px; overflow : hidden;">
-				       		<a href="<%=request.getContextPath()%>/order/detail?num=${order.or_num}">	
-				       			${order.or_goodsname}
-				       		</a>
-			      		</div>
-			       </td>	 
-			       <td>${order.or_DateStr}</td>
-			       <td>${order.payStr}</td>
-			       <td>${order.stateStr}</td>   
+			     	<th>주문번호</th>
+				    <th>상품명</th>
+				    <th>주문날짜</th>
+					<th>결제방법</th>
+				    <th>주문상태</th>   
 			     </tr>
-			</c:forEach>
-		   </tbody>
-		 </table>
-			  	<ul class="pagination justify-content-center">
-				  <c:if test="${pm.prev}">
-				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${pm.startPage-1}">이전</a></li>
-				  </c:if> 
-				  <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
-				  	<c:choose>
-					  	<c:when test="${pm.criteria.page == index}">
-					    	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${index}">${index}</a></li>
-		    			</c:when>
-		    			 <c:otherwise>
-		    				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${index}">${index}</a></li>
-		    			</c:otherwise>
-	    			</c:choose>
-				  </c:forEach> 
-				  <c:if test="${pm.next}">
-				    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${pm.endPage+1}">다음</a></li>
-				  </c:if>  
-			 	 </ul>
-			 </c:if>
-			 <c:if test="${list.size() == 0}">
+			   </thead>
+			   <tbody>
+			   <c:forEach items="${list}" var="order">
+				     <tr>
+				       <td>
+				       		<a href="<%=request.getContextPath()%>/order/detail?num=${order.or_num}">	
+				       			${order.or_title}
+				       		</a>
+				       </td>	
+				       <td style="width : 300px;">
+					        <div style = "height : 23.33px; overflow : hidden;">
+					       		<a href="<%=request.getContextPath()%>/order/detail?num=${order.or_num}">	
+					       			${order.or_goodsname}
+					       		</a>
+				      		</div>
+				       </td>	 
+				       <td>${order.or_DateStr}</td>
+				       <td>${order.payStr}</td>
+				       <td>${order.stateStr}</td>   
+				     </tr>
+				</c:forEach>
+			   </tbody>
+		 	</table>
+		  	<ul class="pagination justify-content-center">
+			  <c:if test="${pm.prev}">
+			    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${pm.startPage-1}">이전</a></li>
+			  </c:if> 
+			  <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="index">
+			  	<c:choose>
+				  	<c:when test="${pm.criteria.page == index}">
+				    	<li class="page-item active"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${index}">${index}</a></li>
+	    			</c:when>
+	    			 <c:otherwise>
+	    				<li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${index}">${index}</a></li>
+	    			</c:otherwise>
+    			</c:choose>
+			  </c:forEach> 
+			  <c:if test="${pm.next}">
+			    <li class="page-item"><a class="page-link" href="<%=request.getContextPath()%>/order/list?page=${pm.endPage+1}">다음</a></li>
+			  </c:if>  
+		 	 </ul>
+		  </c:if>
+	 	  <c:if test="${list.size() == 0}">
 			 등록된 주문번호가 없습니다.
-			 </c:if>	 
+		  </c:if>	 
 		</div>
 	</div>	
 </body>

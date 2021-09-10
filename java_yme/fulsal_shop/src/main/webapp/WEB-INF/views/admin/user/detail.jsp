@@ -73,7 +73,6 @@
 		<div class="right-board-box">
 			<form class="container modifyUser" method="post" action="<%=request.getContextPath()%>/admin/user/modify">
 			<!-- input hidden -->
-			<input type="hidden" name="me_pw" value="${user.me_pw}">
 				<h3>개인정보수정</h3>
 				<table class="table">
 				<thead>

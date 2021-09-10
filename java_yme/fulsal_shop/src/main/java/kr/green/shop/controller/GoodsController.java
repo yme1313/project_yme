@@ -20,6 +20,7 @@ import kr.green.shop.service.FutsalService;
 import kr.green.shop.service.MemberService;
 import kr.green.shop.service.OptionService;
 import kr.green.shop.service.OrderService;
+import kr.green.shop.service.ReviewService;
 import kr.green.shop.vo.CartVO;
 import kr.green.shop.vo.FutsalVO;
 import kr.green.shop.vo.MemberVO;
@@ -34,6 +35,7 @@ public class GoodsController {
 	MemberService memberService;
 	CartService cartService;
 	OrderService orderService;
+	ReviewService reviewService;
 	
 	@GetMapping("/goods/shoes/list")
 	public ModelAndView shoesGet(ModelAndView mv, Criteria cri) {
@@ -129,7 +131,7 @@ public class GoodsController {
 	}	
 	@ResponseBody
 	@PostMapping("/goods/review")
-	public String reviewPost(String or_me_id, int fu_num ,HttpServletRequest request) {
+	public String reviewPost(String or_me_id, int fu_num , String rv_star, String rv_contents, HttpServletRequest request) {
 		MemberVO user = memberService.getMemberByRequest(request);
 		String Num = String.valueOf(fu_num);
 		ArrayList <String> or_fuNums = orderService.getOrderFuNumsList(or_me_id);
@@ -142,6 +144,7 @@ public class GoodsController {
 			return "LOGIN";
 		}
 		if(str.matches("(.*)"+Num+"(.*)")) {
+			reviewService.insertReview(fu_num, or_me_id, rv_star, rv_contents);
 			return "OK";
 		} else {
 			return "FAIL";

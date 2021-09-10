@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>리뷰댓글</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/f9d926306a.js" crossorigin="anonymous"></script>
+<style>
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 2rem;
+  line-height: 2rem;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+}
+.star-rating input {
+  display: none;
+}
+.star-rating label {
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-color: #2b2a29;
+  cursor: pointer;
+}
+.star-rating :checked ~ label {
+  -webkit-text-fill-color: gold;
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  -webkit-text-fill-color:  #fff58c;
+}
+.page-link{
+	color : black;
+}
+.pagination .page-item.active a {
+      background-color: darkslategray;
+      border : darkslategray;
+}
+
+
+
+
+.right{
+	float : right;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="review-list form-group">
+			<div><br>
+				<div class="mb-3">
+					<span class="mr-2">유명은</span><span style="color : gold;">★★★★</span><span style="float : right;">2021년 9월 9일</span>
+				</div>	
+				<div class="form-control mb-2">신발이 푹신푹신 합니다.</div> 	
+				<div>
+					<button type="button" class="btn btn-outline-danger btn-sm mod-btn mr-1" data="'+reply['rp_num']+'">수정</button>
+					<button type="button" class="btn btn-outline-danger btn-sm del-btn" data="'+reply['rp_num']+'">삭제</button>
+				</div>
+			</div>
+			<hr style="background: #ced4da;">
+		</div>
+	</div>
+	<ul class="pagination justify-content-center">
+    <li class="page-item"><a class="page-link active" href="javascript:void(0);">이전</a></li>
+    <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+    <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+    <li class="page-item"><a class="page-link" href="javascript:void(0);">다음</a></li>
+  </ul>
+	<div class="container">
+		<div class="star-rating space-x-4 ml-3 mb-2">
+			<input type="radio" id="5-stars" name="rv_star" value="5">
+			<label for="5-stars" class="star pr-4">★</label>
+			<input type="radio" id="4-stars" name="rv_star" value="4">
+			<label for="4-stars" class="star">★</label>
+			<input type="radio" id="3-stars" name="rv_star" value="3">
+			<label for="3-stars" class="star">★</label>
+			<input type="radio" id="2-stars" name="rv_star" value="2">
+			<label for="2-stars" class="star">★</label>
+			<input type="radio" id="1-star" name="rv_star" value="1"/>
+			<label for="1-star" class="star">★</label>
+		</div>
+		<textarea style="height : 80px;" class="form-control mb-2" name="rv_contents"></textarea>
+		<button type ="button" class="btn btn-outline-dark btn-sm rev-add-btn right">등록</button>
+	</div>
+<script>
+$(function(){
+	$('.rev-add-btn').click(function(){
+		var star = $("input[name='rv_star']:checked").val()
+		var text = $('[name=rv_contents]').val()
+		console.log(star)
+		console.log(text)
+	})
+})
+</script>
+</body>
+</html>

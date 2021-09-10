@@ -50,7 +50,9 @@ public class AdminController {
 		return mv;
 	}
 	@GetMapping("/user/detail")
-	public ModelAndView userDetailGet(ModelAndView mv) {
+	public ModelAndView userDetailGet(ModelAndView mv, String me_id) {
+		MemberVO user = memberService.getMemberAdmin(me_id);
+		mv.addObject("user",user);
 		mv.addObject("title", "회원 정보 수정");
 		mv.setViewName("/template4/admin/user/detail");
 		return mv;
@@ -69,10 +71,8 @@ public class AdminController {
 	}
 	@PostMapping("/user/modify")
 	public ModelAndView userModifyPost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
-		MemberVO nowUser = memberService.getMemberByRequest(request);
-		MemberVO updateUser = memberService.updateMemberAdmin(user, nowUser);
-		if(updateUser != null)
-			request.getSession().setAttribute("user", updateUser);
+		MemberVO admin = memberService.getMemberByRequest(request);
+		memberService.updateMemberAdmin(user, admin);
 		mv.setViewName("redirect:/admin/user/list");
 		return mv;
 	}

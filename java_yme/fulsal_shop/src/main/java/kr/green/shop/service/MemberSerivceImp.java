@@ -192,13 +192,14 @@ public class MemberSerivceImp implements MemberService{
 		return nowUser;
 	}
 	@Override
-	public MemberVO updateMemberAdmin(MemberVO user, MemberVO nowUser) {
-		updateMember(user,nowUser);
-		nowUser.setMe_name(user.getMe_name());
-		memberDao.updateMemberAdmin(nowUser);
-		return nowUser;
+	public MemberVO updateMemberAdmin(MemberVO user, MemberVO admin) {
+		if(user == null || admin.getMe_authority() == "USER") {
+			return null;
+		}
+		System.out.println(user);
+		memberDao.updateMemberAdmin(user);
+		return user;
 	}
-
 	@Override
 	public String memberOut(MemberVO user, MemberVO nowUser, HttpServletRequest request,HttpServletResponse response) {
 		if(user.getMe_pw() == null || nowUser == null)
@@ -275,6 +276,13 @@ public class MemberSerivceImp implements MemberService{
 			}
 		}	
 		return pw;
+	}
+
+	@Override
+	public MemberVO getMemberAdmin(String me_id) {
+		if(me_id == null) 
+			return null;
+		return memberDao.getMember(me_id);
 	}
 
 

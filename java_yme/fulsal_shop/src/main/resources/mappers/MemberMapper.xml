@@ -69,14 +69,12 @@
 				me_add1 = #{user.me_add1},
 				me_add2 = #{user.me_add2},
 				me_add3 = #{user.me_add3},
-				me_add4 = #{user.me_add4},
-				me_authority = #{user.me_authority}
+				me_add4 = #{user.me_add4}
 			where me_id = #{user.me_id}
 	</update>
 	<update id="updateMemberAdmin">
 		update member set
 				me_name = #{user.me_name},
-				me_pw = #{user.me_pw},
 				me_birth = #{user.me_birth},
 				me_phone = #{user.me_phone},
 				me_gender = #{user.me_gender},
@@ -85,8 +83,7 @@
 				me_add1 = #{user.me_add1},
 				me_add2 = #{user.me_add2},
 				me_add3 = #{user.me_add3},
-				me_add4 = #{user.me_add4},
-				me_authority = #{user.me_authority}
+				me_add4 = #{user.me_add4}
 			where me_id = #{user.me_id}
 	</update>
 	<delete id="memberOut">

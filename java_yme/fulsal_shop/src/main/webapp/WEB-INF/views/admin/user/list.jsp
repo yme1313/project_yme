@@ -67,7 +67,7 @@
 			     <tr>
 			       <td>${member.me_name}</td>	
 				   <td>
-						<a href="<%=request.getContextPath()%>/admin/user/detail">
+						<a href="<%=request.getContextPath()%>/admin/user/detail?me_id=${member.me_id}">
 							${member.me_id}
 						</a>
 				   </td>	 
@@ -94,7 +94,7 @@
 		        <tr>
 			       <td>${member.me_name}</td>	
 				   <td>
-						<a href="<%=request.getContextPath()%>/admin/user/detail">
+						<a href="<%=request.getContextPath()%>/admin/user/detail?me_id=${member.me_id}">
 							${member.me_id}
 						</a>
 				   </td>	 

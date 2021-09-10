@@ -26,6 +26,6 @@ public interface MemberDAO {
 
 	ArrayList<MemberVO> getMemberList(@Param("cri")Criteria cri);
 
-	void updateMemberAdmin(@Param("user")MemberVO nowUser);
+	void updateMemberAdmin(@Param("user")MemberVO user);
 
 }

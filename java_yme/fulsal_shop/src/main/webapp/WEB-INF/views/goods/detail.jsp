@@ -5,6 +5,7 @@
 <html>
 <head>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/review.js"></script>
 <meta charset="UTF-8">
 </head>
 <style>
@@ -16,6 +17,13 @@
 }
 .main-img-box img{
 	width : 500px; height : 500px; margin-right : 70px; margin-bottom : 50px;
+}
+.page-link{
+	color : black;
+}
+.pagination .page-item.active a {
+      background-color: darkslategray;
+      border : darkslategray;
 }
 .title{
 	font-weight: bold; margin-bottom : 20px;
@@ -88,12 +96,45 @@
 	height : 70%;
 	width : 450px;
 }
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 2rem;
+  line-height: 2rem;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+}
+ 
+.star-rating input {
+  display: none;
+}
+ 
+.star-rating label {
+  -webkit-text-fill-color: transparent; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2.3px;
+  -webkit-text-stroke-color: #2b2a29;
+  cursor: pointer;
+}
+ 
+.star-rating :checked ~ label {
+  -webkit-text-fill-color: gold;
+}
+ 
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  -webkit-text-fill-color:  #fff58c;
+}
 
 
 
 .bold{
 	font-weight : bold;
 	font-size : 20px;
+}
+.right{
+	float : right;
 }
 </style>
 </head>
@@ -111,9 +152,38 @@
 			<li class="menu-change">교환/반품</li>
 		</ul>
 		<div class="info view"><br>${futsal.fu_info}</div>
+		<!-- 리뷰 시작 -->
 		<div class="review view"><br>
-			<button type="button" class="btn btn-outline-success btn-lg">리뷰쓰기</button>
+			<div class="container mb-3">
+				<h1 class="mb-2" style="font-weight : bold;">리뷰</h1>
+				<hr>
+			</div>
+			<div class="container">
+				<div class="review-list form-group">
+
+				</div>
+			</div>
+			<ul class="pagination justify-content-center">
+
+			</ul>
+			<div class="container">
+				<div class="star-rating space-x-4 ml-3 mb-2">
+					<input type="radio" id="5-stars" name="rv_star" value="5">
+					<label for="5-stars" class="star pr-4">★</label>
+					<input type="radio" id="4-stars" name="rv_star" value="4">
+					<label for="4-stars" class="star">★</label>
+					<input type="radio" id="3-stars" name="rv_star" value="3">
+					<label for="3-stars" class="star">★</label>
+					<input type="radio" id="2-stars" name="rv_star" value="2">
+					<label for="2-stars" class="star">★</label>
+					<input type="radio" id="1-star" name="rv_star" value="1"/>
+					<label for="1-star" class="star">★</label>
+				</div>
+				<textarea style="height : 80px;" class="form-control mb-2" name="rv_contents"></textarea>
+				<button type ="button" class="btn btn-outline-dark btn-sm rev-add-btn right">등록</button>
+			</div>
 		</div>
+		<!-- 리뷰 끝 -->
 		<div class="delivery view"><br>
 			<div class="box">
 				<div class="left-box bold">
@@ -213,6 +283,7 @@
 var name = "${futsal.fu_name}";
 var price = "${futsal.fu_price}";
 var fu_num = "${futsal.fu_num}";
+var id = "${user.me_id}"
 var contextPath = '<%=request.getContextPath()%>';
 $(function(){
 	$('[name=amount]').change(function(){
@@ -342,31 +413,118 @@ $(function(){
 	$('.menu-info').click(function(){
 		subMenu('.menu-info', '.info' , '.menu-review' , '.review' ,'.menu-delivery' ,'.delivery' ,'.menu-change' ,'.change')
 	})
-	$('.btn-lg').click(function(){
+})
+$(function(){
+	showReview(fu_num ,1);
+	$('.rev-add-btn').click(function(){
 		var or_me_id = $('[name=ca_me_id]').val()
-		var fu_num = $('[name=fu_num]').val()
+		var rv_star = $("input[name='rv_star']:checked").val()
+		var rv_contents = $('[name=rv_contents]').val()
+		var confirm_val = confirm("리뷰 등록하시겠습니까?");
 		var data = { 
 			or_me_id : or_me_id,
-			fu_num : fu_num
+			fu_num : fu_num,
+			rv_star : rv_star,
+			rv_contents : rv_contents
 		}
-		$.ajax({
-			type : 'post',
-			url : contextPath + '/goods/review',
-			data : data,
-			success : function(res){
-				if(res == 'OK'){
-					console.log('성공')
-				} else if(res == 'LOGIN'){
-					alert('회원만 작성 가능합니다.')
-					return;
-				} else if(res == 'FAIL'){
-					alert('구매한 상품이 아니거나 구매 후 3개월 이내에만 작성 가능합니다.')
-					return;
+		if(typeof rv_star == 'undefined' || rv_contents == ''){
+			alert('별점과 내용 모두 입력하세요.')
+			return;
+		}
+		if(confirm_val){
+			$.ajax({
+				type : 'post',
+				url : contextPath + '/goods/review',
+				data : data,
+				success : function(res){
+					if(res == 'OK'){
+						alert('리뷰가 등록되었습니다.')
+						showReview(fu_num,1)
+					} else if(res == 'LOGIN'){
+						alert('회원만 작성 가능합니다.')
+					} else if(res == 'FAIL'){
+						alert('구매한 상품이 아니거나 구매 후 3개월 이내에만 작성 가능합니다.')
+					}
 				}
-			}
-		})
+			})
+		}
 	})
+	
+	$(document).on('click','.rev-del-btn',function(){
+		var rv_num = $(this).attr("data");
+		var confirm_val = confirm("리뷰 삭제하시겠습니까?");
+		if(confirm_val){
+			$.ajax({
+				type : 'post',
+				url : contextPath + '/review/delete',
+				data: JSON.stringify({rv_num : rv_num}),
+				contentType : "application/json; charset=utf-8",
+				success : function(res){
+					if(res == 'OK'){
+						alert('리뷰가 삭제되었습니다.')
+						showReview(fu_num, 1);
+					} else {
+						alert('리뷰 삭제에 실패했습니다.')
+					}
+				}
+			})
+		}
+	})
+	$(document).on('click','.pagination .page-item',function(){
+		var page = $(this).attr('data');
+		showReview(fu_num, page);
+	})
+	
 })
+	
+function showReview(rv_fu_num, page){
+	$.ajax({
+		type : 'get',
+		url  : contextPath + '/review/list/' + rv_fu_num + '/'+ page,
+		dataType : "json",
+		success : function(res){
+			var list = res['list'];
+			var str = '';
+			for(i = 0; i < list.length; i++){
+				str += 
+					'<div><br>' +
+						'<div class="mb-3">'+
+							'<span class="mr-2">'+ list[i].rv_me_id +'</span><span style="color : gold;">'+list[i].starStr+'</span><span style="float : right;">'+list[i].regDateStr+'</span>'+
+						'</div>	' +
+						'<div class="form-control mb-2">'+list[i].rv_contents +'</div>';
+					if(id == list[i].rv_me_id){
+					str +=	
+						'<div>' +
+							'<button type="button" class="btn btn-outline-danger btn-sm rev-del-btn" data="'+list[i].rv_num +'">삭제</button>' +
+						'</div>';
+					}
+				str +=
+					'</div>' +
+					'<hr style="background: #ced4da;">'
+				}
+
+			$('.review-list').html(str);
+			
+			var pmStr = '';
+			var pm = res['pm']
+			if(pm.prev){
+				pmStr += '<li class="page-item" data="'+(pm.startPage-1)+'"><a class="page-link" href="javascript:void(0);">Prev</a></li>'
+			}
+			for(i = pm.startPage ; i<= pm.endPage; i++){
+			 	if(pm.criteria.page == i){
+			 	pmStr += '<li class="page-item active" data="'+ i +'"><a class="page-link" href="javascript:void(0);">'+ i +'</a></li>'
+			   } else {
+			    pmStr += '<li class="page-item" data="'+ i +'"><a class="page-link" href="javascript:void(0);">'+ i +'</a></li>'
+			   }
+			}
+			if(pm.next){
+				pmStr += '<li class="page-item" data="'+(pm.endPage+1)+'"><a class="page-link" href="javascript:void(0);">Next</a></li>'
+			}
+			$('.pagination').html(pmStr);
+		}
+	})
+}	
+
 function subMenu(showmenu, show , hidemenu1 , hide1, hidemenu2 , hide2, hidemenu3 , hide3){
 	$(showmenu).addClass('select')
 	$(hidemenu1).removeClass('select')
