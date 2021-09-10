@@ -149,8 +149,24 @@
 						<td></td>
 				      </tr>
 				    </tbody>
-			   </table>
-	      </c:if>
+			   	</table>
+	     	  </c:if>
+	     	  <c:if test="${futsal.fu_type == '풋살공' || futsal.fu_type == '스포츠가방' || futsal.fu_type == '골키퍼장갑'}">
+				<table class="table table-bordered">
+				    <thead>
+				      <tr>
+				        <th style="text-align : center;">사이즈</th>
+				        <th style="text-align : center;">수량</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td><input class="size-box" type="text" name="op_size" value="1" readonly></td>
+				        <td><input class="form-control" type="text" name="op_count"></td>
+				      </tr>
+				    </tbody>
+			   	</table>
+	     	  </c:if>
 	      </div>
 	    </div>
 	    <!-- input hidden -->
@@ -176,6 +192,9 @@
 		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
 		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
 		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
+		</c:if>	
+		<c:if test="${futsal.fu_type == '풋살공' || futsal.fu_type == '스포츠가방' || futsal.fu_type == '골키퍼장갑'}">
 		    <input type="hidden" name="fu_num" value="${futsal.fu_num}">
 		</c:if>		
 	    <button type="submit" class="btn btn-outline-dark">등록</button>

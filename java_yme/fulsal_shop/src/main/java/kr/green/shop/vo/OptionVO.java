@@ -24,7 +24,9 @@ public class OptionVO {
 			return "105(XL)";
 		} else if(op_size.equals("110")) {
 			return "110(XXL)";
-		}	
+		} else if(op_size.equals("1")) {
+			return "One-Size";
+		}
 		return op_size;
 	}
 }

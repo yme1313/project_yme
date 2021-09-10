@@ -21,6 +21,7 @@ import kr.green.shop.dao.BoardDAO;
 import kr.green.shop.dao.CartDAO;
 import kr.green.shop.dao.MemberDAO;
 import kr.green.shop.dao.OrderDAO;
+import kr.green.shop.dao.ReviewDAO;
 import kr.green.shop.pagination.Criteria;
 import kr.green.shop.vo.MemberVO;
 
@@ -34,7 +35,9 @@ public class MemberSerivceImp implements MemberService{
 	@Autowired
 	CartDAO cartDao;
 	@Autowired
-	OrderDAO orderDao;	
+	OrderDAO orderDao;
+	@Autowired
+	ReviewDAO reviewDao;
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
     @Autowired
@@ -212,6 +215,7 @@ public class MemberSerivceImp implements MemberService{
 		boardDao.erase(nowUser.getMe_id());
 		cartDao.erase(nowUser.getMe_id());
 		orderDao.erase(nowUser.getMe_id());
+		reviewDao.erase(nowUser.getMe_id());
 		memberDao.memberOut(nowUser);
 		signout(request ,response);
 		return "OK";

@@ -20,5 +20,7 @@ public interface ReviewDAO {
 
 	ReviewVO getReview(int rv_num);
 
+	void erase(String me_id);
+
 
 }

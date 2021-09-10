@@ -26,4 +26,8 @@
 			rv_valid = 'D'
 			where rv_num = #{review.rv_num} and rv_me_id = #{user.me_id}
 	</update>
+	<delete id="erase">
+		delete from review
+			where rv_me_id = #{me_id}
+	</delete>
 </mapper>

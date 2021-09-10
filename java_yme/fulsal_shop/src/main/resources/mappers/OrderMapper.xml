@@ -102,7 +102,7 @@
 			where or_num = #{or_num}
 	</update>
 	<delete id="erase">
-		delete from cart
+		delete from `order`
 			where or_me_id = #{me_id}
 	</delete>
 

@@ -117,7 +117,7 @@ public class GoodsController {
 		mv.addObject("title","풋살화");
 		mv.addObject("pm",pm);
 		mv.addObject("list", list);
-		mv.addObject("type", "/nike");
+		mv.addObject("brand", "/nike");
 		mv.setViewName("/template/goods/list2");
 		return mv;
 	}
@@ -131,7 +131,7 @@ public class GoodsController {
 		mv.addObject("title","풋살화");
 		mv.addObject("pm",pm);
 		mv.addObject("list", list);
-		mv.addObject("type", "/adidas");
+		mv.addObject("brand", "/adidas");
 		mv.setViewName("/template/goods/list2");
 		return mv;
 	}
@@ -145,7 +145,7 @@ public class GoodsController {
 		mv.addObject("title","풋살화");
 		mv.addObject("pm",pm);
 		mv.addObject("list", list);
-		mv.addObject("type", "/puma");
+		mv.addObject("brand", "/puma");
 		mv.setViewName("/template/goods/list2");
 		return mv;
 	}

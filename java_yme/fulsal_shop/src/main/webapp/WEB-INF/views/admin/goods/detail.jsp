@@ -16,7 +16,7 @@
 	position : absolute; top 0; left :10%;
 }
 .info-box{
-	overflow : scroll;
+	overflow : auto;
 	width: 800px; height : 500px;
 }
 .fu-img{

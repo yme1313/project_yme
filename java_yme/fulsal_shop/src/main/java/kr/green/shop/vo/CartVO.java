@@ -48,7 +48,9 @@ public class CartVO {
 			return "105(XL)";
 		} else if(ca_size.equals("110")) {
 			return "110(XXL)";
-		}	
+		} else if(ca_size.equals("1")) {
+			return "One-Size";
+		}
 		return ca_size;
 	}
 }
