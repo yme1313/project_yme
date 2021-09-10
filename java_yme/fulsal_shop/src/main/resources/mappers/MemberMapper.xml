@@ -86,6 +86,11 @@
 				me_add4 = #{user.me_add4}
 			where me_id = #{user.me_id}
 	</update>
+	<update id="updateGrade">
+		update member set
+				me_authority = #{me_authority}
+			where me_id = #{me_id}	
+	</update>
 	<delete id="memberOut">
 		delete from member
 			where me_pw = #{user.me_pw}

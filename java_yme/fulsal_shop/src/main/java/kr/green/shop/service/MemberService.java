@@ -39,4 +39,6 @@ public interface MemberService {
 
 	MemberVO getMemberAdmin(String me_id);
 
+	String updateGrade(MemberVO user, MemberVO admin);
+
 }

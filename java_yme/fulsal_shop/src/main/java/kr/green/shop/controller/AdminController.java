@@ -69,6 +69,13 @@ public class AdminController {
 		mv.setViewName("/template4/admin/board/list");
 		return mv;
 	}
+	@ResponseBody
+	@PostMapping("/user/grade")
+	public String gradePost(@RequestBody MemberVO user, HttpServletRequest request) {
+		MemberVO admin = memberService.getMemberByRequest(request);
+		return memberService.updateGrade(user, admin);
+	}
+	
 	@PostMapping("/user/modify")
 	public ModelAndView userModifyPost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
 		MemberVO admin = memberService.getMemberByRequest(request);

@@ -28,4 +28,6 @@ public interface MemberDAO {
 
 	void updateMemberAdmin(@Param("user")MemberVO user);
 
+	void updateGrade(MemberVO user);
+
 }

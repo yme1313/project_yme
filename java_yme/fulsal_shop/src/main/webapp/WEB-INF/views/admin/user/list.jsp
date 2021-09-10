@@ -63,6 +63,7 @@
 		   </thead>
 		   <tbody>
 		   <c:forEach items="${list}" var="member">
+		  
 			 <c:if test="${member.me_authority == 'USER' && user.me_authority == 'SUB ADMIN'}">
 			     <tr>
 			       <td>${member.me_name}</td>	
@@ -76,6 +77,7 @@
 			       <c:if test="${user.me_authority == 'ADMIN'}">  
 		       			<td>
 		       			<c:if test="${user.me_authority != member.me_authority}">
+		       				<input type="hidden" name="me_id" value="${member.me_id}">
 				     		<select class="form-control grade">
 								<option value="USER" <c:if test="${member.me_authority == 'USER'}">selected</c:if>>회원</option>
 					     		<c:if test="${user.me_authority == 'ADMIN'}">
@@ -103,6 +105,7 @@
 			       <c:if test="${user.me_authority == 'ADMIN'}">  
 		       			<td>
 		       			<c:if test="${user.me_authority != member.me_authority}">
+		       				<input type="hidden" name="me_id" value="${member.me_id}">
 				     		<select class="form-control grade">
 								<option value="USER" <c:if test="${member.me_authority == 'USER'}">selected</c:if>>회원</option>
 					     		<c:if test="${user.me_authority == 'ADMIN'}">
@@ -148,5 +151,29 @@
 		</div>
 	</div>	
 </div>
+<script>
+$(function(){
+	$('.grade').change(function(){
+		var grade = $(this).val()
+		var me_id = $(this).siblings('[name=me_id]').val()
+		confirm_val = confirm("등급 변경하시겠습니까?")
+		if(confirm_val){
+			$.ajax({
+				type : 'post',
+				url : '<%=request.getContextPath()%>/admin/user/grade',
+				data: JSON.stringify({me_authority : grade, me_id : me_id}),
+				contentType : "application/json; charset=utf-8",
+				success : function(res){
+					if(res == 'OK'){
+						alert('등급이 변경되었습니다.')
+					} else {
+						alert('등급변경에 실패했습니다.')
+					}
+				}
+			})
+		}
+	})
+})
+</script>
 </body>
 </html>

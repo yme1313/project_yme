@@ -65,6 +65,48 @@ public class GoodsController {
 		mv.setViewName("/template/goods/list");
 		return mv;
 	}	
+	@GetMapping("/goods/ball/list")
+	public ModelAndView ballGet(ModelAndView mv, Criteria cri) {
+		cri.setFu_type("풋살공");
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getGoodsList(cri);
+		int totalCount = futsalService.getGoodsTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.addObject("title","풋살공");
+		mv.addObject("type", "/ball");
+		mv.setViewName("/template/goods/list");
+		return mv;
+	}	
+	@GetMapping("/goods/hands/list")
+	public ModelAndView handsGet(ModelAndView mv, Criteria cri) {
+		cri.setFu_type("골키퍼장갑");
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getGoodsList(cri);
+		int totalCount = futsalService.getGoodsTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.addObject("title","골키퍼장갑");
+		mv.addObject("type", "/hands");
+		mv.setViewName("/template/goods/list");
+		return mv;
+	}	
+	@GetMapping("/goods/bag/list")
+	public ModelAndView bagGet(ModelAndView mv, Criteria cri) {
+		cri.setFu_type("스포츠가방");
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getGoodsList(cri);
+		int totalCount = futsalService.getGoodsTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.addObject("title","스포츠가방");
+		mv.addObject("type", "/bag");
+		mv.setViewName("/template/goods/list");
+		return mv;
+	}	
 	@GetMapping("/goods/nike/list2")
 	public ModelAndView nikeGet(ModelAndView mv, Criteria cri) {
 		cri.setFu_brand("나이키");

@@ -29,6 +29,9 @@
      		<select class="form-control fu_type mr-2" name="fu_type">
 				<option value="풋살화">풋살화</option>
 				<option value="의류">의류</option>
+				<option value="풋살공">풋살공</option>
+				<option value="골키퍼장갑">골키퍼장갑</option>
+				<option value="스포츠가방">스포츠가방</option>
 	     	</select>
 	   	   </div>
 	   	   <div class="input-group-prepend brand">

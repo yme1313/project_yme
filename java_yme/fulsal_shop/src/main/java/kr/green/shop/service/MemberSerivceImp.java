@@ -285,5 +285,16 @@ public class MemberSerivceImp implements MemberService{
 		return memberDao.getMember(me_id);
 	}
 
+	@Override
+	public String updateGrade(MemberVO user, MemberVO admin) {
+		System.out.println(user);
+		System.out.println(admin);
+		if(user == null || !admin.getMe_authority().equals("ADMIN")) {
+			return "FAIL";
+		}
+		memberDao.updateGrade(user);
+		return "OK";
+	}
+
 
 }
