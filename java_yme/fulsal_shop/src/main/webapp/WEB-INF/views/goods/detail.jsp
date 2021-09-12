@@ -485,16 +485,11 @@ function showReview(rv_fu_num, page){
 		success : function(res){
 			var list = res['list'];
 			var str = '';
-			var sub = 'SUB ADMIN';
-			var adm = 'ADMIN';
 			for(i = 0; i < list.length; i++){
 				str += 
 					'<div><br>' +
 						'<div class="mb-3">'+
 							'<span class="mr-2">'+ list[i].rv_me_id +'</span><span class="mr-2" style="color : gold;">'+list[i].starStr+'</span>' +
-							'<c:if test="${user.me_authority == ' + sub + ' || user.me_authority == ' + adm + '}">' +
-								'<i class="fas fa-times"></i>' +
-							'</c:if>' +
 							'<span style="float : right;">'+list[i].regDateStr+'</span>'+
 						'</div>	' +
 						'<div class="form-control mb-2">'+list[i].rv_contents +'</div>';
