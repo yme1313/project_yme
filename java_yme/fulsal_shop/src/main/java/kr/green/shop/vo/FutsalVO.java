@@ -1,5 +1,7 @@
 package kr.green.shop.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
@@ -13,6 +15,7 @@ public class FutsalVO {
 	private String fu_info;
 	private int fu_price;
 	private String fu_valid;
+	private Date fu_regdate;
 	
 	//사이즈 정보
 	private String op_size;

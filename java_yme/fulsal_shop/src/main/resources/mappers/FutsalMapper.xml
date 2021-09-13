@@ -80,6 +80,16 @@
 			on fu_num = op_fu_num
 		    where fu_num = #{futsal.fu_num} and op_size = #{option.op_size}
 	</select>
+	<select id="getNewGoodsList" resultType="kr.green.shop.vo.FutsalVO">
+		select * from futsal
+			<![CDATA[where fu_valid = 'I' and now() < date_add(fu_regdate,interval 30 day)]]>
+			order by fu_num desc
+			limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="getNewGoodsTotalCount" resultType="int">
+		select count(*) from futsal
+			<![CDATA[where fu_valid = 'I' and now() < date_add(fu_regdate,interval 30 day)]]>
+	</select>
 	<insert id="insertGoods" useGeneratedKeys="true" parameterType="kr.green.shop.vo.FutsalVO" keyProperty="futsal.fu_num">
 		insert into futsal(fu_type,fu_name,fu_brand,fu_img,fu_info,fu_price)
 			values(#{fu_type},#{fu_name},#{fu_brand},#{fu_img}, #{fu_info},#{fu_price})

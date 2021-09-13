@@ -44,4 +44,8 @@ public interface FutsalDAO {
 
 	int getSearchTotalCount(Criteria cri);
 
+	ArrayList<FutsalVO> getNewGoodsList(Criteria cri);
+
+	int getNewGoodsTotalCount(Criteria cri);
+
 }

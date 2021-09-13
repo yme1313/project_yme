@@ -31,7 +31,26 @@
 .userName{
 	color : white;
 }
-	
+
+/* for MS계열 브라우저 */
+@keyframes blink {
+ 0% {background-color: red;}
+ 50% {background-color: yellow;}
+}
+ 
+/* for Chrome, Safari */
+@-webkit-keyframes blink {
+ 0% {background-color: red;}
+ 50% {background-color: yellow;}
+}
+ 
+/* blink CSS 브라우저 별로 각각 애니메이션을 지정해 주어야 동작한다. */
+.blinkcss {
+ font-weight:bold;
+ animation: blink 1s step-end infinite;
+ -webkit-animation: blink 1s step-end infinite;
+}
+
 </style>
 </head>
 	<body>
@@ -81,6 +100,9 @@
 		</nav>
 		<ul class="nav justify-content-end mt-3">
 			<li class="nav-item">
+				<a class="nav-link" href="<%=request.getContextPath()%>/goods/newGoods/list"><span class="blinkcss">☆신상품★</span></a>
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" href="<%=request.getContextPath()%>/goods/shoes/list" style="color: black">풋살화</a>
 			</li>
 			<li class="nav-item">
@@ -113,6 +135,7 @@
 			</li>	
 		</ul>
 		<hr>
+		
 <script type="text/javascript">
 $(function(){
 	$('#goods_search').click(function(e){

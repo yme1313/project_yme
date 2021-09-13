@@ -37,6 +37,18 @@ public class GoodsController {
 	OrderService orderService;
 	ReviewService reviewService;
 	
+	@GetMapping("/goods/newGoods/list")
+	public ModelAndView newGoodsGet(ModelAndView mv, Criteria cri) {
+		cri.setPerPageNum(6);
+		ArrayList<FutsalVO> list = futsalService.getNewGoodsList(cri);
+		int totalCount = futsalService.getNewGoodsTotalCount(cri);
+		PageMaker pm = new PageMaker(totalCount , 6, cri);
+		mv.addObject("title","신상품");
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.setViewName("/template/goods/list3");
+		return mv;
+	}
 	@GetMapping("/goods/shoes/list")
 	public ModelAndView shoesGet(ModelAndView mv, Criteria cri) {
 		cri.setFu_type("풋살화");
