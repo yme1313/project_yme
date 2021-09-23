@@ -16,6 +16,8 @@ public interface OptionDAO {
 
 	void addStock(@Param("num")int num, @Param("count")int count);
 
+	void deleteOption(Integer num);
+
 
 
 }

@@ -137,8 +137,10 @@ public class AdminController {
 	@GetMapping("/goods/optionadd")
 	public ModelAndView goodsOptionaddGet(ModelAndView mv, Integer num) {
 		FutsalVO futsal = futsalService.getFutsal(num);
+		ArrayList <OptionVO> list = optionService.getOptionList(num);
 		mv.addObject("title", "수량추가");
 		mv.addObject("futsal", futsal);
+		mv.addObject("list", list);
 		mv.setViewName("/template4/admin/goods/optionadd");
 		return mv;		
 	}

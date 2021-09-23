@@ -42,7 +42,8 @@ public class FutsalServiceImp implements FutsalService{
 	public void deleteGoods(Integer num, MemberVO user) {
 		if(num == null || user == null) 
 			return;
-		futsalDao.deleteGoods(num);							
+		futsalDao.deleteGoods(num);	
+		optionDao.deleteOption(num);
 	}
 
 	@Override

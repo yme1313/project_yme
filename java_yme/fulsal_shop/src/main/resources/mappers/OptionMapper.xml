@@ -22,4 +22,8 @@
 			op_count = (op_count + #{count})
 			where op_num = #{num}
 	</update>
+	<delete id="deleteOption">
+		delete from `option`
+			where op_fu_num = #{op_fu_num}
+	</delete>
 </mapper>

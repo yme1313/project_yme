@@ -19,6 +19,9 @@ public class OptionServiceImp implements OptionService{
 	
 	@Override
 	public void addOption(Integer[] fu_num, String[] op_size, Integer[] op_count) {
+		if(fu_num == null || op_size == null || op_count == null) {
+			return;
+		}
 		for(int i=0 ; i < fu_num.length ; i++) {
 			optionDao.addOption(fu_num[i], op_size[i], op_count[i]);	
 		}
