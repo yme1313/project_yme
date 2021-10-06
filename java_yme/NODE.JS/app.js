@@ -1,5 +1,4 @@
 const express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
 var port = 3000;
 
@@ -33,9 +32,9 @@ app.get('/topic/:id', function(req,res){
 		'Express is ...'
 	];
 	var output = `
-	<a href="/topic?id=0">JavaScript</a><br>
-	<a href="/topic?id=1">Nodejs</a><br>
-	<a href="/topic?id=2">Express</a><br><br>
+	<a href="/topic/0">JavaScript</a><br>
+	<a href="/topic/1">Nodejs</a><br>
+	<a href="/topic/2">Express</a><br><br>
 	${topics[req.params.id]}
 	`
 	res.send(output);
