@@ -37,7 +37,7 @@ app.get(['/topic', '/topic/:id'], function(req,res){
 			})
 		} 
 		else {
-					// id 값이 없을 때
+			// id 값이 없을 때
 		res.render('view', {topics:files, title:'Welcome', content : 'Hello, JavaScript for server.'});
 		}
 	})
