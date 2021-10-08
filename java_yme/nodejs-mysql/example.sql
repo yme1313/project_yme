@@ -1,1 +1,0 @@
-select * from topic where id = 3
