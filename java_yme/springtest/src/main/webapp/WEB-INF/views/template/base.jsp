@@ -5,10 +5,12 @@
  <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home</title>
 <jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
 <style>
-	.body {min-height : calc(100vh - 240px)};
+.body {min-height : calc(100vh - 240px)};
+
 </style>
 </head>
 <body>

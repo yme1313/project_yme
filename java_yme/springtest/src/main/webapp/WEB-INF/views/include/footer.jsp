@@ -5,16 +5,24 @@
 <html>
 <head>
 <style>
-	.jumbotron{
-		margin-bottom : 0;
-	}
+.footer{
+	width : 100%;
+	height : 5rem;
+	position : absolute;
+	background : #d5d5d5;
+	bottom : 0;
+	margin : 0;
+}
+@media screen and (max-width: 719px) { 
+	.footer { 
+		display : none;
+	} 
+}
 </style>
 </head>
 <body>
 	<div class="footer">
-	  <div class="jumbotron">
-	    <h1>FOOTER</h1>        
-	    </div>
+	    FOOTER       
 	</div>
 </body>
 </html>

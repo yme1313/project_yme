@@ -4,18 +4,12 @@
 <!doctype html>
 <html>
 <head>
+
 <style>
-	.box{
-	position : relative;
-	}
-	img{
-	position : absolute; top : 13vh; left : 25%;
-	}
+	
 </style>
 </head>
 <body>
-	<div class="box">
-		<img src="<%=request.getContextPath()%>/resources/img/winter.gif">
-	</div>
+	<div class="main-text">123</div>
 </body>
 </html>
