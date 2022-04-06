@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.shop.dao.OrderDAO">
+	<select id="getOrderList" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where or_me_id = #{user.me_id} and or_cancle = 'N'
+			and or_title like concat('%',#{cri.search},'%')
+			order by or_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from `order`
+			where or_me_id = #{user.me_id} and or_cancle = 'N'
+			and or_title like concat('%',#{cri.search},'%')
+	</select>
+	<select id="getOrderReturnList" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where or_me_id = #{user.me_id} and or_state = '교환반품접수'
+			and or_title like concat('%',#{cri.search},'%')
+			order by or_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getReturnTotalCount" resultType="int">
+		select count(*) from `order`
+			where or_me_id = #{user.me_id} and or_state = '교환반품접수'
+			and or_title like concat('%',#{cri.search},'%')
+	</select>	
+	<select id="getOrderCancleList" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where or_me_id = #{user.me_id} and or_cancle = 'Y'
+			order by or_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getCancleTotalCount" resultType="int">
+		select count(*) from `order`
+			where or_me_id = #{user.me_id} and or_cancle = 'Y'
+	</select>	
+	<select id="getOrder" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where or_num = #{or_num} 
+	</select>	
+	<select id="getAdminOrderList" resultType="kr.green.shop.vo.OrderVO">
+		select * from `order`
+			where 				
+				<if test="cri.type==0">
+					or_title like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==1">
+					or_me_id like concat('%',#{cri.search},'%')
+				</if>
+			order by or_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getAdminTotalCount" resultType="int">
+		select count(*) from `order`
+			where
+				<if test="cri.type==0">
+					 or_title like concat('%',#{cri.search},'%')
+				</if>
+				<if test="cri.type==1">
+					 or_me_id like concat('%',#{cri.search},'%')
+				</if>
+	</select>	
+	<select id="getOrderFuNumsList" resultType="String">
+		select or_fuNums from `order`
+			where or_me_id = #{or_me_id} 
+	</select>
+	<insert id="insertOrder">
+		insert into `order`(or_me_id, or_title, or_fuNums, or_count, or_size ,or_goodsname, or_paytype, or_name, or_phone, or_email, or_price, or_message, or_postnum, or_add1, or_add2, or_add3, or_add4)
+			values(#{or_me_id}, #{or_title}, #{or_fuNums}, #{or_count} , #{or_size},#{or_goodsname} ,#{or_paytype}, #{or_name}, #{or_phone}, #{or_email}, #{or_price}, #{or_message}, #{or_postnum}, #{or_add1}, #{or_add2}, #{or_add3}, #{or_add4})
+	</insert>
+	<update id="cancleOrder">
+		update `order` set
+			or_cancle = 'Y',
+			or_state = '주문취소'
+			where or_num = #{or_num}
+	</update>
+	<update id="updateOrderZero">
+		update `order` set
+			or_cancle = 'Y',
+			or_state = '재고부족'
+			where or_num = #{or_num}
+	</update>
+	<update id="updateOrderOK">
+		update `order` set
+			or_state = '배송시작'
+			where or_num = #{or_num}
+	</update>
+	<update id="returnOrder">
+		update `order` set
+			or_cancle = 'Y',
+			or_state = '교환반품접수',
+			or_returntype = #{or_returntype},
+			or_approve = 'Y'
+			where or_num = #{or_num}
+	</update>
+	<update id="refundOrder">
+		update `order` set
+			or_refund = 'Y'
+			where or_num = #{or_num}
+	</update>
+	<delete id="erase">
+		delete from `order`
+			where or_me_id = #{me_id}
+	</delete>
+
+	
+</mapper>

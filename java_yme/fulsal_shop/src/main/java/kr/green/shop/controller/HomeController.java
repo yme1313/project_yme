@@ -16,7 +16,7 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public ModelAndView home(ModelAndView mv) {
-		mv.addObject("title","홈");
+		mv.addObject("title","엔터정보기술");
 		mv.setViewName("/template/main/home");
 		return mv;
 	}
