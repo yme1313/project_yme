@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+ 
+<tiles-definitions>  
+	<!-- 기본 레이아웃 -->
+   <definition name=".template" template="/WEB-INF/views/template/base.jsp">
+        <put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>       
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+    
+    <definition name="/template/*/*" extends=".template">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template/*/*/*" extends=".template">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>
+
+    <!-- 장바구니 -->
+   <definition name=".template1" template="/WEB-INF/views/template/base1.jsp">
+        <put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>       
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+    
+    <definition name="/template1/*/*" extends=".template1">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template1/*/*/*" extends=".template1">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>     
+    
+    <!-- 고객센터 메뉴 레이아웃 -->
+    <definition name=".template2" template="/WEB-INF/views/template/base2.jsp">
+    	<put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>     
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    	<put-attribute name="body2" value="/WEB-INF/views/include/body2.jsp" />
+    </definition>
+    
+    <definition name="/template2/*/*" extends=".template2">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template2/*/*/*" extends=".template2">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>
+    
+	<!-- 마이페이지 메뉴 레이아웃 -->
+    <definition name=".template3" template="/WEB-INF/views/template/base3.jsp">
+    	<put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>     
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    	<put-attribute name="body3" value="/WEB-INF/views/include/body3.jsp" />
+    </definition>
+    
+    <definition name="/template3/*/*" extends=".template3">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template3/*/*/*" extends=".template3">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>
+    
+	<!-- 관리자 메뉴 레이아웃 -->
+    <definition name=".template4" template="/WEB-INF/views/template/base4.jsp">
+    	<put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>     
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    	<put-attribute name="body4" value="/WEB-INF/views/include/body4.jsp" />
+    </definition>
+    
+    <definition name="/template4/*/*" extends=".template4">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template4/*/*/*" extends=".template4">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>   
+    
+   	<!-- 주문관리 레이아웃 -->
+    <definition name=".template5" template="/WEB-INF/views/template/base5.jsp">
+    	<put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>     
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    	<put-attribute name="body5" value="/WEB-INF/views/include/body5.jsp" />
+    </definition>
+    
+    <definition name="/template5/*/*" extends=".template5">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template5/*/*/*" extends=".template5">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition> 
+    
+    <!-- 기본레이아웃 확장 -->
+     <definition name=".template6" template="/WEB-INF/views/template/base6.jsp">
+        <put-attribute name="nav" value="/WEB-INF/views/include/nav.jsp"/>       
+        <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+    </definition>
+    
+    <definition name="/template6/*/*" extends=".template6">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />   
+    </definition>
+    
+    <definition name="/template6/*/*/*" extends=".template6">
+        <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />   
+    </definition>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</tiles-definitions>

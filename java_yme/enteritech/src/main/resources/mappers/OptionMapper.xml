@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.shop.dao.OptionDAO">
+	<select id="getOptionList" resultType="kr.green.shop.vo.OptionVO">
+		select * from `option` 
+			where op_fu_num = #{op_fu_num}
+			order by op_num asc, op_size asc
+	</select>
+	<insert id="addOption">
+		insert into `option`(op_fu_num, op_size, op_count)
+			values( #{num}, #{size}, #{count} )
+	</insert>
+	<update id="changeStock">
+		update `option` set
+			op_count = (op_count - #{count})
+			where op_fu_num = #{num} and op_size = #{size}
+	</update>
+	<update id="addStock">
+		update `option` set
+			op_count = (op_count + #{count})
+			where op_num = #{num}
+	</update>
+	<delete id="deleteOption">
+		delete from `option`
+			where op_fu_num = #{op_fu_num}
+	</delete>
+</mapper>
